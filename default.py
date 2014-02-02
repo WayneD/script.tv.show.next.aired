@@ -40,7 +40,7 @@ STATUS = { '0' : __language__(32201),
            '10' : __language__(32211),
            '11' : __language__(32212),
            '-1' : ''}
-           
+
 STATUS_ID = { 'Returning Series' : '0',
               'Canceled/Ended' : '1',
               'TBD/On The Bubble' : '2',
@@ -186,7 +186,7 @@ class NextAired:
             elif time() - os.path.getmtime(dbfile) > 86400:
                 log( "### db more than 24h old, rescanning..." )
                 self.scan_info()
-            else: 
+            else:
                 log( "### db less than 24h old, fetch local data..." )
                 self.current_show_data = self.get_list(NEXTAIRED_DB)
                 if self.current_show_data == "[]":
@@ -224,7 +224,7 @@ class NextAired:
                 percent = int( float( self.count * 100 ) / self.total_show )
                 DIALOG_PROGRESS.update( percent , __language__(32102) , "%s" % show[0] )
                 if DIALOG_PROGRESS.iscanceled():
-                    __addon__.setSetting( id="ForceUpdate", value="true" ) 
+                    __addon__.setSetting( id="ForceUpdate", value="true" )
                     DIALOG_PROGRESS.close()
                     xbmcgui.Dialog().ok(__language__(32103),__language__(32104))
                     break
@@ -355,7 +355,7 @@ class NextAired:
             latest[2] = date.strftime(DATE_FORMAT)
         current_show["LatestNumber"] = latest[0]
         current_show["LatestTitle"] = latest[1]
-        current_show["LatestDate"] = latest[2]   
+        current_show["LatestDate"] = latest[2]
 
     def check_today_show(self):
         self.todayshow = 0
@@ -463,7 +463,7 @@ class NextAired:
         self._stop = False
         self.previousitem = ''
         self.complete_show_data = self.get_list(NEXTAIRED_DB)
-       	self.complete_show_data.extend(self.get_list(CANCELLED_DB))
+        self.complete_show_data.extend(self.get_list(CANCELLED_DB))
         if self.complete_show_data == "[]":
             self._stop = True
         while not self._stop:
@@ -479,10 +479,10 @@ class NextAired:
             if not xbmc.getCondVisibility("Window.IsVisible(10025)"):
                 self.WINDOW.clearProperty("NextAired.Label")
                 self._stop = True
-                
+
     def return_properties(self,tvshowtitle):
         self.complete_show_data = self.get_list(NEXTAIRED_DB)
-       	self.complete_show_data.extend(self.get_list(CANCELLED_DB))
+        self.complete_show_data.extend(self.get_list(CANCELLED_DB))
         log( "return_properties started" )
         if self.complete_show_data <> "[]":
             self.WINDOW.clearProperty("NextAired.Label")
