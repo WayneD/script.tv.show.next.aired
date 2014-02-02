@@ -27,19 +27,19 @@ sys.path.append(__resource__)
 NEXTAIRED_DB = "nextaired.db"
 CANCELLED_DB = "cancelled.db"
 
-STATUS = { 'Returning Series' : __language__(32201),
-           'Canceled/Ended' : __language__(32202),
-           'TBD/On The Bubble' : __language__(32203),
-           'In Development' : __language__(32204),
-           'New Series' : __language__(32205),
-           'Never Aired' : __language__(32206),
-           'Final Season' : __language__(32207),
-           'On Hiatus' : __language__(32208),
-           'Pilot Ordered' : __language__(32209),
-           'Pilot Rejected' : __language__(32210),
-           'Canceled' : __language__(32211),
-           'Ended' : __language__(32212),
-           '' : ''}
+STATUS = { '0' : __language__(32201),
+           '1' : __language__(32202),
+           '2' : __language__(32203),
+           '3' : __language__(32204),
+           '4' : __language__(32205),
+           '5' : __language__(32206),
+           '6' : __language__(32207),
+           '7' : __language__(32208),
+           '8' : __language__(32209),
+           '9' : __language__(32210),
+           '10' : __language__(32211),
+           '11' : __language__(32212),
+           '-1' : ''}
            
 STATUS_ID = { 'Returning Series' : '0',
               'Canceled/Ended' : '1',
@@ -509,11 +509,11 @@ class NextAired:
             prefix = ''
             label.setLabel(item.get("localname", ""))
             label.setThumbnailImage(item.get("thumbnail", ""))
+        status = item.get("Status", "")
         try:
-            status = STATUS[item.get("Status", "")]
-            status_id = STATUS_ID[item.get("Status", "")]
+            status_id = STATUS_ID[status]
+            status = STATUS[status_id]
         except:
-            status = item.get("Status", "")
             status_id = '-1'
         label.setProperty(prefix + "AirTime", item.get("Airtime", ""))
         label.setProperty(prefix + "Path", item.get("path", ""))
