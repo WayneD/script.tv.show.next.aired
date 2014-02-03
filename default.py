@@ -402,10 +402,14 @@ class NextAired:
             log( "### ERROR could not save file %s" % __datapath__ )
 
     def push_data(self):
+        try:
+            oldTotal = int(self.WINDOW.getProperty("NextAired.Total"))
+        except:
+            oldTotal = 1
         self.WINDOW.setProperty("NextAired.Total" , str(len(self.nextlist)))
         self.WINDOW.setProperty("NextAired.TodayTotal" , str(self.todayshow))
         self.WINDOW.setProperty("NextAired.TodayShow" , str(self.todaylist).strip("[]"))
-        for count in range( len(self.nextlist) ):
+        for count in range(oldTotal):
             self.WINDOW.clearProperty("NextAired.%d.Label" % ( count + 1, ))
             self.WINDOW.clearProperty("NextAired.%d.Thumb" % ( count + 1, ))
             self.WINDOW.clearProperty("NextAired.%d.AirTime" % ( count + 1, ))
