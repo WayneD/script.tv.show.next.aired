@@ -81,7 +81,8 @@ class TheTVDB(object):
             self.zap2it_id = node.findtext("zap2it_id")
 
             # When this show was last updated
-            self.last_updated = datetime.datetime.fromtimestamp(int(node.findtext("lastupdated")))
+            self.last_updated_utime = int(node.findtext("lastupdated"))
+            self.last_updated = datetime.datetime.fromtimestamp(self.last_updated_utime)
 
         def __str__(self):
             import pprint
@@ -136,7 +137,8 @@ class TheTVDB(object):
             self.imdb_id = node.findtext("IMDB_ID")
 
             # When this episode was last updated
-            self.last_updated = datetime.datetime.fromtimestamp(int(self.check(node.findtext("lastupdated"), '0')))
+            self.last_updated_utime = int(self.check(node.findtext("lastupdated"), '0'))
+            self.last_updated = datetime.datetime.fromtimestamp(self.last_updated_utime)
 
         def __str__(self):
             return repr(self)
