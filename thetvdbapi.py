@@ -24,7 +24,9 @@ import copy
 import xml.etree.ElementTree as ET 
 #import elementtree.ElementTree as ET
 #from elementtree.ElementTree import ElementTree as ET
+import xml.parsers.expat as expat
 from cStringIO import StringIO
+from zipfile import ZipFile
 
 class TheTVDB(object):
     def __init__(self, api_key='2B8557E0CBF7D720'):
@@ -336,21 +338,34 @@ class TheTVDB(object):
         
         return show_and_episodes
 
+    def get_update_filehandle(self, period):
+        url = "%s/updates/updates_%s.zip" % (self.base_key_url, period)
+        data = urllib.urlopen(url)
+        try:
+            zipfile = ZipFile(StringIO(data.read()))
+            want_name = 'updates_%s.xml' % period
+            return zipfile.open(want_name)
+        except:
+            return None
+
     def get_updated_shows(self, period = "day"):
         """Get a list of show ids which have been updated within this period."""
-        url = "%s/updates/updates_%s.xml" % (self.base_key_url, period)
-        data = urllib.urlopen(url)
-        tree = ET.parse(data)
+        fh = self.get_update_filehandle(period)
+        if not fh:
+            return []
+        tree = ET.parse(fh)
 
+        # FIXME: this finds various sub-records that result in (None) items in the array.
         series_nodes = tree.getiterator("Series")
 
         return [x.findtext("id") for x in series_nodes]
 
     def get_updated_episodes(self, period = "day"):
         """Get a list of episode ids which have been updated within this period."""
-        url = "%s/updates/updates_%s.xml" % (self.base_key_url, period)
-        data = urllib.urlopen(url)
-        tree = ET.parse(data)
+        fh = self.get_update_filehandle(period)
+        if not fh:
+            return []
+        tree = ET.parse(fh)
 
         episode_nodes = tree.getiterator("Episode")
 
@@ -379,3 +394,53 @@ class TheTVDB(object):
             images.append((banner_url, banner_type, banner_season))
 
         return images
+
+    def get_updates(self, callback, period = "day"):
+        """Return all series, episode, and banner updates w/o having to have it
+        all in memory at once.  Also returns the Data timestamp and avoids the
+        bogus "None" Series elements.  The callback routine should be defined as:
+        my_callback(name, attrs) where name will be "Data", "Series", "Episode",
+        or "Banner", and attrs will be a dict of the values (e.g. id, time, etc).
+        """
+        e = expat_updates(callback)
+        fh = self.get_update_filehandle(period)
+        e.parse(fh)
+
+class expat_updates(object):
+    def __init__(self, callback):
+        self.el_name = None
+        self.el_attr_name = None
+        self.el_attrs = None
+        self.el_callback = callback
+
+        self.parser = expat.ParserCreate()
+        self.parser.StartElementHandler = self.start_element
+        self.parser.EndElementHandler = self.end_element
+        self.parser.CharacterDataHandler = self.char_data
+
+    def parse(self, fh):
+        # Sadly ParseFile(fh) actually mangles the data, so we parse the file line by line:
+        for line in fh:
+            self.parser.Parse(line)
+
+    def start_element(self, name, attrs):
+        if not self.el_name:
+            if name == 'Data':
+                self.el_callback(name, attrs)
+            else:
+                self.el_name = name
+                self.el_attrs = {}
+        elif not self.el_attr_name:
+            self.el_attr_name = name
+
+    def end_element(self, name):
+        if self.el_attr_name and name == self.el_attr_name:
+            self.el_attr_name = None
+        elif self.el_name and name == self.el_name:
+            self.el_callback(self.el_name, self.el_attrs)
+            self.el_name = None
+            self.el_attr_name = None
+
+    def char_data(self, data):
+        if self.el_attr_name:
+            self.el_attrs[self.el_attr_name] = data
