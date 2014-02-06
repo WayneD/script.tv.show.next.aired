@@ -315,7 +315,7 @@ class TheTVDB(object):
         
         return episode
    
-    def get_show_and_episodes(self, show_id):
+    def get_show_and_episodes(self, show_id, atleast = 1):
         """Get the show object and all matching episode objects for this show_id."""
         url = "%s/series/%s/all/" % (self.base_key_url, show_id)
         data = urllib.urlopen(url)
@@ -330,7 +330,8 @@ class TheTVDB(object):
         
             episode_nodes = tree.getiterator("Episode")
             for episode_node in episode_nodes:
-                episodes.append(TheTVDB.Episode(episode_node, self.mirror_url))
+                if episode_node.findtext('id') >= atleast:
+                    episodes.append(TheTVDB.Episode(episode_node, self.mirror_url))
         
             show_and_episodes = (show, episodes)
         except SyntaxError:
