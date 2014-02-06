@@ -381,7 +381,7 @@ class NextAired:
             log( "### Load list: %s" % path )
             return self.load_file(path)
         else:
-            log( "### Load list: %s not found!" % listname )
+            log( "### Load list: %s not found!" % path )
             return []
 
     def load_file( self , file_path ):
@@ -389,7 +389,7 @@ class NextAired:
             return eval( file( file_path, "r" ).read() )
         except:
             print_exc()
-            log( "### ERROR could not load file %s" % temp )
+            log( "### ERROR could not load file %s" % file_path )
             return []
 
     def save_file( self , txt , filename):
@@ -399,7 +399,7 @@ class NextAired:
                 file( path , "w" ).write( repr( txt ) )
         except:
             print_exc()
-            log( "### ERROR could not save file %s" % __datapath__ )
+            log( "### ERROR could not save file %s" % path )
 
     def push_data(self):
         try:
