@@ -140,6 +140,7 @@ class NextAired:
         self.date = date.today()
         self.datestr = str(self.date)
         self.day_limit = str(self.date + timedelta(days=6))
+        self.this_year_regex = re.compile(r', %s$' % self.date.strftime('%Y'))
 
     def do_background_updating(self):
         while not xbmc.abortRequested:
@@ -547,12 +548,11 @@ class NextAired:
             return '%02d:%02d' % (int(m.group(1)) + add_hours, int(m.group(2)))
         return '00:00'
 
-    @staticmethod
-    def set_episode_info(label, prefix, when, ep):
+    def set_episode_info(self, label, prefix, when, ep):
         if ep and ep['id']:
             name = ep['name']
             number = ep['number']
-            aired = TheTVDB.convert_date(ep['aired'][:10]).strftime('%b/%d/%Y')
+            aired = self.this_year_regex.sub('', TheTVDB.convert_date(ep['aired'][:10]).strftime('%a, %b %d, %Y'))
         else:
             name = number = aired = ''
         num_array = number.split('x')
