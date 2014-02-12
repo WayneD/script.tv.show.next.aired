@@ -1,9 +1,13 @@
 from time import strptime, time, mktime, localtime
 import os, sys, re, socket, urllib, unicodedata
 from traceback import print_exc
-from datetime import datetime, date, timedelta, tzinfo
+from datetime import datetime, date, timedelta
 from dateutil import tz
+from operator import attrgetter, itemgetter
 import xbmc, xbmcgui, xbmcaddon, xbmcvfs
+# TODO figure out how to import this from its ../script.module.metahandler/lib/metahandler/thetvdbapi.py location.
+from thetvdbapi import TheTVDB
+from country_lookup import CountryLookup
 if sys.version_info < (2, 7):
     import simplejson
 else:
@@ -24,8 +28,12 @@ __resource__  = xbmc.translatePath( os.path.join( __cwd__, 'resources', 'lib' ).
 
 sys.path.append(__resource__)
 
-NEXTAIRED_DB = "nextaired.db"
-CANCELLED_DB = "cancelled.db"
+NEXTAIRED_DB = 'next.aired.db'
+COUNTRY_DB = 'country.db'
+USER_LOCK = 'user.lock'
+BGND_LOCK = 'bgnd.lock'
+BGND_STATUS = 'bgnd.status'
+OLD_FILES = [ 'nextaired.db', 'next_aired.db', 'canceled.db', 'cancelled.db' ]
 
 STATUS = { '0' : __language__(32201),
            '1' : __language__(32202),
@@ -62,43 +70,29 @@ if DATE_FORMAT[0] == 'd':
 elif DATE_FORMAT[0] == 'm':
     DATE_FORMAT = '%m-%d-%y'
 
+MAIN_DB_VER = 1
+COUNTRY_DB_VER = 1
+
 if not xbmcvfs.exists(__datapath__):
     xbmcvfs.mkdir(__datapath__)
 
-def log(txt):
+# TODO make this settable via the command-line?
+verbosity = 2 # XXX change to 1 after initial testing?
+
+# if level <= 0, sends LOGERROR msg.  For positive values, sends LOGNOTICE
+# if level <= verbosity, else LOGDEBUG.  If level is omitted, we assume 10.
+def log(txt, level=10):
     if isinstance (txt,str):
         txt = txt.decode("utf-8")
     message = u'%s: %s' % (__addonid__, txt)
-    xbmc.log(msg=message.encode("utf-8"), level=xbmc.LOGDEBUG)
+    log_level = (xbmc.LOGERROR if level <= 0 else (xbmc.LOGNOTICE if level <= verbosity else xbmc.LOGDEBUG))
+    xbmc.log(msg=message.encode("utf-8"), level=log_level)
 
 def footprints():
-    log( "### %s starting ..." % __addonname__ )
-    log( "### author: %s" % __author__ )
-    log( "### version: %s" % __version__ )
-    log( "### dateformat: %s" % DATE_FORMAT)
-
-def get_html_source(url , save=False):
-    class AppURLopener(urllib.FancyURLopener):
-        version = __useragent__
-    urllib._urlopener = AppURLopener()
-    succeed = 0
-    while succeed < 5:
-        try:
-            if (not xbmc.abortRequested):
-                urllib.urlcleanup()
-                sock = urllib.urlopen(url)
-                htmlsource = sock.read()
-                if save: file( os.path.join( CACHE_PATH , save ) , "w" ).write( htmlsource )
-                sock.close()
-                succeed = 5
-                return htmlsource
-            else:
-                self.close("xbmc exit")
-        except:
-            succeed = succeed + 1
-            print_exc()
-            log( "### ERROR opening page %s ---%s---" % ( url , succeed) )
-    return ""
+    log("### %s starting ..." % __addonname__, level=2)
+    log("### author: %s" % __author__, level=3)
+    log("### version: %s" % __version__, level=2)
+    log("### dateformat: %s" % DATE_FORMAT, level=3)
 
 def _unicode( text, encoding='utf-8' ):
     try: text = unicode( text, encoding )
@@ -113,293 +107,519 @@ def normalize_string( text ):
 class NextAired:
     def __init__(self):
         footprints()
-        # delete olders versions of our db's, we are not backward compatible
-        if xbmcvfs.exists(os.path.join( __datapath__ , 'next_aired.db' )):
-            xbmcvfs.delete(os.path.join( __datapath__ , 'next_aired.db' ))
-        if xbmcvfs.exists(os.path.join( __datapath__ , 'canceled.db' )):
-            xbmcvfs.delete(os.path.join( __datapath__ , 'canceled.db' ))
         self.WINDOW = xbmcgui.Window( 10000 )
-        self.date = date.today()
-        self.datestr = str(self.date)
-        self.weekday = date.today().weekday()
+        self.set_today()
         self.days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
         self.ampm = xbmc.getCondVisibility('substring(System.Time,Am)') or xbmc.getCondVisibility('substring(System.Time,Pm)')
-        self.update_hour = __addon__.getSetting( "update_hour" )
-        self.update_minute = __addon__.getSetting( "update_minute" )
         self._parse_argv()
         if self.TVSHOWTITLE:
             self.return_properties(self.TVSHOWTITLE)
         elif self.BACKEND:
             self.run_backend()
+        elif self.SILENT == "":
+            self.show_gui()
         else:
-            self.update_data()
-            if self.SILENT == "":
-                self.show_gui()
-            else:
-                while (not xbmc.abortRequested):
-                    xbmc.sleep(1000)
-                    current_time = localtime()
-                    current_hour = '%.2i' % current_time.tm_hour
-                    current_minute = '%.2i' % current_time.tm_min
-                    if (current_hour == self.update_hour) and (current_minute == self.update_minute):
-                        self.FORCEUPDATE = True
-                        log( "### it's update time, force update" )
-                        self.update_data()
-                        current_time = localtime()
-                        current_hour = '%.2i' % current_time.tm_hour
-                        current_minute = '%.2i' % current_time.tm_min
-                        while (current_hour == self.update_hour) and (current_minute == self.update_minute) and (not xbmc.abortRequested):
-                            # don't run update multiple times within the same minute
-                            xbmc.sleep(1000)
-                            current_time = localtime()
-                            current_hour = '%.2i' % current_time.tm_hour
-                            current_minute = '%.2i' % current_time.tm_min
-                        log( "### forced update finished" )
-                self.close("xbmc is closing, stop script")
+            for old_file in OLD_FILES:
+                self.rm_file(old_file)
+            self.do_background_updating()
 
     def _parse_argv( self ):
         try:
             params = dict( arg.split( "=" ) for arg in sys.argv[ 1 ].split( "&" ) )
         except:
             params = {}
-        log( "### params: %s" % params )
+        log("### params: %s" % params, level=5)
         self.SILENT = params.get( "silent", "" )
         self.BACKEND = params.get( "backend", False )
         self.TVSHOWTITLE = params.get( "tvshowtitle", False )
         self.FORCEUPDATE = __addon__.getSetting("ForceUpdate") == "true"
         self.RESET = params.get( "reset", False )
 
+    def set_today(self):
+        self.now = time() # XXX should we query the tvdb system time instead?
+        self.date = date.today()
+        self.datestr = str(self.date)
+        self.day_limit = str(self.date + timedelta(days=6))
+
+    def do_background_updating(self):
+        while not xbmc.abortRequested:
+            log("### performing background update", level=2)
+            self.set_today()
+            prior_update = self.now
+            self.update_data()
+            log("### background update finished", level=2)
+            self.nextlist = [] # Discard the in-memory data until the next update
+            while not xbmc.abortRequested:
+                update_every = int(__addon__.getSetting('update_every')) # in hours
+                if update_every and time() - prior_update >= update_every*60*60:
+                    break
+                xbmc.sleep(1000)
+        self.close("xbmc is closing, stop script")
+
     def update_data(self):
         self.nextlist = []
-        dbfile = os.path.join( __datapath__ , NEXTAIRED_DB )
-        cancelfile = os.path.join( __datapath__ , CANCELLED_DB )
-        if self.RESET:
-            if xbmcvfs.exists(dbfile):
-                xbmcvfs.delete(dbfile)
-            if xbmcvfs.exists(cancelfile):
-                xbmcvfs.delete(cancelfile)
-        if xbmcvfs.exists(dbfile):
-            if self.FORCEUPDATE:
-                log( "### update forced, rescanning..." )
-                __addon__.setSetting(id="ForceUpdate", value="false")
-                self.scan_info()
-            elif time() - os.path.getmtime(dbfile) > 86400:
-                log( "### db more than 24h old, rescanning..." )
-                self.scan_info()
-            else:
-                log( "### db less than 24h old, fetch local data..." )
-                self.current_show_data = self.get_list(NEXTAIRED_DB)
-                if self.current_show_data == "[]":
-                    self.scan_info()
-        else:
-            log( "### db doesn't exist, scanning for data..." )
-            self.scan_info()
-        if self.current_show_data:
-            log( "### data available" )
-            for show in self.current_show_data:
-                if show.get("Next Episode" , False):
-                    self.nextlist.append(show)
-            log( "### next list: %s shows ### %s" % ( len(self.nextlist) , self.nextlist ) )
-            self.nextlist = sorted( self.nextlist, key=lambda item: str( item.get( "RFC3339", "~" ) ).lower(), reverse=False )
-            self.check_today_show()
-            self.push_data()
-        else:
-            log( "### no current show data..." )
 
-    def scan_info(self):
+        # This should prevent the background and user code from updating the DB at the same time.
         if self.SILENT == "":
+            # User updating: we will wait for a background update to finish, then see if we have recent data.
             DIALOG_PROGRESS = xbmcgui.DialogProgress()
-            DIALOG_PROGRESS.create( __language__(32101) , __language__(32102) )
+            DIALOG_PROGRESS.create(__language__(32101), __language__(32102))
+            # Create our user-lock file and check if the background updater is running.
+            self.save_file([self.now], USER_LOCK)
+            newest_time = 0
+            while 1:
+                bg_lock = self.get_list(BGND_LOCK)
+                if not bg_lock:
+                    break
+                if newest_time == 0:
+                    newest_time = bg_lock[0]
+                bg_status = self.get_list(BGND_STATUS)
+                if bg_status:
+                    DIALOG_PROGRESS.update(bg_status[1], __language__(32102), bg_status[2])
+                    if DIALOG_PROGRESS.iscanceled():
+                        DIALOG_PROGRESS.close()
+                        xbmcgui.Dialog().ok(__language__(32103),__language__(32104))
+                        self.rm_file(USER_LOCK)
+                        return
+                    if bg_status[0] > newest_time:
+                        newest_time = bg_status[0]
+                if time() - newest_time > 2*60:
+                    # Background lock has sat around for too long, so just remove it.
+                    self.rm_file(BGND_LOCK)
+                    break
+                xbmc.sleep(500)
+        else:
+            # Background updating: we will just skip our update if the user is doing an update.
+            self.save_file([self.now], BGND_LOCK)
+            xbmc.sleep(2000) # try to avoid a race-condition
+            user_lock = self.get_list(USER_LOCK)
+            if user_lock:
+                if self.now - user_lock[0] <= 10*60:
+                    self.rm_file(BGND_LOCK)
+                    return
+                # User's lock has sat around for too long, so just remove it.
+                self.rm_file(USER_LOCK)
+
+        if self.RESET:
+            self.rm_file(NEXTAIRED_DB)
+            self.rm_file(COUNTRY_DB)
+
+        # Snag our TV-network -> Country + timezone mapping DB, or create it.
+        cl = self.get_list(COUNTRY_DB)
+        if cl and len(cl) == 3 and self.now - cl[2] < 7*24*60*60: # We'll recreate it every week.
+            self.country_dict = cl[0]
+        else:
+            try:
+                log("### grabbing a new country mapping list", level=1)
+                self.country_dict = CountryLookup().get_country_dict()
+                self.save_file([self.country_dict, COUNTRY_DB_VER, self.now], COUNTRY_DB)
+            except:
+                # Well, if we couldn't grab a new one, lets try to keep using the old...
+                self.country_dict = (cl[0] if cl and len(cl) == 3 else {})
+
+        ep_list = self.get_list(NEXTAIRED_DB)
+        show_dict = (ep_list.pop(0) if ep_list else {})
+        self.last_update = (ep_list.pop() if ep_list else None)
+        db_ver = (ep_list.pop() if ep_list else 0)
+        if not self.last_update:
+            log("### ignoring bogus %s file" % NEXTAIRED_DB, level=1)
+            show_dict = {}
+            self.last_update = 0
+        elif db_ver != MAIN_DB_VER:
+            self.upgrade_db(show_dict, db_ver)
+
         socket.setdefaulttimeout(10)
-        self.count = 0
-        self.current_show_data = []
-        self.canceled = self.get_list(CANCELLED_DB)
-        if not self.listing():
+
+        title_dict = {}
+        for tid in show_dict:
+            show = show_dict[tid]
+            show['unused'] = True
+            title_dict[show['localname']] = tid
+
+        tvdb = TheTVDB()
+        tv_up = tvdb_updater()
+
+        # If we scanned recently enough, we don't need to do it again.
+        update_after = int(__addon__.getSetting('update_after'))
+        elapsed_secs = self.now - self.last_update
+        if elapsed_secs > update_after*60 or self.FORCEUPDATE:
+            need_full_scan = tv_up.note_updates(tvdb, show_dict, elapsed_secs)
+            self.last_update = self.now
+        else:
+            need_full_scan = False
+
+        TVlist = self.listing()
+        total_show = len(TVlist)
+        if total_show == 0:
             self.close("error listing")
-        self.total_show = len(self.TVlist)
-        for show in self.TVlist:
-            current_show = {}
-            self.count += 1
+
+        count = 0
+        id_re = re.compile(r"http%3a%2f%2fthetvdb\.com%2f[^']+%2f([0-9]+)-")
+        num_re = re.compile(r"^([0-9]+)$")
+        for show in TVlist:
+            count += 1
+            percent = int(float(count * 100) / total_show)
             if self.SILENT == "":
-                percent = int( float( self.count * 100 ) / self.total_show )
                 DIALOG_PROGRESS.update( percent , __language__(32102) , "%s" % show[0] )
                 if DIALOG_PROGRESS.iscanceled():
-                    __addon__.setSetting( id="ForceUpdate", value="true" )
                     DIALOG_PROGRESS.close()
                     xbmcgui.Dialog().ok(__language__(32103),__language__(32104))
                     break
-            log( "### %s" % show[0] )
-            current_show["localname"] = show[0]
-            current_show["path"] = show[1]
-            current_show["art"] = show[2]
-            current_show["dbid"] = show[3]
-            current_show["thumbnail"] = show[4]
-            ended_show = False
-            for item in self.canceled:
-                if item.get('localname') == current_show["localname"]:
-                    ended_show = True
-                    break
-            if ended_show:
-                log( "### Canceled/Ended" )
             else:
-                self.get_show_info( current_show )
-                self.localize_show_datetime( current_show )
-                log( "### %s" % current_show )
-                if (current_show.get("Status") == "Canceled/Ended") or (current_show.get("Status") == "Canceled") or (current_show.get("Status") == "Ended"):
-                    self.canceled.append(current_show)
+                self.save_file([time(), percent, show[0]], BGND_STATUS)
+            log( "### %s" % show[0] )
+            current_show = {
+                    "localname": show[0],
+                    "path": show[1],
+                    "art": show[2],
+                    "dbid": show[3],
+                    "thumbnail": show[4],
+                    }
+            # Try to figure out what the tvdb number is by using the art URLs and the imdbnumber value
+            m2 = id_re.search(str(show[2]))
+            m2_num = int(m2.group(1)) if m2 else 0
+            m4 = id_re.search(show[4])
+            m4_num = int(m4.group(1)) if m4 else 0
+            m5 = num_re.match(show[5])
+            m5_num = int(m5.group(1)) if m5 else 0
+            if m5_num and (m2_num == m5_num or m4_num == m5_num):
+                # Most shows will be in agreement on the id when the scraper is using thetvdb.
+                tid = m5_num
+            else:
+                old_id = title_dict.get(current_show["localname"], 0)
+                if old_id and (m2_num == old_id or m4_num == old_id):
+                    tid = old_id
+                elif m2_num and m2_num == m4_num:
+                    # This will override the old_id value if both artwork URLs change.
+                    tid = m2_num
+                elif old_id:
+                    tid = old_id
                 else:
-                    self.current_show_data.append(current_show)
-        self.save_file( self.canceled , CANCELLED_DB)
-        self.save_file( self.current_show_data , NEXTAIRED_DB)
+                    tid = 0 # We'll query it from thetvdb.com
+
+            try:
+                prior_data = show_dict[tid]
+                if not prior_data.has_key('unused'):
+                    continue # How'd we get a duplicate?? Skip it...
+                del prior_data['unused']
+                # TODO: we eventually want to compare this in a way that respects timezones.
+                while len(prior_data['episodes']) > 1 and prior_data['episodes'][1]['aired'][:10] < self.datestr:
+                    prior_data['episodes'].pop(0)
+            except:
+                prior_data = None
+
+            tid = self.check_show_info(tvdb, tid, current_show, prior_data)
+            if tid <= 0:
+                if not prior_data or tid == 0:
+                    continue
+                for item in prior_data:
+                    if not current_show.has_key(item):
+                        current_show[item] = prior_data[item]
+                tid = -tid
+            if current_show.get('canceled', False):
+                log("### Canceled/Ended", level=4)
+            log( "### %s" % current_show )
+            show_dict[tid] = current_show
+
+        # If we did a lot of work, make sure we save it prior to doing anything else.
+        # This ensures that a bug in the following code won't make us redo everything.
+        if need_full_scan:
+            self.save_file([show_dict, MAIN_DB_VER, self.last_update], NEXTAIRED_DB)
+
+        if show_dict:
+            log("### data available", level=5)
+            remove_list = []
+            for tid in show_dict:
+                show = show_dict[tid]
+                if show.has_key('unused'):
+                    remove_list.append(tid)
+                    continue
+                if len(show['episodes']) > 1:
+                    show['RFC3339'] = show['episodes'][1]['aired']
+                    self.nextlist.append(show)
+                elif show.has_key('RFC3339'):
+                    del show['RFC3339']
+            for tid in remove_list:
+                log('### Removing obsolete show %s' % show_dict[tid]['localname'], level=2)
+                del show_dict[tid]
+            self.nextlist.sort(key=itemgetter('RFC3339'))
+            log("### next list: %s shows ### %s" % (len(self.nextlist) , self.nextlist), level=3)
+            self.check_today_show()
+            self.push_data()
+        else:
+            log("### no current show data...", level=5)
+
+        self.save_file([show_dict, MAIN_DB_VER, self.last_update], NEXTAIRED_DB)
+
         if self.SILENT == "":
             DIALOG_PROGRESS.close()
+            self.rm_file(USER_LOCK)
+        else:
+            self.rm_file(BGND_LOCK)
 
     def listing(self):
-        json_query = xbmc.executeJSONRPC('{"jsonrpc": "2.0", "method": "VideoLibrary.GetTVShows", "params": {"properties": ["title", "file", "thumbnail", "art"], "sort": { "method": "title" } }, "id": 1}')
+        json_query = xbmc.executeJSONRPC('{"jsonrpc": "2.0", "method": "VideoLibrary.GetTVShows", "params": {"properties": ["title", "file", "thumbnail", "art", "imdbnumber"], "sort": { "method": "title" } }, "id": 1}')
         json_query = unicode(json_query, 'utf-8', errors='ignore')
         json_response = simplejson.loads(json_query)
         log("### %s" % json_response)
-        self.TVlist = []
+        TVlist = []
         if json_response['result'].has_key('tvshows'):
             for item in json_response['result']['tvshows']:
-                tvshowname = item['title']
-                tvshowname = normalize_string( tvshowname )
+                tvshowname = normalize_string(item['title'])
                 path = item['file']
                 art = item['art']
                 thumbnail = item['thumbnail']
                 dbid = 'videodb://2/2/' + str(item['tvshowid']) + '/'
-                self.TVlist.append( ( tvshowname , path, art, dbid, thumbnail ) )
-        log( "### list: %s" % self.TVlist )
-        return self.TVlist
+                TVlist.append((tvshowname, path, art, dbid, thumbnail, item['imdbnumber']))
+        log( "### list: %s" % TVlist )
+        return TVlist
 
-    def get_show_info( self , current_show ):
-        log( "### get info %s" % current_show["localname"] )
-        log( "### searching for %s" % current_show["localname"] )
-        log( "### search url: http://services.tvrage.com/tools/quickinfo.php?show=%s" % urllib.quote_plus( current_show["localname"] ) )
-        result_info = get_html_source( "http://services.tvrage.com/tools/quickinfo.php?show=%s" % urllib.quote_plus( current_show["localname"]))
-        log( "### parse informations" )
-        result = re.findall("(?m)(.*)@(.*)", result_info)
-        if result:
-            for item in result:
-                current_show[item[0].replace("<pre>" , "")] = item[1]
-
-    def localize_show_datetime(self, current_show):
-        nextdate = current_show.get( "RFC3339" , "" )
-        process = True
-        if len(nextdate) > 23:
-            try:
-                strdate, timezone = nextdate.rsplit( "-", 1 )
-                offset = -1
-            except:
-                log( "### error splitting next date (1)" )
-                process = False
-            if process == False or len(timezone) < 3 or len(timezone) > 6:
-                try:
-                    strdate, timezone = nextdate.rsplit( "+", 1 )
-                    offset = 1
-                except:
-                    log( "### error splitting next date (2)" )
-                    process = False
+    def check_show_info(self, tvdb, tid, current_show, prior_data):
+        name = current_show['localname']
+        log("### check if %s is up-to-date" % name, level=3)
+        if tid == 0:
+            log("### searching for thetvdb ID by show name", level=3)
+            show_list = tvdb.get_matching_shows(name)
+            if not show_list:
+                log("### no match found", level=3)
+                return 0
+            got_id, got_title, got_tt_id = show_list[0]
+            tid = int(got_id)
+            log("### found id of %d" % tid, level=3)
         else:
-            process = False
-        if process == True:
-            try:
-                timezone = timezone.split( ":" )
-            except:
-                log( "### error splitting next date (2)" )
-            timeoffset = timedelta( hours = offset * int( timezone[0] ), minutes = offset * int ( timezone[1] ) )
-            date = datetime.fromtimestamp( mktime( strptime( strdate, '%Y-%m-%dT%H:%M:%S' ) ) )
-            date = date.replace(tzinfo=tz.tzoffset(None, ( offset * 3600 * int( timezone[0] ) ) + ( offset * 60 * int ( timezone[1] ) )))
-            log( '### nextdate %s' % date.isoformat() )
-            datelocal = date.astimezone(tz.tzlocal())
-            log( '### nextdate with local time zone %s' % datelocal.isoformat() )
-            current_show["RFC3339"] = datelocal.isoformat()
-            weekdaydiff = datelocal.weekday() - date.weekday()
-            if weekdaydiff == -1:
-                weekdaydiff = 6
-            elif weekdaydiff == -6:
-                weekdaydiff = 1
-            try:
-                airday = current_show.get("Airtime").split(" at ")[0]
-            except:
-                airday = ""
-                log( "### error splitting airtime" )
-            if weekdaydiff != 0 and airday != "":
+            log("### thetvdb id = %d" % tid, level=5)
+        # If the prior_data isn't in need of an update, use it unchanged.
+        if prior_data:
+            earliest_id, eps_last_updated = prior_data.get('eps_changed', (None, 0))
+            if earliest_id is None:
+                eps_last_updated = prior_data['eps_last_updated']
+            show_changed = prior_data.get('show_changed', None)
+            if show_changed:
+                if earliest_id is None:
+                    earliest_id = 0
+            elif earliest_id is None:
+                log("### no changes needed", level=5)
+                return -tid
+            for ep in prior_data['episodes']:
+                if ep['id'] and ep['id'] < earliest_id:
+                    earliest_id = ep['id']
+        else:
+            show_changed = 0
+            earliest_id = 1
+            eps_last_updated = 0
+
+        if earliest_id != 0:
+            log("### getting series & episode information for %s" % name, level=2)
+            log("### earliest_id = %d" % earliest_id, level=5)
+            for cnt in range(2):
                 try:
-                    airdays = airday.split( " ," )
-                except:
-                    log( "### error splitting airtime" )
-                for count, day in enumerate (airdays):
-                    if day in self.days:
-                        newindex = (self.days.index(day) + weekdaydiff) % 7
-                        airdays[count] = self.days[newindex]
-                airday = ', '.join(airdays)
-            if airday != "":
-                if self.ampm:
-                    current_show["Airtime"] = airday + " at " + datelocal.strftime('%I:%M %p')
-                else:
-                    current_show["Airtime"] = airday + " at " + datelocal.strftime('%H:%M')
-            try:
-                next = current_show.get("Next Episode").split("^")
-                next.extend(['',''])
-            except:
-                next = ['','','']
-            current_show["NextNumber"] = next[0]
-            current_show["NextTitle"] = next[1]
-            current_show["NextDate"] = datelocal.strftime(DATE_FORMAT)
-        latest = current_show.get("Latest Episode","").split("^")
-        latest.extend(['',''])
-        if len(latest[2]) == 11:
-            latesttime = strptime( latest[2], '%b/%d/%Y' )
-            date = datetime(latesttime[0],latesttime[1],latesttime[2])
-            latest[2] = date.strftime(DATE_FORMAT)
-        current_show["LatestNumber"] = latest[0]
-        current_show["LatestTitle"] = latest[1]
-        current_show["LatestDate"] = latest[2]
+                    result = tvdb.get_show_and_episodes(tid, earliest_id)
+                    break
+                except Exception, e:
+                    log('### ERROR using get_show_and_episodes(): %s' % e, level=0)
+                    result = None
+            if not result:
+                log('### using old data (if any)', level=1)
+                return -tid
+            show = result[0]
+            episodes = result[1]
+        else: # earliest_id == 0 when only the series-info changed
+            log("### getting series information for %s" % name, level=2)
+            for cnt in range(2):
+                try:
+                    show = tvdb.get_show(tid)
+                    break
+                except Exception, e:
+                    log('### ERROR using get_show(): %s' % e, level=0)
+                    show = None
+            if not show:
+                log('### using old data (if any)', level=1)
+                return -tid
+            episodes = None
+
+        country = (self.country_dict.get(show.network, 'Unknown') if show.network else 'Unknown')
+        # XXX TODO allow the user to specify an override country that gets the local timezone.
+        tzone = CountryLookup.get_country_timezone(country)
+        if not tzone:
+            tzone = ''
+        tz_re = re.compile(r"([-+])(\d\d):(\d\d)")
+        m = tz_re.match(tzone)
+        if m:
+            tz_offset = (int(m.group(2)) * 3600) + (int(m.group(3)) * 60)
+            if m.group(1) == '-':
+                tz_offset *= -1
+        else:
+            tz_offset = 1 * 3600 # Default to +01:00
+        airtime = TheTVDB.convert_time(self.get_airtime(show.airs_time))
+        if not airtime:
+            airtime = TheTVDB.convert_time('00:00')
+        airtime_fmt = '%I:%M %p' if self.ampm else '%H:%M'
+
+        current_show['Show Name'] = show.name
+        current_show['Premiered'] = show.first_aired.strftime('%Y')
+        current_show['Started'] = show.first_aired.strftime('%b/%d/%Y')
+        current_show['Country'] = country
+        current_show['Status'] = show.status
+        current_show['Genres'] = show.genre
+        current_show['Network'] = show.network
+        current_show['Airtime'] = airtime.strftime(airtime_fmt)
+        current_show['TZ'] = tzone
+        current_show['Runtime'] = show.runtime
+
+        can_re = re.compile(r"canceled|ended", re.IGNORECASE)
+        if can_re.search(show.status):
+            current_show['canceled'] = True
+        elif current_show.has_key('canceled'):
+            del current_show['canceled']
+
+        if episodes is not None:
+            episode_list = []
+
+            max_eps_utime = 0
+            if episodes:
+                for ep in episodes:
+                    ep.id = int(ep.id)
+                    ep.season_number = int(ep.season_number)
+                    ep.episode_number = int(ep.episode_number)
+                    if ep.last_updated_utime > max_eps_utime:
+                        max_eps_utime = ep.last_updated_utime
+                    log("### fetched ep=%d last_updated=%d" % (ep.id, ep.last_updated_utime))
+                episodes.sort(key=attrgetter('first_aired', 'season_number', 'episode_number'))
+            # TODO: we eventually want to compare this in a way that respects timezones.
+            if episodes and episodes[0].first_aired < self.datestr:
+                while len(episodes) > 1 and episodes[1].first_aired < self.datestr:
+                    ep = episodes.pop(0)
+            else: # If we have no prior episodes, prepend a "None" episode
+                episode_list.append({ 'id': None })
+
+            for ep in episodes:
+                aired = TheTVDB.convert_date(ep.first_aired)
+                if not aired:
+                    continue
+                aired = datetime.combine(aired, airtime)
+                aired = aired.replace(tzinfo=tz.tzoffset(None, tz_offset))
+                cur_ep = {
+                        'id': ep.id,
+                        'name': ep.name,
+                        'number': '%02dx%02d' % (ep.season_number, ep.episode_number),
+                        'aired': aired.isoformat(),
+                        'wday': self.days[aired.weekday()]
+                        }
+                episode_list.append(cur_ep)
+
+            current_show['episodes'] = episode_list
+        elif prior_data:
+            max_eps_utime = eps_last_updated
+            current_show['episodes'] = prior_data['episodes']
+        else:
+            max_eps_utime = 0
+            current_show['episodes'] = [{ 'id': None }]
+
+        if prior_data:
+            if prior_data.has_key('show_changed') and show.last_updated_utime < show_changed:
+                log("### didn't get latest show info yet (%d < %d)" % (show.last_updated_utime, show_changed), level=2)
+                current_show['show_changed'] = show_changed
+            if prior_data.has_key('eps_changed') and max_eps_utime < eps_last_updated:
+                log("### didn't get latest episode info yet (%d < %d)" % (max_eps_utime, eps_last_updated), level=2)
+                current_show['eps_changed'] = (earliest_id, eps_last_updated)
+
+        current_show['last_updated'] = max(show_changed, show.last_updated_utime)
+        current_show['eps_last_updated'] = max(eps_last_updated, max_eps_utime)
+        return tid
+
+    @staticmethod
+    def upgrade_db(show_dict, from_ver):
+        log("### upgrading DB from version %d to %d" % (from_ver, MAIN_DB_VER), level=1)
+        # We'll add code here if the db changes
+
+    @staticmethod
+    def get_airtime(aired):
+        pm_re = re.compile(r"\d\s*[Pp]")
+        hour_re = re.compile(r"^(\d+)\s*([AaPp][Mm]?)?$")
+        hour_min_re = re.compile(r"^(\d+):(\d\d)\s*([AaPp][Mm]?)?$")
+
+        add_hours = 12 if pm_re.search(aired) else 0
+        m = hour_re.match(aired)
+        if m:
+            return '%02d:00' % (int(m.group(1)) + add_hours)
+        m = hour_min_re.match(aired)
+        if m:
+            return '%02d:%02d' % (int(m.group(1)) + add_hours, int(m.group(2)))
+        return '00:00'
+
+    @staticmethod
+    def set_episode_info(label, prefix, when, ep):
+        if ep and ep['id']:
+            name = ep['name']
+            number = ep['number']
+            aired = TheTVDB.convert_date(ep['aired'][:10]).strftime('%b/%d/%Y')
+        else:
+            name = number = aired = ''
+        num_array = number.split('x')
+        num_array.extend([''])
+
+        label.setProperty(prefix + when + 'Date', aired)
+        label.setProperty(prefix + when + 'Title', name)
+        label.setProperty(prefix + when + 'Number', number)
+        label.setProperty(prefix + when + 'SeasonNumber', num_array[0])
+        label.setProperty(prefix + when + 'EpisodeNumber', num_array[1])
 
     def check_today_show(self):
+        self.set_today()
         self.todayshow = 0
         self.todaylist = []
-        self.date = date.today()
-        self.datestr = str(self.date)
         log( "### %s" % self.datestr )
         for show in self.nextlist:
+            name = show["localname"]
+            when = show["RFC3339"]
             log( "################" )
-            log( "### %s" % show.get("localname") )
-            if show.get("RFC3339" , "" )[:10] == self.datestr:
-                self.todayshow = self.todayshow + 1
-                self.todaylist.append(show.get("localname"))
-                log( "TODAY" )
-            log( "### %s" % show.get("Next Episode", "")  )
-            log( "### %s" % show.get("RFC3339", "no rfc") )
-            log( str(show.get("RFC3339", "")[:10]) )
+            log( "### %s" % name )
+            if when[:10] == self.datestr:
+                self.todayshow += 1
+                self.todaylist.append(name)
+                log( "### TODAY" )
+            log( "### %s" % when )
         log( "### today show: %s - %s" % ( self.todayshow , str(self.todaylist).strip("[]") ) )
 
-    def get_list(self , listname ):
+    @staticmethod
+    def get_list(listname):
         path = os.path.join( __datapath__ , listname )
         if xbmcvfs.exists(path):
             log( "### Load list: %s" % path )
-            return self.load_file(path)
+            return NextAired.load_file(path)
         else:
             log( "### Load list: %s not found!" % path )
             return []
 
-    def load_file( self , file_path ):
+    @staticmethod
+    def load_file(file_path):
         try:
             return eval( file( file_path, "r" ).read() )
         except:
             print_exc()
-            log( "### ERROR could not load file %s" % file_path )
+            log("### ERROR could not load file %s" % file_path, level=0)
             return []
 
-    def save_file( self , txt , filename):
+    @staticmethod
+    def save_file(txt, filename):
         path = os.path.join( __datapath__ , filename )
         try:
             if txt:
                 file( path , "w" ).write( repr( txt ) )
+            else:
+                self.rm_file(filename)
         except:
             print_exc()
-            log( "### ERROR could not save file %s" % path )
+            log("### ERROR could not save file %s" % path, level=0)
+
+    @staticmethod
+    def rm_file(filename):
+        path = os.path.join(__datapath__, filename)
+        try:
+            if xbmcvfs.exists(path):
+                xbmcvfs.delete(path)
+        except:
+            pass
 
     def push_data(self):
         try:
@@ -452,31 +672,32 @@ class NextAired:
                 self.set_labels('windowpropertytoday', current_show)
 
     def show_gui(self):
+        self.update_data()
+        weekday = self.date.weekday()
+        self.WINDOW.setProperty("NextAired.TodayDate", self.date.strftime(DATE_FORMAT))
         for count in range(0, 7):
-            if count - self.weekday == 0:
-                self.WINDOW.setProperty("NextAired.TodayDate", self.date.strftime(DATE_FORMAT))
-                self.WINDOW.setProperty("NextAired.%d.Date" % ( count + 1 ), self.date.strftime(DATE_FORMAT))
-            elif count - self.weekday > 0:
-                self.WINDOW.setProperty("NextAired.%d.Date" % ( count + 1 ), ( self.date + timedelta( days = ( count - self.weekday ) ) ).strftime(DATE_FORMAT))
-            else:
-                self.WINDOW.setProperty("NextAired.%d.Date" % ( count + 1 ), ( self.date + timedelta( days = ( ( 7 - self.weekday ) + count ) ) ).strftime(DATE_FORMAT))
+            date = self.date
+            if count != weekday:
+                date += timedelta(days = (count - weekday + 7) % 7)
+            self.WINDOW.setProperty("NextAired.%d.Date" % (count + 1), date.strftime(DATE_FORMAT))
         import next_aired_dialog
         next_aired_dialog.MyDialog(self.nextlist, self.set_labels)
 
     def run_backend(self):
         self._stop = False
         self.previousitem = ''
-        self.complete_show_data = self.get_list(NEXTAIRED_DB)
-        self.complete_show_data.extend(self.get_list(CANCELLED_DB))
-        if self.complete_show_data == "[]":
+        ep_list = self.get_list(NEXTAIRED_DB)
+        show_dict = (ep_list.pop(0) if ep_list else {})
+        if not show_dict:
             self._stop = True
         while not self._stop:
             self.selecteditem = xbmc.getInfoLabel("ListItem.TVShowTitle")
             if self.selecteditem != self.previousitem:
                 self.WINDOW.clearProperty("NextAired.Label")
                 self.previousitem = self.selecteditem
-                for item in self.complete_show_data:
-                    if self.selecteditem == item.get("localname", ""):
+                for tid in show_dict:
+                    item = show_dict[tid]
+                    if self.selecteditem == item["localname"]:
                         self.set_labels('windowproperty', item)
                         break
             xbmc.sleep(100)
@@ -485,16 +706,17 @@ class NextAired:
                 self._stop = True
 
     def return_properties(self,tvshowtitle):
-        self.complete_show_data = self.get_list(NEXTAIRED_DB)
-        self.complete_show_data.extend(self.get_list(CANCELLED_DB))
-        log( "return_properties started" )
-        if self.complete_show_data <> "[]":
+        ep_list = self.get_list(NEXTAIRED_DB)
+        show_dict = (ep_list.pop(0) if ep_list else {})
+        log("### return_properties started", level=6)
+        if show_dict:
             self.WINDOW.clearProperty("NextAired.Label")
-            for item in self.complete_show_data:
-                if tvshowtitle == item.get("localname", ""):
+            for tid in show_dict:
+                item = show_dict[tid]
+                if tvshowtitle == item["localname"]:
                     self.set_labels('windowproperty', item)
 
-    def set_labels(self, infolabel, item, return_items = False ):
+    def set_labels(self, infolabel, item, want_episode = None):
         art = item.get("art", "")
         if (infolabel == 'windowproperty') or (infolabel == 'windowpropertytoday'):
             label = xbmcgui.Window( 10000 )
@@ -513,19 +735,39 @@ class NextAired:
             prefix = ''
             label.setLabel(item.get("localname", ""))
             label.setThumbnailImage(item.get("thumbnail", ""))
+
+        if want_episode:
+            next_ep = want_episode
+            latest_ep = None
+            airdays = next_ep['wday']
+        else:
+            ep_len = len(item['episodes'])
+            next_ep = item['episodes'][1] if ep_len > 1 else None
+            latest_ep = item['episodes'][0]
+            airdays = []
+            if ep_len > 1:
+                for ep in item['episodes'][1:]:
+                    if ep['aired'][:10] > self.day_limit:
+                        break
+                    airdays.append(ep['wday'])
+            airdays = ', '.join(airdays)
+        is_today = 'True' if next_ep and next_ep['aired'][:10] == self.datestr else 'False'
+
         status = item.get("Status", "")
         try:
             status_id = STATUS_ID[status]
             status = STATUS[status_id]
         except:
             status_id = '-1'
-        label.setProperty(prefix + "AirTime", item.get("Airtime", ""))
+
+        label.setProperty(prefix + "AirTime", '%s at %s' % (airdays, item.get("Airtime", "")))
         label.setProperty(prefix + "Path", item.get("path", ""))
         label.setProperty(prefix + "Library", item.get("dbid", ""))
         label.setProperty(prefix + "Status", status)
         label.setProperty(prefix + "StatusID", status_id)
         label.setProperty(prefix + "Network", item.get("Network", ""))
         label.setProperty(prefix + "Started", item.get("Started", ""))
+        # XXX Note that Classification is always unset at the moment!
         label.setProperty(prefix + "Classification", item.get("Classification", ""))
         label.setProperty(prefix + "Genre", item.get("Genres", ""))
         label.setProperty(prefix + "Premiered", item.get("Premiered", ""))
@@ -541,34 +783,89 @@ class NextAired:
         label.setProperty(prefix + "Art(clearlogo)", art.get("clearlogo", ""))
         label.setProperty(prefix + "Art(characterart)", art.get("characterart", ""))
         label.setProperty(prefix + "Art(clearart)", art.get("clearart", ""))
-        if item.get("RFC3339" , "" )[:10] == self.datestr:
-            label.setProperty(prefix + "Today", "True")
-        else:
-            label.setProperty(prefix + "Today", "False")
-        label.setProperty(prefix + "NextDate", item.get("NextDate", ""))
-        label.setProperty(prefix + "NextTitle", item.get("NextTitle", ""))
-        label.setProperty(prefix + "NextNumber", item.get("NextNumber", ""))
-        nextnumber = item.get("NextNumber","").split("x")
-        nextnumber.extend([''])
-        label.setProperty(prefix + "NextEpisodeNumber", nextnumber[1])
-        label.setProperty(prefix + "NextSeasonNumber", nextnumber[0])
-        label.setProperty(prefix + "LatestDate", item.get("LatestDate", ""))
-        label.setProperty(prefix + "LatestTitle", item.get("LatestTitle", ""))
-        label.setProperty(prefix + "LatestNumber", item.get("LatestNumber", ""))
-        latestnumber = item.get("LatestNumber", "").split("x")
-        latestnumber.extend([''])
-        label.setProperty(prefix + "LatestEpisodeNumber", latestnumber[1])
-        label.setProperty(prefix + "LatestSeasonNumber", latestnumber[0])
-        daytime = item.get("Airtime","").split(" at ")
-        daytime.extend([''])
-        label.setProperty(prefix + "AirDay", daytime[0])
-        label.setProperty(prefix + "ShortTime", daytime[1])
-        if return_items:
+        label.setProperty(prefix + "Today", is_today)
+        label.setProperty(prefix + "AirDay", airdays)
+        label.setProperty(prefix + "ShortTime", item.get("Airtime", ""))
+
+        # This sets NextDate, NextTitle, etc.
+        self.set_episode_info(label, prefix, 'Next', next_ep)
+        # This sets LatestDate, LatestTitle, etc.
+        self.set_episode_info(label, prefix, 'Latest', latest_ep)
+
+        if want_episode:
             return label
 
     def close(self , msg ):
         log( "### %s" % msg )
         exit
 
+class tvdb_updater:
+    def __init__(self):
+        pass # Nothing to do for now...
+
+    def note_updates(self, tvdb, show_dict, elapsed_secs):
+        self.show_dict = show_dict
+
+        if elapsed_secs < 24*60*60:
+            period = 'day'
+        elif elapsed_secs < 7*24*60*60:
+            period = 'week'
+        elif elapsed_secs < 30*24*60*60:
+            period = 'month'
+        else:
+            # Flag all non-canceled shows as needing new data
+            for tid in self.show_dict:
+                show = self.show_dict[tid]
+                if not show.get('canceled', False):
+                    show['show_changed'] = 1
+                    show['eps_changed'] = (1, 0)
+            return True # Alert caller that a full-scan was done.
+
+        log("### Update period: %s (%d mins)" % (period, int(elapsed_secs / 60)), level=2)
+
+        try:
+            tvdb.get_updates(self.change_callback, period)
+        except Exception, e:
+            log('### ERROR retreiving updates from thetvdb.com: %s' % e, level=0)
+
+        return False
+
+    def change_callback(self, name, attrs):
+        if name == 'Episode':
+            episode_id = int(attrs['id'])
+            series_id = int(attrs['Series'])
+        elif name == 'Series':
+            series_id = int(attrs['id'])
+            episode_id = 0
+        elif name == 'Data':
+            when = int(attrs['time'])
+            # Do something with this?
+            return
+        else:
+            return # Ignore Banner and anything else that may show up
+        try:
+            show = self.show_dict[series_id]
+        except:
+            return # Ignore shows we don't care about
+        when = int(attrs['time'])
+        if episode_id == 0:
+            if when <= show['last_updated']:
+                return
+            log("### Found series change (series: %d, time: %d) for %s" % (series_id, when, show['localname']), level=2)
+            show['show_changed'] = when
+        else:
+            if when <= show['eps_last_updated']:
+                return
+            log("### Found episode change (series: %d, ep: %d, time=%d) for %s" % (series_id, episode_id, when, show['localname']), level=2)
+            earliest_id, latest_time = show.get('eps_changed', (episode_id, when))
+            if episode_id < earliest_id:
+                earliest_id = episode_id
+            if when > latest_time:
+                latest_time = when
+            show['eps_changed'] = (earliest_id, latest_time)
+        return
+
 if ( __name__ == "__main__" ):
     NextAired()
+
+# vim: et

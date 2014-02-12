@@ -1,3 +1,9 @@
+v6.0.0
+- This version of Next Aired grabs its data from TheTVDB.com.  This provides quicker updates and more future-episode information.
+- The settings have changed to specify how often (in hours) background updates occur (the default is every 12 hours).  There is also a setting for how many minutes to wait between interactive updates (by default we update when when entering the guide if at least 10 minutes have gone by since the last update).
+- The GUI now includes separate episode info for each show that appears multiple times in the upcoming week.
+- Various bug fixes.
+
 v5.0.7
 - added manual mode
 
