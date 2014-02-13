@@ -394,7 +394,7 @@ class NextAired:
             earliest_id, eps_last_updated = prior_data.get('eps_changed', (None, 0))
             if earliest_id is None:
                 eps_last_updated = prior_data['eps_last_updated']
-            show_changed = prior_data.get('show_changed', None)
+            show_changed = prior_data.get('show_changed', 0)
             if show_changed:
                 if earliest_id is None:
                     earliest_id = 0
