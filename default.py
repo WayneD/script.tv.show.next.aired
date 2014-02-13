@@ -451,7 +451,10 @@ class NextAired:
                 tz_offset *= -1
         else:
             tz_offset = 1 * 3600 # Default to +01:00
-        airtime = TheTVDB.convert_time(show.airs_time)
+        try:
+            airtime = TheTVDB.convert_time(show.airs_time)
+        except:
+            airtime = None
         local_airtime = airtime if airtime else TheTVDB.convert_time('00:00')
         local_airtime = datetime.combine(self.date, local_airtime).replace(tzinfo=tz.tzoffset(None, tz_offset))
         if airtime: # Don't backtrack an assumed midnight time (for an invalid airtime) into the prior day.
