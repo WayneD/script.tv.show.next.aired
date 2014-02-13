@@ -457,8 +457,11 @@ class NextAired:
         airtime_fmt = '%I:%M %p' if self.ampm else '%H:%M'
 
         current_show['Show Name'] = show.name
-        current_show['Premiered'] = show.first_aired.strftime('%Y')
-        current_show['Started'] = show.first_aired.strftime('%b/%d/%Y')
+        if show.first_aired:
+            current_show['Premiered'] = show.first_aired.strftime('%Y')
+            current_show['Started'] = show.first_aired.strftime('%b/%d/%Y')
+        else:
+            current_show['Premiered'] = current_show['Started'] = ""
         current_show['Country'] = country
         current_show['Status'] = show.status
         current_show['Genres'] = show.genre.strip('|').replace('|', ' | ')
