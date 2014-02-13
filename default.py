@@ -461,7 +461,7 @@ class NextAired:
         current_show['Started'] = show.first_aired.strftime('%b/%d/%Y')
         current_show['Country'] = country
         current_show['Status'] = show.status
-        current_show['Genres'] = show.genre
+        current_show['Genres'] = show.genre.strip('|').replace('|', ' | ')
         current_show['Network'] = show.network
         current_show['Airtime'] = airtime.strftime(airtime_fmt)
         current_show['TZ'] = tzone
