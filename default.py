@@ -5,7 +5,6 @@ from datetime import datetime, date, timedelta
 from dateutil import tz
 from operator import attrgetter, itemgetter
 import xbmc, xbmcgui, xbmcaddon, xbmcvfs
-# TODO figure out how to import this from its ../script.module.metahandler/lib/metahandler/thetvdbapi.py location.
 from thetvdbapi import TheTVDB
 from country_lookup import CountryLookup
 if sys.version_info < (2, 7):
@@ -303,7 +302,6 @@ class NextAired:
                 if not prior_data.has_key('unused'):
                     continue # How'd we get a duplicate?? Skip it...
                 del prior_data['unused']
-                # TODO: we eventually want to compare this in a way that respects timezones.
                 while len(prior_data['episodes']) > 1 and prior_data['episodes'][1]['aired'][:10] < self.datestr:
                     prior_data['episodes'].pop(0)
             except:
@@ -395,6 +393,8 @@ class NextAired:
             if earliest_id is None:
                 eps_last_updated = prior_data['eps_last_updated']
             show_changed = prior_data.get('show_changed', 0)
+            if earliest_id is None and prior_data.has_key('TZ'):
+                earliest_id = 1 # XXX temporary heuristic to force updating of timezone info
             if show_changed:
                 if earliest_id is None:
                     earliest_id = 0
@@ -451,9 +451,11 @@ class NextAired:
                 tz_offset *= -1
         else:
             tz_offset = 1 * 3600 # Default to +01:00
-        airtime = TheTVDB.convert_time(self.get_airtime(show.airs_time))
-        if not airtime:
-            airtime = TheTVDB.convert_time('00:00')
+        airtime = TheTVDB.convert_time(show.airs_time)
+        local_airtime = airtime if airtime else TheTVDB.convert_time('00:00')
+        local_airtime = datetime.combine(self.date, local_airtime).replace(tzinfo=tz.tzoffset(None, tz_offset))
+        if airtime: # Don't backtrack an assumed midnight time (for an invalid airtime) into the prior day.
+            local_airtime = local_airtime.astimezone(tz.tzlocal())
         airtime_fmt = '%I:%M %p' if self.ampm else '%H:%M'
 
         current_show['Show Name'] = show.name
@@ -466,8 +468,7 @@ class NextAired:
         current_show['Status'] = show.status
         current_show['Genres'] = show.genre.strip('|').replace('|', ' | ')
         current_show['Network'] = show.network
-        current_show['Airtime'] = airtime.strftime(airtime_fmt)
-        current_show['TZ'] = tzone
+        current_show['Airtime'] = local_airtime.strftime(airtime_fmt) if airtime else '??:??'
         current_show['Runtime'] = show.runtime
 
         can_re = re.compile(r"canceled|ended", re.IGNORECASE)
@@ -481,33 +482,33 @@ class NextAired:
 
             max_eps_utime = 0
             if episodes:
+                good_eps = []
                 for ep in episodes:
                     ep.id = int(ep.id)
                     ep.season_number = int(ep.season_number)
                     ep.episode_number = int(ep.episode_number)
                     if ep.last_updated_utime > max_eps_utime:
                         max_eps_utime = ep.last_updated_utime
-                    log("### fetched ep=%d last_updated=%d" % (ep.id, ep.last_updated_utime))
-                episodes.sort(key=attrgetter('first_aired', 'season_number', 'episode_number'))
-            # TODO: we eventually want to compare this in a way that respects timezones.
-            if episodes and episodes[0].first_aired < self.datestr:
-                while len(episodes) > 1 and episodes[1].first_aired < self.datestr:
+                    log("### fetched ep=%d last_updated=%d first_aired=%s" % (ep.id, ep.last_updated_utime, ep.first_aired))
+                    aired = TheTVDB.convert_date(ep.first_aired)
+                    if not aired:
+                        continue
+                    ep.first_aired = local_airtime + timedelta(days = (aired - self.date).days)
+                    good_eps.append(ep)
+                episodes = sorted(good_eps, key=attrgetter('first_aired', 'season_number', 'episode_number'))
+            if episodes and episodes[0].first_aired.date() < self.date:
+                while len(episodes) > 1 and episodes[1].first_aired.date() < self.date:
                     ep = episodes.pop(0)
             else: # If we have no prior episodes, prepend a "None" episode
                 episode_list.append({ 'id': None })
 
             for ep in episodes:
-                aired = TheTVDB.convert_date(ep.first_aired)
-                if not aired:
-                    continue
-                aired = datetime.combine(aired, airtime)
-                aired = aired.replace(tzinfo=tz.tzoffset(None, tz_offset))
                 cur_ep = {
                         'id': ep.id,
                         'name': ep.name,
                         'number': '%02dx%02d' % (ep.season_number, ep.episode_number),
-                        'aired': aired.isoformat(),
-                        'wday': self.days[aired.weekday()]
+                        'aired': ep.first_aired.isoformat(),
+                        'wday': self.days[ep.first_aired.weekday()]
                         }
                 episode_list.append(cur_ep)
 
@@ -535,21 +536,6 @@ class NextAired:
     def upgrade_db(show_dict, from_ver):
         log("### upgrading DB from version %d to %d" % (from_ver, MAIN_DB_VER), level=1)
         # We'll add code here if the db changes
-
-    @staticmethod
-    def get_airtime(aired):
-        pm_re = re.compile(r"\d\s*[Pp]")
-        hour_re = re.compile(r"^(\d+)\s*([AaPp][Mm]?)?$")
-        hour_min_re = re.compile(r"^(\d+):(\d\d)\s*([AaPp][Mm]?)?$")
-
-        add_hours = 12 if pm_re.search(aired) else 0
-        m = hour_re.match(aired)
-        if m:
-            return '%02d:00' % (int(m.group(1)) + add_hours)
-        m = hour_min_re.match(aired)
-        if m:
-            return '%02d:%02d' % (int(m.group(1)) + add_hours, int(m.group(2)))
-        return '00:00'
 
     def set_episode_info(self, label, prefix, when, ep):
         if ep and ep['id']:
