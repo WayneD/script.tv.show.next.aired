@@ -222,7 +222,12 @@ class NextAired:
         self.last_update = (ep_list.pop() if ep_list else None)
         db_ver = (ep_list.pop() if ep_list else 0)
         if not self.last_update:
-            log("### ignoring bogus %s file" % NEXTAIRED_DB, level=1)
+            if self.RESET:
+                log("### starting fresh (DB RESET requested)", level=1)
+            elif ep_list:
+                log("### ignoring bogus %s file" % NEXTAIRED_DB, level=1)
+            else:
+                log("### no prior data found", level=1)
             show_dict = {}
             self.last_update = 0
         elif db_ver != MAIN_DB_VER:
@@ -355,6 +360,8 @@ class NextAired:
             self.rm_file(USER_LOCK)
         else:
             self.rm_file(BGND_LOCK)
+            xbmc.sleep(1000)
+            self.save_file([time(), 0, '...'], BGND_STATUS)
 
     def listing(self):
         json_query = xbmc.executeJSONRPC('{"jsonrpc": "2.0", "method": "VideoLibrary.GetTVShows", "params": {"properties": ["title", "file", "thumbnail", "art", "imdbnumber"], "sort": { "method": "title" } }, "id": 1}')
@@ -410,9 +417,9 @@ class NextAired:
             eps_last_updated = 0
 
         if earliest_id != 0:
-            log("### getting series & episode information for %s" % name, level=2)
             log("### earliest_id = %d" % earliest_id, level=5)
             for cnt in range(2):
+                log("### getting series & episode information for %s" % name, level=2)
                 try:
                     result = tvdb.get_show_and_episodes(tid, earliest_id)
                     break
@@ -425,8 +432,8 @@ class NextAired:
             show = result[0]
             episodes = result[1]
         else: # earliest_id == 0 when only the series-info changed
-            log("### getting series information for %s" % name, level=2)
             for cnt in range(2):
+                log("### getting series information for %s" % name, level=2)
                 try:
                     show = tvdb.get_show(tid)
                     break
