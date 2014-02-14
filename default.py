@@ -146,7 +146,6 @@ class NextAired:
         update_every = 1
         while not xbmc.abortRequested:
             log("### performing background update", level=2)
-            self.set_today()
             self.update_data(update_every)
             log("### background update finished", level=2)
             self.nextlist = [] # Discard the in-memory data until the next update
@@ -165,6 +164,8 @@ class NextAired:
         if self.RESET:
             self.rm_file(NEXTAIRED_DB)
             self.rm_file(COUNTRY_DB)
+
+        self.set_today()
 
         # Snag our TV-network -> Country + timezone mapping DB, or create it.
         cl = self.get_list(COUNTRY_DB)
@@ -248,11 +249,15 @@ class NextAired:
                 if time() - newest_time > 2*60:
                     # Background lock has sat around for too long, so just remove it.
                     self.rm_file(BGND_LOCK)
+                    newest_time = 0
                     break
                 xbmc.sleep(500)
-            if newest_time and locked_for_update:
-                # If we had to wait for the bgnd updater, re-read our data.
+            if newest_time:
+                # If we had to wait for the bgnd updater, re-read the data and unlock if they did an update.
                 show_dict, elapsed_secs = self.load_data()
+                if locked_for_update and elapsed_secs < update_after_seconds:
+                    self.rm_file(USER_LOCK)
+                    locked_for_update = False
             socket.setdefaulttimeout(10)
         else:
             locked_for_update = False
