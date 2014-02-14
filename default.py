@@ -138,6 +138,7 @@ class NextAired:
         self.now = time() # XXX should we query the tvdb system time instead?
         self.date = date.today()
         self.datestr = str(self.date)
+        self.in_dst = localtime().tm_isdst
         self.day_limit = str(self.date + timedelta(days=6))
         self.this_year_regex = re.compile(r', %s$' % self.date.strftime('%Y'))
 
@@ -477,7 +478,7 @@ class NextAired:
 
         country = (self.country_dict.get(show.network, 'Unknown') if show.network else 'Unknown')
         # XXX TODO allow the user to specify an override country that gets the local timezone.
-        tzone = CountryLookup.get_country_timezone(country)
+        tzone = CountryLookup.get_country_timezone(country, self.in_dst)
         if not tzone:
             tzone = ''
         tz_re = re.compile(r"([-+])(\d\d):(\d\d)")
@@ -556,6 +557,14 @@ class NextAired:
         elif prior_data:
             max_eps_utime = eps_last_updated
             current_show['episodes'] = prior_data['episodes']
+            if current_show['Airtime'] != prior_data['Airtime']:
+                for ep in current_show['episodes']:
+                    if not ep['id']:
+                        continue
+                    aired = TheTVDB.convert_date(ep['aired'][:10])
+                    aired = local_airtime + timedelta(days = (aired - self.date).days)
+                    ep['aired'] = aired.isoformat()
+                    ep['wday'] = self.days[aired.weekday()]
         else:
             max_eps_utime = 0
             current_show['episodes'] = [{ 'id': None }]
