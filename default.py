@@ -159,6 +159,45 @@ class NextAired:
                 xbmc.sleep(1000)
         self.close("xbmc is closing, stop script")
 
+    def load_data(self):
+        if self.RESET:
+            self.rm_file(NEXTAIRED_DB)
+            self.rm_file(COUNTRY_DB)
+
+        # Snag our TV-network -> Country + timezone mapping DB, or create it.
+        cl = self.get_list(COUNTRY_DB)
+        if cl and len(cl) == 3 and self.now - cl[2] < 7*24*60*60: # We'll recreate it every week.
+            self.country_dict = cl[0]
+        else:
+            try:
+                log("### grabbing a new country mapping list", level=1)
+                self.country_dict = CountryLookup().get_country_dict()
+                self.save_file([self.country_dict, COUNTRY_DB_VER, self.now], COUNTRY_DB)
+            except:
+                # Well, if we couldn't grab a new one, lets try to keep using the old...
+                self.country_dict = (cl[0] if cl and len(cl) == 3 else {})
+
+        ep_list = self.get_list(NEXTAIRED_DB)
+        show_dict = (ep_list.pop(0) if ep_list else {})
+        self.last_update = (ep_list.pop() if ep_list else None)
+        db_ver = (ep_list.pop() if ep_list else 0)
+        if not self.last_update:
+            if self.RESET:
+                log("### starting without prior data (DB RESET requested)", level=1)
+            elif ep_list:
+                log("### ignoring bogus %s file" % NEXTAIRED_DB, level=1)
+            else:
+                log("### no prior data found", level=1)
+            show_dict = {}
+            self.last_update = 0
+        elif db_ver != MAIN_DB_VER:
+            self.upgrade_data_format(show_dict, db_ver)
+
+        self.RESET = False # Make sure we don't honor this multiple times.
+
+        elapsed_secs = self.now - self.last_update
+        return (show_dict, elapsed_secs)
+
     def update_data(self):
         self.nextlist = []
 
@@ -203,38 +242,7 @@ class NextAired:
                     break
                 xbmc.sleep(500)
 
-        if self.RESET:
-            self.rm_file(NEXTAIRED_DB)
-            self.rm_file(COUNTRY_DB)
-
-        # Snag our TV-network -> Country + timezone mapping DB, or create it.
-        cl = self.get_list(COUNTRY_DB)
-        if cl and len(cl) == 3 and self.now - cl[2] < 7*24*60*60: # We'll recreate it every week.
-            self.country_dict = cl[0]
-        else:
-            try:
-                log("### grabbing a new country mapping list", level=1)
-                self.country_dict = CountryLookup().get_country_dict()
-                self.save_file([self.country_dict, COUNTRY_DB_VER, self.now], COUNTRY_DB)
-            except:
-                # Well, if we couldn't grab a new one, lets try to keep using the old...
-                self.country_dict = (cl[0] if cl and len(cl) == 3 else {})
-
-        ep_list = self.get_list(NEXTAIRED_DB)
-        show_dict = (ep_list.pop(0) if ep_list else {})
-        self.last_update = (ep_list.pop() if ep_list else None)
-        db_ver = (ep_list.pop() if ep_list else 0)
-        if not self.last_update:
-            if self.RESET:
-                log("### starting fresh (DB RESET requested)", level=1)
-            elif ep_list:
-                log("### ignoring bogus %s file" % NEXTAIRED_DB, level=1)
-            else:
-                log("### no prior data found", level=1)
-            show_dict = {}
-            self.last_update = 0
-        elif db_ver != MAIN_DB_VER:
-            self.upgrade_data_format(show_dict, db_ver)
+        show_dict, elapsed_secs = self.load_data()
 
         socket.setdefaulttimeout(10)
 
@@ -249,7 +257,6 @@ class NextAired:
 
         # If we scanned recently enough, we don't need to do it again.
         update_after = int(__addon__.getSetting('update_after'))
-        elapsed_secs = self.now - self.last_update
         if elapsed_secs > update_after*60 or self.FORCEUPDATE:
             # This typically asks TheTVDB for an update-zip file and tweaks the show_dict to note needed updates.
             need_full_scan = tv_up.note_updates(tvdb, show_dict, elapsed_secs)
