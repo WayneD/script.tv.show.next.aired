@@ -163,7 +163,18 @@ class NextAired:
         self.nextlist = []
 
         # This should prevent the background and user code from updating the DB at the same time.
-        if self.SILENT == "":
+        if self.SILENT != "":
+            # Background updating: we will just skip our update if the user is doing an update.
+            self.save_file([self.now], BGND_LOCK)
+            xbmc.sleep(2000) # try to avoid a race-condition
+            user_lock = self.get_list(USER_LOCK)
+            if user_lock:
+                if self.now - user_lock[0] <= 10*60:
+                    self.rm_file(BGND_LOCK)
+                    return
+                # User's lock has sat around for too long, so just remove it.
+                self.rm_file(USER_LOCK)
+        else:
             # User updating: we will wait for a background update to finish, then see if we have recent data.
             DIALOG_PROGRESS = xbmcgui.DialogProgress()
             DIALOG_PROGRESS.create(__language__(32101), __language__(32102))
@@ -191,17 +202,6 @@ class NextAired:
                     self.rm_file(BGND_LOCK)
                     break
                 xbmc.sleep(500)
-        else:
-            # Background updating: we will just skip our update if the user is doing an update.
-            self.save_file([self.now], BGND_LOCK)
-            xbmc.sleep(2000) # try to avoid a race-condition
-            user_lock = self.get_list(USER_LOCK)
-            if user_lock:
-                if self.now - user_lock[0] <= 10*60:
-                    self.rm_file(BGND_LOCK)
-                    return
-                # User's lock has sat around for too long, so just remove it.
-                self.rm_file(USER_LOCK)
 
         if self.RESET:
             self.rm_file(NEXTAIRED_DB)
@@ -268,14 +268,14 @@ class NextAired:
         for show in TVlist:
             count += 1
             percent = int(float(count * 100) / total_show)
-            if self.SILENT == "":
+            if self.SILENT != "":
+                self.save_file([time(), percent, show[0]], BGND_STATUS)
+            else:
                 DIALOG_PROGRESS.update( percent , __language__(32102) , "%s" % show[0] )
                 if DIALOG_PROGRESS.iscanceled():
                     DIALOG_PROGRESS.close()
                     xbmcgui.Dialog().ok(__language__(32103),__language__(32104))
                     break
-            else:
-                self.save_file([time(), percent, show[0]], BGND_STATUS)
             log( "### %s" % show[0] )
             current_show = {
                     "localname": show[0],
@@ -359,13 +359,13 @@ class NextAired:
 
         self.save_file([show_dict, MAIN_DB_VER, self.last_update], NEXTAIRED_DB)
 
-        if self.SILENT == "":
-            DIALOG_PROGRESS.close()
-            self.rm_file(USER_LOCK)
-        else:
+        if self.SILENT != "":
             self.rm_file(BGND_LOCK)
             xbmc.sleep(1000)
             self.save_file([time(), 0, '...'], BGND_STATUS)
+        else:
+            DIALOG_PROGRESS.close()
+            self.rm_file(USER_LOCK)
 
     def listing(self):
         json_query = xbmc.executeJSONRPC('{"jsonrpc": "2.0", "method": "VideoLibrary.GetTVShows", "params": {"properties": ["title", "file", "thumbnail", "art", "imdbnumber"], "sort": { "method": "title" } }, "id": 1}')
