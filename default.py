@@ -201,11 +201,14 @@ class NextAired:
 
     def update_data(self, update_after_seconds):
         self.nextlist = []
+        show_dict, elapsed_secs = self.load_data()
 
         # This should prevent the background and user code from updating the DB at the same time.
         if self.SILENT != "":
             # Background updating: we will just skip our update if the user is doing an update.
+            self.max_fetch_failures = 8
             self.save_file([self.now], BGND_LOCK)
+            locked_for_update = True
             xbmc.sleep(2000) # try to avoid a race-condition
             user_lock = self.get_list(USER_LOCK)
             if user_lock:
@@ -214,12 +217,15 @@ class NextAired:
                     return
                 # User's lock has sat around for too long, so just remove it.
                 self.rm_file(USER_LOCK)
-        else:
+            socket.setdefaulttimeout(60)
+        elif elapsed_secs >= update_after_seconds: # We only lock if we're going to do some updating.
             # User updating: we will wait for a background update to finish, then see if we have recent data.
             DIALOG_PROGRESS = xbmcgui.DialogProgress()
             DIALOG_PROGRESS.create(__language__(32101), __language__(32102))
+            self.max_fetch_failures = 4
             # Create our user-lock file and check if the background updater is running.
             self.save_file([self.now], USER_LOCK)
+            locked_for_update = True
             newest_time = 0
             while 1:
                 bg_lock = self.get_list(BGND_LOCK)
@@ -234,7 +240,8 @@ class NextAired:
                         DIALOG_PROGRESS.close()
                         xbmcgui.Dialog().ok(__language__(32103),__language__(32104))
                         self.rm_file(USER_LOCK)
-                        return
+                        locked_for_update = False
+                        break
                     if bg_status[0] > newest_time:
                         newest_time = bg_status[0]
                 if time() - newest_time > 2*60:
@@ -242,10 +249,12 @@ class NextAired:
                     self.rm_file(BGND_LOCK)
                     break
                 xbmc.sleep(500)
-
-        show_dict, elapsed_secs = self.load_data()
-
-        socket.setdefaulttimeout(10)
+            if newest_time and locked_for_update:
+                # If we had to wait for the bgnd updater, re-read our data.
+                show_dict, elapsed_secs = self.load_data()
+            socket.setdefaulttimeout(10)
+        else:
+            locked_for_update = False
 
         title_dict = {}
         for tid in show_dict:
@@ -256,12 +265,14 @@ class NextAired:
         tvdb = TheTVDB()
         tv_up = tvdb_updater()
 
-        if elapsed_secs > update_after_seconds or self.FORCEUPDATE:
+        if locked_for_update:
             # This typically asks TheTVDB for an update-zip file and tweaks the show_dict to note needed updates.
             need_full_scan = tv_up.note_updates(tvdb, show_dict, elapsed_secs)
             self.last_update = self.now
         else:
             need_full_scan = False
+            # A max-fetch of 0 disables all updating.
+            self.max_fetch_failures = 0
 
         TVlist = self.listing()
         total_show = len(TVlist)
@@ -276,12 +287,12 @@ class NextAired:
             percent = int(float(count * 100) / total_show)
             if self.SILENT != "":
                 self.save_file([time(), percent, show[0]], BGND_STATUS)
-            else:
+            elif locked_for_update and self.max_fetch_failures > 0:
                 DIALOG_PROGRESS.update( percent , __language__(32102) , "%s" % show[0] )
                 if DIALOG_PROGRESS.iscanceled():
                     DIALOG_PROGRESS.close()
                     xbmcgui.Dialog().ok(__language__(32103),__language__(32104))
-                    break
+                    self.max_fetch_failures = 0
             log( "### %s" % show[0] )
             current_show = {
                     "localname": show[0],
@@ -322,7 +333,10 @@ class NextAired:
             except:
                 prior_data = None
 
-            tid = self.check_show_info(tvdb, tid, current_show, prior_data)
+            if self.max_fetch_failures > 0:
+                tid = self.check_show_info(tvdb, tid, current_show, prior_data)
+            else:
+                tid = -tid
             if tid <= 0:
                 if not prior_data or tid == 0:
                     continue
@@ -337,7 +351,7 @@ class NextAired:
 
         # If we did a lot of work, make sure we save it prior to doing anything else.
         # This ensures that a bug in the following code won't make us redo everything.
-        if need_full_scan:
+        if need_full_scan and locked_for_update:
             self.save_file([show_dict, MAIN_DB_VER, self.last_update], NEXTAIRED_DB)
 
         if show_dict:
@@ -363,13 +377,14 @@ class NextAired:
         else:
             log("### no current show data...", level=5)
 
-        self.save_file([show_dict, MAIN_DB_VER, self.last_update], NEXTAIRED_DB)
+        if locked_for_update:
+            self.save_file([show_dict, MAIN_DB_VER, self.last_update], NEXTAIRED_DB)
 
         if self.SILENT != "":
             self.rm_file(BGND_LOCK)
             xbmc.sleep(1000)
             self.save_file([time(), 0, '...'], BGND_STATUS)
-        else:
+        elif locked_for_update:
             DIALOG_PROGRESS.close()
             self.rm_file(USER_LOCK)
 
@@ -435,6 +450,7 @@ class NextAired:
                     break
                 except Exception, e:
                     log('### ERROR returned by get_show_and_episodes(): %s' % e, level=0)
+                    self.max_fetch_failures -= 1
                     result = None
             if result:
                 show = result[0]
@@ -449,6 +465,7 @@ class NextAired:
                     break
                 except Exception, e:
                     log('### ERROR returned by get_show(): %s' % e, level=0)
+                    self.max_fetch_failures -= 1
                     show = None
             episodes = None
         if not show:
@@ -843,6 +860,7 @@ class tvdb_updater:
             tvdb.get_updates(self.change_callback, period)
         except Exception, e:
             log('### ERROR retreiving updates from thetvdb.com: %s' % e, level=0)
+            self.max_fetch_failures -= 1
 
         return False
 
