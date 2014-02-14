@@ -150,7 +150,10 @@ class NextAired:
             log("### background update finished", level=2)
             self.nextlist = [] # Discard the in-memory data until the next update
             while not xbmc.abortRequested:
-                update_every = int(__addon__.getSetting('update_every')) # in hours
+                try:
+                    update_every = int(__addon__.getSetting('update_every')) # in hours
+                except:
+                    update_every = 0
                 if update_every and time() - prior_update >= update_every*60*60:
                     break
                 xbmc.sleep(1000)
