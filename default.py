@@ -426,11 +426,11 @@ class NextAired:
                 except Exception, e:
                     log('### ERROR using get_show_and_episodes(): %s' % e, level=0)
                     result = None
-            if not result:
-                log('### using old data (if any)', level=1)
-                return -tid
-            show = result[0]
-            episodes = result[1]
+            if result:
+                show = result[0]
+                episodes = result[1]
+            else:
+                show = None
         else: # earliest_id == 0 when only the series-info changed
             for cnt in range(2):
                 log("### getting series information for %s" % name, level=2)
@@ -440,10 +440,13 @@ class NextAired:
                 except Exception, e:
                     log('### ERROR using get_show(): %s' % e, level=0)
                     show = None
-            if not show:
-                log('### using old data (if any)', level=1)
-                return -tid
             episodes = None
+        if not show:
+            if prior_data:
+                log("### no result: continuing to use the old data", level=1)
+            else:
+                log("### no result and no prior data", level=1)
+            return -tid
 
         country = (self.country_dict.get(show.network, 'Unknown') if show.network else 'Unknown')
         # XXX TODO allow the user to specify an override country that gets the local timezone.
