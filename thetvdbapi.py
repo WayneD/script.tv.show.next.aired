@@ -214,19 +214,19 @@ class TheTVDB(object):
         """Get the show object matching this show_id."""
         #url = "%s/series/%s/%s.xml" % (self.base_key_url, show_id, "el")
         url = "%s/series/%s/" % (self.base_key_url, show_id)
-        data = StringIO(urllib.urlopen(url).read())
-        temp_data = data.getvalue()
+        data = urllib.urlopen(url)
         show = None
-        if temp_data.startswith('<?xml') == False:
-            return show
+        if data:
+            data = StringIO(data.read())
+            temp_data = data.getvalue()
+            if temp_data.startswith('<?xml'):
+                try:
+                    tree = ET.parse(data)
+                    show_node = tree.find("Series")
 
-        try:
-            tree = ET.parse(data)
-            show_node = tree.find("Series")
-
-            show = TheTVDB.Show(show_node, self.mirror_url)
-        except SyntaxError:
-            pass
+                    show = TheTVDB.Show(show_node, self.mirror_url)
+                except SyntaxError:
+                    pass
 
         return show
 
@@ -235,18 +235,18 @@ class TheTVDB(object):
         """Get the show object matching this show_id."""
         #url = "%s/series/%s/%s.xml" % (self.base_key_url, show_id, "el")
         url = "%s/GetSeriesByRemoteID.php?imdbid=%s" % (self.base_url, imdb_id)
-        data = StringIO(urllib.urlopen(url).read())
-        temp_data = data.getvalue()
+        data = urllib.urlopen(url)
         tvdb_id = ''
-        if temp_data.startswith('<?xml') == False:
-            return tvdb_id
-        try:
-            tree = ET.parse(data)
-            for show in tree.getiterator("Series"):
-                tvdb_id = show.findtext("seriesid")
-
-        except SyntaxError:
-            pass
+        if data:
+            data = StringIO(data.read())
+            temp_data = data.getvalue()
+            if temp_data.startswith('<?xml'):
+                try:
+                    tree = ET.parse(data)
+                    for show in tree.getiterator("Series"):
+                        tvdb_id = show.findtext("seriesid")
+                except SyntaxError:
+                    pass
 
         return tvdb_id
 
@@ -255,13 +255,14 @@ class TheTVDB(object):
         url = "%s/episodes/%s" % (self.base_key_url, episode_id)
         data = urllib.urlopen(url)
         episode = None
-        try:
-            tree = ET.parse(data)
-            episode_node = tree.find("Episode")
+        if data:
+            try:
+                tree = ET.parse(data)
+                episode_node = tree.find("Episode")
 
-            episode = TheTVDB.Episode(episode_node, self.mirror_url)
-        except SyntaxError:
-            pass
+                episode = TheTVDB.Episode(episode_node, self.mirror_url)
+            except SyntaxError:
+                pass
 
         return episode
 
@@ -272,24 +273,21 @@ class TheTVDB(object):
         '''http://www.thetvdb.com/api/GetEpisodeByAirDate.php?apikey=1D62F2F90030C444&seriesid=71256&airdate=2010-03-29'''
 
         url = "%s/GetEpisodeByAirDate.php?apikey=1D62F2F90030C444&seriesid=%s&airdate=%s" % (self.base_url, show_id, aired)
-        data = StringIO(urllib.urlopen(url).read())
-
+        data = urllib.urlopen(url)
         episode = None
+        if data:
+            data = StringIO(data.read())
 
-        #code to check if data has been returned
-        temp_data = data.getvalue()
-        if temp_data.startswith('<?xml') == False:
-            print 'No data returned ', temp_data
-            return episode
+            #code to check if data has been returned
+            temp_data = data.getvalue()
+            if temp_data.startswith('<?xml'):
+                try:
+                    tree = ET.parse(data)
+                    episode_node = tree.find("Episode")
 
-        try:
-            tree = ET.parse(data)
-            episode_node = tree.find("Episode")
-
-            episode = TheTVDB.Episode(episode_node, self.mirror_url)
-
-        except SyntaxError:
-            pass
+                    episode = TheTVDB.Episode(episode_node, self.mirror_url)
+                except SyntaxError:
+                    pass
 
         return episode
 
@@ -297,59 +295,63 @@ class TheTVDB(object):
     def get_episode_by_season_ep(self, show_id, season_num, ep_num):
         """Get the episode object matching this episode_id."""
         url = "%s/series/%s/default/%s/%s" % (self.base_key_url, show_id, season_num, ep_num)
-        data = StringIO(urllib.urlopen(url).read())
-
+        data = urllib.urlopen(url)
         episode = None
+        if data:
+            data = StringIO(data.read())
 
-        #code to check if data has been returned
-        temp_data = data.getvalue()
-        if temp_data.startswith('<?xml') == False :
-            print 'No data returned ', temp_data
-            return episode
+            #code to check if data has been returned
+            temp_data = data.getvalue()
+            if temp_data.startswith('<?xml'):
+                try:
+                    tree = ET.parse(data)
+                    episode_node = tree.find("Episode")
 
-        try:
-            tree = ET.parse(data)
-            episode_node = tree.find("Episode")
-
-            episode = TheTVDB.Episode(episode_node, self.mirror_url)
-        except SyntaxError:
-            pass
+                    episode = TheTVDB.Episode(episode_node, self.mirror_url)
+                except SyntaxError:
+                    pass
 
         return episode
+
 
     def get_show_and_episodes(self, show_id, atleast = 1):
         """Get the show object and all matching episode objects for this show_id."""
         url = "%s/series/%s/all/" % (self.base_key_url, show_id)
         data = urllib.urlopen(url)
-
         show_and_episodes = None
-        try:
-            tree = ET.parse(data)
-            show_node = tree.find("Series")
+        if data:
+            try:
+                tree = ET.parse(data)
+                show_node = tree.find("Series")
 
-            show = TheTVDB.Show(show_node, self.mirror_url)
-            episodes = []
+                show = TheTVDB.Show(show_node, self.mirror_url)
+                episodes = []
 
-            episode_nodes = tree.getiterator("Episode")
-            for episode_node in episode_nodes:
-                if episode_node.findtext('id') >= atleast:
-                    episodes.append(TheTVDB.Episode(episode_node, self.mirror_url))
+                episode_nodes = tree.getiterator("Episode")
+                for episode_node in episode_nodes:
+                    if episode_node.findtext('id') >= atleast:
+                        episodes.append(TheTVDB.Episode(episode_node, self.mirror_url))
 
-            show_and_episodes = (show, episodes)
-        except SyntaxError:
-            pass
+                show_and_episodes = (show, episodes)
+            except SyntaxError:
+                pass
 
         return show_and_episodes
+
 
     def get_update_filehandle(self, period):
         url = "%s/updates/updates_%s.zip" % (self.base_key_url, period)
         data = urllib.urlopen(url)
-        try:
-            zipfile = ZipFile(StringIO(data.read()))
-            want_name = 'updates_%s.xml' % period
-            return zipfile.open(want_name)
-        except:
-            return None
+        fh = None
+        if data:
+            try:
+                zipfile = ZipFile(StringIO(data.read()))
+                want_name = 'updates_%s.xml' % period
+                fh = zipfile.open(want_name)
+            except:
+                pass
+
+        return fh
 
     def get_updated_shows(self, period = "day"):
         """Get a list of show ids which have been updated within this period."""
@@ -406,7 +408,8 @@ class TheTVDB(object):
         """
         e = expat_updates(callback)
         fh = self.get_update_filehandle(period)
-        e.parse(fh)
+        if fh:
+            e.parse(fh)
 
 class expat_updates(object):
     def __init__(self, callback):
