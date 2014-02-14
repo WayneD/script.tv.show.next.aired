@@ -142,19 +142,20 @@ class NextAired:
         self.this_year_regex = re.compile(r', %s$' % self.date.strftime('%Y'))
 
     def do_background_updating(self):
+        update_every = 1
         while not xbmc.abortRequested:
             log("### performing background update", level=2)
             self.set_today()
-            prior_update = self.now
-            self.update_data()
+            self.update_data(update_every)
             log("### background update finished", level=2)
             self.nextlist = [] # Discard the in-memory data until the next update
             while not xbmc.abortRequested:
                 try:
                     update_every = int(__addon__.getSetting('update_every')) # in hours
+                    update_every *= 60*60 # into seconds
                 except:
                     update_every = 0
-                if update_every and time() - prior_update >= update_every*60*60:
+                if update_every and time() - self.last_update >= update_every:
                     break
                 xbmc.sleep(1000)
         self.close("xbmc is closing, stop script")
@@ -198,7 +199,7 @@ class NextAired:
         elapsed_secs = self.now - self.last_update
         return (show_dict, elapsed_secs)
 
-    def update_data(self):
+    def update_data(self, update_after_seconds):
         self.nextlist = []
 
         # This should prevent the background and user code from updating the DB at the same time.
@@ -255,9 +256,7 @@ class NextAired:
         tvdb = TheTVDB()
         tv_up = tvdb_updater()
 
-        # If we scanned recently enough, we don't need to do it again.
-        update_after = int(__addon__.getSetting('update_after'))
-        if elapsed_secs > update_after*60 or self.FORCEUPDATE:
+        if elapsed_secs > update_after_seconds or self.FORCEUPDATE:
             # This typically asks TheTVDB for an update-zip file and tweaks the show_dict to note needed updates.
             need_full_scan = tv_up.note_updates(tvdb, show_dict, elapsed_secs)
             self.last_update = self.now
@@ -685,7 +684,11 @@ class NextAired:
                 self.set_labels('windowpropertytoday', current_show)
 
     def show_gui(self):
-        self.update_data()
+        if self.FORCEUPDATE:
+            update_after = 0
+        else:
+            update_after = int(__addon__.getSetting('update_after')) # in mins
+        self.update_data(update_after*60)
         weekday = self.date.weekday()
         self.WINDOW.setProperty("NextAired.TodayDate", self.date.strftime(DATE_FORMAT))
         for count in range(0, 7):
