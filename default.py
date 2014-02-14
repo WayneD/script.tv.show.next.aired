@@ -234,7 +234,7 @@ class NextAired:
             show_dict = {}
             self.last_update = 0
         elif db_ver != MAIN_DB_VER:
-            self.upgrade_db(show_dict, db_ver)
+            self.upgrade_data_format(show_dict, db_ver)
 
         socket.setdefaulttimeout(10)
 
@@ -251,6 +251,7 @@ class NextAired:
         update_after = int(__addon__.getSetting('update_after'))
         elapsed_secs = self.now - self.last_update
         if elapsed_secs > update_after*60 or self.FORCEUPDATE:
+            # This typically asks TheTVDB for an update-zip file and tweaks the show_dict to note needed updates.
             need_full_scan = tv_up.note_updates(tvdb, show_dict, elapsed_secs)
             self.last_update = self.now
         else:
@@ -427,7 +428,7 @@ class NextAired:
                     result = tvdb.get_show_and_episodes(tid, earliest_id)
                     break
                 except Exception, e:
-                    log('### ERROR using get_show_and_episodes(): %s' % e, level=0)
+                    log('### ERROR returned by get_show_and_episodes(): %s' % e, level=0)
                     result = None
             if result:
                 show = result[0]
@@ -441,7 +442,7 @@ class NextAired:
                     show = tvdb.get_show(tid)
                     break
                 except Exception, e:
-                    log('### ERROR using get_show(): %s' % e, level=0)
+                    log('### ERROR returned by get_show(): %s' % e, level=0)
                     show = None
             episodes = None
         if not show:
@@ -549,7 +550,7 @@ class NextAired:
         return tid
 
     @staticmethod
-    def upgrade_db(show_dict, from_ver):
+    def upgrade_data_format(show_dict, from_ver):
         log("### upgrading DB from version %d to %d" % (from_ver, MAIN_DB_VER), level=1)
         # We'll add code here if the db changes
 
