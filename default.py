@@ -135,7 +135,7 @@ class NextAired:
         self.RESET = params.get( "reset", False )
 
     def set_today(self):
-        self.now = time() # XXX should we query the tvdb system time instead?
+        self.now = time()
         self.date = date.today()
         self.datestr = str(self.date)
         self.in_dst = localtime().tm_isdst
@@ -204,6 +204,8 @@ class NextAired:
     def update_data(self, update_after_seconds):
         self.nextlist = []
         show_dict, elapsed_secs = self.load_data()
+        if update_after_seconds == 0:
+            update_after_seconds = 100*365*24*60*60
 
         # This should prevent the background and user code from updating the DB at the same time.
         if self.SILENT != "":
@@ -721,7 +723,10 @@ class NextAired:
         if self.FORCEUPDATE:
             update_after = 0
         else:
-            update_after = int(__addon__.getSetting('update_after')) # in mins
+            try:
+                update_after = int(__addon__.getSetting('update_after')) # in mins
+            except:
+                update_after = 0
         self.update_data(update_after*60)
         weekday = self.date.weekday()
         self.WINDOW.setProperty("NextAired.TodayDate", self.date.strftime(DATE_FORMAT))
