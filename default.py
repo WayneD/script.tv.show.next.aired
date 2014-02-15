@@ -721,13 +721,13 @@ class NextAired:
 
     def show_gui(self):
         if self.FORCEUPDATE:
-            update_after = 0
+            update_after = 1
         else:
             try:
-                update_after = int(__addon__.getSetting('update_after')) # in mins
+                update_after = int(__addon__.getSetting('update_after'))*60 # mins -> seconds
             except:
                 update_after = 0
-        self.update_data(update_after*60)
+        self.update_data(update_after)
         weekday = self.date.weekday()
         self.WINDOW.setProperty("NextAired.TodayDate", self.date.strftime(DATE_FORMAT))
         for count in range(0, 7):
