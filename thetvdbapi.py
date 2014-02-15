@@ -30,19 +30,20 @@ from cStringIO import StringIO
 from zipfile import ZipFile
 
 class TheTVDB(object):
-    def __init__(self, api_key='2B8557E0CBF7D720'):
+    def __init__(self, api_key='2B8557E0CBF7D720', language = 'en'):
         #http://thetvdb.com/api/<apikey>/<request>
         self.api_key = api_key
         self.mirror_url = "http://thetvdb.com"
         self.base_url =  self.mirror_url + "/api"
         self.base_key_url = "%s/%s" % (self.base_url, self.api_key)
+        self.language = language
 
         self.select_mirrors()
 
     def select_mirrors(self):
         #http://thetvdb.com/api/<apikey>/mirrors.xml
         url = "%s/mirrors.xml" % self.base_key_url
-        data = StringIO(urllib.urlopen(url).read())
+        data = urllib.urlopen(url)
         try:
             tree = ET.parse(data)
             self.xml_mirrors = []
@@ -76,48 +77,47 @@ class TheTVDB(object):
         """A python object representing a thetvdb.com show record."""
         def __init__(self, node, mirror_url):
             # Main show details
-            #print node
-            self.id = node.findtext("id")
-            self.name = node.findtext("SeriesName")
-            self.overview = node.findtext("Overview")
-            self.genre = node.findtext("Genre") #[g for g in node.findtext("Genre").split("|") if g]
-            self.actors = [a for a in node.findtext("Actors").split("|") if a]
-            self.network = node.findtext("Network")
-            self.content_rating = node.findtext("ContentRating")
-            self.rating = node.findtext("Rating")
-            self.runtime = node.findtext("Runtime")
-            self.status = node.findtext("Status")
-            self.language = node.findtext("Language")
+            self.id = node.get("id", "")
+            self.name = node.get("SeriesName", "")
+            self.overview = node.get("Overview", "")
+            self.genre = node.get("Genre", "") #[g for g in node.get("Genre", "").split("|") if g]
+            self.actors = [a for a in node.get("Actors", "").split("|") if a]
+            self.network = node.get("Network", "")
+            self.content_rating = node.get("ContentRating", "")
+            self.rating = node.get("Rating", "")
+            self.runtime = node.get("Runtime", "")
+            self.status = node.get("Status", "")
+            self.language = node.get("Language", "")
 
             # Air details
-            self.first_aired = TheTVDB.convert_date(node.findtext("FirstAired"))
-            self.airs_day = node.findtext("Airs_DayOfWeek")
-            self.airs_time = node.findtext("Airs_Time")#TheTVDB.convert_time(node.findtext("Airs_Time"))
+            self.first_aired = TheTVDB.convert_date(node.get("FirstAired", ""))
+            self.airs_day = node.get("Airs_DayOfWeek", "")
+            self.airs_time = node.get("Airs_Time", "")#TheTVDB.convert_time(node.get("Airs_Time", ""))
 
             # Main show artwork
-            temp = node.findtext("banner")
+            temp = node.get("banner", "")
             if temp != '' and temp is not None:
                 self.banner_url = "%s/banners/%s" % (mirror_url, temp)
             else:
                 self.banner_url = ''
-            temp = node.findtext("poster")
+            temp = node.get("poster", "")
             if temp != '' and temp is not None:
                 self.poster_url = "%s/banners/%s" % (mirror_url, temp)
             else:
                 self.poster_url = ''
-            temp = node.findtext("fanart")
+            temp = node.get("fanart", "")
             if temp != '' and temp is not None:
                 self.fanart_url = "%s/banners/%s" % (mirror_url, temp)
             else:
                 self.fanart_url = ''
 
             # External references
-            self.imdb_id = node.findtext("IMDB_ID")
-            self.tvcom_id = node.findtext("SeriesID")
-            self.zap2it_id = node.findtext("zap2it_id")
+            self.imdb_id = node.get("IMDB_ID", "")
+            self.tvcom_id = node.get("SeriesID", "")
+            self.zap2it_id = node.get("zap2it_id", "")
 
             # When this show was last updated
-            self.last_updated_utime = int(node.findtext("lastupdated"))
+            self.last_updated_utime = int(node.get("lastupdated", ""))
             self.last_updated = datetime.datetime.fromtimestamp(self.last_updated_utime)
 
         def __str__(self):
@@ -127,53 +127,53 @@ class TheTVDB(object):
     class Episode(object):
         """A python object representing a thetvdb.com episode record."""
         def __init__(self, node, mirror_url):
-            self.id = node.findtext("id")
-            self.show_id = node.findtext("seriesid")
-            self.name = node.findtext("EpisodeName")
-            self.overview = node.findtext("Overview")
-            self.season_number = node.findtext("SeasonNumber")
-            self.episode_number = node.findtext("EpisodeNumber")
-            self.director = node.findtext("Director")
-            self.guest_stars = node.findtext("GuestStars")
-            self.language = node.findtext("Language")
-            self.production_code = node.findtext("ProductionCode")
-            self.rating = node.findtext("Rating")
-            self.writer = node.findtext("Writer")
+            self.id = node.get("id", "")
+            self.show_id = node.get("seriesid", "")
+            self.name = node.get("EpisodeName", "")
+            self.overview = node.get("Overview", "")
+            self.season_number = node.get("SeasonNumber", "")
+            self.episode_number = node.get("EpisodeNumber", "")
+            self.director = node.get("Director", "")
+            self.guest_stars = node.get("GuestStars", "")
+            self.language = node.get("Language", "")
+            self.production_code = node.get("ProductionCode", "")
+            self.rating = node.get("Rating", "")
+            self.writer = node.get("Writer", "")
 
             # Air date
-            self.first_aired = node.findtext("FirstAired")#TheTVDB.convert_date(node.findtext("FirstAired"))
+            self.first_aired = node.get("FirstAired", "")#TheTVDB.convert_date(node.get("FirstAired", ""))
 
             # DVD Information
-            self.dvd_chapter = node.findtext("DVD_chapter")
-            self.dvd_disc_id = node.findtext("DVD_discid")
-            self.dvd_episode_number = node.findtext("DVD_episodenumber")
-            self.dvd_season = node.findtext("DVD_season")
+            self.dvd_chapter = node.get("DVD_chapter", "")
+            self.dvd_disc_id = node.get("DVD_discid", "")
+            self.dvd_episode_number = node.get("DVD_episodenumber", "")
+            self.dvd_season = node.get("DVD_season", "")
 
             # Artwork/screenshot
-            temp = node.findtext("filename")
+            temp = node.get("filename", "")
             if temp != '' and temp is not None:
                 self.image = "%s/banners/%s" % (mirror_url, temp)
             else:
                 self.image = ''
-            #self.image = 'http://thetvdb.com/banners/' + node.findtext("filename")
+            #self.image = 'http://thetvdb.com/banners/' + node.get("filename", "")
 
             # Episode ordering information (normally for specials)
-            self.airs_after_season = node.findtext("airsafter_season")
-            self.airs_before_season = node.findtext("airsbefore_season")
-            self.airs_before_episode = node.findtext("airsbefore_episode")
+            self.airs_after_season = node.get("airsafter_season", "")
+            self.airs_before_season = node.get("airsbefore_season", "")
+            self.airs_before_episode = node.get("airsbefore_episode", "")
 
             # Unknown
-            self.combined_episode_number = node.findtext("combined_episode_number")
-            self.combined_season = node.findtext("combined_season")
-            self.absolute_number = node.findtext("absolute_number")
-            self.season_id = node.findtext("seasonid")
-            self.ep_img_flag = node.findtext("EpImgFlag")
+            self.combined_episode_number = node.get("Combined_episodenumber", "")
+            self.combined_season = node.get("Combined_season", "")
+            self.absolute_number = node.get("absolute_number", "")
+            self.season_id = node.get("seasonid", "")
+            self.ep_img_flag = node.get("EpImgFlag", "")
 
             # External references
-            self.imdb_id = node.findtext("IMDB_ID")
+            self.imdb_id = node.get("IMDB_ID", "")
 
             # When this episode was last updated
-            self.last_updated_utime = int(self.check(node.findtext("lastupdated"), '0'))
+            self.last_updated_utime = int(self.check(node.get("lastupdated", ""), '0'))
             self.last_updated = datetime.datetime.fromtimestamp(self.last_updated_utime)
 
         def __str__(self):
@@ -249,20 +249,7 @@ class TheTVDB(object):
         """Get the show object matching this show_id."""
         #url = "%s/series/%s/%s.xml" % (self.base_key_url, show_id, "el")
         url = "%s/series/%s/" % (self.base_xml_url, show_id)
-        data = StringIO(urllib.urlopen(url).read())
-        temp_data = data.getvalue()
-        show = None
-        if temp_data.startswith('<?xml') == False:
-            return show
-
-        try:
-            tree = ET.parse(data)
-            show_node = tree.find("Series")
-
-            show = TheTVDB.Show(show_node, self.mirror_url)
-        except SyntaxError:
-            pass
-
+        show, eps = self.get_show_and_or_eps(url)
         return show
 
 
@@ -288,17 +275,8 @@ class TheTVDB(object):
     def get_episode(self, episode_id):
         """Get the episode object matching this episode_id."""
         url = "%s/episodes/%s" % (self.base_xml_url, episode_id)
-        data = urllib.urlopen(url)
-        episode = None
-        try:
-            tree = ET.parse(data)
-            episode_node = tree.find("Episode")
-
-            episode = TheTVDB.Episode(episode_node, self.mirror_url)
-        except SyntaxError:
-            pass
-
-        return episode
+        show, eps = self.get_show_and_or_eps(url)
+        return eps[0] if eps else None
 
 
     def get_episode_by_airdate(self, show_id, aired):
@@ -307,74 +285,52 @@ class TheTVDB(object):
         '''http://www.thetvdb.com/api/GetEpisodeByAirDate.php?apikey=1D62F2F90030C444&seriesid=71256&airdate=2010-03-29'''
 
         url = "%s/GetEpisodeByAirDate.php?apikey=1D62F2F90030C444&seriesid=%s&airdate=%s" % (self.base_url, show_id, aired)
-        data = StringIO(urllib.urlopen(url).read())
-
-        episode = None
-
-        #code to check if data has been returned
-        temp_data = data.getvalue()
-        if temp_data.startswith('<?xml') == False:
-            print 'No data returned ', temp_data
-            return episode
-
-        try:
-            tree = ET.parse(data)
-            episode_node = tree.find("Episode")
-
-            episode = TheTVDB.Episode(episode_node, self.mirror_url)
-
-        except SyntaxError:
-            pass
-
-        return episode
+        show, eps = self.get_show_and_or_eps(url)
+        return eps[0] if eps else None
 
 
     def get_episode_by_season_ep(self, show_id, season_num, ep_num):
         """Get the episode object matching this episode_id."""
         url = "%s/series/%s/default/%s/%s" % (self.base_xml_url, show_id, season_num, ep_num)
-        data = StringIO(urllib.urlopen(url).read())
+        show, eps = self.get_show_and_or_eps(url)
+        return eps[0] if eps else None
 
-        episode = None
-
-        #code to check if data has been returned
-        temp_data = data.getvalue()
-        if temp_data.startswith('<?xml') == False :
-            print 'No data returned ', temp_data
-            return episode
-
-        try:
-            tree = ET.parse(data)
-            episode_node = tree.find("Episode")
-
-            episode = TheTVDB.Episode(episode_node, self.mirror_url)
-        except SyntaxError:
-            pass
-
-        return episode
 
     def get_show_and_episodes(self, show_id, atleast = 1):
         """Get the show object and all matching episode objects for this show_id."""
-        url = "%s/series/%s/all/" % (self.base_xml_url, show_id)
+        url = "%s/series/%s/all/%s.zip" % (self.base_zip_url, show_id, self.language)
+        zip_name = '%s.xml' % self.language
+        show, eps = self.get_show_and_or_eps(url, zip_name, atleast)
+        return (show, eps) if show else None
+
+    def get_show_and_or_eps(self, url, zip_name = None, atleast = 1):
         data = urllib.urlopen(url)
+        if zip_name:
+            try:
+                zipfile = ZipFile(StringIO(data.read()))
+                data = zipfile.open(zip_name)
+            except:
+                return None
 
-        show_and_episodes = None
+        self.show_tmp = None
+        self.episodes_tmp = []
+        self.epid_atleast = atleast
+        e = ExpatParseXml(self.show_and_ep_callback)
         try:
-            tree = ET.parse(data)
-            show_node = tree.find("Series")
+            e.parse(data)
+        except expat.ExpatError:
+            print "Failed to get parsable XML for %s" % url
 
-            show = TheTVDB.Show(show_node, self.mirror_url)
-            episodes = []
-
-            episode_nodes = tree.getiterator("Episode")
-            for episode_node in episode_nodes:
-                if episode_node.findtext('id') >= atleast:
-                    episodes.append(TheTVDB.Episode(episode_node, self.mirror_url))
-
-            show_and_episodes = (show, episodes)
-        except SyntaxError:
-            pass
-
+        show_and_episodes = (self.show_tmp, self.episodes_tmp)
+        self.show_tmp = self.episodes_tmp = None
         return show_and_episodes
+
+    def show_and_ep_callback(self, name, attrs):
+        if name == 'Episode':
+            if int(attrs['id']) >= self.epid_atleast:
+                self.episodes_tmp.append(TheTVDB.Episode(attrs, self.mirror_url))
+        elif name == 'Series':
+            self.show_tmp = TheTVDB.Show(attrs, self.mirror_url)
 
     def get_update_filehandle(self, period):
         url = "%s/updates/updates_%s.zip" % (self.base_zip_url, period)
@@ -442,12 +398,15 @@ class TheTVDB(object):
         my_callback(name, attrs) where name will be "Data", "Series", "Episode",
         or "Banner", and attrs will be a dict of the values (e.g. id, time, etc).
         """
-        e = expat_updates(callback)
+        e = ExpatParseXml(callback)
         fh = self.get_update_filehandle(period)
         if fh:
-            e.parse(fh)
+            try:
+                e.parse(fh)
+            except expat.ExpatError:
+                pass
 
-class expat_updates(object):
+class ExpatParseXml(object):
     def __init__(self, callback):
         self.el_name = None
         self.el_attr_name = None
@@ -484,6 +443,9 @@ class expat_updates(object):
 
     def char_data(self, data):
         if self.el_attr_name:
-            self.el_attrs[self.el_attr_name] = data
+            if self.el_attrs.has_key(self.el_attr_name):
+                self.el_attrs[self.el_attr_name] += data
+            else:
+                self.el_attrs[self.el_attr_name] = data
 
 # vim: et
