@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import urllib
 import datetime
+import random
 import re
 import copy
 
@@ -30,11 +31,46 @@ from zipfile import ZipFile
 
 class TheTVDB(object):
     def __init__(self, api_key='2B8557E0CBF7D720'):
-        #http://www.thetvdb.com/api/GetEpisodeByAirDate.php?apikey=1D62F2F90030C444&seriesid=71256&airdate=2010-03-29
+        #http://thetvdb.com/api/<apikey>/<request>
         self.api_key = api_key
-        self.mirror_url = "http://www.thetvdb.com"
+        self.mirror_url = "http://thetvdb.com"
         self.base_url =  self.mirror_url + "/api"
         self.base_key_url = "%s/%s" % (self.base_url, self.api_key)
+
+        self.select_mirrors()
+
+    def select_mirrors(self):
+        #http://thetvdb.com/api/<apikey>/mirrors.xml
+        url = "%s/mirrors.xml" % self.base_key_url
+        data = StringIO(urllib.urlopen(url).read())
+        try:
+            tree = ET.parse(data)
+            self.xml_mirrors = []
+            self.zip_mirrors = []
+            for mirror in tree.getiterator("Mirror"):
+                mirrorpath = mirror.findtext("mirrorpath")
+                typemask = mirror.findtext("typemask")
+                if not mirrorpath or not typemask:
+                    continue
+                typemask = int(typemask)
+                if typemask & 1:
+                    self.xml_mirrors.append(mirrorpath)
+                if typemask & 4:
+                    self.zip_mirrors.append(mirrorpath)
+        except SyntaxError:
+            self.xml_mirrors = self.zip_mirrors = []
+
+        if not self.xml_mirrors:
+            self.xml_mirrors = [ self.mirror_url ]
+        if not self.zip_mirrors:
+            self.zip_mirrors = [ self.mirror_url ]
+
+        self.xml_mirror_url = random.choice(self.xml_mirrors)
+        self.zip_mirror_url = random.choice(self.zip_mirrors)
+
+        self.base_xml_url = "%s/api/%s" % (self.xml_mirror_url, self.api_key)
+        self.base_zip_url = "%s/api/%s" % (self.zip_mirror_url, self.api_key)
+
 
     class Show(object):
         """A python object representing a thetvdb.com show record."""
@@ -212,7 +248,7 @@ class TheTVDB(object):
     def get_show(self, show_id):
         """Get the show object matching this show_id."""
         #url = "%s/series/%s/%s.xml" % (self.base_key_url, show_id, "el")
-        url = "%s/series/%s/" % (self.base_key_url, show_id)
+        url = "%s/series/%s/" % (self.base_xml_url, show_id)
         data = StringIO(urllib.urlopen(url).read())
         temp_data = data.getvalue()
         show = None
@@ -251,7 +287,7 @@ class TheTVDB(object):
 
     def get_episode(self, episode_id):
         """Get the episode object matching this episode_id."""
-        url = "%s/episodes/%s" % (self.base_key_url, episode_id)
+        url = "%s/episodes/%s" % (self.base_xml_url, episode_id)
         data = urllib.urlopen(url)
         episode = None
         try:
@@ -295,7 +331,7 @@ class TheTVDB(object):
 
     def get_episode_by_season_ep(self, show_id, season_num, ep_num):
         """Get the episode object matching this episode_id."""
-        url = "%s/series/%s/default/%s/%s" % (self.base_key_url, show_id, season_num, ep_num)
+        url = "%s/series/%s/default/%s/%s" % (self.base_xml_url, show_id, season_num, ep_num)
         data = StringIO(urllib.urlopen(url).read())
 
         episode = None
@@ -318,7 +354,7 @@ class TheTVDB(object):
 
     def get_show_and_episodes(self, show_id, atleast = 1):
         """Get the show object and all matching episode objects for this show_id."""
-        url = "%s/series/%s/all/" % (self.base_key_url, show_id)
+        url = "%s/series/%s/all/" % (self.base_xml_url, show_id)
         data = urllib.urlopen(url)
 
         show_and_episodes = None
@@ -341,7 +377,7 @@ class TheTVDB(object):
         return show_and_episodes
 
     def get_update_filehandle(self, period):
-        url = "%s/updates/updates_%s.zip" % (self.base_key_url, period)
+        url = "%s/updates/updates_%s.zip" % (self.base_zip_url, period)
         data = urllib.urlopen(url)
         fh = None
         try:
@@ -378,7 +414,7 @@ class TheTVDB(object):
 
     def get_show_image_choices(self, show_id):
         """Get a list of image urls and types relating to this show."""
-        url = "%s/series/%s/banners.xml" % (self.base_key_url, show_id)
+        url = "%s/series/%s/banners.xml" % (self.base_xml_url, show_id)
         data = urllib.urlopen(url)
         tree = ET.parse(data)
 
@@ -449,3 +485,5 @@ class expat_updates(object):
     def char_data(self, data):
         if self.el_attr_name:
             self.el_attrs[self.el_attr_name] = data
+
+# vim: et
