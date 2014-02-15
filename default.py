@@ -216,6 +216,7 @@ class NextAired:
             if user_lock:
                 if self.now - user_lock[0] <= 10*60:
                     self.rm_file(BGND_LOCK)
+                    self.last_update = self.now
                     return
                 # User's lock has sat around for too long, so just remove it.
                 self.rm_file(USER_LOCK)
