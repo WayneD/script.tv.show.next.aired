@@ -207,6 +207,8 @@ class NextAired:
 
         # This should prevent the background and user code from updating the DB at the same time.
         if self.SILENT != "":
+            if elapsed_secs < update_after_seconds:
+                return
             # Background updating: we will just skip our update if the user is doing an update.
             self.max_fetch_failures = 8
             self.save_file([self.now], BGND_LOCK)
