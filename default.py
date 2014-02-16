@@ -1,5 +1,5 @@
 from time import strptime, time, mktime, localtime
-import os, sys, re, socket, urllib, unicodedata
+import os, sys, re, socket, urllib, unicodedata, threading
 from traceback import print_exc
 from datetime import datetime, date, timedelta
 from dateutil import tz
@@ -144,12 +144,17 @@ class NextAired:
 
     def do_background_updating(self):
         update_every = 1
+        my_unique_id = "%s,%s" % (os.getpid(), threading.currentThread().ident)
+        self.WINDOW.setProperty("NextAired.background_id", my_unique_id)
         while not xbmc.abortRequested:
             log("### performing background update", level=2)
             self.update_data(update_every)
             log("### background update finished", level=2)
             self.nextlist = [] # Discard the in-memory data until the next update
             while not xbmc.abortRequested:
+                if self.WINDOW.getProperty("NextAired.background_id") != my_unique_id:
+                    self.close("another background script was started -- stopping this older one")
+                    return # XXX needed due to failure of "exit"
                 try:
                     update_every = int(__addon__.getSetting('update_every')) # in hours
                     update_every *= 60*60 # into seconds
@@ -158,7 +163,7 @@ class NextAired:
                 if update_every and time() - self.last_update >= update_every:
                     break
                 xbmc.sleep(1000)
-        self.close("xbmc is closing, stop script")
+        self.close("xbmc is closing -- stopping background processing")
 
     def load_data(self):
         if self.RESET:
@@ -857,7 +862,8 @@ class NextAired:
             return label
 
     def close(self , msg ):
-        log( "### %s" % msg )
+        log("### %s" % msg, level=1)
+        # FIXME -- this exit doesn't appear to stop our thread's execution!!
         exit
 
 class tvdb_updater:
