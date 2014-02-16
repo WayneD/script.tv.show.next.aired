@@ -23,8 +23,6 @@ import re
 import copy
 
 import xml.etree.ElementTree as ET
-#import elementtree.ElementTree as ET
-#from elementtree.ElementTree import ElementTree as ET
 import xml.parsers.expat as expat
 from cStringIO import StringIO
 from zipfile import ZipFile
@@ -71,122 +69,6 @@ class TheTVDB(object):
 
         self.base_xml_url = "%s/api/%s" % (self.xml_mirror_url, self.api_key)
         self.base_zip_url = "%s/api/%s" % (self.zip_mirror_url, self.api_key)
-
-
-    class Show(object):
-        """A python object representing a thetvdb.com show record."""
-        def __init__(self, node, mirror_url):
-            # Main show details
-            self.id = node.get("id", "")
-            self.name = node.get("SeriesName", "")
-            self.overview = node.get("Overview", "")
-            self.genre = node.get("Genre", "") #[g for g in node.get("Genre", "").split("|") if g]
-            self.actors = [a for a in node.get("Actors", "").split("|") if a]
-            self.network = node.get("Network", "")
-            self.content_rating = node.get("ContentRating", "")
-            self.rating = node.get("Rating", "")
-            self.runtime = node.get("Runtime", "")
-            self.status = node.get("Status", "")
-            self.language = node.get("Language", "")
-
-            # Air details
-            self.first_aired = TheTVDB.convert_date(node.get("FirstAired", ""))
-            self.airs_day = node.get("Airs_DayOfWeek", "")
-            self.airs_time = node.get("Airs_Time", "")#TheTVDB.convert_time(node.get("Airs_Time", ""))
-
-            # Main show artwork
-            temp = node.get("banner", "")
-            if temp != '' and temp is not None:
-                self.banner_url = "%s/banners/%s" % (mirror_url, temp)
-            else:
-                self.banner_url = ''
-            temp = node.get("poster", "")
-            if temp != '' and temp is not None:
-                self.poster_url = "%s/banners/%s" % (mirror_url, temp)
-            else:
-                self.poster_url = ''
-            temp = node.get("fanart", "")
-            if temp != '' and temp is not None:
-                self.fanart_url = "%s/banners/%s" % (mirror_url, temp)
-            else:
-                self.fanart_url = ''
-
-            # External references
-            self.imdb_id = node.get("IMDB_ID", "")
-            self.tvcom_id = node.get("SeriesID", "")
-            self.zap2it_id = node.get("zap2it_id", "")
-
-            # When this show was last updated
-            self.last_updated_utime = int(node.get("lastupdated", ""))
-            self.last_updated = datetime.datetime.fromtimestamp(self.last_updated_utime)
-
-        def __str__(self):
-            import pprint
-            return pprint.saferepr(self)
-
-    class Episode(object):
-        """A python object representing a thetvdb.com episode record."""
-        def __init__(self, node, mirror_url):
-            self.id = node.get("id", "")
-            self.show_id = node.get("seriesid", "")
-            self.name = node.get("EpisodeName", "")
-            self.overview = node.get("Overview", "")
-            self.season_number = node.get("SeasonNumber", "")
-            self.episode_number = node.get("EpisodeNumber", "")
-            self.director = node.get("Director", "")
-            self.guest_stars = node.get("GuestStars", "")
-            self.language = node.get("Language", "")
-            self.production_code = node.get("ProductionCode", "")
-            self.rating = node.get("Rating", "")
-            self.writer = node.get("Writer", "")
-
-            # Air date
-            self.first_aired = node.get("FirstAired", "")#TheTVDB.convert_date(node.get("FirstAired", ""))
-
-            # DVD Information
-            self.dvd_chapter = node.get("DVD_chapter", "")
-            self.dvd_disc_id = node.get("DVD_discid", "")
-            self.dvd_episode_number = node.get("DVD_episodenumber", "")
-            self.dvd_season = node.get("DVD_season", "")
-
-            # Artwork/screenshot
-            temp = node.get("filename", "")
-            if temp != '' and temp is not None:
-                self.image = "%s/banners/%s" % (mirror_url, temp)
-            else:
-                self.image = ''
-            #self.image = 'http://thetvdb.com/banners/' + node.get("filename", "")
-
-            # Episode ordering information (normally for specials)
-            self.airs_after_season = node.get("airsafter_season", "")
-            self.airs_before_season = node.get("airsbefore_season", "")
-            self.airs_before_episode = node.get("airsbefore_episode", "")
-
-            # Unknown
-            self.combined_episode_number = node.get("Combined_episodenumber", "")
-            self.combined_season = node.get("Combined_season", "")
-            self.absolute_number = node.get("absolute_number", "")
-            self.season_id = node.get("seasonid", "")
-            self.ep_img_flag = node.get("EpImgFlag", "")
-
-            # External references
-            self.imdb_id = node.get("IMDB_ID", "")
-
-            # When this episode was last updated
-            self.last_updated_utime = int(self.check(node.get("lastupdated", ""), '0'))
-            self.last_updated = datetime.datetime.fromtimestamp(self.last_updated_utime)
-
-        def __str__(self):
-            return repr(self)
-
-        def check(self, value, ret=None):
-            if value is None or value == '':
-                if ret == None:
-                    return ''
-                else:
-                    return ret
-            else:
-                return value
 
     @staticmethod
     def convert_time(time_string):
@@ -252,49 +134,11 @@ class TheTVDB(object):
         show, eps = self.get_show_and_or_eps(url)
         return show
 
-
-    def get_show_by_imdb(self, imdb_id):
-        """Get the show object matching this show_id."""
-        #url = "%s/series/%s/%s.xml" % (self.base_key_url, show_id, "el")
-        url = "%s/GetSeriesByRemoteID.php?imdbid=%s" % (self.base_url, imdb_id)
-        data = StringIO(urllib.urlopen(url).read())
-        temp_data = data.getvalue()
-        tvdb_id = ''
-        if temp_data.startswith('<?xml') == False:
-            return tvdb_id
-        try:
-            tree = ET.parse(data)
-            for show in tree.getiterator("Series"):
-                tvdb_id = show.findtext("seriesid")
-
-        except SyntaxError:
-            pass
-
-        return tvdb_id
-
     def get_episode(self, episode_id):
         """Get the episode object matching this episode_id."""
         url = "%s/episodes/%s" % (self.base_xml_url, episode_id)
         show, eps = self.get_show_and_or_eps(url)
         return eps[0] if eps else None
-
-
-    def get_episode_by_airdate(self, show_id, aired):
-        """Get the episode object matching this episode_id."""
-        #url = "%s/series/%s/default/%s/%s" % (self.base_key_url, show_id, season_num, ep_num)
-        '''http://www.thetvdb.com/api/GetEpisodeByAirDate.php?apikey=1D62F2F90030C444&seriesid=71256&airdate=2010-03-29'''
-
-        url = "%s/GetEpisodeByAirDate.php?apikey=1D62F2F90030C444&seriesid=%s&airdate=%s" % (self.base_url, show_id, aired)
-        show, eps = self.get_show_and_or_eps(url)
-        return eps[0] if eps else None
-
-
-    def get_episode_by_season_ep(self, show_id, season_num, ep_num):
-        """Get the episode object matching this episode_id."""
-        url = "%s/series/%s/default/%s/%s" % (self.base_xml_url, show_id, season_num, ep_num)
-        show, eps = self.get_show_and_or_eps(url)
-        return eps[0] if eps else None
-
 
     def get_show_and_episodes(self, show_id, atleast = 1):
         """Get the show object and all matching episode objects for this show_id."""
@@ -328,9 +172,9 @@ class TheTVDB(object):
     def show_and_ep_callback(self, name, attrs):
         if name == 'Episode':
             if int(attrs['id']) >= self.epid_atleast:
-                self.episodes_tmp.append(TheTVDB.Episode(attrs, self.mirror_url))
+                self.episodes_tmp.append(attrs)
         elif name == 'Series':
-            self.show_tmp = TheTVDB.Show(attrs, self.mirror_url)
+            self.show_tmp = attrs
 
     def get_update_filehandle(self, period):
         url = "%s/updates/updates_%s.zip" % (self.base_zip_url, period)

@@ -486,7 +486,8 @@ class NextAired:
                 log("### no result and no prior data", level=1)
             return -tid
 
-        country = (self.country_dict.get(show.network, 'Unknown') if show.network else 'Unknown')
+        network = show.get('Network', 'Unknown')
+        country = self.country_dict.get(network, 'Unknown')
         # XXX TODO allow the user to specify an override country that gets the local timezone.
         tzone = CountryLookup.get_country_timezone(country, self.in_dst)
         if not tzone:
@@ -500,7 +501,7 @@ class NextAired:
         else:
             tz_offset = 1 * 3600 # Default to +01:00
         try:
-            airtime = TheTVDB.convert_time(show.airs_time)
+            airtime = TheTVDB.convert_time(show.get('Airs_Time', ""))
         except:
             airtime = None
         local_airtime = airtime if airtime else TheTVDB.convert_time('00:00')
@@ -509,21 +510,23 @@ class NextAired:
             local_airtime = local_airtime.astimezone(tz.tzlocal())
         airtime_fmt = '%I:%M %p' if self.ampm else '%H:%M'
 
-        current_show['Show Name'] = show.name
-        if show.first_aired:
-            current_show['Premiered'] = show.first_aired.strftime('%Y')
-            current_show['Started'] = show.first_aired.strftime('%b/%d/%Y')
+        current_show['Show Name'] = show.get('SeriesName', "")
+        first_aired = show.get('FirstAired', None)
+        if first_aired:
+            first_aired = TheTVDB.convert_date(first_aired)
+            current_show['Premiered'] = first_aired.strftime('%Y')
+            current_show['Started'] = first_aired.strftime('%b/%d/%Y')
         else:
             current_show['Premiered'] = current_show['Started'] = ""
         current_show['Country'] = country
-        current_show['Status'] = show.status
-        current_show['Genres'] = show.genre.strip('|').replace('|', ' | ')
-        current_show['Network'] = show.network
+        current_show['Status'] = show.get('Status', '')
+        current_show['Genres'] = show.get('Genre', '').strip('|').replace('|', ' | ')
+        current_show['Network'] = network
         current_show['Airtime'] = local_airtime.strftime(airtime_fmt) if airtime else '??:??'
-        current_show['Runtime'] = show.runtime
+        current_show['Runtime'] = show.get('Runtime', '')
 
         can_re = re.compile(r"canceled|ended", re.IGNORECASE)
-        if can_re.search(show.status):
+        if can_re.search(current_show['Status']):
             current_show['canceled'] = True
         elif current_show.has_key('canceled'):
             del current_show['canceled']
@@ -535,31 +538,33 @@ class NextAired:
             if episodes:
                 good_eps = []
                 for ep in episodes:
-                    ep.id = int(ep.id)
-                    ep.season_number = int(ep.season_number)
-                    ep.episode_number = int(ep.episode_number)
-                    if ep.last_updated_utime > max_eps_utime:
-                        max_eps_utime = ep.last_updated_utime
-                    log("### fetched ep=%d last_updated=%d first_aired=%s" % (ep.id, ep.last_updated_utime, ep.first_aired))
-                    aired = TheTVDB.convert_date(ep.first_aired)
-                    if not aired:
+                    ep['id'] = int(ep['id'])
+                    ep['SeasonNumber'] = int(ep['SeasonNumber'])
+                    ep['EpisodeNumber'] = int(ep['EpisodeNumber'])
+                    last_updated = int(ep['lastupdated'])
+                    if last_updated > max_eps_utime:
+                        max_eps_utime = last_updated
+                    first_aired = ep.get('FirstAired', "")
+                    log("### fetched ep=%d last_updated=%d first_aired=%s" % (ep['id'], last_updated, first_aired))
+                    first_aired = TheTVDB.convert_date(first_aired)
+                    if not first_aired:
                         continue
-                    ep.first_aired = local_airtime + timedelta(days = (aired - self.date).days)
+                    ep['FirstAired'] = local_airtime + timedelta(days = (first_aired - self.date).days)
                     good_eps.append(ep)
-                episodes = sorted(good_eps, key=attrgetter('first_aired', 'season_number', 'episode_number'))
-            if episodes and episodes[0].first_aired.date() < self.date:
-                while len(episodes) > 1 and episodes[1].first_aired.date() < self.date:
+                episodes = sorted(good_eps, key=itemgetter('FirstAired', 'SeasonNumber', 'EpisodeNumber'))
+            if episodes and episodes[0]['FirstAired'].date() < self.date:
+                while len(episodes) > 1 and episodes[1]['FirstAired'].date() < self.date:
                     ep = episodes.pop(0)
             else: # If we have no prior episodes, prepend a "None" episode
                 episode_list.append({ 'id': None })
 
             for ep in episodes:
                 cur_ep = {
-                        'id': ep.id,
-                        'name': ep.name,
-                        'number': '%02dx%02d' % (ep.season_number, ep.episode_number),
-                        'aired': ep.first_aired.isoformat(),
-                        'wday': self.days[ep.first_aired.weekday()]
+                        'id': ep['id'],
+                        'name': ep['EpisodeName'],
+                        'number': '%02dx%02d' % (ep['SeasonNumber'], ep['EpisodeNumber']),
+                        'aired': ep['FirstAired'].isoformat(),
+                        'wday': self.days[ep['FirstAired'].weekday()]
                         }
                 episode_list.append(cur_ep)
 
@@ -580,14 +585,15 @@ class NextAired:
             current_show['episodes'] = [{ 'id': None }]
 
         if prior_data:
-            if prior_data.has_key('show_changed') and show.last_updated_utime < show_changed:
-                log("### didn't get latest show info yet (%d < %d)" % (show.last_updated_utime, show_changed), level=2)
+            last_updated = int(show['lastupdated'])
+            if prior_data.has_key('show_changed') and last_updated < show_changed:
+                log("### didn't get latest show info yet (%d < %d)" % (last_updated, show_changed), level=2)
                 current_show['show_changed'] = show_changed
             if prior_data.has_key('eps_changed') and max_eps_utime < eps_last_updated:
                 log("### didn't get latest episode info yet (%d < %d)" % (max_eps_utime, eps_last_updated), level=2)
                 current_show['eps_changed'] = (earliest_id, eps_last_updated)
 
-        current_show['last_updated'] = max(show_changed, show.last_updated_utime)
+        current_show['last_updated'] = max(show_changed, last_updated)
         current_show['eps_last_updated'] = max(eps_last_updated, max_eps_utime)
         return tid
 
