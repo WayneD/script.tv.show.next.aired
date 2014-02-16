@@ -22,7 +22,6 @@ import random
 import re
 import copy
 
-import xml.etree.ElementTree as ET
 import xml.parsers.expat as expat
 from cStringIO import StringIO
 from zipfile import ZipFile
@@ -38,17 +37,18 @@ class TheTVDB(object):
 
         self.select_mirrors()
 
+
     def select_mirrors(self):
         #http://thetvdb.com/api/<apikey>/mirrors.xml
         url = "%s/mirrors.xml" % self.base_key_url
-        data = urllib.urlopen(url)
+        self.xml_mirrors = []
+        self.zip_mirrors = []
         try:
-            tree = ET.parse(data)
-            self.xml_mirrors = []
-            self.zip_mirrors = []
-            for mirror in tree.getiterator("Mirror"):
-                mirrorpath = mirror.findtext("mirrorpath")
-                typemask = mirror.findtext("typemask")
+            filt_func = lambda name, attrs: attrs if name == 'Mirror' else None
+            xml = self._get_xml_data(url, filt_func)
+            for mirror in xml.get("Mirror", []):
+                mirrorpath = mirror.get("mirrorpath", None)
+                typemask = mirror.get("typemask", None)
                 if not mirrorpath or not typemask:
                     continue
                 typemask = int(typemask)
@@ -56,8 +56,8 @@ class TheTVDB(object):
                     self.xml_mirrors.append(mirrorpath)
                 if typemask & 4:
                     self.zip_mirrors.append(mirrorpath)
-        except SyntaxError:
-            self.xml_mirrors = self.zip_mirrors = []
+        except:
+            pass
 
         if not self.xml_mirrors:
             self.xml_mirrors = [ self.mirror_url ]
@@ -102,6 +102,7 @@ class TheTVDB(object):
 
         return None
 
+
     @staticmethod
     def convert_date(date_string):
         """Convert a thetvdb date string into a datetime.date object."""
@@ -113,41 +114,68 @@ class TheTVDB(object):
 
         return first_aired
 
+
     def get_matching_shows(self, show_name):
         """Get a list of shows matching show_name."""
         get_args = urllib.urlencode({"seriesname": show_name}, doseq=True)
         url = "%s/GetSeries.php?%s" % (self.base_url, get_args)
-        data = urllib.urlopen(url)
-        show_list = []
-        try:
-            tree = ET.parse(data)
-            show_list = [(show.findtext("seriesid"), show.findtext("SeriesName"),show.findtext("IMDB_ID")) for show in tree.getiterator("Series")]
-        except SyntaxError:
-            pass
+        filt_func = lambda name, attrs: (attrs.get("seriesid", ""), attrs.get("SeriesName", ""), attrs.get("IMDB_ID", "")) if name == "Series" else None
+        xml = self._get_xml_data(url, filt_func)
+        return xml.get('Series', [])
 
-        return show_list
 
     def get_show(self, show_id):
         """Get the show object matching this show_id."""
         #url = "%s/series/%s/%s.xml" % (self.base_key_url, show_id, "el")
         url = "%s/series/%s/" % (self.base_xml_url, show_id)
-        show, eps = self.get_show_and_or_eps(url)
-        return show
+        return self._get_show_by_url(url)
+
+
+    def _get_show_by_url(self, url):
+        filt_func = lambda name, attrs: attrs if name == "Series" else None
+        xml = self._get_xml_data(url, filt_func)
+        return xml['Series'][0] if xml.has_key('Series') else None
+
 
     def get_episode(self, episode_id):
         """Get the episode object matching this episode_id."""
         url = "%s/episodes/%s" % (self.base_xml_url, episode_id)
-        show, eps = self.get_show_and_or_eps(url)
-        return eps[0] if eps else None
+        return self._get_episode_by_url(url)
+
+
+    def _get_episode_by_url(self, url):
+        filt_func = lambda name, attrs: attrs if name == "Episode" else None
+        xml = self._get_xml_data(url, filt_func)
+        return xml['Episode'][0] if xml.has_key('Episode') else None
+
 
     def get_show_and_episodes(self, show_id, atleast = 1):
         """Get the show object and all matching episode objects for this show_id."""
         url = "%s/series/%s/all/%s.zip" % (self.base_zip_url, show_id, self.language)
         zip_name = '%s.xml' % self.language
-        show, eps = self.get_show_and_or_eps(url, zip_name, atleast)
-        return (show, eps) if show else None
+        filt_func = lambda name, attrs: attrs if name == "Episode" and int(attrs["id"]) >= atleast else attrs if name == "Series" else None
+        xml = self._get_xml_data(url, filt_func, zip_name=zip_name)
+        if not xml.has_key('Series'):
+            return None
+        return (xml['Series'][0], xml.get('Episode', []))
 
-    def get_show_and_or_eps(self, url, zip_name = None, atleast = 1):
+
+    def get_updates(self, callback, period = "day"):
+        """Return all series, episode, and banner updates w/o having to have it
+        all in memory at once.  Also returns the Data timestamp.  The callback
+        routine should be defined as: my_callback(name, attrs) where name will
+        be "Data", "Series", "Episode", or "Banner", and attrs will be a dict
+        of the values (e.g. id, time, etc)."""
+        self._get_update_info(period, callback=callback)
+
+
+    def _get_update_info(self, period, filter_func = None, callback = None):
+        url = "%s/updates/updates_%s.zip" % (self.base_zip_url, period)
+        zip_name = 'updates_%s.xml' % period
+        return self._get_xml_data(url, filter_func, zip_name, callback)
+
+
+    def _get_xml_data(self, url, filter_func = None, zip_name = None, callback = None):
         data = urllib.urlopen(url)
         if zip_name:
             try:
@@ -156,106 +184,24 @@ class TheTVDB(object):
             except:
                 return None
 
-        self.show_tmp = None
-        self.episodes_tmp = []
-        self.epid_atleast = atleast
-        e = ExpatParseXml(self.show_and_ep_callback)
+        e = ExpatParseXml(filter_func=filter_func, callback=callback)
         try:
             e.parse(data)
         except expat.ExpatError:
             print "Failed to get parsable XML for %s" % url
 
-        show_and_episodes = (self.show_tmp, self.episodes_tmp)
-        self.show_tmp = self.episodes_tmp = None
-        return show_and_episodes
+        return e.xml
 
-    def show_and_ep_callback(self, name, attrs):
-        if name == 'Episode':
-            if int(attrs['id']) >= self.epid_atleast:
-                self.episodes_tmp.append(attrs)
-        elif name == 'Series':
-            self.show_tmp = attrs
-
-    def get_update_filehandle(self, period):
-        url = "%s/updates/updates_%s.zip" % (self.base_zip_url, period)
-        data = urllib.urlopen(url)
-        fh = None
-        try:
-            zipfile = ZipFile(StringIO(data.read()))
-            want_name = 'updates_%s.xml' % period
-            fh = zipfile.open(want_name)
-        except:
-            pass
-
-        return fh
-
-    def get_updated_shows(self, period = "day"):
-        """Get a list of show ids which have been updated within this period."""
-        fh = self.get_update_filehandle(period)
-        if not fh:
-            return []
-        tree = ET.parse(fh)
-
-        # FIXME: this finds various sub-records that result in (None) items in the array.
-        series_nodes = tree.getiterator("Series")
-
-        return [x.findtext("id") for x in series_nodes]
-
-    def get_updated_episodes(self, period = "day"):
-        """Get a list of episode ids which have been updated within this period."""
-        fh = self.get_update_filehandle(period)
-        if not fh:
-            return []
-        tree = ET.parse(fh)
-
-        episode_nodes = tree.getiterator("Episode")
-
-        return [(x.findtext("Series"), x.findtext("id")) for x in episode_nodes]
-
-    def get_show_image_choices(self, show_id):
-        """Get a list of image urls and types relating to this show."""
-        url = "%s/series/%s/banners.xml" % (self.base_xml_url, show_id)
-        data = urllib.urlopen(url)
-        tree = ET.parse(data)
-
-        images = []
-
-        banner_data = tree.find("Banners")
-        banner_nodes = tree.getiterator("Banner")
-        for banner in banner_nodes:
-            banner_path = banner.findtext("BannerPath")
-            banner_type = banner.findtext("BannerType")
-            if banner_type == 'season':
-                banner_season = banner.findtext("Season")
-            else:
-                banner_season = ''
-            banner_url = "%s/banners/%s" % (self.mirror_url, banner_path)
-
-            images.append((banner_url, banner_type, banner_season))
-
-        return images
-
-    def get_updates(self, callback, period = "day"):
-        """Return all series, episode, and banner updates w/o having to have it
-        all in memory at once.  Also returns the Data timestamp and avoids the
-        bogus "None" Series elements.  The callback routine should be defined as:
-        my_callback(name, attrs) where name will be "Data", "Series", "Episode",
-        or "Banner", and attrs will be a dict of the values (e.g. id, time, etc).
-        """
-        e = ExpatParseXml(callback)
-        fh = self.get_update_filehandle(period)
-        if fh:
-            try:
-                e.parse(fh)
-            except expat.ExpatError:
-                pass
 
 class ExpatParseXml(object):
-    def __init__(self, callback):
+    def __init__(self, callback = None, filter_func = None):
+        self.el_container = None
         self.el_name = None
         self.el_attr_name = None
         self.el_attrs = None
-        self.el_callback = callback
+        self.el_callback = callback if callback else self.stash_xml
+        self.el_filter_func = filter_func # only used by stash_xml()
+        self.xml = {}
 
         self.parser = expat.ParserCreate()
         self.parser.StartElementHandler = self.start_element
@@ -269,7 +215,8 @@ class ExpatParseXml(object):
 
     def start_element(self, name, attrs):
         if not self.el_name:
-            if name == 'Data':
+            if not self.el_container:
+                self.el_container = name
                 self.el_callback(name, attrs)
             else:
                 self.el_name = name
@@ -291,5 +238,15 @@ class ExpatParseXml(object):
                 self.el_attrs[self.el_attr_name] += data
             else:
                 self.el_attrs[self.el_attr_name] = data
+
+    def stash_xml(self, name, attrs):
+        if self.el_filter_func:
+            attrs = self.el_filter_func(name, attrs)
+            if not attrs:
+                return
+        if self.xml.has_key(name):
+            self.xml[name].append(attrs)
+        else:
+            self.xml[name] = [ attrs ]
 
 # vim: et
