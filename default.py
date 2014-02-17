@@ -840,9 +840,9 @@ class NextAired:
         # XXX Note that Classification is always unset at the moment!
         label.setProperty(prefix + "Classification", item.get("Classification", ""))
         label.setProperty(prefix + "Genre", item.get("Genres", ""))
-        label.setProperty(prefix + "Premiered", item.get("Premiered", ""))
+        label.setProperty(prefix + "Premiered", str(item.get("Premiered", "")))
         label.setProperty(prefix + "Country", item.get("Country", ""))
-        label.setProperty(prefix + "Runtime", item.get("Runtime", ""))
+        label.setProperty(prefix + "Runtime", str(item.get("Runtime", "")))
         # Keep old fanart property for backwards compatibility
         label.setProperty(prefix + "Fanart", art.get("fanart", ""))
         # New art properties
