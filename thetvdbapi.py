@@ -1,6 +1,7 @@
 """
 thetvdb.com Python API
 (c) 2009 James Smith (http://loopj.com)
+(c) 2014 Wayne Davison <wayne@opencoder.net>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -70,6 +71,7 @@ class TheTVDB(object):
         self.base_xml_url = "%s/api/%s" % (self.xml_mirror_url, self.api_key)
         self.base_zip_url = "%s/api/%s" % (self.zip_mirror_url, self.api_key)
 
+
     @staticmethod
     def convert_time(time_string):
         """Convert a thetvdb time string into a datetime.time object."""
@@ -133,7 +135,7 @@ class TheTVDB(object):
     def _get_show_by_url(self, url):
         filt_func = lambda name, attrs: attrs if name == "Series" else None
         xml = self._get_xml_data(url, filt_func)
-        return xml['Series'][0] if xml.has_key('Series') else None
+        return xml['Series'][0] if 'Series' in xml else None
 
 
     def get_episode(self, episode_id):
@@ -145,7 +147,7 @@ class TheTVDB(object):
     def _get_episode_by_url(self, url):
         filt_func = lambda name, attrs: attrs if name == "Episode" else None
         xml = self._get_xml_data(url, filt_func)
-        return xml['Episode'][0] if xml.has_key('Episode') else None
+        return xml['Episode'][0] if 'Episode' in xml else None
 
 
     def get_show_and_episodes(self, show_id, atleast = 1):
@@ -154,7 +156,7 @@ class TheTVDB(object):
         zip_name = '%s.xml' % self.language
         filt_func = lambda name, attrs: attrs if name == "Episode" and int(attrs["id"]) >= atleast else attrs if name == "Series" else None
         xml = self._get_xml_data(url, filt_func, zip_name=zip_name)
-        if not xml.has_key('Series'):
+        if 'Series' not in xml:
             return None
         return (xml['Series'][0], xml.get('Episode', []))
 
@@ -233,7 +235,7 @@ class ExpatParseXml(object):
 
     def char_data(self, data):
         if self.el_attr_name:
-            if self.el_attrs.has_key(self.el_attr_name):
+            if self.el_attr_name in self.el_attrs:
                 self.el_attrs[self.el_attr_name] += data
             else:
                 self.el_attrs[self.el_attr_name] = data
@@ -243,7 +245,7 @@ class ExpatParseXml(object):
             attrs = self.el_filter_func(name, attrs)
             if attrs is None:
                 return
-        if self.xml.has_key(name):
+        if name in self.xml:
             self.xml[name].append(attrs)
         else:
             self.xml[name] = [ attrs ]

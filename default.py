@@ -346,7 +346,7 @@ class NextAired:
 
             try:
                 prior_data = show_dict[tid]
-                if not prior_data.has_key('unused'):
+                if 'unused' not in prior_data:
                     continue # How'd we get a duplicate?? Skip it...
                 del prior_data['unused']
                 while len(prior_data['episodes']) > 1 and prior_data['episodes'][1]['aired'][:10] < self.datestr:
@@ -362,7 +362,7 @@ class NextAired:
                 if not prior_data or tid == 0:
                     continue
                 for item in prior_data:
-                    if not current_show.has_key(item):
+                    if item not in current_show:
                         current_show[item] = prior_data[item]
                 tid = -tid
             if current_show.get('canceled', False):
@@ -380,13 +380,13 @@ class NextAired:
             remove_list = []
             for tid in show_dict:
                 show = show_dict[tid]
-                if show.has_key('unused'):
+                if 'unused' in show:
                     remove_list.append(tid)
                     continue
                 if len(show['episodes']) > 1:
                     show['RFC3339'] = show['episodes'][1]['aired']
                     self.nextlist.append(show)
-                elif show.has_key('RFC3339'):
+                elif 'RFC3339' in show:
                     del show['RFC3339']
             for tid in remove_list:
                 log('### Removing obsolete show %s' % show_dict[tid]['localname'], level=2)
@@ -415,7 +415,7 @@ class NextAired:
         json_response = simplejson.loads(json_query)
         log("### %s" % json_response)
         TVlist = []
-        if json_response['result'].has_key('tvshows'):
+        if 'tvshows' in json_response['result']:
             for item in json_response['result']['tvshows']:
                 tvshowname = normalize_string(item['title'])
                 path = item['file']
@@ -536,7 +536,7 @@ class NextAired:
         can_re = re.compile(r"canceled|ended", re.IGNORECASE)
         if can_re.search(current_show['Status']):
             current_show['canceled'] = True
-        elif current_show.has_key('canceled'):
+        elif 'canceled' in current_show:
             del current_show['canceled']
 
         if episodes is not None:
@@ -594,10 +594,10 @@ class NextAired:
 
         if prior_data:
             last_updated = int(show['lastupdated'])
-            if prior_data.has_key('show_changed') and last_updated < show_changed:
+            if 'show_changed' in prior_data and last_updated < show_changed:
                 log("### didn't get latest show info yet (%d < %d)" % (last_updated, show_changed), level=2)
                 current_show['show_changed'] = show_changed
-            if prior_data.has_key('eps_changed') and max_eps_utime < eps_last_updated:
+            if 'eps_changed' in prior_data and max_eps_utime < eps_last_updated:
                 log("### didn't get latest episode info yet (%d < %d)" % (max_eps_utime, eps_last_updated), level=2)
                 current_show['eps_changed'] = (earliest_id, eps_last_updated)
 
