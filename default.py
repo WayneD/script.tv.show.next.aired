@@ -90,7 +90,8 @@ def log(txt, level=10):
     xbmc.log(msg=message.encode("utf-8"), level=log_level)
 
 def footprints():
-    log("### %s starting ..." % __addonname__, level=2)
+    style = 'background' if self.SILENT == "" else 'GUI'
+    log("### %s starting %s proc ..." % (__addonname__, style), level=2)
     log("### author: %s" % __author__, level=3)
     log("### version: %s" % __version__, level=2)
     log("### dateformat: %s" % DATE_FORMAT, level=3)
