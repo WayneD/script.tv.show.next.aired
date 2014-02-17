@@ -738,7 +738,7 @@ class NextAired:
             update_after = 1
         else:
             try:
-                update_after = int(__addon__.getSetting('update_after'))*60 # mins -> seconds
+                update_after = int(__addon__.getSetting('update_after'))*60*60 # hours -> seconds
             except:
                 update_after = 0
         self.update_data(update_after)
