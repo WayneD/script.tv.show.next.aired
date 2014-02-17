@@ -446,8 +446,6 @@ class NextAired:
             if earliest_id is None:
                 eps_last_updated = prior_data['eps_last_updated']
             show_changed = prior_data.get('show_changed', 0)
-            if earliest_id is None and prior_data.has_key('TZ'):
-                earliest_id = 1 # XXX temporary heuristic to force updating of timezone info
             if show_changed:
                 if earliest_id is None:
                     earliest_id = 0
