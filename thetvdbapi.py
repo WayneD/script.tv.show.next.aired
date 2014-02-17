@@ -126,8 +126,7 @@ class TheTVDB(object):
 
     def get_show(self, show_id):
         """Get the show object matching this show_id."""
-        #url = "%s/series/%s/%s.xml" % (self.base_key_url, show_id, "el")
-        url = "%s/series/%s/" % (self.base_xml_url, show_id)
+        url = "%s/series/%s/%s.xml" % (self.base_xml_url, show_id, self.language)
         return self._get_show_by_url(url)
 
 
