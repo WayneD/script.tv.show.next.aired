@@ -192,29 +192,30 @@ class NextAired:
                 self.country_dict = (cl[0] if cl and len(cl) == 3 else {})
 
         ep_list = self.get_list(NEXTAIRED_DB)
+        ep_list_len = len(ep_list)
         show_dict = (ep_list.pop(0) if ep_list else {})
         self.last_update = (ep_list.pop() if ep_list else None)
-        db_ver = (ep_list.pop() if ep_list else 0)
-        if not self.last_update:
+        db_ver = (ep_list.pop(0) if ep_list else 999999)
+        self.last_run = (ep_list.pop() if ep_list else self.last_update)
+        if db_ver > MAIN_DB_VER or not self.last_update:
             if self.RESET:
                 log("### starting without prior data (DB RESET requested)", level=1)
-            elif ep_list:
+            elif ep_list_len:
                 log("### ignoring bogus %s file" % NEXTAIRED_DB, level=1)
             else:
                 log("### no prior data found", level=1)
             show_dict = {}
-            self.last_update = 0
+            self.last_update = self.last_run = 0
         elif db_ver != MAIN_DB_VER:
             self.upgrade_data_format(show_dict, db_ver)
 
         self.RESET = False # Make sure we don't honor this multiple times.
 
-        elapsed_secs = self.now - self.last_update
-        return (show_dict, elapsed_secs)
+        return (show_dict, self.now - self.last_run, self.now - self.last_update)
 
     def update_data(self, update_after_seconds):
         self.nextlist = []
-        show_dict, elapsed_secs = self.load_data()
+        show_dict, elapsed_secs, elapsed_update_secs = self.load_data()
         if update_after_seconds == 0:
             update_after_seconds = 100*365*24*60*60
 
@@ -231,7 +232,7 @@ class NextAired:
             if user_lock:
                 if self.now - user_lock[0] <= 10*60:
                     self.rm_file(BGND_LOCK)
-                    self.last_update = self.now
+                    self.last_run = self.now
                     return
                 # User's lock has sat around for too long, so just remove it.
                 self.rm_file(USER_LOCK)
@@ -270,7 +271,7 @@ class NextAired:
                 xbmc.sleep(500)
             if newest_time:
                 # If we had to wait for the bgnd updater, re-read the data and unlock if they did an update.
-                show_dict, elapsed_secs = self.load_data()
+                show_dict, elapsed_secs, elapsed_update_secs = self.load_data()
                 if locked_for_update and elapsed_secs < update_after_seconds:
                     self.rm_file(USER_LOCK)
                     locked_for_update = False
@@ -285,12 +286,16 @@ class NextAired:
             title_dict[show['localname']] = tid
 
         tvdb = TheTVDB()
-        tv_up = tvdb_updater()
 
         if locked_for_update:
             # This typically asks TheTVDB for an update-zip file and tweaks the show_dict to note needed updates.
-            need_full_scan = tv_up.note_updates(tvdb, show_dict, elapsed_secs)
-            self.last_update = self.now
+            tv_up = tvdb_updater(tvdb)
+            need_full_scan, got_update = tv_up.note_updates(show_dict, elapsed_update_secs)
+            if need_full_scan or got_update:
+                self.last_update = self.now
+            elif not got_update:
+                self.max_fetch_failures -= 1
+            self.last_run = self.now
         else:
             need_full_scan = False
             # A max-fetch of 0 disables all updating.
@@ -373,7 +378,7 @@ class NextAired:
         # If we did a lot of work, make sure we save it prior to doing anything else.
         # This ensures that a bug in the following code won't make us redo everything.
         if need_full_scan and locked_for_update:
-            self.save_file([show_dict, MAIN_DB_VER, self.last_update], NEXTAIRED_DB)
+            self.save_file([show_dict, MAIN_DB_VER, self.last_run, self.last_update], NEXTAIRED_DB)
 
         if show_dict:
             log("### data available", level=5)
@@ -399,7 +404,7 @@ class NextAired:
             log("### no current show data...", level=5)
 
         if locked_for_update:
-            self.save_file([show_dict, MAIN_DB_VER, self.last_update], NEXTAIRED_DB)
+            self.save_file([show_dict, MAIN_DB_VER, self.last_run, self.last_update], NEXTAIRED_DB)
 
         if self.SILENT != "":
             self.rm_file(BGND_LOCK)
@@ -870,17 +875,17 @@ class NextAired:
         exit
 
 class tvdb_updater:
-    def __init__(self):
-        pass # Nothing to do for now...
+    def __init__(self, tvdb):
+        self.tvdb = tvdb
 
-    def note_updates(self, tvdb, show_dict, elapsed_secs):
+    def note_updates(self, show_dict, elapsed_update_secs):
         self.show_dict = show_dict
 
-        if elapsed_secs < 24*60*60:
+        if elapsed_update_secs < 24*60*60:
             period = 'day'
-        elif elapsed_secs < 7*24*60*60:
+        elif elapsed_update_secs < 7*24*60*60:
             period = 'week'
-        elif elapsed_secs < 30*24*60*60:
+        elif elapsed_update_secs < 30*24*60*60:
             period = 'month'
         else:
             # Flag all non-canceled shows as needing new data
@@ -889,17 +894,18 @@ class tvdb_updater:
                 if not show.get('canceled', False):
                     show['show_changed'] = 1
                     show['eps_changed'] = (1, 0)
-            return True # Alert caller that a full-scan was done.
+            return (True, False) # Alert caller that a full-scan is in progress.
 
-        log("### Update period: %s (%d mins)" % (period, int(elapsed_secs / 60)), level=2)
+        log("### Update period: %s (%d mins)" % (period, int(elapsed_update_secs / 60)), level=2)
 
+        got_update = False
         try:
-            tvdb.get_updates(self.change_callback, period)
+            self.tvdb.get_updates(self.change_callback, period)
+            got_update = True
         except Exception, e:
             log('### ERROR retreiving updates from thetvdb.com: %s' % e, level=0)
-            self.max_fetch_failures -= 1
 
-        return False
+        return (False, got_update)
 
     def change_callback(self, name, attrs):
         if name == 'Episode':
