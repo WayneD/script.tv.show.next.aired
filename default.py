@@ -89,8 +89,8 @@ def log(txt, level=10):
     log_level = (xbmc.LOGERROR if level <= 0 else (xbmc.LOGNOTICE if level <= verbosity else xbmc.LOGDEBUG))
     xbmc.log(msg=message.encode("utf-8"), level=log_level)
 
-def footprints():
-    style = 'background' if self.SILENT == "" else 'GUI'
+def footprints(bkgnd):
+    style = 'background' if bkgnd else 'GUI'
     log("### %s starting %s proc ..." % (__addonname__, style), level=2)
     log("### author: %s" % __author__, level=3)
     log("### version: %s" % __version__, level=2)
@@ -112,12 +112,12 @@ def maybe_int(d, key, default = 0):
 
 class NextAired:
     def __init__(self):
-        footprints()
         self.WINDOW = xbmcgui.Window( 10000 )
         self.set_today()
         self.days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
         self.ampm = xbmc.getCondVisibility('substring(System.Time,Am)') or xbmc.getCondVisibility('substring(System.Time,Pm)')
         self._parse_argv()
+        footprints(self.SILENT != "")
         if self.TVSHOWTITLE:
             self.return_properties(self.TVSHOWTITLE)
         elif self.BACKEND:
