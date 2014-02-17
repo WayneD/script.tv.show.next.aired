@@ -242,7 +242,7 @@ class ExpatParseXml(object):
     def stash_xml(self, name, attrs):
         if self.el_filter_func:
             attrs = self.el_filter_func(name, attrs)
-            if not attrs:
+            if attrs is None:
                 return
         if self.xml.has_key(name):
             self.xml[name].append(attrs)
