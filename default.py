@@ -72,6 +72,8 @@ elif DATE_FORMAT[0] == 'm':
 MAIN_DB_VER = 1
 COUNTRY_DB_VER = 1
 
+INT_REGEX = re.compile(r"^([0-9]+)$")
+
 if not xbmcvfs.exists(__datapath__):
     xbmcvfs.mkdir(__datapath__)
 
@@ -103,6 +105,10 @@ def normalize_string( text ):
     except: pass
     return text
 
+def maybe_int(d, key, default = 0):
+    v = d.get(key, str(default))
+    return int(v) if INT_REGEX.match(v) else v
+
 class NextAired:
     def __init__(self):
         footprints()
@@ -110,7 +116,6 @@ class NextAired:
         self.set_today()
         self.days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
         self.ampm = xbmc.getCondVisibility('substring(System.Time,Am)') or xbmc.getCondVisibility('substring(System.Time,Pm)')
-        self.int_regex = re.compile(r"^([0-9]+)$")
         self._parse_argv()
         if self.TVSHOWTITLE:
             self.return_properties(self.TVSHOWTITLE)
@@ -322,7 +327,7 @@ class NextAired:
             m2_num = int(m2.group(1)) if m2 else 0
             m4 = id_re.search(show[4])
             m4_num = int(m4.group(1)) if m4 else 0
-            m5 = self.int_regex.match(show[5])
+            m5 = INT_REGEX.match(show[5])
             m5_num = int(m5.group(1)) if m5 else 0
             if m5_num and (m2_num == m5_num or m4_num == m5_num):
                 # Most shows will be in agreement on the id when the scraper is using thetvdb.
@@ -528,7 +533,7 @@ class NextAired:
         current_show['Genres'] = show.get('Genre', '').strip('|').replace('|', ' | ')
         current_show['Network'] = network
         current_show['Airtime'] = local_airtime.strftime(airtime_fmt) if airtime else '??:??'
-        current_show['Runtime'] = self.maybe_int(show, 'Runtime')
+        current_show['Runtime'] = maybe_int(show, 'Runtime', '')
 
         can_re = re.compile(r"canceled|ended", re.IGNORECASE)
         if can_re.search(current_show['Status']):
@@ -544,9 +549,9 @@ class NextAired:
                 good_eps = []
                 for ep in episodes:
                     ep['id'] = int(ep['id'])
-                    ep['SeasonNumber'] = int(ep['SeasonNumber'])
-                    ep['EpisodeNumber'] = int(ep['EpisodeNumber'])
-                    last_updated = int(ep['lastupdated'])
+                    ep['SeasonNumber'] = maybe_int(ep, 'SeasonNumber')
+                    ep['EpisodeNumber'] = maybe_int(ep, 'EpisodeNumber')
+                    last_updated = maybe_int(ep, 'lastupdated')
                     if last_updated > max_eps_utime:
                         max_eps_utime = last_updated
                     first_aired = ep.get('FirstAired', "")
@@ -566,7 +571,7 @@ class NextAired:
             for ep in episodes:
                 cur_ep = {
                         'id': ep['id'],
-                        'name': ep['EpisodeName'],
+                        'name': ep.get('EpisodeName', ''),
                         'number': '%02dx%02d' % (ep['SeasonNumber'], ep['EpisodeNumber']),
                         'aired': ep['FirstAired'].isoformat(),
                         'wday': self.days[ep['FirstAired'].weekday()]
@@ -601,10 +606,6 @@ class NextAired:
         current_show['last_updated'] = max(show_changed, last_updated)
         current_show['eps_last_updated'] = max(eps_last_updated, max_eps_utime)
         return tid
-
-    def maybe_int(self, d, key):
-        v = d.get(key, "")
-        return int(v) if self.int_regex.match(v) else v
 
     @staticmethod
     def upgrade_data_format(show_dict, from_ver):
