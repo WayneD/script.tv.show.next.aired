@@ -148,7 +148,6 @@ class NextAired:
             while not xbmc.abortRequested:
                 if self.WINDOW.getProperty("NextAired.background_id") != my_unique_id:
                     self.close("another background script was started -- stopping this older one")
-                    return # XXX needed due to failure of "exit"
                 try:
                     update_every = int(__addon__.getSetting('update_every')) # in hours
                     update_every *= 60*60 # into seconds
@@ -875,8 +874,7 @@ class NextAired:
 
     def close(self , msg ):
         log("### %s" % msg, level=1)
-        # FIXME -- this exit doesn't appear to stop our thread's execution!!
-        exit
+        exit()
 
 class tvdb_updater:
     def __init__(self, tvdb):
