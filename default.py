@@ -29,9 +29,6 @@ sys.path.append(__resource__)
 
 NEXTAIRED_DB = 'next.aired.db'
 COUNTRY_DB = 'country.db'
-USER_LOCK = 'user.lock'
-BGND_LOCK = 'bgnd.lock'
-BGND_STATUS = 'bgnd.status'
 OLD_FILES = [ 'nextaired.db', 'next_aired.db', 'canceled.db', 'cancelled.db' ]
 
 STATUS = { '0' : __language__(32201),
@@ -141,6 +138,12 @@ class NextAired:
         my_unique_id = "%s,%s" % (os.getpid(), threading.currentThread().ident)
         self.WINDOW.setProperty("NextAired.background_id", my_unique_id)
         while not xbmc.abortRequested:
+            bg_lock = self.WINDOW.getProperty("NextAired.bgnd_lock")
+            if bg_lock == "" or time() - float(bg_lock) > 10*60:
+                break
+            xbmc.sleep(1000)
+        self.WINDOW.setProperty("NextAired.bgnd_status", "0|0|...")
+        while not xbmc.abortRequested:
             log("### performing background update", level=2)
             self.update_data(update_every)
             log("### background update finished", level=2)
@@ -212,17 +215,16 @@ class NextAired:
                 return
             # Background updating: we will just skip our update if the user is doing an update.
             self.max_fetch_failures = 8
-            self.save_file([self.now], BGND_LOCK)
+            self.WINDOW.setProperty("NextAired.bgnd_lock", str(self.now))
             locked_for_update = True
             xbmc.sleep(2000) # try to avoid a race-condition
-            user_lock = self.get_list(USER_LOCK)
-            if user_lock:
-                if self.now - user_lock[0] <= 10*60:
-                    self.rm_file(BGND_LOCK)
+            user_lock = self.WINDOW.getProperty("NextAired.user_lock")
+            if user_lock != "":
+                if self.now - float(user_lock) <= 10*60:
+                    self.WINDOW.setProperty("NextAired.bgnd_lock", str(self.now))
                     self.last_run = self.now
                     return
-                # User's lock has sat around for too long, so just remove it.
-                self.rm_file(USER_LOCK)
+                # User's lock has sat around for too long, so just ignore it.
             socket.setdefaulttimeout(60)
         elif elapsed_secs >= update_after_seconds: # We only lock if we're going to do some updating.
             # User updating: we will wait for a background update to finish, then see if we have recent data.
@@ -230,29 +232,30 @@ class NextAired:
             DIALOG_PROGRESS.create(__language__(32101), __language__(32102))
             self.max_fetch_failures = 4
             # Create our user-lock file and check if the background updater is running.
-            self.save_file([self.now], USER_LOCK)
+            self.WINDOW.setProperty("NextAired.user_lock", str(self.now))
             locked_for_update = True
             newest_time = 0
             while 1:
-                bg_lock = self.get_list(BGND_LOCK)
-                if not bg_lock:
+                bg_lock = self.WINDOW.getProperty("NextAired.bgnd_lock")
+                if bg_lock == "":
                     break
                 if newest_time == 0:
-                    newest_time = bg_lock[0]
-                bg_status = self.get_list(BGND_STATUS)
-                if bg_status:
-                    DIALOG_PROGRESS.update(bg_status[1], __language__(32102), bg_status[2])
+                    newest_time = float(bg_lock)
+                bg_status = self.WINDOW.getProperty("NextAired.bgnd_status")
+                bg_status = bg_status.split('|', 2)
+                if len(bg_status) == 3:
+                    status_time, percent, show_name = (float(bg_status[0]), int(bg_status[1]), bg_status[2])
+                    DIALOG_PROGRESS.update(percent, __language__(32102), show_name)
                     if DIALOG_PROGRESS.iscanceled():
                         DIALOG_PROGRESS.close()
                         xbmcgui.Dialog().ok(__language__(32103),__language__(32104))
-                        self.rm_file(USER_LOCK)
+                        self.WINDOW.clearProperty("NextAired.user_lock")
                         locked_for_update = False
                         break
-                    if bg_status[0] > newest_time:
-                        newest_time = bg_status[0]
+                    if status_time > newest_time:
+                        newest_time = status_time
                 if time() - newest_time > 2*60:
-                    # Background lock has sat around for too long, so just remove it.
-                    self.rm_file(BGND_LOCK)
+                    # Background lock has sat around for too long, so just ignore it.
                     newest_time = 0
                     break
                 xbmc.sleep(500)
@@ -260,7 +263,7 @@ class NextAired:
                 # If we had to wait for the bgnd updater, re-read the data and unlock if they did an update.
                 show_dict, elapsed_secs, elapsed_update_secs = self.load_data()
                 if locked_for_update and elapsed_secs < update_after_seconds:
-                    self.rm_file(USER_LOCK)
+                    self.WINDOW.clearProperty("NextAired.user_lock")
                     locked_for_update = False
             socket.setdefaulttimeout(10)
         else:
@@ -299,7 +302,7 @@ class NextAired:
             count += 1
             percent = int(float(count * 100) / total_show)
             if self.SILENT != "":
-                self.save_file([time(), percent, show[0]], BGND_STATUS)
+                self.WINDOW.setProperty("NextAired.bgnd_status", "%f|%d|%s" % (time(), percent, show[0]))
             elif locked_for_update and self.max_fetch_failures > 0:
                 DIALOG_PROGRESS.update( percent , __language__(32102) , "%s" % show[0] )
                 if DIALOG_PROGRESS.iscanceled():
@@ -394,12 +397,12 @@ class NextAired:
             self.save_file([show_dict, MAIN_DB_VER, self.last_run, self.last_update], NEXTAIRED_DB)
 
         if self.SILENT != "":
-            self.rm_file(BGND_LOCK)
+            self.WINDOW.clearProperty("NextAired.bgnd_lock")
             xbmc.sleep(1000)
-            self.save_file([time(), 0, '...'], BGND_STATUS)
+            self.WINDOW.setProperty("NextAired.bgnd_status", "0|0|...")
         elif locked_for_update:
             DIALOG_PROGRESS.close()
-            self.rm_file(USER_LOCK)
+            self.WINDOW.clearProperty("NextAired.user_lock")
 
     def listing(self):
         json_query = xbmc.executeJSONRPC('{"jsonrpc": "2.0", "method": "VideoLibrary.GetTVShows", "params": {"properties": ["title", "file", "thumbnail", "art", "imdbnumber"], "sort": { "method": "title" } }, "id": 1}')
