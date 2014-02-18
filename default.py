@@ -62,7 +62,7 @@ if not xbmcvfs.exists(__datapath__):
     xbmcvfs.mkdir(__datapath__)
 
 # TODO make this settable via the command-line?
-verbosity = 2 # XXX change to 1 after initial testing?
+verbosity = 1
 
 # if level <= 0, sends LOGERROR msg.  For positive values, sends LOGNOTICE
 # if level <= verbosity, else LOGDEBUG.  If level is omitted, we assume 10.
@@ -75,10 +75,10 @@ def log(txt, level=10):
 
 def footprints(bkgnd):
     style = 'background' if bkgnd else 'GUI'
-    log("### %s starting %s proc ..." % (__addonname__, style), level=2)
-    log("### author: %s" % __author__, level=3)
+    log("### %s starting %s proc ..." % (__addonname__, style), level=1)
+    log("### author: %s" % __author__, level=4)
     log("### version: %s" % __version__, level=2)
-    log("### dateformat: %s" % DATE_FORMAT, level=3)
+    log("### dateformat: %s" % DATE_FORMAT, level=4)
 
 def _unicode( text, encoding='utf-8' ):
     try: text = unicode( text, encoding )
@@ -144,9 +144,9 @@ class NextAired:
             xbmc.sleep(1000)
         self.WINDOW.setProperty("NextAired.bgnd_status", "0|0|...")
         while not xbmc.abortRequested:
-            log("### performing background update", level=2)
+            log("### performing background update", level=1)
             self.update_data(update_every)
-            log("### background update finished", level=2)
+            log("### background update finished", level=1)
             self.nextlist = [] # Discard the in-memory data until the next update
             while not xbmc.abortRequested:
                 if self.WINDOW.getProperty("NextAired.background_id") != my_unique_id:
@@ -387,7 +387,7 @@ class NextAired:
                 log('### Removing obsolete show %s' % show_dict[tid]['localname'], level=2)
                 del show_dict[tid]
             self.nextlist.sort(key=itemgetter('RFC3339'))
-            log("### next list: %s shows ### %s" % (len(self.nextlist) , self.nextlist), level=3)
+            log("### next list: %s shows ### %s" % (len(self.nextlist) , self.nextlist), level=5)
             self.check_today_show()
             self.push_data()
         else:
@@ -423,7 +423,7 @@ class NextAired:
 
     def check_show_info(self, tvdb, tid, current_show, prior_data):
         name = current_show['localname']
-        log("### check if %s is up-to-date" % name, level=3)
+        log("### check if %s is up-to-date" % name, level=4)
         if tid == 0:
             log("### searching for thetvdb ID by name - %s" % name, level=2)
             try:
@@ -432,11 +432,11 @@ class NextAired:
                 log('### ERROR returned by get_matching_shows(): %s' % e, level=0)
                 show_list = None
             if not show_list:
-                log("### no match found", level=3)
+                log("### no match found", level=2)
                 return 0
             got_id, got_title, got_tt_id = show_list[0]
             tid = int(got_id)
-            log("### found id of %d" % tid, level=3)
+            log("### found id of %d" % tid, level=2)
         else:
             log("### thetvdb id = %d" % tid, level=5)
         # If the prior_data isn't in need of an update, use it unchanged.
@@ -462,7 +462,7 @@ class NextAired:
         if earliest_id != 0:
             log("### earliest_id = %d" % earliest_id, level=5)
             for cnt in range(2):
-                log("### getting series & episode info for #%d - %s" % (tid, name), level=2)
+                log("### getting series & episode info for #%d - %s" % (tid, name), level=1)
                 try:
                     result = tvdb.get_show_and_episodes(tid, earliest_id)
                     break
@@ -477,7 +477,7 @@ class NextAired:
                 show = None
         else: # earliest_id == 0 when only the series-info changed
             for cnt in range(2):
-                log("### getting series info for #%d - %s" % (tid, name), level=2)
+                log("### getting series info for #%d - %s" % (tid, name), level=1)
                 try:
                     show = tvdb.get_show(tid)
                     break
@@ -594,10 +594,10 @@ class NextAired:
         if prior_data:
             last_updated = int(show['lastupdated'])
             if 'show_changed' in prior_data and last_updated < show_changed:
-                log("### didn't get latest show info yet (%d < %d)" % (last_updated, show_changed), level=2)
+                log("### didn't get latest show info yet (%d < %d)" % (last_updated, show_changed), level=1)
                 current_show['show_changed'] = show_changed
             if 'eps_changed' in prior_data and max_eps_utime < eps_last_updated:
-                log("### didn't get latest episode info yet (%d < %d)" % (max_eps_utime, eps_last_updated), level=2)
+                log("### didn't get latest episode info yet (%d < %d)" % (max_eps_utime, eps_last_updated), level=1)
                 current_show['eps_changed'] = (earliest_id, eps_last_updated)
 
         current_show['last_updated'] = max(show_changed, last_updated)
