@@ -84,7 +84,10 @@ class CountryLookup(object):
             if in_select:
                 m = opt_re.search(line)
                 if m:
-                    self.country_dict[m.group(1)] = m.group(2)
+                    station, country = (m.group(1), m.group(2))
+                    if country == 'United States':
+                        country = 'USA'
+                    self.country_dict[station] = country
                     saw_data = True
                 elif saw_data:
                     break
@@ -109,6 +112,6 @@ class CountryLookup(object):
 
 if (__name__ == "__main__"):
     c = CountryLookup()
-    print repr(c.get_country_dict()).replace('), ', "),\n")
+    print repr(c.get_country_dict()).replace(', ', "),\n")
 
 # vim: et
