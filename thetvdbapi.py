@@ -185,13 +185,13 @@ class TheTVDB(object):
         if not data:
             raise Exception("Failed to get any data")
 
-        e = ExpatParseXml(filter_func=filter_func, callback=callback)
+        e = ExpatParseXml(callback, filter_func)
         e.parse(data)
         return e.xml
 
 
 class ExpatParseXml(object):
-    def __init__(self, callback = None, filter_func = None):
+    def __init__(self, callback, filter_func):
         self.el_container = None
         self.el_name = None
         self.el_attr_name = None
