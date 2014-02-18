@@ -826,12 +826,17 @@ class NextAired:
                 status_id = '4' # New
             else:
                 status_id = '0' # Returning
-            status = STATUS[status_id]
         elif status == 'Ended':
-            status_id = '11'
-            status = STATUS[status_id]
+            if next_ep:
+                status_id = '6' # Final Season
+            else:
+                status_id = '1' # Cancelled/Ended
+        elif status == '':
+            status_id = '2' # TBD/On the bubble
         else:
-            status_id = '-1'
+            status_id = '-1' # An unknown value shouldn't be possible...
+        if status_id != '-1':
+            status = STATUS[status_id]
 
         label.setProperty(prefix + "AirTime", '%s at %s' % (airdays, item.get("Airtime", "")))
         label.setProperty(prefix + "Path", item.get("path", ""))

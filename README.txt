@@ -49,8 +49,10 @@ Art(characterart)  (tv show characterart - artwork downloader required)
 
 Status ids:
 0 - Returning Series
+1 - Cancelled/Ended
+2 - TBD/On The Bubble
 4 - New Series
-11 - Ended
+6 - Final Season
 -1 - Undefined
 
 ---
