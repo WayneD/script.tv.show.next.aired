@@ -423,7 +423,7 @@ class NextAired:
         name = current_show['localname']
         log("### check if %s is up-to-date" % name, level=3)
         if tid == 0:
-            log("### searching for thetvdb ID by show name", level=3)
+            log("### searching for thetvdb ID by name - %s" % name, level=2)
             try:
                 show_list = tvdb.get_matching_shows(name)
             except Exception, e:
@@ -460,7 +460,7 @@ class NextAired:
         if earliest_id != 0:
             log("### earliest_id = %d" % earliest_id, level=5)
             for cnt in range(2):
-                log("### getting series & episode information for %s" % name, level=2)
+                log("### getting series & episode info for #%d - %s" % (tid, name), level=2)
                 try:
                     result = tvdb.get_show_and_episodes(tid, earliest_id)
                     break
@@ -475,7 +475,7 @@ class NextAired:
                 show = None
         else: # earliest_id == 0 when only the series-info changed
             for cnt in range(2):
-                log("### getting series information for %s" % name, level=2)
+                log("### getting series info for #%d - %s" % (tid, name), level=2)
                 try:
                     show = tvdb.get_show(tid)
                     break
