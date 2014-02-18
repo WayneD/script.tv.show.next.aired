@@ -48,20 +48,6 @@ STATUS = { '0' : __language__(32201),
            '11' : __language__(32212),
            '-1' : ''}
 
-STATUS_ID = { 'Returning Series' : '0',
-              'Canceled/Ended' : '1',
-              'TBD/On The Bubble' : '2',
-              'In Development' : '3',
-              'New Series' : '4',
-              'Never Aired' : '5',
-              'Final Season' : '6',
-              'On Hiatus' : '7',
-              'Pilot Ordered' : '8',
-              'Pilot Rejected' : '9',
-              'Canceled' : '10',
-              'Ended' : '11',
-              '' : '-1'}
-
 # Get localized date format
 DATE_FORMAT = xbmc.getRegion('dateshort').lower()
 if DATE_FORMAT[0] == 'd':
@@ -73,6 +59,7 @@ MAIN_DB_VER = 1
 COUNTRY_DB_VER = 1
 
 INT_REGEX = re.compile(r"^([0-9]+)$")
+NEW_REGEX = re.compile(r"^01x")
 
 if not xbmcvfs.exists(__datapath__):
     xbmcvfs.mkdir(__datapath__)
@@ -833,10 +820,17 @@ class NextAired:
         is_today = 'True' if next_ep and next_ep['aired'][:10] == self.datestr else 'False'
 
         status = item.get("Status", "")
-        try:
-            status_id = STATUS_ID[status]
+        if status == 'Continuing':
+            ep = next_ep if next_ep else latest_ep if latest_ep else None
+            if not ep or NEW_REGEX.match(ep['number']):
+                status_id = '4' # New
+            else:
+                status_id = '0' # Returning
             status = STATUS[status_id]
-        except:
+        elif status == 'Ended':
+            status_id = '11'
+            status = STATUS[status_id]
+        else:
             status_id = '-1'
 
         label.setProperty(prefix + "AirTime", '%s at %s' % (airdays, item.get("Airtime", "")))
