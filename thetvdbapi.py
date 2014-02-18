@@ -36,17 +36,18 @@ class TheTVDB(object):
         self.base_key_url = "%s/%s" % (self.base_url, self.api_key)
         self.language = language
 
-        self.select_mirrors()
+        # This is always returning thetvdb.com, so tell it to fudge the results for now.
+        self.select_mirrors(False)
 
 
-    def select_mirrors(self):
+    def select_mirrors(self, do_the_fetch = True):
         #http://thetvdb.com/api/<apikey>/mirrors.xml
         url = "%s/mirrors.xml" % self.base_key_url
         self.xml_mirrors = []
         self.zip_mirrors = []
         try:
             filt_func = lambda name, attrs: attrs if name == 'Mirror' else None
-            xml = self._get_xml_data(url, filt_func)
+            xml = self._get_xml_data(url, filt_func) if do_the_fetch else {}
             for mirror in xml.get("Mirror", []):
                 mirrorpath = mirror.get("mirrorpath", None)
                 typemask = mirror.get("typemask", None)
