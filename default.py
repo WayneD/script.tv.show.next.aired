@@ -437,7 +437,11 @@ class NextAired:
         log("### check if %s is up-to-date" % name, level=3)
         if tid == 0:
             log("### searching for thetvdb ID by show name", level=3)
-            show_list = tvdb.get_matching_shows(name)
+            try:
+                show_list = tvdb.get_matching_shows(name)
+            except Exception, e:
+                log('### ERROR returned by get_matching_shows(): %s' % e, level=0)
+                show_list = None
             if not show_list:
                 log("### no match found", level=3)
                 return 0
