@@ -13,14 +13,14 @@ for shows that are airing today, the script will set the window properties liste
 Window(Home).Property(NextAired.%d.*):
 Label		    (tv show name)
 Thumb		    (tv show icon)
-AirTime		    (eg. 'Thursday at 09:00 pm')
+AirTime		    (eg. 'Thursday at 09:00 PM')
 Path		    (tv show path)
 Library		    (eg. videodb://2/2/1/)
-Status		    (eg. 'Returning Series'/'Final Season'/'New Series')
+Status		    (eg. 'New Series'/'Returning Series'/'Ended')
 StatusID            (id of the status)
 Network		    (name of the tv network that's airing the show)
 Started		    (airdate of the first episode, eg. 'Sep/24/2007')
-Classification	    (type of show, ex. 'Animation'/'Documentary')
+Classification	    (type of show; N.B. not currently supported)
 Genre		    (genre of the show)
 Premiered	    (year the first episode was aired, eg. '1999')
 Country		    (production country of the tv show, eg. 'USA')
@@ -38,7 +38,7 @@ LatestNumber	    (season/episode number of the last episode)
 LatestEpisodeNumber (episode number of the last episode)
 LatestSeasonNumber  (season number of the last episode)
 AirDay		    (day of the week the show is aired, eg 'Tuesday')
-ShortTime	    (time the show is aired, eg. '08:00 pm')
+ShortTime	    (time the show is aired, eg. '08:00 PM')
 Art(poster)        (tv show poster)
 Art(banner)        (tv show banner)
 Art(fanart)        (tv show fanart)
@@ -49,16 +49,7 @@ Art(characterart)  (tv show characterart - artwork downloader required)
 
 Status ids:
 0 - Returning Series
-1 - Cancelled/Ended
-2 - TBD/On The Bubble
-3 - In Development
 4 - New Series
-5 - Never Aired
-6 - Final Season
-7 - On Hiatus
-8 - Pilot Ordered
-9 - Pilot Rejected
-10 - Cancelled
 11 - Ended
 -1 - Undefined
 
