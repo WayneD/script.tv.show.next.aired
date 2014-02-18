@@ -180,18 +180,13 @@ class TheTVDB(object):
     def _get_xml_data(self, url, filter_func = None, zip_name = None, callback = None):
         data = urllib.urlopen(url)
         if zip_name:
-            try:
-                zipfile = ZipFile(StringIO(data.read()))
-                data = zipfile.open(zip_name)
-            except:
-                return None
+            zipfile = ZipFile(StringIO(data.read()))
+            data = zipfile.open(zip_name)
+        if not data:
+            raise Exception("Failed to get any data")
 
         e = ExpatParseXml(filter_func=filter_func, callback=callback)
-        try:
-            e.parse(data)
-        except expat.ExpatError:
-            print "Failed to get parsable XML for %s" % url
-
+        e.parse(data)
         return e.xml
 
 
