@@ -1,8 +1,9 @@
 v6.0.0
-- This version of Next Aired grabs its data from TheTVDB.com.  This provides quicker updates and more future-episode information.
-- The settings have changed to specify how often (in hours) background updates occur (the default is every 12 hours).  There is also a setting for how many minutes to wait between interactive updates (by default we update when when entering the guide if at least 10 minutes have gone by since the last update).
-- The GUI now includes separate episode info for each show that appears multiple times in the upcoming week.
-- Various bug fixes.
+- This version of Next Aired grabs its data from TheTVDB.com.  This provides quicker updates and more upcoming-episode information.
+- The GUI now includes separate episode info for each show that appears multiple times in the upcoming week. If a show is broadcast multiple times on a particular day, it will be listed multiple times on that day.
+- The settings have changed to specify how often (in hours) background updates occur (the default is every 8 hours).  There is also a setting for how old the data can be before interacting with the TV Guide will cause an update (also set to 8 hours).
+- The data presented to the user and to the skins is mostly the same, with a few minor differences.  For instance, the Classification field is now always empty (no such data available), the Status field has a more limited sete of possible values, and the NextDate and LatestDate fields have a tweaked date format.
+- Lots of bug fixes, performance improvement, and improved error handling.
 
 v5.0.7
 - added manual mode
