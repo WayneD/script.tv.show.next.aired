@@ -804,14 +804,13 @@ class NextAired:
             label.setLabel(item.get("localname", ""))
             label.setThumbnailImage(item.get("thumbnail", ""))
 
+        latest_ep = item['episodes'][0]
         if want_episode:
             next_ep = want_episode
-            latest_ep = None
             airdays = next_ep['wday']
         else:
             ep_len = len(item['episodes'])
             next_ep = item['episodes'][1] if ep_len > 1 else None
-            latest_ep = item['episodes'][0]
             airdays = []
             if ep_len > 1:
                 for ep in item['episodes'][1:]:
