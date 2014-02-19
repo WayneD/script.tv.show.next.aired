@@ -157,7 +157,7 @@ class NextAired:
                     update_every *= 60*60 # into seconds
                 except:
                     update_every = 0
-                if update_every and time() - self.last_update >= update_every:
+                if update_every and time() - self.last_run >= update_every:
                     break
                 xbmc.sleep(1000)
         self.close("xbmc is closing -- stopping background processing")
