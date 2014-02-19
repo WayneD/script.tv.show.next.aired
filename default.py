@@ -102,6 +102,7 @@ class NextAired:
         self.ampm = xbmc.getCondVisibility('substring(System.Time,Am)') or xbmc.getCondVisibility('substring(System.Time,Pm)')
         self._parse_argv()
         footprints(self.SILENT != "")
+        self.check_xbmc_version()
         if self.TVSHOWTITLE:
             self.return_properties(self.TVSHOWTITLE)
         elif self.BACKEND:
@@ -404,6 +405,19 @@ class NextAired:
             DIALOG_PROGRESS.close()
             self.WINDOW.clearProperty("NextAired.user_lock")
 
+    def check_xbmc_version(self):
+        # retrieve current installed version
+        json_query = xbmc.executeJSONRPC('{"jsonrpc": "2.0", "method": "Application.GetProperties", "params": {"properties": ["version", "name"]}, "id": 1}')
+        json_query = unicode(json_query, 'utf-8', errors='ignore')
+        json_response = simplejson.loads(json_query)
+        log("### %s" % json_response)
+        if 'version' in json_response['result']:
+            self.xbmc_version = json_response['result']['version']['major']
+        else:
+            self.xbmc_version = 12
+
+        self.videodb = 'videodb://tvshows/titles/' if self.xbmc_version >= 13 else 'videodb://2/2/'
+
     def listing(self):
         json_query = xbmc.executeJSONRPC('{"jsonrpc": "2.0", "method": "VideoLibrary.GetTVShows", "params": {"properties": ["title", "file", "thumbnail", "art", "imdbnumber"], "sort": { "method": "title" } }, "id": 1}')
         json_query = unicode(json_query, 'utf-8', errors='ignore')
@@ -416,7 +430,7 @@ class NextAired:
                 path = item['file']
                 art = item['art']
                 thumbnail = item['thumbnail']
-                dbid = 'videodb://2/2/' + str(item['tvshowid']) + '/'
+                dbid = self.videodb + str(item['tvshowid']) + '/'
                 TVlist.append((tvshowname, path, art, dbid, thumbnail, item['imdbnumber']))
         log( "### list: %s" % TVlist )
         return TVlist
