@@ -824,7 +824,7 @@ class NextAired:
         status = item.get("Status", "")
         if status == 'Continuing':
             ep = next_ep if next_ep else latest_ep if latest_ep else None
-            if not ep or NEW_REGEX.match(ep['number']):
+            if not ep or not ep['id'] or NEW_REGEX.match(ep['number']):
                 status_id = '4' # New
             else:
                 status_id = '0' # Returning
