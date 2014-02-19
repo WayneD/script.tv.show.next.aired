@@ -64,6 +64,7 @@ COUNTRY_ZONES = {
     'united kingdom': (0, True),
     'united states': (-5, True),
     'uruguay': (-3, True),
+    'usa': (-5, True),
     'venezuela': (4.5, True),
     'unknown': (1, False),
 };
