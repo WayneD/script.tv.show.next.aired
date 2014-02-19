@@ -43,11 +43,13 @@ class Gui( xbmcgui.WindowXML ):
     def set_properties(self):
         day_limit = str(self.today + timedelta(days=6))
         for item in self.nextlist:
+            ep_ndx = 1
             for ep in item['episodes'][1:]:
                 if ep['aired'][:10] > day_limit:
                     break
-                listitem = self.setLabels('listitem', item, ep)
+                listitem = self.setLabels('listitem', item, ep_ndx)
                 self.listitems[ep['wday']].append(listitem)
+                ep_ndx += 1
 
     def fill_containers(self):
         for count, day in enumerate (self.days):

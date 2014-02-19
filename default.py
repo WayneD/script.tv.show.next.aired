@@ -784,7 +784,7 @@ class NextAired:
                 if tvshowtitle == item["localname"]:
                     self.set_labels('windowproperty', item)
 
-    def set_labels(self, infolabel, item, want_episode = None):
+    def set_labels(self, infolabel, item, want_ep_ndx = None):
         art = item.get("art", "")
         if (infolabel == 'windowproperty') or (infolabel == 'windowpropertytoday'):
             label = xbmcgui.Window( 10000 )
@@ -804,13 +804,14 @@ class NextAired:
             label.setLabel(item.get("localname", ""))
             label.setThumbnailImage(item.get("thumbnail", ""))
 
-        latest_ep = item['episodes'][0]
-        if want_episode:
-            next_ep = want_episode
+        if want_ep_ndx:
+            next_ep = item['episodes'][want_ep_ndx]
+            latest_ep = item['episodes'][want_ep_ndx-1]
             airdays = next_ep['wday']
         else:
             ep_len = len(item['episodes'])
             next_ep = item['episodes'][1] if ep_len > 1 else None
+            latest_ep = item['episodes'][0]
             airdays = []
             if ep_len > 1:
                 for ep in item['episodes'][1:]:
@@ -871,7 +872,7 @@ class NextAired:
         # This sets LatestDate, LatestTitle, etc.
         self.set_episode_info(label, prefix, 'Latest', latest_ep)
 
-        if want_episode:
+        if want_ep_ndx:
             return label
 
     def close(self , msg ):
