@@ -525,9 +525,9 @@ class NextAired:
             airtime = TheTVDB.convert_time(show.get('Airs_Time', ""))
         except:
             airtime = None
-        local_airtime = airtime if airtime else TheTVDB.convert_time('00:00')
+        local_airtime = airtime if airtime is not None else TheTVDB.convert_time('00:00')
         local_airtime = datetime.combine(self.date, local_airtime).replace(tzinfo=tz.tzoffset(None, tz_offset))
-        if airtime: # Don't backtrack an assumed midnight time (for an invalid airtime) into the prior day.
+        if airtime is not None: # Don't backtrack an assumed midnight time (for an invalid airtime) into the prior day.
             local_airtime = local_airtime.astimezone(tz.tzlocal())
         airtime_fmt = '%I:%M %p' if self.ampm else '%H:%M'
 
@@ -543,7 +543,7 @@ class NextAired:
         current_show['Status'] = show.get('Status', '')
         current_show['Genres'] = show.get('Genre', '').strip('|').replace('|', ' | ')
         current_show['Network'] = network
-        current_show['Airtime'] = local_airtime.strftime(airtime_fmt) if airtime else '??:??'
+        current_show['Airtime'] = local_airtime.strftime(airtime_fmt) if airtime is not None else '??:??'
         current_show['Runtime'] = maybe_int(show, 'Runtime', '')
 
         can_re = re.compile(r"canceled|ended", re.IGNORECASE)
