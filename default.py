@@ -73,9 +73,11 @@ def log(txt, level=10):
     log_level = (xbmc.LOGERROR if level <= 0 else (xbmc.LOGNOTICE if level <= verbosity else xbmc.LOGDEBUG))
     xbmc.log(msg=message.encode("utf-8"), level=log_level)
 
-def footprints(bkgnd):
+def footprints(bkgnd, force, reset):
     style = 'background' if bkgnd else 'GUI'
-    log("### %s starting %s proc ..." % (__addonname__, style), level=1)
+    force = 'w/FORCEUPDATE ' if force else ''
+    reset = 'w/RESET ' if reset else ''
+    log("### %s starting %s proc %s%s..." % (__addonname__, style, force, reset), level=1)
     log("### author: %s" % __author__, level=4)
     log("### version: %s" % __version__, level=2)
     log("### dateformat: %s" % DATE_FORMAT, level=4)
@@ -101,7 +103,7 @@ class NextAired:
         self.days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
         self.ampm = xbmc.getCondVisibility('substring(System.Time,Am)') or xbmc.getCondVisibility('substring(System.Time,Pm)')
         self._parse_argv()
-        footprints(self.SILENT != "")
+        footprints(self.SILENT != "", self.FORCEUPDATE, self.RESET)
         self.check_xbmc_version()
         if self.TVSHOWTITLE:
             self.return_properties(self.TVSHOWTITLE)
@@ -123,7 +125,7 @@ class NextAired:
         self.SILENT = params.get( "silent", "" )
         self.BACKEND = params.get( "backend", False )
         self.TVSHOWTITLE = params.get( "tvshowtitle", False )
-        self.FORCEUPDATE = __addon__.getSetting("ForceUpdate") == "true"
+        self.FORCEUPDATE = params.get("force", False)
         self.RESET = params.get( "reset", False )
 
     def set_today(self):

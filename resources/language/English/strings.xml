@@ -8,11 +8,13 @@
 	<string id="32004">Enable background fanart</string>
 	<string id="32005">Enable 16:9 preview thumbs</string>
 	<string id="32006">Download 16:9 preview thumbs (Artwork Downloader required)</string>
-	<string id="32007">Rescan tv guide data</string>
+	<string id="32007">Update the TV Guide data now</string>
 	<string id="32008">Download next-aired info:</string>
 	<string id="32009">In the background every [N] hours</string>
 	<string id="32010">On entering the guide if data is over [N] hours old</string>
 	<string id="32011">Download posters (Artwork Downloader required)</string>
+	<string id="32012">**Reset all data** and update the TV Guide data now</string>
+	<string id="32013">Show All TV Shows for home screen (needs skin Support)</string>
 	<string id="32101">TV Show - Next Aired</string>
 	<string id="32102">Getting information...</string>
 	<string id="32103">CANCELLED</string>
@@ -29,6 +31,5 @@
 	<string id="32210">Pilot Rejected</string>
 	<string id="32211">Cancelled</string>
 	<string id="32212">Ended</string>
-	<string id="32013">Show All TV Shows for home screen (needs skin Support)</string>
 </strings>
 
