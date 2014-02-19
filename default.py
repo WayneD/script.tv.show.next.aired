@@ -275,7 +275,7 @@ class NextAired:
             show['unused'] = True
             title_dict[show['localname']] = tid
 
-        tvdb = TheTVDB()
+        tvdb = TheTVDB('1D62F2F90030C444', 'en')
 
         if locked_for_update:
             # This typically asks TheTVDB for an update-zip file and tweaks the show_dict to note needed updates.
