@@ -278,9 +278,8 @@ class NextAired:
             show['unused'] = True
             title_dict[show['localname']] = tid
 
-        tvdb = TheTVDB('1D62F2F90030C444', 'en')
-
         if locked_for_update:
+            tvdb = TheTVDB('1D62F2F90030C444', 'en')
             # This typically asks TheTVDB for an update-zip file and tweaks the show_dict to note needed updates.
             tv_up = tvdb_updater(tvdb)
             need_full_scan, got_update = tv_up.note_updates(show_dict, elapsed_update_secs)
@@ -289,7 +288,9 @@ class NextAired:
             elif not got_update:
                 self.max_fetch_failures -= 1
             self.last_run = self.now
+            tv_up = None
         else:
+            tvdb = None # We don't use this unless we're locked for the update.
             need_full_scan = False
             # A max-fetch of 0 disables all updating.
             self.max_fetch_failures = 0
