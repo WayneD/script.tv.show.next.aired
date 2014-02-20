@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<strings>
+	<string id="450">TV Guia</string>
+	<string id="32000">Mostrar</string>
+	<string id="32001">Tipo de Thumbnail</string>
+	<string id="32002">Descargar banners (Artwork Downloader necesario)</string>
+	<string id="32003">Descargar logos (Artwork Downloader necesario)</string>
+	<string id="32004">Habilitar fanart como Fondo</string>
+	<string id="32005">Habilitar 16:9 thumbs</string>
+	<string id="32006">Descargar 16:9 thumbs (Artwork Downloader necesario)</string>
+	<string id="32007">Rescanear informacion</string>
+	<string id="32008">Descargar informacion:</string>
+	<string id="32009">En el fondo cada [X] Horas</string>
+	<string id="32010">Entrando a la aplicacion si la informacion es [X] horas antigua</string>
+	<string id="32011">Descargar posters (Artwork Downloader necesario)</string>
+	<string id="32012">Resetear la informacion</string>
+	<string id="32013">Mostrar todos los Proximos episodios en inicio (Requiere soporte en Skin)</string>
+	<string id="32101">TV Show - Next Aired</string>
+	<string id="32102">Opteniendo informacion...</string>
+	<string id="32103">CANCELADO</string>
+	<string id="32104">Operacion cancelada por usuario.</string>
+	<string id="32201">Returning Series</string>
+	<string id="32202">Cancelada/Finalizada</string>
+	<string id="32203">TBD/En espera</string>
+	<string id="32204">En Produccion</string>
+	<string id="32205">Nueva Serie</string>
+	<string id="32206">Nunca En TV</string>
+	<string id="32207">Final de Temporada</string>
+	<string id="32208">En Hiatus</string>
+	<string id="32209">Piloto Ordenado</string>
+	<string id="32210">Pilot Rechazado</string>
+	<string id="32211">Cancelada</string>
+	<string id="32212">Finalizada</string>
+</strings>
