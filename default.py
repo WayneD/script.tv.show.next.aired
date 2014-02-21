@@ -55,6 +55,8 @@ elif DATE_FORMAT[0] == 'm':
 MAIN_DB_VER = 1
 COUNTRY_DB_VER = 1
 
+FAILURE_PAUSE = 30*60
+
 INT_REGEX = re.compile(r"^([0-9]+)$")
 NEW_REGEX = re.compile(r"^01x")
 
@@ -102,6 +104,7 @@ class NextAired:
         self.set_today()
         self.days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
         self.ampm = xbmc.getCondVisibility('substring(System.Time,Am)') or xbmc.getCondVisibility('substring(System.Time,Pm)')
+        self.last_update = self.last_failure = 0
         self._parse_argv()
         footprints(self.SILENT != "", self.FORCEUPDATE, self.RESET)
         self.check_xbmc_version()
@@ -136,8 +139,29 @@ class NextAired:
         self.day_limit = str(self.date + timedelta(days=6))
         self.this_year_regex = re.compile(r', %s$' % self.date.strftime('%Y'))
 
+    # Returns elapsed seconds since last update failure.
+    def get_last_failure(self):
+        v = self.WINDOW.getProperty("NextAired.last_failure")
+        v = int(v) if INT_REGEX.match(v) else 0
+        self.last_failure = max(v, self.last_failure)
+        return self.now - self.last_failure
+
+    def set_last_failure(self):
+        self.last_failure = self.now
+        self.get_last_failure()
+        self.WINDOW.setProperty("NextAired.last_failure", self.last_failure)
+
+    def is_time_for_update(self, update_after_seconds):
+        self.now = time()
+        if update_after_seconds == 0:
+            return False
+        if self.now - self.last_update < update_after_seconds:
+            return False
+        if self.get_last_failure() < FAILURE_PAUSE:
+            return False
+        return True
+
     def do_background_updating(self):
-        update_every = 1
         my_unique_id = "%s,%s" % (os.getpid(), threading.currentThread().ident)
         self.WINDOW.setProperty("NextAired.background_id", my_unique_id)
         while not xbmc.abortRequested:
@@ -145,22 +169,20 @@ class NextAired:
             if bg_lock == "" or time() - float(bg_lock) > 10*60:
                 break
             xbmc.sleep(1000)
-        self.WINDOW.setProperty("NextAired.bgnd_status", "0|0|...")
+        profile_dir = xbmc.translatePath("special://profile/addon_data/")
         while not xbmc.abortRequested:
-            log("### performing background update", level=1)
-            self.update_data(update_every)
-            log("### background update finished", level=1)
-            self.nextlist = [] # Discard the in-memory data until the next update
-            while not xbmc.abortRequested:
-                if self.WINDOW.getProperty("NextAired.background_id") != my_unique_id:
-                    self.close("another background script was started -- stopping this older one")
-                try:
-                    update_every = int(__addon__.getSetting('update_every')) # in hours
-                    update_every *= 60*60 # into seconds
-                except:
-                    update_every = 0
-                if update_every and time() - self.last_run >= update_every:
-                    break
+            if self.WINDOW.getProperty("NextAired.background_id") != my_unique_id:
+                self.close("another background script was started -- stopping older background proc")
+            if xbmc.translatePath("special://profile/addon_data/") != profile_dir:
+                self.close("profile directory changed -- stopping background proc")
+            try:
+                update_every = int(__addon__.getSetting('update_every'))*60*60 # hours -> seconds
+            except:
+                update_every = 0
+            if self.is_time_for_update(update_every):
+                self.update_data(update_every)
+                self.nextlist = [] # Discard the in-memory data until the next update
+            else:
                 xbmc.sleep(1000)
         self.close("xbmc is closing -- stopping background processing")
 
@@ -189,7 +211,6 @@ class NextAired:
         show_dict = (ep_list.pop(0) if ep_list else {})
         self.last_update = (ep_list.pop() if ep_list else None)
         db_ver = (ep_list.pop(0) if ep_list else 999999)
-        self.last_run = (ep_list.pop() if ep_list else self.last_update)
         if db_ver > MAIN_DB_VER or not self.last_update:
             if self.RESET:
                 log("### starting without prior data (DB RESET requested)", level=1)
@@ -198,38 +219,41 @@ class NextAired:
             else:
                 log("### no prior data found", level=1)
             show_dict = {}
-            self.last_update = self.last_run = 0
+            self.last_update = 0
         elif db_ver != MAIN_DB_VER:
             self.upgrade_data_format(show_dict, db_ver)
 
         self.RESET = False # Make sure we don't honor this multiple times.
 
-        return (show_dict, self.now - self.last_run, self.now - self.last_update)
+        return (show_dict, self.now - self.last_update)
 
     def update_data(self, update_after_seconds):
         self.nextlist = []
-        show_dict, elapsed_secs, elapsed_update_secs = self.load_data()
-        if update_after_seconds == 0:
-            update_after_seconds = 100*365*24*60*60
+        show_dict, elapsed_secs = self.load_data()
 
         # This should prevent the background and user code from updating the DB at the same time.
         if self.SILENT != "":
-            if elapsed_secs < update_after_seconds:
+            # We double-check this here, just in case it changed.
+            if not self.is_time_for_update(update_after_seconds):
                 return
             # Background updating: we will just skip our update if the user is doing an update.
             self.max_fetch_failures = 8
+            self.WINDOW.setProperty("NextAired.bgnd_status", "0|0|...")
             self.WINDOW.setProperty("NextAired.bgnd_lock", str(self.now))
             locked_for_update = True
             xbmc.sleep(2000) # try to avoid a race-condition
             user_lock = self.WINDOW.getProperty("NextAired.user_lock")
             if user_lock != "":
                 if self.now - float(user_lock) <= 10*60:
-                    self.WINDOW.setProperty("NextAired.bgnd_lock", str(self.now))
-                    self.last_run = self.now
+                    self.WINDOW.clearProperty("NextAired.bgnd_lock")
+                    # We failed to get data, so this will cause us to check on the update in a bit.
+                    # (No need to save it as a failure property -- this is just for us.)
+                    self.last_failure = self.now
                     return
                 # User's lock has sat around for too long, so just ignore it.
             socket.setdefaulttimeout(60)
-        elif elapsed_secs >= update_after_seconds: # We only lock if we're going to do some updating.
+            log("### performing background update", level=1)
+        elif self.is_time_for_update(update_after_seconds): # We only lock if we're going to do some updating.
             # User updating: we will wait for a background update to finish, then see if we have recent data.
             DIALOG_PROGRESS = xbmcgui.DialogProgress()
             DIALOG_PROGRESS.create(__language__(32101), __language__(32102))
@@ -238,6 +262,7 @@ class NextAired:
             self.WINDOW.setProperty("NextAired.user_lock", str(self.now))
             locked_for_update = True
             newest_time = 0
+            prior_name = ''
             while 1:
                 bg_lock = self.WINDOW.getProperty("NextAired.bgnd_lock")
                 if bg_lock == "":
@@ -248,7 +273,9 @@ class NextAired:
                 bg_status = bg_status.split('|', 2)
                 if len(bg_status) == 3:
                     status_time, percent, show_name = (float(bg_status[0]), int(bg_status[1]), bg_status[2])
-                    DIALOG_PROGRESS.update(percent, __language__(32102), show_name)
+                    if show_name != prior_name:
+                        DIALOG_PROGRESS.update(percent, __language__(32102), show_name)
+                        prior_name = show_name
                     if DIALOG_PROGRESS.iscanceled():
                         DIALOG_PROGRESS.close()
                         xbmcgui.Dialog().ok(__language__(32103),__language__(32104))
@@ -264,8 +291,9 @@ class NextAired:
                 xbmc.sleep(500)
             if newest_time:
                 # If we had to wait for the bgnd updater, re-read the data and unlock if they did an update.
-                show_dict, elapsed_secs, elapsed_update_secs = self.load_data()
-                if locked_for_update and elapsed_secs < update_after_seconds:
+                show_dict, elapsed_secs = self.load_data()
+                if locked_for_update and not self.is_time_for_update(update_after_seconds):
+                    DIALOG_PROGRESS.close()
                     self.WINDOW.clearProperty("NextAired.user_lock")
                     locked_for_update = False
             socket.setdefaulttimeout(10)
@@ -282,12 +310,12 @@ class NextAired:
             tvdb = TheTVDB('1D62F2F90030C444', 'en')
             # This typically asks TheTVDB for an update-zip file and tweaks the show_dict to note needed updates.
             tv_up = tvdb_updater(tvdb)
-            need_full_scan, got_update = tv_up.note_updates(show_dict, elapsed_update_secs)
+            need_full_scan, got_update = tv_up.note_updates(show_dict, elapsed_secs)
             if need_full_scan or got_update:
                 self.last_update = self.now
             elif not got_update:
-                self.max_fetch_failures -= 1
-            self.last_run = self.now
+                self.set_last_failure()
+                self.max_fetch_failures = 0
             tv_up = None
         else:
             tvdb = None # We don't use this unless we're locked for the update.
@@ -298,7 +326,14 @@ class NextAired:
         TVlist = self.listing()
         total_show = len(TVlist)
         if total_show == 0:
-            self.close("error listing")
+            if self.SILENT != "":
+                self.WINDOW.clearProperty("NextAired.bgnd_lock")
+                self.WINDOW.clearProperty("NextAired.bgnd_status")
+            elif locked_for_update:
+                DIALOG_PROGRESS.close()
+                self.WINDOW.clearProperty("NextAired.user_lock")
+            self.set_last_failure()
+            return
 
         count = 0
         id_re = re.compile(r"http%3a%2f%2fthetvdb\.com%2f[^']+%2f([0-9]+)-")
@@ -372,7 +407,7 @@ class NextAired:
         # If we did a lot of work, make sure we save it prior to doing anything else.
         # This ensures that a bug in the following code won't make us redo everything.
         if need_full_scan and locked_for_update:
-            self.save_file([show_dict, MAIN_DB_VER, self.last_run, self.last_update], NEXTAIRED_DB)
+            self.save_file([show_dict, MAIN_DB_VER, self.last_update], NEXTAIRED_DB)
 
         if show_dict:
             log("### data available", level=5)
@@ -398,15 +433,19 @@ class NextAired:
             log("### no current show data...", level=5)
 
         if locked_for_update:
-            self.save_file([show_dict, MAIN_DB_VER, self.last_run, self.last_update], NEXTAIRED_DB)
+            self.save_file([show_dict, MAIN_DB_VER, self.last_update], NEXTAIRED_DB)
 
         if self.SILENT != "":
             self.WINDOW.clearProperty("NextAired.bgnd_lock")
             xbmc.sleep(1000)
-            self.WINDOW.setProperty("NextAired.bgnd_status", "0|0|...")
+            self.WINDOW.clearProperty("NextAired.bgnd_status")
+            log("### background update finished", level=1)
         elif locked_for_update:
             DIALOG_PROGRESS.close()
             self.WINDOW.clearProperty("NextAired.user_lock")
+
+        if locked_for_update and self.max_fetch_failures <= 0:
+            self.set_last_failure()
 
     def check_xbmc_version(self):
         # retrieve current installed version
@@ -414,27 +453,39 @@ class NextAired:
         json_query = unicode(json_query, 'utf-8', errors='ignore')
         json_response = simplejson.loads(json_query)
         log("### %s" % json_response)
-        if 'version' in json_response['result']:
+        try:
             self.xbmc_version = json_response['result']['version']['major']
-        else:
+        except:
             self.xbmc_version = 12
 
         self.videodb = 'videodb://tvshows/titles/' if self.xbmc_version >= 13 else 'videodb://2/2/'
 
     def listing(self):
-        json_query = xbmc.executeJSONRPC('{"jsonrpc": "2.0", "method": "VideoLibrary.GetTVShows", "params": {"properties": ["title", "file", "thumbnail", "art", "imdbnumber"], "sort": { "method": "title" } }, "id": 1}')
-        json_query = unicode(json_query, 'utf-8', errors='ignore')
-        json_response = simplejson.loads(json_query)
-        log("### %s" % json_response)
+        failures = 0
+        # If the computer is waking up from a sleep, this call might fail for a little bit.
+        while not xbmc.abortRequested:
+            json_query = xbmc.executeJSONRPC('{"jsonrpc": "2.0", "method": "VideoLibrary.GetTVShows", "params": {"properties": ["title", "file", "thumbnail", "art", "imdbnumber"], "sort": { "method": "title" } }, "id": 1}')
+            json_query = unicode(json_query, 'utf-8', errors='ignore')
+            json_response = simplejson.loads(json_query)
+            log("### %s" % json_response)
+            if 'result' in json_response:
+                break
+            failures += 1
+            if failures >= 5:
+                break
+            xbmc.sleep(5000)
+        try:
+            tvshows = json_response['result']['tvshows']
+        except:
+            tvshows = []
         TVlist = []
-        if 'tvshows' in json_response['result']:
-            for item in json_response['result']['tvshows']:
-                tvshowname = normalize_string(item['title'])
-                path = item['file']
-                art = item['art']
-                thumbnail = item['thumbnail']
-                dbid = self.videodb + str(item['tvshowid']) + '/'
-                TVlist.append((tvshowname, path, art, dbid, thumbnail, item['imdbnumber']))
+        for item in tvshows:
+            tvshowname = normalize_string(item['title'])
+            path = item['file']
+            art = item['art']
+            thumbnail = item['thumbnail']
+            dbid = self.videodb + str(item['tvshowid']) + '/'
+            TVlist.append((tvshowname, path, art, dbid, thumbnail, item['imdbnumber']))
         log( "### list: %s" % TVlist )
         return TVlist
 
@@ -894,7 +945,7 @@ class NextAired:
 
     def close(self , msg ):
         log("### %s" % msg, level=1)
-        exit()
+        sys.exit()
 
 class tvdb_updater:
     def __init__(self, tvdb):
