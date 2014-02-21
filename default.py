@@ -89,9 +89,12 @@ def _unicode( text, encoding='utf-8' ):
     except: pass
     return text
 
-def normalize_string( text ):
-    try: text = unicodedata.normalize( 'NFKD', _unicode( text ) ).encode( 'ascii', 'ignore' )
-    except: pass
+def normalize(d, key, default = ""):
+    text = d.get(key, default)
+    try:
+        text = unicodedata.normalize('NFKD', _unicode(text)).encode('ascii', 'ignore')
+    except:
+        pass
     return text
 
 def maybe_int(d, key, default = 0):
@@ -486,7 +489,7 @@ class NextAired:
             tvshows = []
         TVlist = []
         for item in tvshows:
-            tvshowname = normalize_string(item['title'])
+            tvshowname = normalize(item, 'title')
             path = item['file']
             art = item['art']
             thumbnail = item['thumbnail']
@@ -567,7 +570,7 @@ class NextAired:
                 log("### no result and no prior data", level=1)
             return -tid
 
-        network = show.get('Network', 'Unknown')
+        network = normalize(show, 'Network', 'Unknown')
         country = self.country_dict.get(network, 'Unknown')
         # XXX TODO allow the user to specify an override country that gets the local timezone.
         tzone = CountryLookup.get_country_timezone(country, self.in_dst)
@@ -591,7 +594,7 @@ class NextAired:
             local_airtime = local_airtime.astimezone(tz.tzlocal())
         airtime_fmt = '%I:%M %p' if self.ampm else '%H:%M'
 
-        current_show['Show Name'] = show.get('SeriesName', "")
+        current_show['Show Name'] = normalize(show, 'SeriesName')
         first_aired = show.get('FirstAired', None)
         if first_aired:
             first_aired = TheTVDB.convert_date(first_aired)
@@ -600,8 +603,8 @@ class NextAired:
         else:
             current_show['Premiered'] = current_show['Started'] = ""
         current_show['Country'] = country
-        current_show['Status'] = show.get('Status', '')
-        current_show['Genres'] = show.get('Genre', '').strip('|').replace('|', ' | ')
+        current_show['Status'] = normalize(show, 'Status')
+        current_show['Genres'] = normalize(show, 'Genre').strip('|').replace('|', ' | ')
         current_show['Network'] = network
         current_show['Airtime'] = local_airtime.strftime(airtime_fmt) if airtime is not None else '??:??'
         current_show['Runtime'] = maybe_int(show, 'Runtime', '')
@@ -642,7 +645,7 @@ class NextAired:
             for ep in episodes:
                 cur_ep = {
                         'id': ep['id'],
-                        'name': ep.get('EpisodeName', ''),
+                        'name': normalize(ep, 'EpisodeName'),
                         'number': '%02dx%02d' % (ep['SeasonNumber'], ep['EpisodeNumber']),
                         'aired': ep['FirstAired'].isoformat(),
                         'wday': self.days[ep['FirstAired'].weekday()]
