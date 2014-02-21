@@ -176,7 +176,16 @@ class NextAired:
                 break
             xbmc.sleep(1000)
         profile_dir = xbmc.translatePath("special://profile/addon_data/")
+        prior_now = self.now
         while not xbmc.abortRequested:
+            self.now = time()
+            if self.now - prior_now < 20:
+                # We can't sleep for very long at a time or a shutdown bogs down.
+                # To combat this, we do very little most of the times that we wake
+                # up, and the rest of the work after enough time has passed.
+                xbmc.sleep(1000)
+                continue
+            prior_now = self.now
             if self.WINDOW.getProperty("NextAired.background_id") != my_unique_id:
                 self.close("another background script was started -- stopping older background proc")
             if xbmc.translatePath("special://profile/addon_data/") != profile_dir:
