@@ -240,7 +240,7 @@ COUNTRY_ZONES = {
     'ukraine': (2.0, 3.0),
     'united arab emirates': (4.0, 4.0),
     'united kingdom': (0.0, 1.0),
-    'united states': (-5.0, -4.0), # XXX remove this soon (replaced by "usa")
+    'united states': (-5.0, -4.0),
     'uruguay': (-2.0, -3.0),
     'usa': (-5.0, -4.0),
     'uzbekistan': (5.0, 5.0),
@@ -372,4 +372,4 @@ def usage():
 if __name__ == "__main__":
     main(sys.argv[1:])
 
-# vim: et
+# vim: sw=4 ts=8 et

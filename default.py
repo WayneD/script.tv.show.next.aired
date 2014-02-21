@@ -967,4 +967,4 @@ class tvdb_updater:
 if ( __name__ == "__main__" ):
     NextAired()
 
-# vim: et
+# vim: sw=4 ts=8 et

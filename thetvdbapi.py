@@ -246,4 +246,4 @@ class ExpatParseXml(object):
         else:
             self.xml[name] = [ attrs ]
 
-# vim: et
+# vim: sw=4 ts=8 et
