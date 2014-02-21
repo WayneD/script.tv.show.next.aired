@@ -114,6 +114,8 @@ class NextAired:
             self.run_backend()
         elif self.SILENT == "":
             self.show_gui()
+        elif self.STOP:
+            self.stop_background_updating()
         else:
             for old_file in OLD_FILES:
                 self.rm_file(old_file)
@@ -130,6 +132,7 @@ class NextAired:
         self.TVSHOWTITLE = params.get( "tvshowtitle", False )
         self.FORCEUPDATE = params.get("force", False)
         self.RESET = params.get( "reset", False )
+        self.STOP = params.get("stop", False)
 
     def set_today(self):
         self.now = time()
@@ -185,6 +188,9 @@ class NextAired:
             else:
                 xbmc.sleep(1000)
         self.close("xbmc is closing -- stopping background processing")
+
+    def stop_background_updating(self):
+        self.WINDOW.setProperty("NextAired.background_id", 'stop')
 
     def load_data(self):
         if self.RESET:
