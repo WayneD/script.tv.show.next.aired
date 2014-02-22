@@ -55,7 +55,7 @@ elif DATE_FORMAT[0] == 'm':
 MAIN_DB_VER = 1
 COUNTRY_DB_VER = 1
 
-FAILURE_PAUSE = 30*60
+FAILURE_PAUSE = 5*60
 
 INT_REGEX = re.compile(r"^([0-9]+)$")
 NEW_REGEX = re.compile(r"^01x")
@@ -107,7 +107,7 @@ class NextAired:
         self.set_today()
         self.days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
         self.ampm = xbmc.getCondVisibility('substring(System.Time,Am)') or xbmc.getCondVisibility('substring(System.Time,Pm)')
-        self.last_update = self.last_failure = 0
+        self.last_update = self.last_failure = self.failure_cnt = 0
         self._parse_argv()
         footprints(self.SILENT != "", self.FORCEUPDATE, self.RESET)
         self.check_xbmc_version()
@@ -154,6 +154,7 @@ class NextAired:
 
     def set_last_failure(self):
         self.last_failure = self.now
+        self.failure_cnt += 1
         self.get_last_failure()
         self.WINDOW.setProperty("NextAired.last_failure", str(self.last_failure))
 
@@ -165,7 +166,7 @@ class NextAired:
             return False
         if self.now - self.last_update < update_after_seconds:
             return False
-        if self.get_last_failure() < FAILURE_PAUSE:
+        if self.get_last_failure() < FAILURE_PAUSE * min(self.failure_cnt, 24):
             return False
         return True
 
@@ -178,22 +179,21 @@ class NextAired:
                 break
             xbmc.sleep(1000)
         profile_dir = xbmc.translatePath("special://profile/addon_data/")
-        prior_now = self.now
+        next_chk = self.now
+        this_day = ''
         while not xbmc.abortRequested:
             self.now = time()
-            elapsed_secs = self.now - prior_now
-            if elapsed_secs < 20:
+            if self.now < next_chk:
                 # We can't sleep for very long at a time or a shutdown bogs down.
                 # To combat this, we do very little most of the times that we wake
                 # up, and the rest of the work after enough time has passed.
                 xbmc.sleep(1000)
                 continue
-            prior_now = self.now
-            if elapsed_secs > 30:
+            if self.now > next_chk + 15:
                 # We slept for a longer time than expected, so this probably means that
                 # the computer is waking up from suspend.  Since the networking may not
                 # be ready to go just yet, we'll delay our upgrade checking a bit more.
-                prior_now += 60
+                next_chk = self.now + 60
                 continue
             if self.WINDOW.getProperty("NextAired.background_id") != my_unique_id:
                 self.close("another background script was started -- stopping older background proc")
@@ -203,8 +203,15 @@ class NextAired:
                 update_every = int(__addon__.getSetting('update_every'))*60*60 # hours -> seconds
             except:
                 update_every = 0
-            if self.is_time_for_update(update_every):
-                self.update_data(update_every)
+            # Note that we run the update routine at least once a day to age the episode lists,
+            # even if we don't grab any new data (if it's not update time just yet).
+            self.set_today()
+            next_chk = self.now + 20
+            if self.datestr != this_day or self.is_time_for_update(update_every):
+                if self.update_data(update_every):
+                    this_day = self.datestr
+                else:
+                    next_chk = self.now + FAILURE_PAUSE * min(self.failure_cnt, 24)
                 self.nextlist = [] # Discard the in-memory data until the next update
             else:
                 xbmc.sleep(1000)
@@ -217,8 +224,6 @@ class NextAired:
         if self.RESET:
             self.rm_file(NEXTAIRED_DB)
             self.rm_file(COUNTRY_DB)
-
-        self.set_today()
 
         # Snag our TV-network -> Country + timezone mapping DB, or create it.
         cl = self.get_list(COUNTRY_DB)
@@ -261,25 +266,26 @@ class NextAired:
         # This should prevent the background and user code from updating the DB at the same time.
         if self.SILENT != "":
             # We double-check this here, just in case it changed.
-            if not self.is_time_for_update(update_after_seconds):
-                return
-            # Background updating: we will just skip our update if the user is doing an update.
-            self.max_fetch_failures = 8
-            self.WINDOW.setProperty("NextAired.bgnd_status", "0|0|...")
-            self.WINDOW.setProperty("NextAired.bgnd_lock", str(self.now))
-            locked_for_update = True
-            xbmc.sleep(2000) # try to avoid a race-condition
-            user_lock = self.WINDOW.getProperty("NextAired.user_lock")
-            if user_lock != "":
-                if self.now - float(user_lock) <= 10*60:
-                    self.WINDOW.clearProperty("NextAired.bgnd_lock")
-                    # We failed to get data, so this will cause us to check on the update in a bit.
-                    # (No need to save it as a failure property -- this is just for us.)
-                    self.last_failure = self.now
-                    return
-                # User's lock has sat around for too long, so just ignore it.
+            if self.is_time_for_update(update_after_seconds):
+                self.WINDOW.setProperty("NextAired.bgnd_status", "0|0|...")
+                self.WINDOW.setProperty("NextAired.bgnd_lock", str(self.now))
+                locked_for_update = True
+                xbmc.sleep(2000) # try to avoid a race-condition
+                # Background updating: we will just skip our update if the user is doing an update.
+                user_lock = self.WINDOW.getProperty("NextAired.user_lock")
+                if user_lock != "":
+                    if self.now - float(user_lock) <= 10*60:
+                        self.WINDOW.clearProperty("NextAired.bgnd_lock")
+                        # We failed to get data, so this will cause us to check on the update in a bit.
+                        # (No need to save it as a failure property -- this is just for us.)
+                        self.last_failure = self.now
+                        return False
+                    # User's lock has sat around for too long, so just ignore it.
+                log("### performing background update", level=1)
+                self.max_fetch_failures = 8
+            else:
+                locked_for_update = False
             socket.setdefaulttimeout(60)
-            log("### performing background update", level=1)
         elif self.is_time_for_update(update_after_seconds): # We only lock if we're going to do some updating.
             # User updating: we will wait for a background update to finish, then see if we have recent data.
             DIALOG_PROGRESS = xbmcgui.DialogProgress()
@@ -341,7 +347,6 @@ class NextAired:
             if need_full_scan or got_update:
                 self.last_update = self.now
             elif not got_update:
-                self.set_last_failure()
                 self.max_fetch_failures = 0
             tv_up = None
         else:
@@ -360,7 +365,7 @@ class NextAired:
                 DIALOG_PROGRESS.close()
                 self.WINDOW.clearProperty("NextAired.user_lock")
             self.set_last_failure()
-            return
+            return False
 
         count = 0
         id_re = re.compile(r"http%3a%2f%2fthetvdb\.com%2f[^']+%2f([0-9]+)-")
@@ -462,19 +467,22 @@ class NextAired:
         if locked_for_update:
             self.save_file([show_dict, MAIN_DB_VER, self.last_update], NEXTAIRED_DB)
 
-        if self.SILENT != "":
-            self.WINDOW.clearProperty("NextAired.bgnd_lock")
-            xbmc.sleep(1000)
-            self.WINDOW.clearProperty("NextAired.bgnd_status")
-            log("### background update finished", level=1)
-        elif locked_for_update:
-            DIALOG_PROGRESS.close()
-            self.WINDOW.clearProperty("NextAired.user_lock")
-
-        if locked_for_update and self.max_fetch_failures <= 0:
-            self.set_last_failure()
+        if locked_for_update:
+            if self.SILENT != "":
+                self.WINDOW.clearProperty("NextAired.bgnd_lock")
+                xbmc.sleep(1000)
+                self.WINDOW.clearProperty("NextAired.bgnd_status")
+                log("### background update finished", level=1)
+            else:
+                DIALOG_PROGRESS.close()
+                self.WINDOW.clearProperty("NextAired.user_lock")
+            if self.max_fetch_failures <= 0:
+                self.set_last_failure()
+            else:
+                self.failure_cnt = 0
 
         self.FORCEUPDATE = False
+        return True
 
     def check_xbmc_version(self):
         # retrieve current installed version
