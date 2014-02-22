@@ -148,14 +148,14 @@ class NextAired:
     # Returns elapsed seconds since last update failure.
     def get_last_failure(self):
         v = self.WINDOW.getProperty("NextAired.last_failure")
-        v = int(v) if INT_REGEX.match(v) else 0
+        v = float(v) if v != "" else 0
         self.last_failure = max(v, self.last_failure)
         return self.now - self.last_failure
 
     def set_last_failure(self):
         self.last_failure = self.now
         self.get_last_failure()
-        self.WINDOW.setProperty("NextAired.last_failure", self.last_failure)
+        self.WINDOW.setProperty("NextAired.last_failure", str(self.last_failure))
 
     def is_time_for_update(self, update_after_seconds):
         self.now = time()
