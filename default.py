@@ -179,13 +179,20 @@ class NextAired:
         prior_now = self.now
         while not xbmc.abortRequested:
             self.now = time()
-            if self.now - prior_now < 20:
+            elapsed_secs = self.now - prior_now
+            if elapsed_secs < 20:
                 # We can't sleep for very long at a time or a shutdown bogs down.
                 # To combat this, we do very little most of the times that we wake
                 # up, and the rest of the work after enough time has passed.
                 xbmc.sleep(1000)
                 continue
             prior_now = self.now
+            if elapsed_secs > 30:
+                # We slept for a longer time than expected, so this probably means that
+                # the computer is waking up from suspend.  Since the networking may not
+                # be ready to go just yet, we'll delay our upgrade checking a bit more.
+                prior_now += 60
+                continue
             if self.WINDOW.getProperty("NextAired.background_id") != my_unique_id:
                 self.close("another background script was started -- stopping older background proc")
             if xbmc.translatePath("special://profile/addon_data/") != profile_dir:
