@@ -73,6 +73,7 @@ class Gui( xbmcgui.WindowXML ):
         if controlID == 8:
             self.settingsOpen = True
             __addon__.openSettings()
+            self.close()
         elif controlID in ( 200, 201, 202, 203, 204, 205, 206, ):
             listitem = self.getControl( controlID ).getSelectedItem()
             library = listitem.getProperty('Library')
@@ -82,9 +83,7 @@ class Gui( xbmcgui.WindowXML ):
         pass
 
     def onAction( self, action ):
-        if action.getId() in ( 9, 10, 92, 216, 247, 257, 275, 61467, 61448, ):
-            self.close()
-        if action.getId() in ( 7, 10, 92, ) and self.settingsOpen:
+        if self.settingsOpen and action.getId() in ( 7, 10, 92, ):
             num = int( __addon__.getSetting( "ThumbType" ) )
             xbmc.executebuiltin( "SetProperty(TVGuide.ThumbType,%i,Home)" % num )
             if __addon__.getSetting( "PreviewThumbs" ) == 'true':
@@ -96,6 +95,8 @@ class Gui( xbmcgui.WindowXML ):
             else:
                 xbmc.executebuiltin( "ClearProperty(TVGuide.BackgroundFanart,Home)" )
             self.settingsOpen = False
+        if action.getId() in ( 9, 10, 92, 216, 247, 257, 275, 61467, 61448, ):
+            self.close()
 
 def MyDialog(tv_list, setLabels):
     w = Gui( "script-NextAired-TVGuide.xml", __cwd__, "Default" , listing=tv_list, setLabels=setLabels)
