@@ -159,6 +159,8 @@ class NextAired:
 
     def is_time_for_update(self, update_after_seconds):
         self.now = time()
+        if self.FORCEUPDATE:
+            return True
         if update_after_seconds == 0:
             return False
         if self.now - self.last_update < update_after_seconds:
@@ -471,6 +473,8 @@ class NextAired:
 
         if locked_for_update and self.max_fetch_failures <= 0:
             self.set_last_failure()
+
+        self.FORCEUPDATE = False
 
     def check_xbmc_version(self):
         # retrieve current installed version
@@ -826,13 +830,10 @@ class NextAired:
                 self.set_labels('windowpropertytoday', current_show)
 
     def show_gui(self):
-        if self.FORCEUPDATE:
-            update_after = 1
-        else:
-            try:
-                update_after = int(__addon__.getSetting('update_after'))*60*60 # hours -> seconds
-            except:
-                update_after = 0
+        try:
+            update_after = int(__addon__.getSetting('update_after'))*60*60 # hours -> seconds
+        except:
+            update_after = 0
         self.update_data(update_after)
         weekday = self.date.weekday()
         self.WINDOW.setProperty("NextAired.TodayDate", self.date.strftime(DATE_FORMAT))
