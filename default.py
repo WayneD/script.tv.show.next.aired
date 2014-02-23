@@ -347,7 +347,7 @@ class NextAired:
             title_dict[show['localname']] = tid
 
         if locked_for_update:
-            tvdb = TheTVDB('1D62F2F90030C444', 'en')
+            tvdb = TheTVDB('1D62F2F90030C444', 'en', want_raw = True)
             # This typically asks TheTVDB for an update-zip file and tweaks the show_dict to note needed updates.
             tv_up = tvdb_updater(tvdb)
             need_full_scan, got_update = tv_up.note_updates(show_dict, elapsed_secs)
