@@ -51,6 +51,8 @@ if DATE_FORMAT[0] == 'd':
     DATE_FORMAT = '%d-%m-%y'
 elif DATE_FORMAT[0] == 'm':
     DATE_FORMAT = '%m-%d-%y'
+elif DATE_FORMAT[0] == 'y':
+    DATE_FORMAT = '%y-%m-%d'
 
 MAIN_DB_VER = 1
 COUNTRY_DB_VER = 1
@@ -632,7 +634,7 @@ class NextAired:
         if first_aired:
             first_aired = TheTVDB.convert_date(first_aired)
             current_show['Premiered'] = first_aired.year
-            current_show['Started'] = first_aired.strftime('%b/%d/%Y')
+            current_show['Started'] = self.nice_date(first_aired, force_year = True)
         else:
             current_show['Premiered'] = current_show['Started'] = ""
         current_show['Country'] = country
@@ -723,10 +725,7 @@ class NextAired:
         if ep and ep['id']:
             name = ep['name']
             number = ep['number']
-            tt = TheTVDB.convert_date(ep['aired'][:10]).timetuple()
-            aired = "%s, %s %d" % (self.local_days[tt[6]], self.local_months[tt[1]-1], tt[2])
-            if tt[0] != self.date.year:
-                aired += ", %d" % tt[0]
+            aired = self.nice_date(TheTVDB.convert_date(ep['aired'][:10]))
         else:
             name = number = aired = ''
         num_array = number.split('x')
@@ -754,6 +753,13 @@ class NextAired:
                 log( "### TODAY" )
             log( "### %s" % when )
         log( "### today show: %s - %s" % ( self.todayshow , str(self.todaylist).strip("[]") ) )
+
+    def nice_date(self, d, force_year = False):
+        tt = d.timetuple()
+        d = "%s, %s %d" % (self.local_days[tt[6]], self.local_months[tt[1]-1], tt[2])
+        if force_year or tt[0] != self.date.year:
+            d += ", %d" % tt[0]
+        return d
 
     @staticmethod
     def get_list(listname):
