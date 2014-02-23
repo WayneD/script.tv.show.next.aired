@@ -1,4 +1,4 @@
-from time import strptime, time, mktime, localtime
+from time import strftime, strptime, time, mktime, localtime
 import os, sys, re, socket, urllib, unicodedata, threading
 from traceback import print_exc
 from datetime import datetime, date, timedelta
@@ -54,7 +54,7 @@ elif DATE_FORMAT[0] == 'm':
 elif DATE_FORMAT[0] == 'y':
     DATE_FORMAT = '%y-%m-%d'
 
-MAIN_DB_VER = 1
+MAIN_DB_VER = 2
 COUNTRY_DB_VER = 1
 
 FAILURE_PAUSE = 5*60
@@ -341,8 +341,7 @@ class NextAired:
             locked_for_update = False
 
         title_dict = {}
-        for tid in show_dict:
-            show = show_dict[tid]
+        for tid, show in show_dict.iteritems():
             show['unused'] = True
             title_dict[show['localname']] = tid
 
@@ -451,8 +450,7 @@ class NextAired:
         if show_dict:
             log("### data available", level=5)
             remove_list = []
-            for tid in show_dict:
-                show = show_dict[tid]
+            for tid, show in show_dict.iteritems():
                 if 'unused' in show:
                     remove_list.append(tid)
                     continue
@@ -627,7 +625,6 @@ class NextAired:
         local_airtime = datetime.combine(self.date, local_airtime).replace(tzinfo=tz.tzoffset(None, tz_offset))
         if airtime is not None: # Don't backtrack an assumed midnight time (for an invalid airtime) into the prior day.
             local_airtime = local_airtime.astimezone(tz.tzlocal())
-        airtime_fmt = '%I:%M %p' if self.ampm else '%H:%M'
 
         current_show['Show Name'] = normalize(show, 'SeriesName')
         first_aired = show.get('FirstAired', None)
@@ -641,7 +638,7 @@ class NextAired:
         current_show['Status'] = normalize(show, 'Status')
         current_show['Genres'] = normalize(show, 'Genre').strip('|').replace('|', ' | ')
         current_show['Network'] = network
-        current_show['Airtime'] = local_airtime.strftime(airtime_fmt) if airtime is not None else '??:??'
+        current_show['Airtime'] = local_airtime.strftime('%H:%M') if airtime is not None else ''
         current_show['Runtime'] = maybe_int(show, 'Runtime', '')
 
         can_re = re.compile(r"canceled|ended", re.IGNORECASE)
@@ -719,7 +716,20 @@ class NextAired:
     @staticmethod
     def upgrade_data_format(show_dict, from_ver):
         log("### upgrading DB from version %d to %d" % (from_ver, MAIN_DB_VER), level=1)
-        # We'll add code here if the db changes
+        for tid, show in show_dict.iteritems():
+            if from_ver < 2:
+                # Convert Started into isoformat date:
+                started = ''
+                for fmt in ('%b/%d/%Y', '%a, %b %d, %Y'):
+                    try:
+                        started = strftime('%Y-%m-%d', strptime(show['Started'], fmt))
+                        break
+                    except:
+                        pass
+                show['Started'] = started
+                # Convert airtime into HH:MM (never AM/PM):
+                airtime = TheTVDB.convert_time(show['Airtime'])
+                show['Airtime'] = airtime.strftime('%H:%M') if airtime is not None else ''
 
     def set_episode_info(self, label, prefix, when, ep):
         if ep and ep['id']:
@@ -755,6 +765,8 @@ class NextAired:
         log( "### today show: %s - %s" % ( self.todayshow , str(self.todaylist).strip("[]") ) )
 
     def nice_date(self, d, force_year = False):
+        if d is None:
+            return ''
         tt = d.timetuple()
         d = "%s, %s %d" % (self.local_days[tt[6]], self.local_months[tt[1]-1], tt[2])
         if force_year or tt[0] != self.date.year:
@@ -879,8 +891,7 @@ class NextAired:
             if self.selecteditem != self.previousitem:
                 self.WINDOW.clearProperty("NextAired.Label")
                 self.previousitem = self.selecteditem
-                for tid in show_dict:
-                    item = show_dict[tid]
+                for tid, item in show_dict.iteritems():
                     if self.selecteditem == item["localname"]:
                         self.set_labels('windowproperty', item)
                         break
@@ -895,8 +906,7 @@ class NextAired:
         log("### return_properties started", level=6)
         if show_dict:
             self.WINDOW.clearProperty("NextAired.Label")
-            for tid in show_dict:
-                item = show_dict[tid]
+            for tid, item in show_dict.iteritems():
                 if tvshowtitle == item["localname"]:
                     self.set_labels('windowproperty', item)
 
@@ -937,6 +947,13 @@ class NextAired:
             airdays = ', '.join(airdays)
         is_today = 'True' if next_ep and next_ep['aired'][:10] == self.datestr else 'False'
 
+        started = TheTVDB.convert_date(item["Started"])
+        airtime = TheTVDB.convert_time(item["Airtime"])
+        if airtime is not None:
+            airtime = airtime.strftime('%I:%M %p' if self.ampm else '%H:%M')
+        else:
+            airtime = '??:??'
+
         status = item.get("Status", "")
         if status == 'Continuing':
             ep = next_ep if next_ep else latest_ep if latest_ep else None
@@ -956,11 +973,7 @@ class NextAired:
         if status_id != '-1':
             status = STATUS[status_id]
 
-        started = TheTVDB.convert_date(item.get("Started", ""))
-        if not started: # XXX temporary code during transition...
-            started = TheTVDB.convert_date('1969-01-01')
-
-        label.setProperty(prefix + "AirTime", '%s at %s' % (airdays, item.get("Airtime", "")))
+        label.setProperty(prefix + "AirTime", '%s at %s' % (airdays, airtime))
         label.setProperty(prefix + "Path", item.get("path", ""))
         label.setProperty(prefix + "Library", item.get("dbid", ""))
         label.setProperty(prefix + "Status", status)
@@ -985,7 +998,7 @@ class NextAired:
         label.setProperty(prefix + "Art(clearart)", art.get("clearart", ""))
         label.setProperty(prefix + "Today", is_today)
         label.setProperty(prefix + "AirDay", airdays)
-        label.setProperty(prefix + "ShortTime", item.get("Airtime", ""))
+        label.setProperty(prefix + "ShortTime", airtime)
 
         # This sets NextDate, NextTitle, etc.
         self.set_episode_info(label, prefix, 'Next', next_ep)
@@ -1014,8 +1027,7 @@ class tvdb_updater:
             period = 'month'
         else:
             # Flag all non-canceled shows as needing new data
-            for tid in self.show_dict:
-                show = self.show_dict[tid]
+            for tid, show in show_dict.iteritems():
                 if not show.get('canceled', False):
                     show['show_changed'] = 1
                     show['eps_changed'] = (1, 0)
