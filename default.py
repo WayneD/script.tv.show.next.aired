@@ -634,7 +634,7 @@ class NextAired:
         if first_aired:
             first_aired = TheTVDB.convert_date(first_aired)
             current_show['Premiered'] = first_aired.year
-            current_show['Started'] = self.nice_date(first_aired, force_year = True)
+            current_show['Started'] = first_aired.isoformat()
         else:
             current_show['Premiered'] = current_show['Started'] = ""
         current_show['Country'] = country
@@ -956,13 +956,17 @@ class NextAired:
         if status_id != '-1':
             status = STATUS[status_id]
 
+        started = TheTVDB.convert_date(item.get("Started", ""))
+        if not started: # XXX temporary code during transition...
+            started = TheTVDB.convert_date('1969-01-01')
+
         label.setProperty(prefix + "AirTime", '%s at %s' % (airdays, item.get("Airtime", "")))
         label.setProperty(prefix + "Path", item.get("path", ""))
         label.setProperty(prefix + "Library", item.get("dbid", ""))
         label.setProperty(prefix + "Status", status)
         label.setProperty(prefix + "StatusID", status_id)
         label.setProperty(prefix + "Network", item.get("Network", ""))
-        label.setProperty(prefix + "Started", item.get("Started", ""))
+        label.setProperty(prefix + "Started", self.nice_date(started, force_year = True))
         # XXX Note that Classification is always unset at the moment!
         label.setProperty(prefix + "Classification", item.get("Classification", ""))
         label.setProperty(prefix + "Genre", item.get("Genres", ""))
