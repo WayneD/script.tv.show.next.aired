@@ -106,6 +106,12 @@ class NextAired:
         self.WINDOW = xbmcgui.Window( 10000 )
         self.set_today()
         self.days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
+        self.local_days = []
+        for j in range(41, 48):
+            self.local_days.append(xbmc.getLocalizedString(j))
+        self.local_months = []
+        for j in range(51, 63):
+            self.local_months.append(xbmc.getLocalizedString(j))
         self.ampm = xbmc.getCondVisibility('substring(System.Time,Am)') or xbmc.getCondVisibility('substring(System.Time,Pm)')
         self.last_update = self.last_failure = self.failure_cnt = 0
         self._parse_argv()
@@ -143,7 +149,6 @@ class NextAired:
         self.datestr = str(self.date)
         self.in_dst = localtime().tm_isdst
         self.day_limit = str(self.date + timedelta(days=6))
-        self.this_year_regex = re.compile(r', %s$' % self.date.strftime('%Y'))
 
     # Returns elapsed seconds since last update failure.
     def get_last_failure(self):
@@ -626,7 +631,7 @@ class NextAired:
         first_aired = show.get('FirstAired', None)
         if first_aired:
             first_aired = TheTVDB.convert_date(first_aired)
-            current_show['Premiered'] = int(first_aired.strftime('%Y'))
+            current_show['Premiered'] = first_aired.year
             current_show['Started'] = first_aired.strftime('%b/%d/%Y')
         else:
             current_show['Premiered'] = current_show['Started'] = ""
@@ -718,7 +723,10 @@ class NextAired:
         if ep and ep['id']:
             name = ep['name']
             number = ep['number']
-            aired = self.this_year_regex.sub('', TheTVDB.convert_date(ep['aired'][:10]).strftime('%a, %b %d, %Y'))
+            tt = TheTVDB.convert_date(ep['aired'][:10]).timetuple()
+            aired = "%s, %s %d" % (self.local_days[tt[6]], self.local_months[tt[1]-1], tt[2])
+            if tt[0] != self.date.year:
+                aired += ", %d" % tt[0]
         else:
             name = number = aired = ''
         num_array = number.split('x')
