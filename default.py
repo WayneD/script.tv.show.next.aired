@@ -288,7 +288,6 @@ class NextAired:
                         self.last_failure = self.now
                         return False
                     # User's lock has sat around for too long, so just ignore it.
-                log("### performing background update", level=1)
                 self.max_fetch_failures = 8
             else:
                 locked_for_update = False
@@ -340,12 +339,8 @@ class NextAired:
         else:
             locked_for_update = False
 
-        title_dict = {}
-        for tid, show in show_dict.iteritems():
-            show['unused'] = True
-            title_dict[show['localname']] = tid
-
         if locked_for_update:
+            log("### starting data update", level=1)
             tvdb = TheTVDB('1D62F2F90030C444', 'en', want_raw = True)
             # This typically asks TheTVDB for an update-zip file and tweaks the show_dict to note needed updates.
             tv_up = tvdb_updater(tvdb)
@@ -360,6 +355,11 @@ class NextAired:
             need_full_scan = False
             # A max-fetch of 0 disables all updating.
             self.max_fetch_failures = 0
+
+        title_dict = {}
+        for tid, show in show_dict.iteritems():
+            show['unused'] = True
+            title_dict[show['localname']] = tid
 
         TVlist = self.listing()
         total_show = len(TVlist)
@@ -473,11 +473,11 @@ class NextAired:
             self.save_file([show_dict, MAIN_DB_VER, self.last_update], NEXTAIRED_DB)
 
         if locked_for_update:
+            log("### data update finished", level=1)
             if self.SILENT != "":
                 self.WINDOW.clearProperty("NextAired.bgnd_lock")
                 xbmc.sleep(1000)
                 self.WINDOW.clearProperty("NextAired.bgnd_status")
-                log("### background update finished", level=1)
             else:
                 DIALOG_PROGRESS.close()
                 self.WINDOW.clearProperty("NextAired.user_lock")
@@ -720,7 +720,7 @@ class NextAired:
             if from_ver < 2:
                 # Convert Started into isoformat date:
                 started = ''
-                for fmt in ('%b/%d/%Y', '%a, %b %d, %Y'):
+                for fmt in ('%b/%d/%Y', '%a, %b %d, %Y', '%Y-%m-%d'):
                     try:
                         started = strftime('%Y-%m-%d', strptime(show['Started'], fmt))
                         break
