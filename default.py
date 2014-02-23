@@ -5,8 +5,6 @@ from datetime import datetime, date, timedelta
 from dateutil import tz
 from operator import attrgetter, itemgetter
 import xbmc, xbmcgui, xbmcaddon, xbmcvfs
-from thetvdbapi import TheTVDB
-from country_lookup import CountryLookup
 if sys.version_info < (2, 7):
     import simplejson
 else:
@@ -26,6 +24,9 @@ __datapath__ = os.path.join( xbmc.translatePath( "special://profile/addon_data/"
 __resource__  = xbmc.translatePath( os.path.join( __cwd__, 'resources', 'lib' ).encode("utf-8") ).decode("utf-8")
 
 sys.path.append(__resource__)
+
+from thetvdbapi import TheTVDB
+from country_lookup import CountryLookup
 
 NEXTAIRED_DB = 'next.aired.db'
 COUNTRY_DB = 'country.db'
