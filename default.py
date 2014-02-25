@@ -116,7 +116,10 @@ class NextAired:
         for j in range(51, 63):
             self.local_months.append(xbmc.getLocalizedString(j))
         self.ampm = xbmc.getCondVisibility('substring(System.Time,Am)') or xbmc.getCondVisibility('substring(System.Time,Pm)')
-        self.last_update = self.last_failure = self.failure_cnt = 0
+        # "last_success" is when we last successfully made it through an update pass without fetch errors.
+        # "last_update" is when we last successfully marked-up the shows to note which ones need an update.
+        # "last_failure" is when we last failed to fetch data, with failure_cnt counting consecutive failures.
+        self.last_success = self.last_update = self.last_failure = self.failure_cnt = 0
         self._parse_argv()
         footprints(self.SILENT != "", self.FORCEUPDATE, self.RESET)
         self.check_xbmc_version()
@@ -172,7 +175,7 @@ class NextAired:
             return True
         if update_after_seconds == 0:
             return False
-        if self.now - self.last_update < update_after_seconds:
+        if self.now - self.last_success < update_after_seconds:
             return False
         if self.get_last_failure() < FAILURE_PAUSE * min(self.failure_cnt, 24):
             return False
@@ -249,9 +252,10 @@ class NextAired:
         ep_list = self.get_list(NEXTAIRED_DB)
         ep_list_len = len(ep_list)
         show_dict = (ep_list.pop(0) if ep_list else {})
-        self.last_update = (ep_list.pop() if ep_list else None)
+        self.last_success = (ep_list.pop() if ep_list else None)
         db_ver = (ep_list.pop(0) if ep_list else 999999)
-        if db_ver > MAIN_DB_VER or not self.last_update:
+        self.last_update = (ep_list.pop() if ep_list else self.last_success)
+        if db_ver > MAIN_DB_VER or not self.last_success:
             if self.RESET:
                 log("### starting without prior data (DB RESET requested)", level=1)
             elif ep_list_len:
@@ -259,7 +263,7 @@ class NextAired:
             else:
                 log("### no prior data found", level=1)
             show_dict = {}
-            self.last_update = 0
+            self.last_success = self.last_update = 0
         elif db_ver != MAIN_DB_VER:
             self.upgrade_data_format(show_dict, db_ver)
 
@@ -446,7 +450,7 @@ class NextAired:
         # If we did a lot of work, make sure we save it prior to doing anything else.
         # This ensures that a bug in the following code won't make us redo everything.
         if need_full_scan and locked_for_update:
-            self.save_file([show_dict, MAIN_DB_VER, self.last_update], NEXTAIRED_DB)
+            self.save_file([show_dict, MAIN_DB_VER, self.last_update, self.last_success], NEXTAIRED_DB)
 
         if show_dict:
             log("### data available", level=5)
@@ -471,10 +475,11 @@ class NextAired:
             log("### no current show data...", level=5)
 
         if locked_for_update:
-            self.save_file([show_dict, MAIN_DB_VER, self.last_update], NEXTAIRED_DB)
-
-        if locked_for_update:
+            if self.max_fetch_failures > 0:
+                self.last_success = self.now
+            self.save_file([show_dict, MAIN_DB_VER, self.last_update, self.last_success], NEXTAIRED_DB)
             log("### data update finished", level=1)
+
             if self.SILENT != "":
                 self.WINDOW.clearProperty("NextAired.bgnd_lock")
                 xbmc.sleep(1000)
