@@ -330,7 +330,9 @@ class CountryLookup(object):
 
         return zone_map
 
-# Some helper code to check on the data:
+# Some helper code to check on the data and output a new timezone list.
+# NOTE: none of the following code is run when this file is included as
+# a library, so no "print" in the following will get run via xbmc.
 def main(argv):
     import getopt
 
