@@ -340,6 +340,8 @@ def main(argv):
         opts, args = getopt.getopt(argv, "h", ["map", "zones", "test", "help"])
     except getopt.GetoptError:
         usage()
+    if not opts:
+        opts.append(('--test', ''));
     for opt, arg in opts:
         if opt == "--map":
             c = CountryLookup()
@@ -357,6 +359,8 @@ def main(argv):
                     saw_error = True
             if saw_error:
                 print "^-- Run with --zones to output a new country table."
+            else:
+                print "All country names were found."
         elif opt in ("-h", "--help"):
             usage()
         else:
