@@ -255,9 +255,9 @@ class NextAired:
         ep_list_len = len(ep_list)
         show_dict = (ep_list.pop(0) if ep_list else {})
         self.last_success = (ep_list.pop() if ep_list else None)
-        db_ver = (ep_list.pop(0) if ep_list else 999999)
+        db_ver = (ep_list.pop(0) if ep_list else None)
         self.last_update = (ep_list.pop() if ep_list else self.last_success)
-        if db_ver > MAIN_DB_VER or not self.last_success:
+        if not db_ver or not self.last_success:
             if self.RESET:
                 log("### starting without prior data (DB RESET requested)", level=1)
             elif ep_list_len:
@@ -723,6 +723,9 @@ class NextAired:
 
     @staticmethod
     def upgrade_data_format(show_dict, from_ver):
+        if from_ver > MAIN_DB_VER:
+            log("### ERROR: found DB version that is too new for this script to handle (%d > %d)" % (from_ver, MAIN_DB_VER), level=0)
+            sys.exit()
         log("### upgrading DB from version %d to %d" % (from_ver, MAIN_DB_VER), level=1)
         daymap = {'Monday': 0, 'Tuesday': 1, 'Wednesday': 2, 'Thursday': 3, 'Friday': 4, 'Saturday': 5, 'Sunday': 6}
         for tid, show in show_dict.iteritems():
