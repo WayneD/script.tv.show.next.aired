@@ -927,7 +927,7 @@ class NextAired:
                     self.set_labels('windowproperty', item)
 
     def set_labels(self, infolabel, item, want_ep_ndx = None):
-        art = item.get("art", "")
+        art = item["art"]
         if (infolabel == 'windowproperty') or (infolabel == 'windowpropertytoday'):
             label = xbmcgui.Window( 10000 )
             if infolabel == "windowproperty":
@@ -1007,13 +1007,11 @@ class NextAired:
         # Keep old fanart property for backwards compatibility
         label.setProperty(prefix + "Fanart", art.get("fanart", ""))
         # New art properties
-        label.setProperty(prefix + "Art(fanart)", art.get("fanart", ""))
-        label.setProperty(prefix + "Art(poster)", art.get("poster", ""))
-        label.setProperty(prefix + "Art(banner)", art.get("banner", ""))
-        label.setProperty(prefix + "Art(landscape)", art.get("landscape", ""))
-        label.setProperty(prefix + "Art(clearlogo)", art.get("clearlogo", ""))
-        label.setProperty(prefix + "Art(characterart)", art.get("characterart", ""))
-        label.setProperty(prefix + "Art(clearart)", art.get("clearart", ""))
+        for art_type in ('fanart', 'poster', 'banner', 'landscape', 'clearlogo', 'characterart', 'clearart'):
+            art_url = art.get(art_type, "")
+            if art_url == "" and art_type != 'fanart':
+                art_url = "image://http%3a%2f%2fopencoder.net%2fnext-aired-missing.png/"
+            label.setProperty("%sArt(%s)" % (prefix, art_type), art_url)
         label.setProperty(prefix + "Today", is_today)
         label.setProperty(prefix + "AirDay", airdays)
         label.setProperty(prefix + "AirDayNum", daynums)
