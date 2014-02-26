@@ -156,7 +156,6 @@ class NextAired:
         self.date = date.today()
         self.datestr = str(self.date)
         self.in_dst = localtime().tm_isdst
-        self.day_limit = str(self.date + timedelta(days=6))
 
     # Returns elapsed seconds since last update failure.
     def get_last_failure(self):
@@ -958,9 +957,10 @@ class NextAired:
             airdays = []
             if ep_len > 1:
                 for ep in item['episodes'][1:]:
-                    if airdays and ep['aired'][:10] > self.day_limit:
+                    if airdays and ep['wday'] <= airdays[-1]:
                         break
                     airdays.append(ep['wday'])
+        airdays.sort()
         daynums = ', ' . join([str(wday) for wday in airdays])
         airdays = ', ' . join([self.weekdays[wday] for wday in airdays])
 
