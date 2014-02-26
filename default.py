@@ -108,10 +108,10 @@ class NextAired:
     def __init__(self):
         self.WINDOW = xbmcgui.Window( 10000 )
         self.set_today()
-        self.days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
-        self.local_days = []
+        self.weekdays = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
+        self.wdays = []
         for j in range(41, 48):
-            self.local_days.append(xbmc.getLocalizedString(j))
+            self.wdays.append(xbmc.getLocalizedString(j))
         self.local_months = []
         for j in range(51, 63):
             self.local_months.append(xbmc.getLocalizedString(j))
@@ -686,7 +686,7 @@ class NextAired:
                         'name': normalize(ep, 'EpisodeName'),
                         'number': '%02dx%02d' % (ep['SeasonNumber'], ep['EpisodeNumber']),
                         'aired': ep['FirstAired'].isoformat(),
-                        'wday': self.days[ep['FirstAired'].weekday()]
+                        'wday': self.weekdays[ep['FirstAired'].weekday()]
                         }
                 episode_list.append(cur_ep)
 
@@ -701,7 +701,7 @@ class NextAired:
                     aired = TheTVDB.convert_date(ep['aired'][:10])
                     aired = local_airtime + timedelta(days = (aired - self.date).days)
                     ep['aired'] = aired.isoformat()
-                    ep['wday'] = self.days[aired.weekday()]
+                    ep['wday'] = self.weekdays[aired.weekday()]
         else:
             max_eps_utime = 0
             current_show['episodes'] = [{ 'id': None }]
@@ -774,7 +774,7 @@ class NextAired:
         if d is None:
             return ''
         tt = d.timetuple()
-        d = "%s, %s %d" % (self.local_days[tt[6]], self.local_months[tt[1]-1], tt[2])
+        d = "%s, %s %d" % (self.wdays[tt[6]], self.local_months[tt[1]-1], tt[2])
         if force_year or tt[0] != self.date.year:
             d += ", %d" % tt[0]
         return d
