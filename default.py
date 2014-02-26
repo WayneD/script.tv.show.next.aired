@@ -930,8 +930,9 @@ class NextAired:
             latest_ep = item['episodes'][0]
             airdays = []
             if ep_len > 1:
+                date_limit = (TheTVDB.convert_date(item['episodes'][1]['aired'][:10]) + timedelta(days=6)).isoformat()
                 for ep in item['episodes'][1:]:
-                    if airdays and ep['wday'] <= airdays[-1]:
+                    if ep['aired'][:10] > date_limit:
                         break
                     airdays.append(ep['wday'])
         airdays.sort()
