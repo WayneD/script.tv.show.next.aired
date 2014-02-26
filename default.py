@@ -55,7 +55,7 @@ elif DATE_FORMAT[0] == 'm':
 elif DATE_FORMAT[0] == 'y':
     DATE_FORMAT = '%y-%m-%d'
 
-MAIN_DB_VER = 2
+MAIN_DB_VER = 3
 COUNTRY_DB_VER = 1
 
 FAILURE_PAUSE = 5*60
@@ -686,7 +686,7 @@ class NextAired:
                         'name': normalize(ep, 'EpisodeName'),
                         'number': '%02dx%02d' % (ep['SeasonNumber'], ep['EpisodeNumber']),
                         'aired': ep['FirstAired'].isoformat(),
-                        'wday': self.weekdays[ep['FirstAired'].weekday()]
+                        'wday': ep['FirstAired'].weekday()
                         }
                 episode_list.append(cur_ep)
 
@@ -701,7 +701,7 @@ class NextAired:
                     aired = TheTVDB.convert_date(ep['aired'][:10])
                     aired = local_airtime + timedelta(days = (aired - self.date).days)
                     ep['aired'] = aired.isoformat()
-                    ep['wday'] = self.weekdays[aired.weekday()]
+                    ep['wday'] = aired.weekday()
         else:
             max_eps_utime = 0
             current_show['episodes'] = [{ 'id': None }]
@@ -722,6 +722,7 @@ class NextAired:
     @staticmethod
     def upgrade_data_format(show_dict, from_ver):
         log("### upgrading DB from version %d to %d" % (from_ver, MAIN_DB_VER), level=1)
+        daymap = {'Monday': 0, 'Tuesday': 1, 'Wednesday': 2, 'Thursday': 3, 'Friday': 4, 'Saturday': 5, 'Sunday': 6}
         for tid, show in show_dict.iteritems():
             if from_ver < 2:
                 # Convert Started into isoformat date:
@@ -736,6 +737,10 @@ class NextAired:
                 # Convert airtime into HH:MM (never AM/PM):
                 airtime = TheTVDB.convert_time(show['Airtime'])
                 show['Airtime'] = airtime.strftime('%H:%M') if airtime is not None else ''
+            for ep in show['episodes']:
+                if from_ver < 3 and 'wday' in ep:
+                    # Convert wday from a string to an index:
+                    ep['wday'] = daymap[ep['wday']]
 
     def set_episode_info(self, label, prefix, when, ep):
         if ep and ep['id']:
@@ -939,7 +944,7 @@ class NextAired:
         if want_ep_ndx:
             next_ep = item['episodes'][want_ep_ndx]
             latest_ep = item['episodes'][want_ep_ndx-1]
-            airdays = next_ep['wday']
+            airdays = self.weekdays[next_ep['wday']]
         else:
             ep_len = len(item['episodes'])
             next_ep = item['episodes'][1] if ep_len > 1 else None
@@ -949,7 +954,7 @@ class NextAired:
                 for ep in item['episodes'][1:]:
                     if ep['aired'][:10] > self.day_limit:
                         break
-                    airdays.append(ep['wday'])
+                    airdays.append(self.weekdays[ep['wday']])
             airdays = ', '.join(airdays)
         is_today = 'True' if next_ep and next_ep['aired'][:10] == self.datestr else 'False'
 
