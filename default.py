@@ -23,7 +23,7 @@ __useragent__ = "Mozilla/5.0 (Windows; U; Windows NT 5.1; fr; rv:1.9.0.1) Gecko/
 __datapath__ = os.path.join( xbmc.translatePath( "special://profile/addon_data/" ).decode('utf-8'), __addonid__ )
 __resource__  = xbmc.translatePath( os.path.join( __cwd__, 'resources', 'lib' ).encode("utf-8") ).decode("utf-8")
 
-sys.path.append(__resource__)
+sys.path = [__resource__] + sys.path
 
 from thetvdbapi import TheTVDB
 from country_lookup import CountryLookup
