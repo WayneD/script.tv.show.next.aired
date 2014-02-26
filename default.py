@@ -683,6 +683,10 @@ class NextAired:
                     ep = episodes.pop(0)
             else: # If we have no prior episodes, prepend a "None" episode
                 episode_list.append({ 'id': None })
+                # If we lost prior-episode info, schedule a fix-up event for the next time to see if we can find it again.
+                if prior_data and earliest_id > 1 and prior_data['episodes'][-1]['id']:
+                    earliest_id = 1
+                    current_show['eps_changed'] = (earliest_id, eps_last_updated)
 
             for ep in episodes:
                 cur_ep = {
