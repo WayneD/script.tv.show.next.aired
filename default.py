@@ -991,7 +991,7 @@ class NextAired:
         if status_id != '-1':
             status = STATUS[status_id]
 
-        label.setProperty(prefix + "AirTime", '%s at %s' % (airdays, airtime))
+        label.setProperty(prefix + "AirTime", airdays + ": " + airtime)
         label.setProperty(prefix + "Path", item.get("path", ""))
         label.setProperty(prefix + "Library", item.get("dbid", ""))
         label.setProperty(prefix + "Status", status)
