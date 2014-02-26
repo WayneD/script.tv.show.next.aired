@@ -833,51 +833,22 @@ class NextAired:
             oldTotal = int(self.WINDOW.getProperty("NextAired.Total"))
         except:
             oldTotal = 1
-        self.WINDOW.setProperty("NextAired.Total" , str(len(self.nextlist)))
-        self.WINDOW.setProperty("NextAired.TodayTotal" , str(self.todayshow))
-        self.WINDOW.setProperty("NextAired.TodayShow" , str(self.todaylist).strip("[]"))
+        # Set the counts to 0 during the time that we're clearing and re-setting the data.
+        self.WINDOW.setProperty("NextAired.Total", "0")
+        self.WINDOW.setProperty("NextAired.TodayTotal", "0")
+        self.WINDOW.setProperty("NextAired.TodayShow", str(self.todaylist).strip("[]"))
         for count in range(oldTotal):
-            self.WINDOW.clearProperty("NextAired.%d.Label" % ( count + 1, ))
-            self.WINDOW.clearProperty("NextAired.%d.Thumb" % ( count + 1, ))
-            self.WINDOW.clearProperty("NextAired.%d.AirTime" % ( count + 1, ))
-            self.WINDOW.clearProperty("NextAired.%d.Path" % ( count + 1, ))
-            self.WINDOW.clearProperty("NextAired.%d.Library" % ( count + 1, ))
-            self.WINDOW.clearProperty("NextAired.%d.Status" % ( count + 1, ))
-            self.WINDOW.clearProperty("NextAired.%d.StatusID" % ( count + 1, ))
-            self.WINDOW.clearProperty("NextAired.%d.Network" % ( count + 1, ))
-            self.WINDOW.clearProperty("NextAired.%d.Started" % ( count + 1, ))
-            self.WINDOW.clearProperty("NextAired.%d.Classification" % ( count + 1, ))
-            self.WINDOW.clearProperty("NextAired.%d.Genre" % ( count + 1, ))
-            self.WINDOW.clearProperty("NextAired.%d.Premiered" % ( count + 1, ))
-            self.WINDOW.clearProperty("NextAired.%d.Country" % ( count + 1, ))
-            self.WINDOW.clearProperty("NextAired.%d.Runtime" % ( count + 1, ))
-            self.WINDOW.clearProperty("NextAired.%d.Fanart" % ( count + 1, ))
-            self.WINDOW.clearProperty("NextAired.%d.Art(fanart)" % ( count + 1, ))
-            self.WINDOW.clearProperty("NextAired.%d.Art(poster)" % ( count + 1, ))
-            self.WINDOW.clearProperty("NextAired.%d.Art(landscape)" % ( count + 1, ))
-            self.WINDOW.clearProperty("NextAired.%d.Art(banner)" % ( count + 1, ))
-            self.WINDOW.clearProperty("NextAired.%d.Art(clearlogo)" % ( count + 1, ))
-            self.WINDOW.clearProperty("NextAired.%d.Art(characterart)" % ( count + 1, ))
-            self.WINDOW.clearProperty("NextAired.%d.Art(clearart)" % ( count + 1, ))
-            self.WINDOW.clearProperty("NextAired.%d.Today" % ( count + 1, ))
-            self.WINDOW.clearProperty("NextAired.%d.NextDate" % ( count + 1, ))
-            self.WINDOW.clearProperty("NextAired.%d.NextTitle" % ( count + 1, ))
-            self.WINDOW.clearProperty("NextAired.%d.NextNumber" % ( count + 1, ))
-            self.WINDOW.clearProperty("NextAired.%d.NextEpisodeNumber" % ( count + 1, ))
-            self.WINDOW.clearProperty("NextAired.%d.NextSeasonNumber" % ( count + 1, ))
-            self.WINDOW.clearProperty("NextAired.%d.LatestDate" % ( count + 1, ))
-            self.WINDOW.clearProperty("NextAired.%d.LatestTitle" % ( count + 1, ))
-            self.WINDOW.clearProperty("NextAired.%d.LatestNumber" % ( count + 1, ))
-            self.WINDOW.clearProperty("NextAired.%d.LatestEpisodeNumber" % ( count + 1, ))
-            self.WINDOW.clearProperty("NextAired.%d.LatestSeasonNumber" % ( count + 1, ))
-            self.WINDOW.clearProperty("NextAired.%d.Airday" % ( count + 1, ))
-            self.WINDOW.clearProperty("NextAired.%d.ShortTime" % ( count + 1, ))
+            prefix = "NextAired.%d." % (count+1)
+            for prop in ("AirTime", "Airday", "Art(banner)", "Art(characterart)", "Art(clearart)", "Art(clearlogo)", "Art(fanart)", "Art(landscape)", "Art(poster)", "Classification", "Country", "Fanart", "Genre", "Label", "LatestDate", "LatestEpisodeNumber", "LatestNumber", "LatestSeasonNumber", "LatestTitle", "Library", "Network", "NextDate", "NextEpisodeNumber", "NextNumber", "NextSeasonNumber", "NextTitle", "Path", "Premiered", "Runtime", "ShortTime", "Started", "Status", "StatusID", "Thumb", "Today"):
+                self.WINDOW.clearProperty(prefix + prop)
         self.count = 0
         all_days = __addon__.getSetting("ShowAllTVShowsOnHome") == 'true'
         for current_show in self.nextlist:
             if all_days or current_show.get("RFC3339", "")[:10] == self.datestr:
                 self.count += 1
                 self.set_labels('windowpropertytoday', current_show)
+        self.WINDOW.setProperty("NextAired.Total", str(len(self.nextlist)))
+        self.WINDOW.setProperty("NextAired.TodayTotal", str(self.todayshow))
 
     def show_gui(self):
         try:
