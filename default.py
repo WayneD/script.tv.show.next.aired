@@ -957,7 +957,7 @@ class NextAired:
             airdays = []
             if ep_len > 1:
                 for ep in item['episodes'][1:]:
-                    if ep['aired'][:10] > self.day_limit:
+                    if airdays and ep['aired'][:10] > self.day_limit:
                         break
                     airdays.append(ep['wday'])
         daynums = ', ' . join([str(wday) for wday in airdays])
@@ -991,7 +991,7 @@ class NextAired:
         if status_id != '-1':
             status = STATUS[status_id]
 
-        label.setProperty(prefix + "AirTime", airdays + ": " + airtime)
+        label.setProperty(prefix + "AirTime", airdays + ": " + airtime if airdays != "" else airtime)
         label.setProperty(prefix + "Path", item.get("path", ""))
         label.setProperty(prefix + "Library", item.get("dbid", ""))
         label.setProperty(prefix + "Status", status)
