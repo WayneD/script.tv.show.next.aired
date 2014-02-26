@@ -209,6 +209,9 @@ class NextAired:
                 continue
             if self.WINDOW.getProperty("NextAired.background_id") != my_unique_id:
                 self.close("another background script was started -- stopping older background proc")
+            latest_version = xbmcaddon.Addon().getAddonInfo('version')
+            if latest_version != __version__:
+                self.close("the NextAired version changed -- stopping this obsolete background proc")
             if xbmc.translatePath("special://profile/addon_data/") != profile_dir:
                 self.close("profile directory changed -- stopping background proc")
             try:
