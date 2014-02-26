@@ -874,8 +874,9 @@ class NextAired:
             self.WINDOW.clearProperty("NextAired.%d.Airday" % ( count + 1, ))
             self.WINDOW.clearProperty("NextAired.%d.ShortTime" % ( count + 1, ))
         self.count = 0
+        all_days = __addon__.getSetting("ShowAllTVShowsOnHome") == 'true'
         for current_show in self.nextlist:
-            if ((current_show.get("RFC3339" , "" )[:10] == self.datestr) or (__addon__.getSetting( "ShowAllTVShowsOnHome" ) == 'true')):
+            if all_days or current_show.get("RFC3339", "")[:10] == self.datestr:
                 self.count += 1
                 self.set_labels('windowpropertytoday', current_show)
 
@@ -916,7 +917,7 @@ class NextAired:
                 self.WINDOW.clearProperty("NextAired.Label")
                 self._stop = True
 
-    def return_properties(self,tvshowtitle):
+    def return_properties(self, tvshowtitle):
         ep_list = self.get_list(NEXTAIRED_DB)
         show_dict = (ep_list.pop(0) if ep_list else {})
         log("### return_properties started", level=6)
@@ -925,26 +926,26 @@ class NextAired:
             for tid, item in show_dict.iteritems():
                 if tvshowtitle == item["localname"]:
                     self.set_labels('windowproperty', item)
+                    break
 
     def set_labels(self, infolabel, item, want_ep_ndx = None):
         art = item["art"]
-        if (infolabel == 'windowproperty') or (infolabel == 'windowpropertytoday'):
-            label = xbmcgui.Window( 10000 )
-            if infolabel == "windowproperty":
-                prefix = 'NextAired.'
-            else:
-                prefix = 'NextAired.' + str(self.count) + '.'
-                if __addon__.getSetting( "ShowAllTVShowsOnHome" ) == 'true':
-                    label.setProperty('NextAired.' + "ShowAllTVShows", "true")
-                else:
-                    label.setProperty('NextAired.' + "ShowAllTVShows", "false")
-            label.setProperty(prefix + "Label", item.get("localname", ""))
-            label.setProperty(prefix + "Thumb", item.get("thumbnail", ""))
-        else:
+        if infolabel == 'listitem':
             label = xbmcgui.ListItem()
             prefix = ''
-            label.setLabel(item.get("localname", ""))
+            label.setLabel(item["localname"])
             label.setThumbnailImage(item.get("thumbnail", ""))
+        else:
+            label = xbmcgui.Window(10000)
+            if infolabel == "windowproperty":
+                prefix = 'NextAired.'
+            elif infolabel == "windowpropertytoday":
+                prefix = 'NextAired.' + str(self.count) + '.'
+                label.setProperty("NextAired.ShowAllTVShows", __addon__.getSetting("ShowAllTVShowsOnHome"))
+            else:
+                return # Impossible...
+            label.setProperty(prefix + "Label", item["localname"])
+            label.setProperty(prefix + "Thumb", item.get("thumbnail", ""))
 
         if want_ep_ndx:
             next_ep = item['episodes'][want_ep_ndx]
@@ -1022,7 +1023,7 @@ class NextAired:
         # This sets LatestDate, LatestTitle, etc.
         self.set_episode_info(label, prefix, 'Latest', latest_ep)
 
-        if want_ep_ndx:
+        if infolabel == 'listitem':
             return label
 
     def close(self , msg ):
