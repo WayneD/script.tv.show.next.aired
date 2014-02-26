@@ -108,7 +108,9 @@ class NextAired:
     def __init__(self):
         self.WINDOW = xbmcgui.Window( 10000 )
         self.set_today()
-        self.weekdays = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
+        self.weekdays = []
+        for j in range(11, 18):
+            self.weekdays.append(xbmc.getLocalizedString(j))
         self.wdays = []
         for j in range(41, 48):
             self.wdays.append(xbmc.getLocalizedString(j))
@@ -944,7 +946,7 @@ class NextAired:
         if want_ep_ndx:
             next_ep = item['episodes'][want_ep_ndx]
             latest_ep = item['episodes'][want_ep_ndx-1]
-            airdays = self.weekdays[next_ep['wday']]
+            airdays = [ next_ep['wday'] ]
         else:
             ep_len = len(item['episodes'])
             next_ep = item['episodes'][1] if ep_len > 1 else None
@@ -954,8 +956,10 @@ class NextAired:
                 for ep in item['episodes'][1:]:
                     if ep['aired'][:10] > self.day_limit:
                         break
-                    airdays.append(self.weekdays[ep['wday']])
-            airdays = ', '.join(airdays)
+                    airdays.append(ep['wday'])
+        daynums = ', ' . join([str(wday) for wday in airdays])
+        airdays = ', ' . join([self.weekdays[wday] for wday in airdays])
+
         is_today = 'True' if next_ep and next_ep['aired'][:10] == self.datestr else 'False'
 
         started = TheTVDB.convert_date(item["Started"])
@@ -1009,6 +1013,7 @@ class NextAired:
         label.setProperty(prefix + "Art(clearart)", art.get("clearart", ""))
         label.setProperty(prefix + "Today", is_today)
         label.setProperty(prefix + "AirDay", airdays)
+        label.setProperty(prefix + "AirDayNum", daynums)
         label.setProperty(prefix + "ShortTime", airtime)
 
         # This sets NextDate, NextTitle, etc.
