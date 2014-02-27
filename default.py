@@ -907,11 +907,17 @@ class NextAired:
 
     def set_labels(self, infolabel, item, want_ep_ndx = None):
         art = item["art"]
+        must_have = None
         if infolabel == 'listitem':
             label = xbmcgui.ListItem()
             prefix = ''
             label.setLabel(item["localname"])
             label.setThumbnailImage(item.get("thumbnail", ""))
+            tt_array = [ "poster", "banner", "clearlogo" ]
+            try:
+                must_have = tt_array[int(__addon__.getSetting("ThumbType"))]
+            except:
+                pass
         else:
             label = xbmcgui.Window(10000)
             if infolabel == "windowproperty":
@@ -989,8 +995,9 @@ class NextAired:
         # New art properties
         for art_type in ('fanart', 'poster', 'banner', 'landscape', 'clearlogo', 'characterart', 'clearart'):
             art_url = art.get(art_type, "")
-            if art_url == "" and art_type != 'fanart':
-                art_url = "image://http%3a%2f%2fopencoder.net%2fnext-aired-missing.png/"
+            if must_have and art_url == "" and art_type == must_have:
+                url = "http://opencoder.net/next-aired-missing/" + art_type + "-" + urllib.quote(item["localname"])
+                art_url = "image://%s.png/" % urllib.quote(url).replace('/', '%2F')
             label.setProperty("%sArt(%s)" % (prefix, art_type), art_url)
         label.setProperty(prefix + "Today", is_today)
         label.setProperty(prefix + "AirDay", airdays)
