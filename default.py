@@ -997,7 +997,7 @@ class NextAired:
             art_url = art.get(art_type, "")
             if must_have and art_url == "" and art_type == must_have:
                 try:
-                    url = "http://opencoder.net/next-aired-missing/" + art_type + "-" + urllib.quote(item["localname"], '')
+                    url = "http://opencoder.net/next-aired-missing/" + art_type + "/" + urllib.quote(item["localname"])
                     art_url = "image://%s.png/" % urllib.quote(url, '')
                 except:
                     pass
