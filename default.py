@@ -722,6 +722,8 @@ class NextAired:
             if 'eps_changed' in prior_data and max_eps_utime < eps_last_updated:
                 log("### didn't get latest episode info yet (%d < %d)" % (max_eps_utime, eps_last_updated), level=1)
                 current_show['eps_changed'] = (earliest_id, eps_last_updated)
+        else:
+            last_updated = 0
 
         current_show['last_updated'] = max(show_changed, last_updated)
         current_show['eps_last_updated'] = max(eps_last_updated, max_eps_utime)
