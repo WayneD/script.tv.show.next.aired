@@ -996,8 +996,11 @@ class NextAired:
         for art_type in ('fanart', 'poster', 'banner', 'landscape', 'clearlogo', 'characterart', 'clearart'):
             art_url = art.get(art_type, "")
             if must_have and art_url == "" and art_type == must_have:
-                url = "http://opencoder.net/next-aired-missing/" + art_type + "-" + urllib.quote(item["localname"])
-                art_url = "image://%s.png/" % urllib.quote(url).replace('/', '%2F')
+                try:
+                    url = "http://opencoder.net/next-aired-missing/" + art_type + "-" + urllib.quote(item["localname"], '')
+                    art_url = "image://%s.png/" % urllib.quote(url, '')
+                except:
+                    pass
             label.setProperty("%sArt(%s)" % (prefix, art_type), art_url)
         label.setProperty(prefix + "Today", is_today)
         label.setProperty(prefix + "AirDay", airdays)
