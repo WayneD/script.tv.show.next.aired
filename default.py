@@ -6,9 +6,9 @@ from dateutil import tz
 from operator import attrgetter, itemgetter
 import xbmc, xbmcgui, xbmcaddon, xbmcvfs
 if sys.version_info < (2, 7):
-    import simplejson
+    import simplejson as json
 else:
-    import json as simplejson
+    import json
 # http://mail.python.org/pipermail/python-list/2009-June/540579.html
 import _strptime
 
@@ -505,7 +505,7 @@ class NextAired:
         # retrieve current installed version
         json_query = xbmc.executeJSONRPC('{"jsonrpc": "2.0", "method": "Application.GetProperties", "params": {"properties": ["version", "name"]}, "id": 1}')
         json_query = unicode(json_query, 'utf-8', errors='ignore')
-        json_response = simplejson.loads(json_query)
+        json_response = json.loads(json_query)
         log("### %s" % json_response)
         try:
             self.xbmc_version = json_response['result']['version']['major']
@@ -520,7 +520,7 @@ class NextAired:
         while not xbmc.abortRequested:
             json_query = xbmc.executeJSONRPC('{"jsonrpc": "2.0", "method": "VideoLibrary.GetTVShows", "params": {"properties": ["title", "file", "thumbnail", "art", "imdbnumber"], "sort": { "method": "title" } }, "id": 1}')
             json_query = unicode(json_query, 'utf-8', errors='ignore')
-            json_response = simplejson.loads(json_query)
+            json_response = json.loads(json_query)
             log("### %s" % json_response)
             if 'result' in json_response:
                 break
