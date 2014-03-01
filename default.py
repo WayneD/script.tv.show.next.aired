@@ -450,7 +450,7 @@ class NextAired:
                     if item not in current_show:
                         current_show[item] = prior_data[item]
                 tid = -tid
-                if locked_for_update:
+                if locked_for_update and tid != 0:
                     self.set_last_failure()
             if current_show.get('canceled', False):
                 log("### Canceled/Ended", level=4)
