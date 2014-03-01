@@ -430,30 +430,32 @@ class NextAired:
                 elif old_id:
                     tid = old_id
                 else:
-                    tid = 0 # We'll query it from thetvdb.com
+                    if self.max_fetch_failures <= 0:
+                        continue
+                    tid = self.find_show_id(tvdb, current_show["localname"])
+                    if tid == 0:
+                        continue
 
-            try:
-                prior_data = show_dict[tid]
+            prior_data = show_dict.get(tid, None)
+            if prior_data:
                 if 'unused' not in prior_data:
                     continue # How'd we get a duplicate?? Skip it...
                 del prior_data['unused']
                 while len(prior_data['episodes']) > 1 and prior_data['episodes'][1]['aired'][:10] < self.datestr:
                     prior_data['episodes'].pop(0)
-            except:
-                prior_data = None
 
             if self.max_fetch_failures > 0:
                 tid = self.check_show_info(tvdb, tid, current_show, prior_data)
             else:
                 tid = -tid
-            if tid <= 0:
-                if not prior_data or tid == 0:
+            if tid < 0:
+                if not prior_data:
                     continue
                 for item in prior_data:
                     if item not in current_show:
                         current_show[item] = prior_data[item]
                 tid = -tid
-                if locked_for_update and tid != 0:
+                if locked_for_update:
                     self.set_last_failure()
             if current_show.get('canceled', False):
                 log("### Canceled/Ended", level=4)
@@ -546,24 +548,26 @@ class NextAired:
         log( "### list: %s" % TVlist )
         return TVlist
 
+    def find_show_id(self, tvdb, show_name):
+        log("### searching for thetvdb ID by name - %s" % show_name, level=2)
+        try:
+            show_list = tvdb.get_matching_shows(show_name)
+        except Exception, e:
+            log('### ERROR returned by get_matching_shows(): %s' % e, level=0)
+            show_list = None
+
+        if not show_list:
+            log("### no match found", level=2)
+            return 0
+
+        got_id, got_title, got_tt_id = show_list[0]
+        log("### found id of %s" % got_id, level=2)
+        return int(got_id)
+
     def check_show_info(self, tvdb, tid, current_show, prior_data):
         name = current_show['localname']
         log("### check if %s is up-to-date" % name, level=4)
-        if tid == 0:
-            log("### searching for thetvdb ID by name - %s" % name, level=2)
-            try:
-                show_list = tvdb.get_matching_shows(name)
-            except Exception, e:
-                log('### ERROR returned by get_matching_shows(): %s' % e, level=0)
-                show_list = None
-            if not show_list:
-                log("### no match found", level=2)
-                return 0
-            got_id, got_title, got_tt_id = show_list[0]
-            tid = int(got_id)
-            log("### found id of %d" % tid, level=2)
-        else:
-            log("### thetvdb id = %d" % tid, level=5)
+        log("### thetvdb id = %d" % tid, level=5)
         # If the prior_data isn't in need of an update, use it unchanged.
         if prior_data:
             earliest_id, eps_last_updated = prior_data.get('eps_changed', (None, 0))
