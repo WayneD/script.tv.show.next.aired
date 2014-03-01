@@ -27,10 +27,13 @@ sys.path = [__resource__] + sys.path
 
 from thetvdbapi import TheTVDB
 from country_lookup import CountryLookup
+from fanarttv import FanartTV
 
 NEXTAIRED_DB = 'next.aired.db'
 COUNTRY_DB = 'country.db'
 OLD_FILES = [ 'nextaired.db', 'next_aired.db', 'canceled.db', 'cancelled.db' ]
+LISTITEM_ART = [ 'poster', 'banner', 'clearlogo' ] # This order MUST match the settings.xml list!!
+USEFUL_ART = LISTITEM_ART + [ 'characterart', 'clearart', 'fanart', 'landscape' ]
 
 STATUS = { '0' : __language__(32201),
            '1' : __language__(32202),
@@ -122,6 +125,7 @@ class NextAired:
         # "last_update" is when we last successfully marked-up the shows to note which ones need an update.
         # "last_failure" is when we last failed to fetch data, with failure_cnt counting consecutive failures.
         self.last_success = self.last_update = self.last_failure = self.failure_cnt = 0
+        self.last_art_scan = 0
         self._parse_argv()
         footprints(self.SILENT != "", self.FORCEUPDATE, self.RESET)
         self.check_xbmc_version()
@@ -260,6 +264,7 @@ class NextAired:
         self.last_success = (ep_list.pop() if ep_list else None)
         db_ver = (ep_list.pop(0) if ep_list else None)
         self.last_update = (ep_list.pop() if ep_list else self.last_success)
+        self.last_art_scan = (ep_list.pop(0) if ep_list else 0)
         if not db_ver or not self.last_success:
             if self.RESET:
                 log("### starting without prior data (DB RESET requested)", level=1)
@@ -277,7 +282,7 @@ class NextAired:
         return (show_dict, self.now - self.last_update)
 
     def save_data(self, show_dict):
-        self.save_file([show_dict, MAIN_DB_VER, self.last_update, self.last_success], NEXTAIRED_DB)
+        self.save_file([show_dict, MAIN_DB_VER, self.last_art_scan, self.last_update, self.last_success], NEXTAIRED_DB)
 
     def update_data(self, update_after_seconds):
         self.nextlist = []
@@ -365,11 +370,17 @@ class NextAired:
                 self.set_last_failure()
                 self.max_fetch_failures = 0
             tv_up = None
+            if self.SILENT != "" and self.now - self.last_art_scan >= 24*60*60 - 5*60:
+                art_rescan_type = LISTITEM_ART[int(__addon__.getSetting("ThumbType"))]
+                log("### Time to rescan for missing %s artwork" % art_rescan_type, level=2)
+            else:
+                art_rescan_type = None
         else:
             tvdb = None # We don't use this unless we're locked for the update.
             need_full_scan = False
             # A max-fetch of 0 disables all updating.
             self.max_fetch_failures = 0
+            art_rescan_type = None
 
         title_dict = {}
         for tid, show in show_dict.iteritems():
@@ -392,26 +403,28 @@ class NextAired:
         id_re = re.compile(r"http%3a%2f%2fthetvdb\.com%2f[^']+%2f([0-9]+)-")
         for show in TVlist:
             count += 1
+            name = show[0]
+            art = show[2]
             percent = int(float(count * 100) / total_show)
             if self.SILENT != "":
-                self.WINDOW.setProperty("NextAired.bgnd_status", "%f|%d|%s" % (time(), percent, show[0]))
+                self.WINDOW.setProperty("NextAired.bgnd_status", "%f|%d|%s" % (time(), percent, name))
             elif locked_for_update and self.max_fetch_failures > 0:
-                DIALOG_PROGRESS.update( percent , __language__(32102) , "%s" % show[0] )
+                DIALOG_PROGRESS.update(percent, __language__(32102), name)
                 if DIALOG_PROGRESS.iscanceled():
                     DIALOG_PROGRESS.close()
                     xbmcgui.Dialog().ok(__language__(32103),__language__(32104))
                     self.set_last_failure()
                     self.max_fetch_failures = 0
-            log( "### %s" % show[0] )
+            log("### %s" % name)
             current_show = {
-                    "localname": show[0],
+                    "localname": name,
                     "path": show[1],
-                    "art": show[2],
+                    "art": {},
                     "dbid": show[3],
                     "thumbnail": show[4],
                     }
             # Try to figure out what the tvdb number is by using the art URLs and the imdbnumber value
-            m2 = id_re.search(str(show[2]))
+            m2 = id_re.search(str(art))
             m2_num = int(m2.group(1)) if m2 else 0
             m4 = id_re.search(show[4])
             m4_num = int(m4.group(1)) if m4 else 0
@@ -421,7 +434,7 @@ class NextAired:
                 # Most shows will be in agreement on the id when the scraper is using thetvdb.
                 tid = m5_num
             else:
-                old_id = title_dict.get(current_show["localname"], 0)
+                old_id = title_dict.get(name, 0)
                 if old_id and (m2_num == old_id or m4_num == old_id):
                     tid = old_id
                 elif m2_num and m2_num == m4_num:
@@ -432,7 +445,7 @@ class NextAired:
                 else:
                     if self.max_fetch_failures <= 0:
                         continue
-                    tid = self.find_show_id(tvdb, current_show["localname"])
+                    tid = self.find_show_id(tvdb, name)
                     if tid == 0:
                         continue
 
@@ -443,6 +456,25 @@ class NextAired:
                 del prior_data['unused']
                 while len(prior_data['episodes']) > 1 and prior_data['episodes'][1]['aired'][:10] < self.datestr:
                     prior_data['episodes'].pop(0)
+
+            for art_type in USEFUL_ART:
+                xart = art.get(art_type, None)
+                fudged_flag = 'fudged.' + art_type
+                if not xart:
+                    if prior_data and fudged_flag in prior_data['art']:
+                        xart = prior_data['art'][art_type]
+                    elif art_rescan_type and art_rescan_type == art_type:
+                        log("### grabbing %s for %s" % (art_type, name), level=2)
+                        try:
+                            xart = FanartTV.find_artwork(tid, art_type)
+                            if xart:
+                                log("### found missing %s for %s" % (art_type, name), level=1)
+                        except:
+                            pass
+                    if xart:
+                        current_show['art'][fudged_flag] = True
+                if xart:
+                    current_show['art'][art_type] = xart
 
             if self.max_fetch_failures > 0:
                 tid = self.check_show_info(tvdb, tid, current_show, prior_data)
@@ -490,6 +522,8 @@ class NextAired:
         if locked_for_update:
             if not self.last_failure:
                 self.last_success = self.now
+                if art_rescan_type:
+                    self.last_art_scan = self.now
             self.save_data(show_dict)
             log("### data update finished", level=1)
 
@@ -924,9 +958,8 @@ class NextAired:
             prefix = ''
             label.setLabel(item["localname"])
             label.setThumbnailImage(item.get("thumbnail", ""))
-            tt_array = [ "poster", "banner", "clearlogo" ]
             try:
-                must_have = tt_array[int(__addon__.getSetting("ThumbType"))]
+                must_have = LISTITEM_ART[int(__addon__.getSetting("ThumbType"))]
             except:
                 pass
         else:
