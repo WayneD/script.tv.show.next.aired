@@ -276,6 +276,9 @@ class NextAired:
 
         return (show_dict, self.now - self.last_update)
 
+    def save_data(self, show_dict):
+        self.save_file([show_dict, MAIN_DB_VER, self.last_update, self.last_success], NEXTAIRED_DB)
+
     def update_data(self, update_after_seconds):
         self.nextlist = []
         show_dict, elapsed_secs = self.load_data()
@@ -460,7 +463,7 @@ class NextAired:
         # If we did a lot of work, make sure we save it prior to doing anything else.
         # This ensures that a bug in the following code won't make us redo everything.
         if need_full_scan and locked_for_update:
-            self.save_file([show_dict, MAIN_DB_VER, self.last_update, self.last_success], NEXTAIRED_DB)
+            self.save_data(show_dict)
 
         if show_dict:
             log("### data available", level=5)
@@ -487,7 +490,7 @@ class NextAired:
         if locked_for_update:
             if not self.last_failure:
                 self.last_success = self.now
-            self.save_file([show_dict, MAIN_DB_VER, self.last_update, self.last_success], NEXTAIRED_DB)
+            self.save_data(show_dict)
             log("### data update finished", level=1)
 
             if self.SILENT != "":
