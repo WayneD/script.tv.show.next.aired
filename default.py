@@ -166,7 +166,6 @@ class NextAired:
 
     def set_last_failure(self):
         self.last_failure = self.now
-        self.failure_cnt += 1
         self.get_last_failure()
         self.WINDOW.setProperty("NextAired.last_failure", str(self.last_failure))
 
@@ -224,8 +223,10 @@ class NextAired:
             next_chk = self.now + 20
             if self.datestr != this_day or self.is_time_for_update(update_every):
                 if self.update_data(update_every):
+                    self.failure_cnt = 0
                     this_day = self.datestr
                 else:
+                    self.failure_cnt += 1
                     next_chk = self.now + FAILURE_PAUSE * min(self.failure_cnt, 24)
                 self.nextlist = [] # Discard the in-memory data until the next update
             else:
@@ -350,6 +351,7 @@ class NextAired:
 
         if locked_for_update:
             log("### starting data update", level=1)
+            self.last_failure = 0
             tvdb = TheTVDB('1D62F2F90030C444', 'en', want_raw = True)
             # This typically asks TheTVDB for an update-zip file and tweaks the show_dict to note needed updates.
             tv_up = tvdb_updater(tvdb)
@@ -357,6 +359,7 @@ class NextAired:
             if need_full_scan or got_update:
                 self.last_update = self.now
             elif not got_update:
+                self.set_last_failure()
                 self.max_fetch_failures = 0
             tv_up = None
         else:
@@ -394,6 +397,7 @@ class NextAired:
                 if DIALOG_PROGRESS.iscanceled():
                     DIALOG_PROGRESS.close()
                     xbmcgui.Dialog().ok(__language__(32103),__language__(32104))
+                    self.set_last_failure()
                     self.max_fetch_failures = 0
             log( "### %s" % show[0] )
             current_show = {
@@ -446,6 +450,8 @@ class NextAired:
                     if item not in current_show:
                         current_show[item] = prior_data[item]
                 tid = -tid
+                if locked_for_update:
+                    self.set_last_failure()
             if current_show.get('canceled', False):
                 log("### Canceled/Ended", level=4)
             log( "### %s" % current_show )
@@ -479,7 +485,7 @@ class NextAired:
             log("### no current show data...", level=5)
 
         if locked_for_update:
-            if self.max_fetch_failures > 0:
+            if not self.last_failure:
                 self.last_success = self.now
             self.save_file([show_dict, MAIN_DB_VER, self.last_update, self.last_success], NEXTAIRED_DB)
             log("### data update finished", level=1)
@@ -491,13 +497,9 @@ class NextAired:
             else:
                 DIALOG_PROGRESS.close()
                 self.WINDOW.clearProperty("NextAired.user_lock")
-            if self.max_fetch_failures <= 0:
-                self.set_last_failure()
-            else:
-                self.failure_cnt = 0
 
         self.FORCEUPDATE = False
-        return True
+        return not self.last_failure
 
     def check_xbmc_version(self):
         # retrieve current installed version
