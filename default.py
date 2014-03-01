@@ -455,8 +455,6 @@ class NextAired:
                     if item not in current_show:
                         current_show[item] = prior_data[item]
                 tid = -tid
-                if locked_for_update:
-                    self.set_last_failure()
             if current_show.get('canceled', False):
                 log("### Canceled/Ended", level=4)
             log( "### %s" % current_show )
@@ -597,6 +595,7 @@ class NextAired:
                     break
                 except Exception, e:
                     log('### ERROR returned by get_show_and_episodes(): %s' % e, level=0)
+                    self.set_last_failure()
                     self.max_fetch_failures -= 1
                     result = None
             if result:
@@ -612,6 +611,7 @@ class NextAired:
                     break
                 except Exception, e:
                     log('### ERROR returned by get_show(): %s' % e, level=0)
+                    self.set_last_failure()
                     self.max_fetch_failures -= 1
                     show = None
             episodes = None
