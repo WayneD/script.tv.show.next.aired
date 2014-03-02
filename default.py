@@ -166,7 +166,7 @@ class NextAired:
         self.now = time()
         self.date = date.today()
         self.datestr = str(self.date)
-        self.this_year_regex = re.compile(r", %d\b" % self.date.year)
+        self.this_year_regex = re.compile(r",? %d\b" % self.date.year)
         self.in_dst = localtime().tm_isdst
 
     # Returns elapsed seconds since last update failure.
