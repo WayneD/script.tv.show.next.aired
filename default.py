@@ -475,10 +475,16 @@ class NextAired:
                         log("### grabbing %s for %s" % (art_type, name), level=2)
                         try:
                             xart = FanartTV.find_artwork(tid, art_type)
-                            if xart:
-                                log("### found missing %s for %s" % (art_type, name), level=1)
                         except:
                             pass
+                        if xart:
+                            log("### found missing %s for %s" % (art_type, name), level=1)
+                    try:
+                        img_re = re.compile(r"^image:")
+                        if not img_re.match(xart):
+                            xart = "image://%s/" % urllib.quote(xart, '')
+                    except:
+                        pass
                     if xart:
                         current_show['art'][fudged_flag] = True
                 if xart:
