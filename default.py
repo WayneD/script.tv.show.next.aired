@@ -921,8 +921,7 @@ class NextAired:
     def run_backend(self):
         self._stop = False
         self.previousitem = ''
-        ep_list = self.get_list(NEXTAIRED_DB)
-        show_dict = (ep_list.pop(0) if ep_list else {})
+        show_dict, elapsed_secs = self.load_data()
         if not show_dict:
             self._stop = True
         while not self._stop:
@@ -940,8 +939,7 @@ class NextAired:
                 self._stop = True
 
     def return_properties(self, tvshowtitle):
-        ep_list = self.get_list(NEXTAIRED_DB)
-        show_dict = (ep_list.pop(0) if ep_list else {})
+        show_dict, elapsed_secs = self.load_data()
         log("### return_properties started", level=6)
         if show_dict:
             self.WINDOW.clearProperty("NextAired.Label")
