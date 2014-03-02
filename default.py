@@ -378,7 +378,8 @@ class NextAired:
                 self.set_last_failure()
                 self.max_fetch_failures = 0
             tv_up = None
-            if self.SILENT != "" and self.now - self.last_art_scan >= 24*60*60 - 5*60:
+            art_scan_after_days = 1 if self.SILENT != "" else 2
+            if self.now - self.last_art_scan >= art_scan_after_days*24*60*60 - 5*60:
                 art_rescan_type = LISTITEM_ART[int(__addon__.getSetting("ThumbType"))]
                 log("### Time to rescan for missing %s artwork" % art_rescan_type, level=2)
             else:
