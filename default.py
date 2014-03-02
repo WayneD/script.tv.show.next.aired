@@ -58,6 +58,12 @@ elif DATE_FORMAT[0] == 'm':
 elif DATE_FORMAT[0] == 'y':
     DATE_FORMAT = '%y-%m-%d'
 
+leftover_re = re.compile(r"%[a-z]")
+NICE_DATE_FORMAT = xbmc.getRegion('datelong').lower()
+for xx, yy in (('%a', '%(wday)s'), ('%b', '%(month)s'), ('%d', '%(day)s'), ('%y', '%(year)s'), ('%m', '%(mm)s')):
+    NICE_DATE_FORMAT = NICE_DATE_FORMAT.replace(xx, yy)
+NICE_DATE_FORMAT = leftover_re.sub('%(unk)s', NICE_DATE_FORMAT)
+
 MAIN_DB_VER = 3
 COUNTRY_DB_VER = 1
 
@@ -121,6 +127,7 @@ class NextAired:
         for j in range(51, 63):
             self.local_months.append(xbmc.getLocalizedString(j))
         self.ampm = xbmc.getCondVisibility('substring(System.Time,Am)') or xbmc.getCondVisibility('substring(System.Time,Pm)')
+        self.improve_dates = __addon__.getSetting("ImproveDates") == 'true'
         # "last_success" is when we last successfully made it through an update pass without fetch errors.
         # "last_update" is when we last successfully marked-up the shows to note which ones need an update.
         # "last_failure" is when we last failed to fetch data, with failure_cnt counting consecutive failures.
@@ -159,6 +166,7 @@ class NextAired:
         self.now = time()
         self.date = date.today()
         self.datestr = str(self.date)
+        self.this_year_regex = re.compile(r", %d\b" % self.date.year)
         self.in_dst = localtime().tm_isdst
 
     # Returns elapsed seconds since last update failure.
@@ -834,10 +842,12 @@ class NextAired:
     def nice_date(self, d, force_year = False):
         if d is None:
             return ''
+        if not self.improve_dates:
+            return d.strftime(DATE_FORMAT)
         tt = d.timetuple()
-        d = "%s, %s %d" % (self.wdays[tt[6]], self.local_months[tt[1]-1], tt[2])
-        if force_year or tt[0] != self.date.year:
-            d += ", %d" % tt[0]
+        d = NICE_DATE_FORMAT % {'year': tt[0], 'mm': tt[1], 'month': self.local_months[tt[1]-1], 'day': tt[2], 'wday': self.wdays[tt[6]], 'unk': '??'}
+        if not force_year and tt[0] == self.date.year:
+            d = self.this_year_regex.sub('', d)
         return d
 
     @staticmethod
