@@ -132,7 +132,6 @@ class NextAired:
         # "last_update" is when we last successfully marked-up the shows to note which ones need an update.
         # "last_failure" is when we last failed to fetch data, with failure_cnt counting consecutive failures.
         self.last_success = self.last_update = self.last_failure = self.failure_cnt = 0
-        self.last_art_scan = 0
         self._parse_argv()
         footprints(self.SILENT != "", self.FORCEUPDATE, self.RESET)
         self.check_xbmc_version()
@@ -272,7 +271,6 @@ class NextAired:
         self.last_success = (ep_list.pop() if ep_list else None)
         db_ver = (ep_list.pop(0) if ep_list else None)
         self.last_update = (ep_list.pop() if ep_list else self.last_success)
-        self.last_art_scan = (ep_list.pop(0) if ep_list else 0)
         if not db_ver or not self.last_success:
             if self.RESET:
                 log("### starting without prior data (DB RESET requested)", level=1)
@@ -290,7 +288,7 @@ class NextAired:
         return (show_dict, self.now - self.last_update)
 
     def save_data(self, show_dict):
-        self.save_file([show_dict, MAIN_DB_VER, self.last_art_scan, self.last_update, self.last_success], NEXTAIRED_DB)
+        self.save_file([show_dict, MAIN_DB_VER, self.last_update, self.last_success], NEXTAIRED_DB)
 
     def update_data(self, update_after_seconds):
         self.nextlist = []
@@ -378,18 +376,15 @@ class NextAired:
                 self.set_last_failure()
                 self.max_fetch_failures = 0
             tv_up = None
-            art_scan_after_days = 1 if self.SILENT != "" else 2
-            if self.now - self.last_art_scan >= art_scan_after_days*24*60*60 - 5*60:
-                art_rescan_type = LISTITEM_ART[int(__addon__.getSetting("ThumbType"))]
-                log("### Time to rescan for missing %s artwork" % art_rescan_type, level=2)
-            else:
-                art_rescan_type = None
+            art_rescan_after = 1 if self.SILENT != "" else 2
+            art_rescan_after = art_rescan_after*24*60*60 - 5*60
         else:
             tvdb = None # We don't use this unless we're locked for the update.
             need_full_scan = False
             # A max-fetch of 0 disables all updating.
             self.max_fetch_failures = 0
-            art_rescan_type = None
+            art_rescan_after = 0
+        art_rescan_type = LISTITEM_ART[int(__addon__.getSetting("ThumbType"))]
 
         title_dict = {}
         for tid, show in show_dict.iteritems():
@@ -472,24 +467,33 @@ class NextAired:
                 if not xart:
                     if prior_data and fudged_flag in prior_data['art']:
                         xart = prior_data['art'][art_type]
-                    elif art_rescan_type and art_rescan_type == art_type:
-                        log("### grabbing %s for %s" % (art_type, name), level=2)
+                    elif art_rescan_type != art_type:
+                        continue
+                    else:
+                        scan_ndx = 'last_%s_scan' % art_type
+                        last_scan = prior_data['art'].get(scan_ndx, 0) if prior_data else 0
+                        if not art_rescan_after or self.now < last_scan + art_rescan_after:
+                            if last_scan:
+                                current_show['art'][scan_ndx] = last_scan
+                            continue
                         try:
                             xart = FanartTV.find_artwork(tid, art_type)
                         except:
                             pass
                         if xart:
                             log("### found missing %s for %s" % (art_type, name), level=1)
+                        else:
+                            log("### still missing a %s for %s" % (art_type, name), level=2)
+                            current_show['art'][scan_ndx] = self.now
+                            continue
                     try:
                         img_re = re.compile(r"^image:")
                         if not img_re.match(xart):
                             xart = "image://%s/" % urllib.quote(xart, '')
                     except:
                         pass
-                    if xart:
-                        current_show['art'][fudged_flag] = True
-                if xart:
-                    current_show['art'][art_type] = xart
+                    current_show['art'][fudged_flag] = True
+                current_show['art'][art_type] = xart
 
             if self.max_fetch_failures > 0:
                 tid = self.check_show_info(tvdb, tid, current_show, prior_data)
@@ -537,8 +541,6 @@ class NextAired:
         if locked_for_update:
             if not self.last_failure:
                 self.last_success = self.now
-                if art_rescan_type:
-                    self.last_art_scan = self.now
             self.save_data(show_dict)
             log("### data update finished", level=1)
 
