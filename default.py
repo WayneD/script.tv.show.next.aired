@@ -1101,8 +1101,6 @@ class tvdb_updater:
             period = 'day'
         elif elapsed_update_secs < 7*24*60*60:
             period = 'week'
-        elif elapsed_update_secs < 30*24*60*60:
-            period = 'month'
         else:
             # Flag all non-canceled shows as needing new data
             for tid, show in show_dict.iteritems():
