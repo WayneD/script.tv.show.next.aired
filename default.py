@@ -252,19 +252,13 @@ class NextAired:
             self.rm_file(NEXTAIRED_DB)
             self.rm_file(COUNTRY_DB)
 
-        # Snag our TV-network -> Country + timezone mapping DB, or create it.
+        # Snag our TV-network -> Country mapping DB.
         cl = self.get_list(COUNTRY_DB)
-        if cl and len(cl) == 3 and len(cl[0]) > 500 and self.now - cl[2] < 7*24*60*60: # We'll recreate it every week.
-            self.country_dict = cl[0]
-        else:
-            socket.setdefaulttimeout(10)
-            try:
-                log("### grabbing a new country mapping list", level=1)
-                self.country_dict = CountryLookup().get_country_dict()
-                self.save_file([self.country_dict, COUNTRY_DB_VER, self.now], COUNTRY_DB)
-            except:
-                # Well, if we couldn't grab a new one, lets try to keep using the old...
-                self.country_dict = (cl[0] if cl and len(cl) == 3 else {})
+        self.country_dict = (cl.pop(0) if cl else {})
+        self.country_last_update = (cl.pop() if cl else 0)
+        db_ver = (cl.pop(0) if cl else 0)
+        if db_ver != COUNTRY_DB_VER:
+            self.country_dict = {}
 
         ep_list = self.get_list(NEXTAIRED_DB)
         ep_list_len = len(ep_list)
@@ -367,6 +361,16 @@ class NextAired:
         if locked_for_update:
             log("### starting data update", level=1)
             self.last_failure = 0
+            # We want to recreate our country DB every week.
+            if len(self.country_dict) < 500 or self.now - self.country_last_update >= 7*24*60*60:
+                try:
+                    log("### grabbing a new country mapping list", level=1)
+                    if self.SILENT == "":
+                        DIALOG_PROGRESS.update(0, __language__(32102), "country.db")
+                    self.country_dict = CountryLookup().get_country_dict()
+                    self.save_file([self.country_dict, COUNTRY_DB_VER, self.now], COUNTRY_DB)
+                except:
+                    pass
             tvdb = TheTVDB('1D62F2F90030C444', 'en', want_raw = True)
             # This typically asks TheTVDB for an update-zip file and tweaks the show_dict to note needed updates.
             tv_up = tvdb_updater(tvdb)
