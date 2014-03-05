@@ -1108,11 +1108,11 @@ class tvdb_updater:
             # we'll assume that any series change indicates we should check the episodes.
             self.bad_episode_info = True
         else:
-            # Flag all non-canceled shows as needing new data
+            # Flag all shows as needing new data.  We include canceled shows because
+            # they sometimes have new info (or may have become non-canceled).
             for tid, show in show_dict.iteritems():
-                if not show.get('canceled', False):
-                    show['show_changed'] = 1
-                    show['eps_changed'] = (1, 0)
+                show['show_changed'] = 1
+                show['eps_changed'] = (1, 0)
             return (True, False) # Alert caller that a full-scan is in progress.
 
         log("### Update period: %s (%d mins)" % (period, int(elapsed_update_secs / 60)), level=2)
