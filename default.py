@@ -628,6 +628,9 @@ class NextAired:
             if earliest_id is None:
                 eps_last_updated = prior_data['eps_last_updated']
             show_changed = prior_data.get('show_changed', 0)
+            if prior_data['Country'] == 'Unknown' and self.country_dict.get(prior_data['Network'], None):
+                log("### Forcing show-change for %s to fix unknown country" % name, level=2)
+                show_changed = 1
             if show_changed:
                 if earliest_id is None:
                     earliest_id = 0
