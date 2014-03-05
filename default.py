@@ -1093,6 +1093,7 @@ class NextAired:
 class tvdb_updater:
     def __init__(self, tvdb):
         self.tvdb = tvdb
+        self.bad_episode_info = False
 
     def note_updates(self, show_dict, elapsed_update_secs):
         self.show_dict = show_dict
@@ -1101,6 +1102,11 @@ class tvdb_updater:
             period = 'day'
         elif elapsed_update_secs < 7*24*60*60:
             period = 'week'
+        elif elapsed_update_secs < 30*24*60*60:
+            period = 'month'
+            # My testing showed that the month file was missing some episode changes, so
+            # we'll assume that any series change indicates we should check the episodes.
+            self.bad_episode_info = True
         else:
             # Flag all non-canceled shows as needing new data
             for tid, show in show_dict.iteritems():
@@ -1143,6 +1149,8 @@ class tvdb_updater:
                 return
             log("### Found series change (series: %d, time: %d) for %s" % (series_id, when, show['localname']), level=2)
             show['show_changed'] = when
+            if self.bad_episode_info:
+                show['eps_changed'] = (1, 0)
         else:
             if when <= show['eps_last_updated']:
                 return
