@@ -75,16 +75,18 @@ NEW_REGEX = re.compile(r"^01x")
 if not xbmcvfs.exists(__datapath__):
     xbmcvfs.mkdir(__datapath__)
 
-# TODO make this settable via the command-line?
-verbosity = 1
+MAX_INFO_LOG_LEVEL = 1
+MAX_DEBUG_LOG_LEVEL = 3
 
 # if level <= 0, sends LOGERROR msg.  For positive values, sends LOGNOTICE
-# if level <= verbosity, else LOGDEBUG.  If level is omitted, we assume 10.
+# if level <= MAX_INFO_LOG_LEVEL, else LOGDEBUG.  If level is omitted, we assume 10.
 def log(txt, level=10):
+    if level > MAX_DEBUG_LOG_LEVEL:
+        return
     if isinstance (txt,str):
         txt = txt.decode("utf-8")
     message = u'%s: %s' % (__addonid__, txt)
-    log_level = (xbmc.LOGERROR if level <= 0 else (xbmc.LOGNOTICE if level <= verbosity else xbmc.LOGDEBUG))
+    log_level = (xbmc.LOGERROR if level <= 0 else (xbmc.LOGNOTICE if level <= MAX_INFO_LOG_LEVEL else xbmc.LOGDEBUG))
     xbmc.log(msg=message.encode("utf-8"), level=log_level)
 
 def footprints(bkgnd, force, reset):
@@ -153,7 +155,7 @@ class NextAired:
             params = dict( arg.split( "=" ) for arg in sys.argv[ 1 ].split( "&" ) )
         except:
             params = {}
-        log("### params: %s" % params, level=5)
+        log("### params: %s" % params, level=3)
         self.SILENT = params.get( "silent", "" )
         self.BACKEND = params.get( "backend", False )
         self.TVSHOWTITLE = params.get( "tvshowtitle", False )
