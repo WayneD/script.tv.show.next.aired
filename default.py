@@ -254,9 +254,10 @@ class NextAired:
 
         # Snag our TV-network -> Country + timezone mapping DB, or create it.
         cl = self.get_list(COUNTRY_DB)
-        if cl and len(cl) == 3 and self.now - cl[2] < 7*24*60*60: # We'll recreate it every week.
+        if cl and len(cl) == 3 and len(cl[0]) > 500 and self.now - cl[2] < 7*24*60*60: # We'll recreate it every week.
             self.country_dict = cl[0]
         else:
+            socket.setdefaulttimeout(10)
             try:
                 log("### grabbing a new country mapping list", level=1)
                 self.country_dict = CountryLookup().get_country_dict()
