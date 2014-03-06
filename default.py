@@ -93,9 +93,7 @@ def footprints(bkgnd, force, reset):
     style = 'background' if bkgnd else 'GUI'
     force = 'w/FORCEUPDATE ' if force else ''
     reset = 'w/RESET ' if reset else ''
-    log("### %s starting %s proc %s%s..." % (__addonname__, style, force, reset), level=1)
-    log("### author: %s" % __author__, level=4)
-    log("### version: %s" % __version__, level=2)
+    log("### %s starting %s proc %s%s(%s)" % (__addonname__, style, force, reset, __version__), level=1)
     log("### dateformat: %s" % DATE_FORMAT, level=4)
 
 def _unicode( text, encoding='utf-8' ):
