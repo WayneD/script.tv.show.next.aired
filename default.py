@@ -277,8 +277,10 @@ class NextAired:
                 log("### no prior data found", level=1)
             show_dict = {}
             self.last_success = self.last_update = 0
-        elif db_ver != MAIN_DB_VER:
+        elif db_ver < MAIN_DB_VER:
             self.upgrade_data_format(show_dict, db_ver)
+        elif db_ver > MAIN_DB_VER:
+            self.close("ERROR: DB version is too new for this script (%d > %d) -- exiting" % (db_ver, MAIN_DB_VER))
 
         self.RESET = False # Make sure we don't honor this multiple times.
 
@@ -814,9 +816,6 @@ class NextAired:
 
     @staticmethod
     def upgrade_data_format(show_dict, from_ver):
-        if from_ver > MAIN_DB_VER:
-            log("### ERROR: found DB version that is too new for this script to handle (%d > %d)" % (from_ver, MAIN_DB_VER), level=0)
-            sys.exit()
         log("### upgrading DB from version %d to %d" % (from_ver, MAIN_DB_VER), level=1)
         daymap = {'Monday': 0, 'Tuesday': 1, 'Wednesday': 2, 'Thursday': 3, 'Friday': 4, 'Saturday': 5, 'Sunday': 6}
         for tid, show in show_dict.iteritems():
