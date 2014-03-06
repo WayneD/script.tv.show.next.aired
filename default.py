@@ -5,9 +5,9 @@ from datetime import datetime, date, timedelta
 from dateutil import tz
 from operator import attrgetter, itemgetter
 import xbmc, xbmcgui, xbmcaddon, xbmcvfs
-if sys.version_info < (2, 7):
+try:
     import simplejson as json
-else:
+except ImportError:
     import json
 # http://mail.python.org/pipermail/python-list/2009-June/540579.html
 import _strptime
@@ -150,18 +150,18 @@ class NextAired:
                 self.rm_file(old_file)
             self.do_background_updating()
 
-    def _parse_argv( self ):
+    def _parse_argv(self):
         try:
-            params = dict( arg.split( "=" ) for arg in sys.argv[ 1 ].split( "&" ) )
+            self.params = dict(arg.split("=") for arg in sys.argv[1].split("&"))
         except:
-            params = {}
-        log("### params: %s" % params, level=3)
-        self.SILENT = params.get( "silent", "" )
-        self.BACKEND = params.get( "backend", False )
-        self.TVSHOWTITLE = params.get( "tvshowtitle", False )
-        self.FORCEUPDATE = params.get("force", False)
-        self.RESET = params.get( "reset", False )
-        self.STOP = params.get("stop", False)
+            self.params = {}
+        log("### params: %s" % self.params, level=3)
+        self.SILENT = self.params.get("silent", "")
+        self.BACKEND = self.params.get("backend", False)
+        self.TVSHOWTITLE = self.params.get("tvshowtitle", False)
+        self.FORCEUPDATE = self.params.get("force", False)
+        self.RESET = self.params.get("reset", False)
+        self.STOP = self.params.get("stop", False)
 
     def set_today(self):
         self.now = time()
@@ -223,7 +223,7 @@ class NextAired:
                 self.close("another background script was started -- stopping older background proc")
             latest_version = xbmcaddon.Addon().getAddonInfo('version')
             if latest_version != __version__:
-                self.close("the NextAired version changed -- stopping this obsolete background proc")
+                self.handle_bg_version_change(latest_version)
             if xbmc.translatePath("special://profile/addon_data/") != profile_dir:
                 self.close("profile directory changed -- stopping background proc")
             try:
@@ -574,6 +574,19 @@ class NextAired:
             self.xbmc_version = 12
 
         self.videodb = 'videodb://tvshows/titles/' if self.xbmc_version >= 13 else 'videodb://2/2/'
+
+    def handle_bg_version_change(self, latest_version):
+        log("### NextAired version changed from %s to %s -- starting a replacement background proc" % (__version__, latest_version), level=1)
+        # Delay a bit, just to be sure that it is ready to run.
+        for cnt in range(15):
+            if xbmc.abortRequested:
+                sys.exit()
+            xbmc.sleep(1000)
+        json_query = xbmc.executeJSONRPC('{"jsonrpc": "2.0", "method": "Addons.ExecuteAddon", "params": {"addonid": "script.tv.show.next.aired", "params": %s}, "id": 0}' % json.dumps(self.params))
+        json_query = unicode(json_query, 'utf-8', errors='ignore')
+        json_response = json.loads(json_query)
+        log("### %s" % json_response)
+        self.close("stopping this older background proc")
 
     def listing(self):
         failures = 0
