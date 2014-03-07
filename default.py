@@ -568,8 +568,8 @@ class NextAired:
         # Start by finding the spot (if any) in the list where future episodes start.
         while ep_ndx < ep_len and episodes[ep_ndx]['aired'][:10] < self.datestr:
             ep_ndx += 1
-        # Next we remove any episodes that are older than yesterday, keeping at least one old episode.
-        while ep_ndx > 1 and episodes[0]['aired'][:10] < self.yesterstr:
+        # Next we remove episodes older than yesterday, but keep one prior ep that is older than that.
+        while ep_ndx > 1 and episodes[1]['aired'][:10] < self.yesterstr:
             episodes.pop(0)
             ep_len -= 1
             ep_ndx -= 1
