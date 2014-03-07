@@ -256,6 +256,31 @@ COUNTRY_ZONES = {
     'unknown': (1.0, 1.0),
 }
 
+# Sadly, there are a bunch of duplicates in the station -> country mapping names.
+# These overrides try to choose the most popular country for some of those names.
+OVERRIDES = {
+    'ABC': 'USA',
+    'BNN': 'Canada',
+    'Bravo': 'USA',
+    'CBC': 'Canada',
+    'Channel 5': 'United Kingdom',
+    'CTV': 'Canada',
+    'Discovery Turbo': 'USA',
+    'E!': 'USA',
+    'FOX': 'USA',
+    'HBO': 'USA',
+    'HGTV': 'USA',
+    'MTV': 'USA',
+    'National Geographic': 'USA',
+    'NTV': 'Japan',
+    'SBS': 'Australia',
+    'Sky Cinema': 'United Kingdom',
+    'STV': 'United Kingdom',
+    'Travel Channel': 'USA',
+    'TVA': 'Canada',
+    'YTV': 'Canada',
+}
+
 class CountryLookup(object):
     def __init__(self, series_id = 70386):
         url = 'http://thetvdb.com/?tab=series&id=%d&lid=7' % series_id
@@ -285,6 +310,8 @@ class CountryLookup(object):
         if len(self.country_dict) < 500:
             raise Exception("Country data was not parsed correctly.")
 
+        for station, country in OVERRIDES.iteritems():
+            self.country_dict[station] = country
         self.country_dict[''] = 'Unknown'
 
     def get_country_dict(self):
