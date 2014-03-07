@@ -3,7 +3,7 @@ import os, sys, re, socket, urllib, unicodedata, threading
 from traceback import print_exc
 from datetime import datetime, date, timedelta
 from dateutil import tz
-from operator import attrgetter, itemgetter
+from operator import itemgetter
 import xbmc, xbmcgui, xbmcaddon, xbmcvfs
 try:
     import simplejson as json
@@ -64,13 +64,12 @@ for xx, yy in (('%a', '%(wday)s'), ('%b', '%(month)s'), ('%d', '%(day)s'), ('%y'
     NICE_DATE_FORMAT = NICE_DATE_FORMAT.replace(xx, yy)
 NICE_DATE_FORMAT = leftover_re.sub('%(unk)s', NICE_DATE_FORMAT)
 
-MAIN_DB_VER = 3
+MAIN_DB_VER = 4
 COUNTRY_DB_VER = 1
 
 FAILURE_PAUSE = 5*60
 
 INT_REGEX = re.compile(r"^([0-9]+)$")
-NEW_REGEX = re.compile(r"^01x")
 
 if not xbmcvfs.exists(__datapath__):
     xbmcvfs.mkdir(__datapath__)
@@ -165,6 +164,8 @@ class NextAired:
         self.now = time()
         self.date = date.today()
         self.datestr = str(self.date)
+        self.yesterday = self.date - timedelta(days=1)
+        self.yesterstr = str(self.yesterday)
         self.this_year_regex = re.compile(r",? %d\b" % self.date.year)
         self.in_dst = localtime().tm_isdst
 
@@ -465,8 +466,7 @@ class NextAired:
                 if 'unused' not in prior_data:
                     continue # How'd we get a duplicate?? Skip it...
                 del prior_data['unused']
-                while len(prior_data['episodes']) > 1 and prior_data['episodes'][1]['aired'][:10] < self.datestr:
-                    prior_data['episodes'].pop(0)
+                self.age_episodes(prior_data)
 
             for art_type in USEFUL_ART:
                 xart = art.get(art_type, None)
@@ -530,15 +530,12 @@ class NextAired:
                 if 'unused' in show:
                     remove_list.append(tid)
                     continue
-                if len(show['episodes']) > 1:
-                    show['RFC3339'] = show['episodes'][1]['aired']
+                if show['ep_ndx']:
                     self.nextlist.append(show)
-                elif 'RFC3339' in show:
-                    del show['RFC3339']
             for tid in remove_list:
                 log('### Removing obsolete show %s' % show_dict[tid]['localname'], level=2)
                 del show_dict[tid]
-            self.nextlist.sort(key=itemgetter('RFC3339'))
+            self.nextlist.sort(key=itemgetter('Show Name'))
             log("### next list: %s shows ### %s" % (len(self.nextlist) , self.nextlist), level=5)
             self.check_today_show()
             self.push_data()
@@ -561,6 +558,23 @@ class NextAired:
 
         self.FORCEUPDATE = False
         return not self.last_failure
+
+    def age_episodes(self, show):
+        episodes = show['episodes']
+        ep_len = len(episodes)
+        ep_ndx = show['ep_ndx']
+        if ep_ndx == 0: # 0 indicates no future episodes, so point past the end of the list.
+            ep_ndx = ep_len
+        # Start by finding the spot (if any) in the list where future episodes start.
+        while ep_ndx < ep_len and episodes[ep_ndx]['aired'][:10] < self.datestr:
+            ep_ndx += 1
+        # Next we remove any episodes that are older than yesterday, keeping at least one old episode.
+        while ep_ndx > 1 and episodes[0]['aired'][:10] < self.yesterstr:
+            episodes.pop(0)
+            ep_len -= 1
+            ep_ndx -= 1
+        # Make a note of the index of the first upcoming episode or 0 if there are none.
+        show['ep_ndx'] = (ep_ndx if ep_ndx < ep_len else 0)
 
     def check_xbmc_version(self):
         # retrieve current installed version
@@ -652,20 +666,16 @@ class NextAired:
             elif earliest_id is None:
                 log("### no changes needed", level=5)
                 return -tid
-            for ep in prior_data['episodes']:
-                if ep['id'] and ep['id'] < earliest_id:
-                    earliest_id = ep['id']
         else:
             show_changed = 0
             earliest_id = 1
             eps_last_updated = 0
 
         if earliest_id != 0:
-            log("### earliest_id = %d" % earliest_id, level=5)
             for cnt in range(2):
                 log("### getting series & episode info for #%d - %s" % (tid, name), level=1)
                 try:
-                    result = tvdb.get_show_and_episodes(tid, earliest_id)
+                    result = tvdb.get_show_and_episodes(tid)
                     break
                 except Exception, e:
                     log('### ERROR returned by get_show_and_episodes(): %s' % e, level=0)
@@ -740,54 +750,39 @@ class NextAired:
         elif 'canceled' in current_show:
             del current_show['canceled']
 
+        # Let's assume we need a "None" episode -- it will get cleaned if we don't.
+        episode_list = [ {'name': None, 'aired': '0000-00-00T00:00:00+00:00', 'sn': 0, 'en': 0} ]
         if episodes is not None:
-            episode_list = []
-
             max_eps_utime = 0
             if episodes:
-                good_eps = []
                 for ep in episodes:
-                    ep['id'] = int(ep['id'])
-                    ep['SeasonNumber'] = maybe_int(ep, 'SeasonNumber')
-                    ep['EpisodeNumber'] = maybe_int(ep, 'EpisodeNumber')
                     last_updated = maybe_int(ep, 'lastupdated')
                     if last_updated > max_eps_utime:
                         max_eps_utime = last_updated
-                    first_aired = ep.get('FirstAired', "")
-                    log("### fetched ep=%d last_updated=%d first_aired=%s" % (ep['id'], last_updated, first_aired))
-                    first_aired = TheTVDB.convert_date(first_aired)
+                    first_aired = TheTVDB.convert_date(ep.get('FirstAired', ""))
                     if not first_aired:
                         continue
-                    ep['FirstAired'] = local_airtime + timedelta(days = (first_aired - self.date).days)
-                    good_eps.append(ep)
-                episodes = sorted(good_eps, key=itemgetter('FirstAired', 'SeasonNumber', 'EpisodeNumber'))
-            if episodes and episodes[0]['FirstAired'].date() < self.date:
-                while len(episodes) > 1 and episodes[1]['FirstAired'].date() < self.date:
-                    ep = episodes.pop(0)
-            else: # If we have no prior episodes, prepend a "None" episode
-                episode_list.append({ 'id': None })
-                # If we lost prior-episode info, schedule a fix-up event for the next time to see if we can find it again.
-                if prior_data and earliest_id > 1 and prior_data['episodes'][-1]['id']:
-                    earliest_id = 1
-                    current_show['eps_changed'] = (earliest_id, eps_last_updated)
-
-            for ep in episodes:
-                cur_ep = {
-                        'id': ep['id'],
-                        'name': normalize(ep, 'EpisodeName'),
-                        'number': '%02dx%02d' % (ep['SeasonNumber'], ep['EpisodeNumber']),
-                        'aired': ep['FirstAired'].isoformat(),
-                        'wday': ep['FirstAired'].weekday()
-                        }
-                episode_list.append(cur_ep)
-
+                    first_aired = local_airtime + timedelta(days = (first_aired - self.date).days)
+                    got_ep = {
+                            'name': normalize(ep, 'EpisodeName'),
+                            'sn': maybe_int(ep, 'SeasonNumber'),
+                            'en': maybe_int(ep, 'EpisodeNumber'),
+                            'aired': first_aired.isoformat(),
+                            'wday': first_aired.weekday()
+                            }
+                    episode_list.append(got_ep)
+                episodes = None
+                episode_list.sort(key=itemgetter('aired', 'sn', 'en'))
+            current_show['ep_ndx'] = 1
             current_show['episodes'] = episode_list
+            self.age_episodes(current_show)
         elif prior_data:
             max_eps_utime = eps_last_updated
+            current_show['ep_ndx'] = prior_data['ep_ndx']
             current_show['episodes'] = prior_data['episodes']
             if current_show['Airtime'] != prior_data['Airtime']:
                 for ep in current_show['episodes']:
-                    if not ep['id']:
+                    if ep['name'] is None:
                         continue
                     aired = TheTVDB.convert_date(ep['aired'][:10])
                     aired = local_airtime + timedelta(days = (aired - self.date).days)
@@ -795,18 +790,17 @@ class NextAired:
                     ep['wday'] = aired.weekday()
         else:
             max_eps_utime = 0
-            current_show['episodes'] = [{ 'id': None }]
+            current_show['ep_ndx'] = 0
+            current_show['episodes'] = episode_list
 
+        last_updated = maybe_int(show, 'lastupdated')
         if prior_data:
-            last_updated = int(show['lastupdated'])
             if 'show_changed' in prior_data and last_updated < show_changed:
                 log("### didn't get latest show info yet (%d < %d)" % (last_updated, show_changed), level=1)
                 current_show['show_changed'] = show_changed
             if 'eps_changed' in prior_data and max_eps_utime < eps_last_updated:
                 log("### didn't get latest episode info yet (%d < %d)" % (max_eps_utime, eps_last_updated), level=1)
                 current_show['eps_changed'] = (earliest_id, eps_last_updated)
-        else:
-            last_updated = 0
 
         current_show['last_updated'] = max(show_changed, last_updated)
         current_show['eps_last_updated'] = max(eps_last_updated, max_eps_utime)
@@ -830,26 +824,42 @@ class NextAired:
                 # Convert airtime into HH:MM (never AM/PM):
                 airtime = TheTVDB.convert_time(show['Airtime'])
                 show['Airtime'] = airtime.strftime('%H:%M') if airtime is not None else ''
+            if from_ver < 4:
+                if 'RFC3339' in show:
+                    del show['RFC3339']
+                show['ep_ndx'] = (1 if len(show['episodes']) >= 1 else 0)
+                ep0 = show['episodes'][0]
+                if ep0['id'] is None:
+                    ep0['name'] = None
+                    ep0['aired'] = '0000-00-00T00:00:00+00:00'
+                    ep0['sn'] = ep0['en'] = 0
             for ep in show['episodes']:
                 if from_ver < 3 and 'wday' in ep:
                     # Convert wday from a string to an index:
                     ep['wday'] = daymap[ep['wday']]
+                if from_ver < 4:
+                    if 'number' in ep:
+                        nums = ep['number'].split('x')
+                        ep['sn'] = int(nums[0])
+                        ep['en'] = int(nums[1])
+                        del ep['number']
+                    del ep['id']
 
     def set_episode_info(self, label, prefix, when, ep):
-        if ep and ep['id']:
+        if ep and ep['name'] is not None:
             name = ep['name']
-            number = ep['number']
+            season_num = ep['sn']
+            episode_num = ep['en']
+            number = '%02dx%02d' % (season_num, episode_num)
             aired = self.nice_date(TheTVDB.convert_date(ep['aired'][:10]))
         else:
-            name = number = aired = ''
-        num_array = number.split('x')
-        num_array.extend([''])
+            name = season_num = episode_num = number = aired = ''
 
         label.setProperty(prefix + when + 'Date', aired)
         label.setProperty(prefix + when + 'Title', name)
         label.setProperty(prefix + when + 'Number', number)
-        label.setProperty(prefix + when + 'SeasonNumber', num_array[0])
-        label.setProperty(prefix + when + 'EpisodeNumber', num_array[1])
+        label.setProperty(prefix + when + 'SeasonNumber', str(season_num))
+        label.setProperty(prefix + when + 'EpisodeNumber', str(episode_num))
 
     def check_today_show(self):
         self.set_today()
@@ -858,7 +868,7 @@ class NextAired:
         log( "### %s" % self.datestr )
         for show in self.nextlist:
             name = show["localname"]
-            when = show["RFC3339"]
+            when = show['episodes'][show['ep_ndx']]['aired']
             log( "################" )
             log( "### %s" % name )
             if when[:10] == self.datestr:
@@ -935,7 +945,7 @@ class NextAired:
         self.count = 0
         all_days = __addon__.getSetting("ShowAllTVShowsOnHome") == 'true'
         for current_show in self.nextlist:
-            if all_days or current_show.get("RFC3339", "")[:10] == self.datestr:
+            if all_days or current_show['episodes'][current_show['ep_ndx']]['aired'][:10] == self.datestr:
                 self.count += 1
                 self.set_labels('windowpropertytoday', current_show)
         self.WINDOW.setProperty("NextAired.Total", str(len(self.nextlist)))
@@ -1016,13 +1026,13 @@ class NextAired:
             latest_ep = item['episodes'][want_ep_ndx-1]
             airdays = [ next_ep['wday'] ]
         else:
-            ep_len = len(item['episodes'])
-            next_ep = item['episodes'][1] if ep_len > 1 else None
-            latest_ep = item['episodes'][0]
+            ep_ndx = item['ep_ndx']
+            next_ep = item['episodes'][ep_ndx] if ep_ndx >= 1 else None
+            latest_ep = item['episodes'][ep_ndx-1] # Note that 0-1 gives us the last item in the array -- nice!
             airdays = []
-            if ep_len > 1:
-                date_limit = (TheTVDB.convert_date(item['episodes'][1]['aired'][:10]) + timedelta(days=6)).isoformat()
-                for ep in item['episodes'][1:]:
+            if ep_ndx >= 1:
+                date_limit = (TheTVDB.convert_date(item['episodes'][ep_ndx]['aired'][:10]) + timedelta(days=6)).isoformat()
+                for ep in item['episodes'][ep_ndx:]:
                     if ep['aired'][:10] > date_limit:
                         break
                     airdays.append(ep['wday'])
@@ -1042,7 +1052,7 @@ class NextAired:
         status = item.get("Status", "")
         if status == 'Continuing':
             ep = next_ep if next_ep else latest_ep if latest_ep else None
-            if not ep or not ep['id'] or NEW_REGEX.match(ep['number']):
+            if not ep or ep['name'] is None or ep['sn'] == 1:
                 status_id = '4' # New
             else:
                 status_id = '0' # Returning

@@ -16,7 +16,7 @@ def log(txt):
 class Gui( xbmcgui.WindowXML ):
     def __init__(self, *args, **kwargs):
         xbmcgui.WindowXML.__init__( self )
-        self.nextlist = sorted(kwargs['listing'], key=lambda item: item['RFC3339'][11:15])
+        self.nextlist = sorted(kwargs['listing'], key=lambda item: item['Airtime'])
         self.setLabels = kwargs['setLabels']
 
     def onInit(self):
@@ -43,8 +43,8 @@ class Gui( xbmcgui.WindowXML ):
             self.listitems.append([])
         day_limit = str(self.today + timedelta(days=6))
         for item in self.nextlist:
-            ep_ndx = 1
-            for ep in item['episodes'][1:]:
+            ep_ndx = item['ep_ndx']
+            for ep in item['episodes'][ep_ndx:]:
                 if ep['aired'][:10] > day_limit:
                     break
                 listitem = self.setLabels('listitem', item, ep_ndx)
