@@ -848,9 +848,9 @@ class NextAired:
     def set_episode_info(self, label, prefix, when, ep):
         if ep and ep['name'] is not None:
             name = ep['name']
-            season_num = ep['sn']
-            episode_num = ep['en']
-            number = '%02dx%02d' % (season_num, episode_num)
+            season_num = '%02d' % ep['sn']
+            episode_num = '%02d' % ep['en']
+            number = season_num + 'x' + episode_num
             aired = self.nice_date(TheTVDB.convert_date(ep['aired'][:10]))
         else:
             name = season_num = episode_num = number = aired = ''
@@ -858,8 +858,8 @@ class NextAired:
         label.setProperty(prefix + when + 'Date', aired)
         label.setProperty(prefix + when + 'Title', name)
         label.setProperty(prefix + when + 'Number', number)
-        label.setProperty(prefix + when + 'SeasonNumber', str(season_num))
-        label.setProperty(prefix + when + 'EpisodeNumber', str(episode_num))
+        label.setProperty(prefix + when + 'SeasonNumber', season_num)
+        label.setProperty(prefix + when + 'EpisodeNumber', episode_num)
 
     def check_today_show(self):
         self.set_today()
