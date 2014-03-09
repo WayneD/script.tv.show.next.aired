@@ -105,13 +105,13 @@ script-NextAired-TVGuide2.xml (the latter is the today-week guide).
 A list of required IDs in script-NextAired-TVGuide.xml, which is selected if
 the user has selected the traditional, Monday-week guide:
 
-200 - container / shows aired on monday
-201 - container / shows aired on tuesday
-202 - container / shows aired on wednesday
-203 - container / shows aired on thursday
-204 - container / shows aired on friday
-205 - container / shows aired on saturday
-206 - container / shows aired on sunday
+200 - container / shows aired on Monday
+201 - container / shows aired on Tuesday
+202 - container / shows aired on Wednesday
+203 - container / shows aired on Thursday
+204 - container / shows aired on Friday
+205 - container / shows aired on Saturday
+206 - container / shows aired on Sunday
 8 - in case all the containers above are empty, we set focus to this ID
 (which is typically a settings-button of some kind).
 
@@ -143,7 +143,7 @@ the user has selected the new, Today-week guide:
 If the user chooses to include fewer than the full 15 upcoming days (including
 today) and/or to disable Yesterday, then the skin should be prepared to hide
 the days that aren't enabled (the *.Wday and *.Date values below will be
-empty for any disabled containers).
+unset for any disabled containers).
 
 Various Window(home) vars that we provide (some are more useful in just one
 of the 2 xml files, but all are always set):
@@ -157,17 +157,19 @@ The date for the lists in dateshort format (Monday==1):
     Window(home).Property(NextAired.7.Date)
 
 The day-of-the-week name for each container (not abbreviated), but the today-
-week Guide gets a localized Yesterday and Today in place of 200 and 201:
-    Window(home).Property(TVGuide.200.Wday)
+week Guide gets a localized Yesterday and Today in place of 200 and 201, and
+any containers that are disabled by the user have no set value for that num:
+    Window(home).Property(NextAired.200.Wday)
     ...
-    Window(home).Property(TVGuide.215.Wday)
+    Window(home).Property(NextAired.215.Wday)
 
-The date for each container in a nice format (similar to datelong minus the
-year, but with an abbreviated day-of-the-week name -- e.g. English looks like
-"Mon, Feb 14"):
-    Window(home).Property(TVGuide.200.Date)
+The date for each container in a nice format, similar to datelong minus the
+year, but with an abbreviated day-of-the-week name (e.g. English looks like
+"Mon, Feb 14").  Any containers that are disabled by the user have no set
+value for that num (e.g. 7-days w/o yesterday would only get 201..207):
+    Window(home).Property(NextAired.200.Date)
     ...
-    Window(home).Property(TVGuide.215.Date)
+    Window(home).Property(NextAired.215.Date)
 
 A list of available infolabels:
     ListItem.Label          (tv show name)
@@ -176,7 +178,7 @@ A list of available infolabels:
 
 Totals are available using the window properties listed above.
 
-thumb type selected by the (0=poster, 1=banner, 2=logo):
+Thumb type selected by the user (0=poster, 1=banner, 2=logo):
     Window(home).Property(TVGuide.ThumbType)
 
 Indicator for background fanart setting (1=enabled, empty if disabled):
