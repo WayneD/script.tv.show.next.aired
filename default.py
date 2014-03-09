@@ -2,7 +2,7 @@ from time import strftime, strptime, time, mktime, localtime
 import os, sys, re, socket, urllib, unicodedata, threading
 from traceback import print_exc
 from datetime import datetime, date, timedelta
-from dateutil import tz
+from dateutil import tz, zoneinfo
 from operator import itemgetter
 import xbmc, xbmcgui, xbmcaddon, xbmcvfs
 try:
@@ -167,10 +167,6 @@ class NextAired:
         self.yesterday = self.date - timedelta(days=1)
         self.yesterstr = str(self.yesterday)
         self.any_year_regex = re.compile(r",? \d\d\d\d\b")
-        lt = localtime(self.now)
-        if lt.tm_hour < 4: # Compute in_dst for today based on at least 4am.
-            lt = localtime(self.now + 4*60*60)
-        self.in_dst = lt.tm_isdst
 
     # Returns elapsed seconds since last update failure.
     def get_last_failure(self):
@@ -711,24 +707,29 @@ class NextAired:
 
         network = normalize(show, 'Network', 'Unknown')
         country = self.country_dict.get(network, 'Unknown')
-        # XXX TODO allow the user to specify an override country that gets the local timezone.
-        tzone = CountryLookup.get_country_timezone(country, self.in_dst)
-        if not tzone:
-            tzone = ''
-        tz_re = re.compile(r"([-+])(\d\d):(\d\d)")
-        m = tz_re.match(tzone)
-        if m:
-            tz_offset = (int(m.group(2)) * 3600) + (int(m.group(3)) * 60)
-            if m.group(1) == '-':
-                tz_offset *= -1
-        else:
-            tz_offset = 1 * 3600 # Default to +01:00
+        tzone = CountryLookup.get_country_timezone(country)
+        if tzone is None:
+            tzone = 'UTC'
+        try:
+            # Use the host's own tzinfo, if possible (e.g. Linux).
+            tzinfo = tz.gettz(tzone)
+        except:
+            tzinfo = None
+        if tzinfo is None:
+            try:
+                # Fall back to the tar-compressed tzinfo, if necessary.
+                tzinfo = zoneinfo.gettz(tzone)
+            except:
+                tzinfo = None
+            if tzinfo is None:
+                # If not found, just use UTC as a default.
+                tzinfo = tz.gettz('UTC')
         try:
             airtime = TheTVDB.convert_time(show.get('Airs_Time', ""))
         except:
             airtime = None
         local_airtime = airtime if airtime is not None else TheTVDB.convert_time('00:00')
-        local_airtime = datetime.combine(self.date, local_airtime).replace(tzinfo=tz.tzoffset(None, tz_offset))
+        local_airtime = datetime.combine(self.date, local_airtime).replace(tzinfo=tzinfo)
         if airtime is not None: # Don't backtrack an assumed midnight time (for an invalid airtime) into the prior day.
             local_airtime = local_airtime.astimezone(tz.tzlocal())
 
