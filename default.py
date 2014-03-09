@@ -167,7 +167,10 @@ class NextAired:
         self.yesterday = self.date - timedelta(days=1)
         self.yesterstr = str(self.yesterday)
         self.any_year_regex = re.compile(r",? \d\d\d\d\b")
-        self.in_dst = localtime().tm_isdst
+        lt = localtime(self.now)
+        if lt.tm_hour < 4: # Compute in_dst for today based on at least 4am.
+            lt = localtime(self.now + 4*60*60)
+        self.in_dst = lt.tm_isdst
 
     # Returns elapsed seconds since last update failure.
     def get_last_failure(self):
