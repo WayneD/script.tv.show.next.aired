@@ -968,8 +968,8 @@ class NextAired:
                 date += timedelta(days = (count - weekday + 7) % 7)
             self.WINDOW.setProperty("NextAired.%d.Date" % (count + 1), date.strftime(DATE_FORMAT))
         import next_aired_dialog
-        ScanDays = int(__addon__.getSetting("ScanDays"))
         TodayStyle = __addon__.getSetting("TodayStyle") == 'true'
+        ScanDays = int(__addon__.getSetting("ScanDays2" if TodayStyle else "ScanDays"))
         WantYesterday = __addon__.getSetting("WantYesterday") == 'true'
         next_aired_dialog.MyDialog(self.nextlist, self.set_labels, self.nice_date, ScanDays, TodayStyle, WantYesterday)
 
