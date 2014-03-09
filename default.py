@@ -166,7 +166,7 @@ class NextAired:
         self.datestr = str(self.date)
         self.yesterday = self.date - timedelta(days=1)
         self.yesterstr = str(self.yesterday)
-        self.this_year_regex = re.compile(r",? %d\b" % self.date.year)
+        self.any_year_regex = re.compile(r",? \d\d\d\d\b")
         self.in_dst = localtime().tm_isdst
 
     # Returns elapsed seconds since last update failure.
@@ -851,7 +851,7 @@ class NextAired:
             season_num = '%02d' % ep['sn']
             episode_num = '%02d' % ep['en']
             number = season_num + 'x' + episode_num
-            aired = self.nice_date(TheTVDB.convert_date(ep['aired'][:10]))
+            aired = self.str_date(TheTVDB.convert_date(ep['aired'][:10]), omit_year=self.date.year)
         else:
             name = season_num = episode_num = number = aired = ''
 
@@ -878,15 +878,18 @@ class NextAired:
             log( "### %s" % when )
         log( "### today show: %s - %s" % ( self.todayshow , str(self.todaylist).strip("[]") ) )
 
-    def nice_date(self, d, force_year = False):
+    # The omit_year setting only affects "nice" dates, not the historic format.
+    def str_date(self, d, omit_year = None):
         if d is None:
             return ''
-        if not self.improve_dates:
-            return d.strftime(DATE_FORMAT)
+        return self.nice_date(d, omit_year) if self.improve_dates else d.strftime(DATE_FORMAT)
+
+    # omit_year of 0 omits all years, otherwise specify the year (or None for no omitting).
+    def nice_date(self, d, omit_year = None):
         tt = d.timetuple()
         d = NICE_DATE_FORMAT % {'year': tt[0], 'mm': tt[1], 'month': self.local_months[tt[1]-1], 'day': tt[2], 'wday': self.wdays[tt[6]], 'unk': '??'}
-        if not force_year and tt[0] == self.date.year:
-            d = self.this_year_regex.sub('', d)
+        if omit_year is not None and omit_year in (0, tt[0]):
+            d = self.any_year_regex.sub('', d)
         return d
 
     @staticmethod
@@ -965,7 +968,10 @@ class NextAired:
                 date += timedelta(days = (count - weekday + 7) % 7)
             self.WINDOW.setProperty("NextAired.%d.Date" % (count + 1), date.strftime(DATE_FORMAT))
         import next_aired_dialog
-        next_aired_dialog.MyDialog(self.nextlist, self.set_labels)
+        ScanDays = int(__addon__.getSetting("ScanDays"))
+        TodayStyle = __addon__.getSetting("TodayStyle") == 'true'
+        WantYesterday = __addon__.getSetting("WantYesterday") == 'true'
+        next_aired_dialog.MyDialog(self.nextlist, self.set_labels, self.nice_date, ScanDays, TodayStyle, WantYesterday)
 
     def run_backend(self):
         self._stop = False
@@ -1021,9 +1027,9 @@ class NextAired:
             label.setProperty(prefix + "Label", item["localname"])
             label.setProperty(prefix + "Thumb", item.get("thumbnail", ""))
 
-        if want_ep_ndx:
+        if want_ep_ndx is not None:
             next_ep = item['episodes'][want_ep_ndx]
-            latest_ep = item['episodes'][want_ep_ndx-1]
+            latest_ep = item['episodes'][want_ep_ndx-1] if want_ep_ndx else None
             airdays = [ next_ep['wday'] ]
         else:
             ep_ndx = item['ep_ndx']
@@ -1074,7 +1080,7 @@ class NextAired:
         label.setProperty(prefix + "Status", status)
         label.setProperty(prefix + "StatusID", status_id)
         label.setProperty(prefix + "Network", item.get("Network", ""))
-        label.setProperty(prefix + "Started", self.nice_date(started, force_year = True))
+        label.setProperty(prefix + "Started", self.str_date(started))
         # XXX Note that Classification is always unset at the moment!
         label.setProperty(prefix + "Classification", item.get("Classification", ""))
         label.setProperty(prefix + "Genre", item.get("Genres", ""))
