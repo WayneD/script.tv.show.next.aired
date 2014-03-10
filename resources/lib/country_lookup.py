@@ -375,7 +375,7 @@ def main(argv):
             pretty_print("COUNTRY_ZONES = ", CountryLookup.get_zones(), "',", "    'unknown': 'UTC',\n")
         elif opt == "--test":
             resources_lib_re = re.compile(r"[^a-z]+resources[^a-z]+lib$")
-            sys.path.append(resources_lib_re.sub("", sys.path[0]))
+            sys.path.insert(0, resources_lib_re.sub("", sys.path[0]))
             from dateutil import zoneinfo
             c = CountryLookup()
             saw_error = False
