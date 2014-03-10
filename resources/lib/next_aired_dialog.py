@@ -69,19 +69,23 @@ class Gui( xbmcgui.WindowXML ):
         for c in self.cntr_nums:
             self.listitems.append([])
             cntr_day = self.start_day + timedelta(days = c - self.first_num)
+            wday = xbmc.getLocalizedString(cntr_day.weekday() + 41)
+            nice_date = self.niceDate(cntr_day, omit_year=0, omit_wday=True)
             if self.todayStyle and c in (200, 201):
                 if c == 200:
-                    wday = __addon__.getLocalizedString(32018) # Yesterday
+                    weekday = __addon__.getLocalizedString(32018) # Yesterday
                 else:
-                    wday = xbmc.getLocalizedString(33006) # Today
+                    weekday = xbmc.getLocalizedString(33006) # Today
             else:
-                wday = xbmc.getLocalizedString(cntr_day.weekday() + 11)
+                weekday = xbmc.getLocalizedString(cntr_day.weekday() + 11)
             xbmc.executebuiltin('SetProperty(NextAired.%d.Wday,%s,Home)' % (c, wday))
-            xbmc.executebuiltin('SetProperty(NextAired.%d.Date,"%s",Home)' % (c, self.niceDate(cntr_day, omit_year=0)))
+            xbmc.executebuiltin('SetProperty(NextAired.%d.Date,"%s",Home)' % (c, nice_date))
+            xbmc.executebuiltin('SetProperty(NextAired.%d.Weekday,%s,Home)' % (c, weekday))
         for c in range(200, 216):
             if c not in self.cntr_nums:
                 xbmc.executebuiltin('clearProperty(NextAired.%d.Wday,Home)' % c)
                 xbmc.executebuiltin('clearProperty(NextAired.%d.Date,Home)' % c)
+                xbmc.executebuiltin('clearProperty(NextAired.%d.Weekday,Home)' % c)
         min_day = str(self.start_day)
         max_day = str(self.start_day + timedelta(days = self.scanDays-1))
         episodes = []

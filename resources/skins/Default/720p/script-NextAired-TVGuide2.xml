@@ -955,7 +955,7 @@
 					<posy>13</posy>
 					<width>167</width>
 					<height>20</height>
-					<label>$INFO[Window(Home).Property(NextAired.200.Wday)]</label>
+					<label>$INFO[Window(Home).Property(NextAired.200.Weekday)]</label>
 					<align>center</align>
 					<aligny>center</aligny>
 					<font>font13_title</font>
@@ -1071,7 +1071,7 @@
 					<posy>13</posy>
 					<width>167</width>
 					<height>20</height>
-					<label>$INFO[Window(Home).Property(NextAired.201.Wday)]</label>
+					<label>$INFO[Window(Home).Property(NextAired.201.Weekday)]</label>
 					<align>center</align>
 					<aligny>center</aligny>
 					<font>font13_title</font>
@@ -1188,7 +1188,7 @@
 					<posy>13</posy>
 					<width>167</width>
 					<height>20</height>
-					<label>$INFO[Window(Home).Property(NextAired.202.Date)]</label>
+					<label>$INFO[Window(Home).Property(NextAired.202.Wday)], $INFO[Window(Home).Property(NextAired.202.Date)]</label>
 					<align>center</align>
 					<aligny>center</aligny>
 					<font>font13_title</font>
@@ -1305,7 +1305,7 @@
 					<posy>13</posy>
 					<width>167</width>
 					<height>20</height>
-					<label>$INFO[Window(Home).Property(NextAired.203.Date)]</label>
+					<label>$INFO[Window(Home).Property(NextAired.203.Wday)], $INFO[Window(Home).Property(NextAired.203.Date)]</label>
 					<align>center</align>
 					<aligny>center</aligny>
 					<font>font13_title</font>
@@ -1422,7 +1422,7 @@
 					<posy>13</posy>
 					<width>167</width>
 					<height>20</height>
-					<label>$INFO[Window(Home).Property(NextAired.204.Date)]</label>
+					<label>$INFO[Window(Home).Property(NextAired.204.Wday)], $INFO[Window(Home).Property(NextAired.204.Date)]</label>
 					<align>center</align>
 					<aligny>center</aligny>
 					<font>font13_title</font>
@@ -1539,7 +1539,7 @@
 					<posy>13</posy>
 					<width>167</width>
 					<height>20</height>
-					<label>$INFO[Window(Home).Property(NextAired.205.Date)]</label>
+					<label>$INFO[Window(Home).Property(NextAired.205.Wday)], $INFO[Window(Home).Property(NextAired.205.Date)]</label>
 					<align>center</align>
 					<aligny>center</aligny>
 					<font>font13_title</font>
@@ -1656,7 +1656,7 @@
 					<posy>13</posy>
 					<width>167</width>
 					<height>20</height>
-					<label>$INFO[Window(Home).Property(NextAired.206.Date)]</label>
+					<label>$INFO[Window(Home).Property(NextAired.206.Wday)], $INFO[Window(Home).Property(NextAired.206.Date)]</label>
 					<align>center</align>
 					<aligny>center</aligny>
 					<font>font13_title</font>
@@ -1773,7 +1773,7 @@
 					<posy>13</posy>
 					<width>167</width>
 					<height>20</height>
-					<label>$INFO[Window(Home).Property(NextAired.207.Date)]</label>
+					<label>$INFO[Window(Home).Property(NextAired.207.Wday)], $INFO[Window(Home).Property(NextAired.207.Date)]</label>
 					<align>center</align>
 					<aligny>center</aligny>
 					<font>font13_title</font>
@@ -1890,7 +1890,7 @@
 					<posy>13</posy>
 					<width>167</width>
 					<height>20</height>
-					<label>$INFO[Window(Home).Property(NextAired.208.Date)]</label>
+					<label>$INFO[Window(Home).Property(NextAired.208.Wday)], $INFO[Window(Home).Property(NextAired.208.Date)]</label>
 					<align>center</align>
 					<aligny>center</aligny>
 					<font>font13_title</font>
@@ -2007,7 +2007,7 @@
 					<posy>13</posy>
 					<width>167</width>
 					<height>20</height>
-					<label>$INFO[Window(Home).Property(NextAired.209.Date)]</label>
+					<label>$INFO[Window(Home).Property(NextAired.209.Wday)], $INFO[Window(Home).Property(NextAired.209.Date)]</label>
 					<align>center</align>
 					<aligny>center</aligny>
 					<font>font13_title</font>
@@ -2124,7 +2124,7 @@
 					<posy>13</posy>
 					<width>167</width>
 					<height>20</height>
-					<label>$INFO[Window(Home).Property(NextAired.210.Date)]</label>
+					<label>$INFO[Window(Home).Property(NextAired.210.Wday)], $INFO[Window(Home).Property(NextAired.210.Date)]</label>
 					<align>center</align>
 					<aligny>center</aligny>
 					<font>font13_title</font>
@@ -2241,7 +2241,7 @@
 					<posy>13</posy>
 					<width>167</width>
 					<height>20</height>
-					<label>$INFO[Window(Home).Property(NextAired.211.Date)]</label>
+					<label>$INFO[Window(Home).Property(NextAired.211.Wday)], $INFO[Window(Home).Property(NextAired.211.Date)]</label>
 					<align>center</align>
 					<aligny>center</aligny>
 					<font>font13_title</font>
@@ -2358,7 +2358,7 @@
 					<posy>13</posy>
 					<width>167</width>
 					<height>20</height>
-					<label>$INFO[Window(Home).Property(NextAired.212.Date)]</label>
+					<label>$INFO[Window(Home).Property(NextAired.212.Wday)], $INFO[Window(Home).Property(NextAired.212.Date)]</label>
 					<align>center</align>
 					<aligny>center</aligny>
 					<font>font13_title</font>
@@ -2475,7 +2475,7 @@
 					<posy>13</posy>
 					<width>167</width>
 					<height>20</height>
-					<label>$INFO[Window(Home).Property(NextAired.213.Date)]</label>
+					<label>$INFO[Window(Home).Property(NextAired.213.Wday)], $INFO[Window(Home).Property(NextAired.213.Date)]</label>
 					<align>center</align>
 					<aligny>center</aligny>
 					<font>font13_title</font>
@@ -2592,7 +2592,7 @@
 					<posy>13</posy>
 					<width>167</width>
 					<height>20</height>
-					<label>$INFO[Window(Home).Property(NextAired.214.Date)]</label>
+					<label>$INFO[Window(Home).Property(NextAired.214.Wday)], $INFO[Window(Home).Property(NextAired.214.Date)]</label>
 					<align>center</align>
 					<aligny>center</aligny>
 					<font>font13_title</font>
@@ -2709,7 +2709,7 @@
 					<posy>13</posy>
 					<width>167</width>
 					<height>20</height>
-					<label>$INFO[Window(Home).Property(NextAired.215.Date)]</label>
+					<label>$INFO[Window(Home).Property(NextAired.215.Wday)], $INFO[Window(Home).Property(NextAired.215.Date)]</label>
 					<align>center</align>
 					<aligny>center</aligny>
 					<font>font13_title</font>

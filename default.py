@@ -166,7 +166,8 @@ class NextAired:
         self.datestr = str(self.date)
         self.yesterday = self.date - timedelta(days=1)
         self.yesterstr = str(self.yesterday)
-        self.any_year_regex = re.compile(r",? \d\d\d\d\b")
+        self.year_fmt_regex = re.compile(r",? %\(year\)s")
+        self.wday_fmt_regex = re.compile(r"%\(wday\)s[^%]*")
 
     # Returns elapsed seconds since last update failure.
     def get_last_failure(self):
@@ -888,12 +889,16 @@ class NextAired:
             return ''
         return self.nice_date(d, omit_year) if self.improve_dates else d.strftime(DATE_FORMAT)
 
-    # omit_year of 0 omits all years, otherwise specify the year (or None for no omitting).
-    def nice_date(self, d, omit_year = None):
+    # Specify omit_year=0 to omit all years, one year to omit it, or None to omit no years.
+    # Specify omit_wday=True to leave off the day-of-the-week string.
+    def nice_date(self, d, omit_year = None, omit_wday = False):
         tt = d.timetuple()
-        d = NICE_DATE_FORMAT % {'year': tt[0], 'mm': tt[1], 'month': self.local_months[tt[1]-1], 'day': tt[2], 'wday': self.wdays[tt[6]], 'unk': '??'}
+        fmt = NICE_DATE_FORMAT
         if omit_year is not None and omit_year in (0, tt[0]):
-            d = self.any_year_regex.sub('', d)
+            fmt = self.year_fmt_regex.sub('', fmt)
+        if omit_wday:
+            fmt = self.wday_fmt_regex.sub('', fmt)
+        d = fmt % {'year': tt[0], 'mm': tt[1], 'month': self.local_months[tt[1]-1], 'day': tt[2], 'wday': self.wdays[tt[6]], 'unk': '??'}
         return d
 
     @staticmethod

@@ -142,11 +142,11 @@ the user has selected the new, Today-week guide:
 
 If the user chooses to include fewer than the full 15 upcoming days (including
 today) and/or to disable Yesterday, then the skin should be prepared to hide
-the days that aren't enabled (the *.Wday and *.Date values below will be
-unset for any disabled containers).
+the days that aren't enabled (the *.Weekday, *.Wday, and *.Date values below
+will be unset for any disabled containers).
 
-Various Window(home) vars that we provide (some are more useful in just one
-of the 2 xml files, but all are always set):
+Various Window(home) vars that we provide (some are more useful in just one of
+the 2 xml files, but all are always set):
 
 Today's date:
     Window(home).Property(NextAired.TodayDate)
@@ -157,16 +157,21 @@ The date for the lists in dateshort format (Monday==1):
     Window(home).Property(NextAired.7.Date)
 
 The day-of-the-week name for each container (not abbreviated), but the today-
-week Guide gets a localized Yesterday and Today in place of 200 and 201, and
-any containers that are disabled by the user have no set value for that num:
+week Guide gets a localized Yesterday and Today in place of 200 and 201.  Any
+containers that are disabled by the user have no set value for that num (e.g.
+if the user asked for 7-days in a today-week grid w/o yesterday, only 201..207
+would get values):
+    Window(home).Property(NextAired.200.Weekday)
+    ...
+    Window(home).Property(NextAired.215.Weekday)
+
+The abbreviated day-of-the-week name for each container:
     Window(home).Property(NextAired.200.Wday)
     ...
     Window(home).Property(NextAired.215.Wday)
 
-The date for each container in a nice format, similar to datelong minus the
-year, but with an abbreviated day-of-the-week name (e.g. English looks like
-"Mon, Feb 14").  Any containers that are disabled by the user have no set
-value for that num (e.g. 7-days w/o yesterday would only get 201..207):
+The date for each container in a nice format, with just the month name and day
+num (e.g. "Feb 14" & "14 Feb" are typical):
     Window(home).Property(NextAired.200.Date)
     ...
     Window(home).Property(NextAired.215.Date)
