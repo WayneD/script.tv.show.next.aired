@@ -16,6 +16,7 @@ def log(txt):
 class Gui( xbmcgui.WindowXML ):
     def __init__(self, *args, **kwargs):
         xbmcgui.WindowXML.__init__( self )
+        self.win = xbmcgui.Window(10000)
         self.nextlist = kwargs['listing']
         self.setLabels = kwargs['setLabels']
         self.niceDate = kwargs['niceDate']
@@ -35,15 +36,15 @@ class Gui( xbmcgui.WindowXML ):
 
     def onInit(self):
         num = int( __addon__.getSetting( "ThumbType" ) )
-        xbmc.executebuiltin( "SetProperty(TVGuide.ThumbType,%i,Home)" % num )
+        self.win.setProperty('TVGuide.ThumbType', str(num))
         if __addon__.getSetting( "PreviewThumbs" ) == 'true':
-            xbmc.executebuiltin( "SetProperty(TVGuide.PreviewThumbs,1,Home)" )
+            self.win.setProperty('TVGuide.PreviewThumbs', '1')
         else:
-            xbmc.executebuiltin( "ClearProperty(TVGuide.PreviewThumbs,Home)" )
+            self.win.clearProperty('TVGuide.PreviewThumbs')
         if __addon__.getSetting( "BackgroundFanart" ) == 'true':
-            xbmc.executebuiltin( "SetProperty(TVGuide.BackgroundFanart,1,Home)" )
+            self.win.setProperty('TVGuide.BackgroundFanart', '1')
         else:
-            xbmc.executebuiltin( "ClearProperty(TVGuide.BackgroundFanart,Home)" )
+            self.win.clearProperty('TVGuide.BackgroundFanart')
         self.settingsOpen = False
         self.start_day = date.today()
         if not self.todayStyle:
@@ -78,14 +79,14 @@ class Gui( xbmcgui.WindowXML ):
                     weekday = xbmc.getLocalizedString(33006) # Today
             else:
                 weekday = xbmc.getLocalizedString(cntr_day.weekday() + 11)
-            xbmc.executebuiltin('SetProperty(NextAired.%d.Wday,%s,Home)' % (c, wday))
-            xbmc.executebuiltin('SetProperty(NextAired.%d.Date,"%s",Home)' % (c, nice_date))
-            xbmc.executebuiltin('SetProperty(NextAired.%d.Weekday,%s,Home)' % (c, weekday))
+            self.win.setProperty('NextAired.%d.Wday' % c, wday)
+            self.win.setProperty('NextAired.%d.Date' % c, nice_date)
+            self.win.setProperty('NextAired.%d.Weekday' % c, weekday)
         for c in range(200, 216):
             if c not in self.cntr_nums:
-                xbmc.executebuiltin('clearProperty(NextAired.%d.Wday,Home)' % c)
-                xbmc.executebuiltin('clearProperty(NextAired.%d.Date,Home)' % c)
-                xbmc.executebuiltin('clearProperty(NextAired.%d.Weekday,Home)' % c)
+                self.win.clearProperty('NextAired.%d.Wday' % c)
+                self.win.clearProperty('NextAired.%d.Date' % c)
+                self.win.clearProperty('NextAired.%d.Weekday' % c)
         min_day = str(self.start_day)
         max_day = str(self.start_day + timedelta(days = self.scanDays-1))
         episodes = []
@@ -137,15 +138,15 @@ class Gui( xbmcgui.WindowXML ):
     def onAction( self, action ):
         if self.settingsOpen and action.getId() in ( 7, 10, 92, ):
             num = int( __addon__.getSetting( "ThumbType" ) )
-            xbmc.executebuiltin( "SetProperty(TVGuide.ThumbType,%i,Home)" % num )
+            self.win.setProperty('TVGuide.ThumbType', str(num))
             if __addon__.getSetting( "PreviewThumbs" ) == 'true':
-                xbmc.executebuiltin( "SetProperty(TVGuide.PreviewThumbs,1,Home)" )
+                self.win.setProperty('TVGuide.PreviewThumbs', '1')
             else:
-                xbmc.executebuiltin( "ClearProperty(TVGuide.PreviewThumbs,Home)" )
+                self.win.clearProperty('TVGuide.PreviewThumbs')
             if __addon__.getSetting( "BackgroundFanart" ) == 'true':
-                xbmc.executebuiltin( "SetProperty(TVGuide.BackgroundFanart,1,Home)" )
+                self.win.setProperty('TVGuide.BackgroundFanart', '1')
             else:
-                xbmc.executebuiltin( "ClearProperty(TVGuide.BackgroundFanart,Home)" )
+                self.win.clearProperty('TVGuide.BackgroundFanart')
             self.settingsOpen = False
         if action.getId() in ( 9, 10, 92, 216, 247, 257, 275, 61467, 61448, ):
             self.close()
@@ -156,4 +157,4 @@ def MyDialog(tv_list, setLabels, niceDate, scanDays, todayStyle, wantYesterday):
     w.doModal()
     del w
 
-# vim: et
+# vim: sw=4 ts=8 et
