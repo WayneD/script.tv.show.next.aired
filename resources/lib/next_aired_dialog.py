@@ -104,7 +104,11 @@ class Gui( xbmcgui.WindowXML ):
         for aired, show, ep_ndx in episodes:
                 listitem = self.setLabels('listitem', show, ep_ndx)
                 if self.todayStyle:
-                    ndx = (date(*map(int, aired[:10].split("-"))) - self.start_day).days
+                    # A show that made it this far surely has a valid aired date, but just in case...
+                    try:
+                        ndx = (date(*map(int, aired[:10].split("-"))) - self.start_day).days
+                    except:
+                        ndx = 0
                 else:
                     ndx = show['episodes'][ep_ndx]['wday']
                 self.listitems[ndx].append(listitem)
