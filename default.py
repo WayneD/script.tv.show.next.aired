@@ -2,7 +2,7 @@ from time import strftime, strptime, time, mktime, localtime
 import os, sys, re, socket, urllib, unicodedata, threading
 from traceback import print_exc
 from datetime import datetime, date, timedelta
-from dateutil import tz, zoneinfo
+from dateutil import tz
 from operator import itemgetter
 import xbmc, xbmcgui, xbmcaddon, xbmcvfs
 try:
@@ -712,19 +712,9 @@ class NextAired:
         if tzone is None:
             tzone = 'UTC'
         try:
-            # Use the host's own tzinfo, if possible (e.g. Linux).
             tzinfo = tz.gettz(tzone)
         except:
-            tzinfo = None
-        if tzinfo is None:
-            try:
-                # Fall back to the tar-compressed tzinfo, if necessary.
-                tzinfo = zoneinfo.gettz(tzone)
-            except:
-                tzinfo = None
-            if tzinfo is None:
-                # If not found, just use UTC as a default.
-                tzinfo = tz.gettz('UTC')
+            tzinfo = tz.gettz('UTC')
         try:
             airtime = TheTVDB.convert_time(show.get('Airs_Time', ""))
         except:
