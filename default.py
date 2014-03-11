@@ -174,6 +174,7 @@ class NextAired:
         self.datestr = str(self.date)
         self.yesterday = self.date - timedelta(days=1)
         self.yesterstr = str(self.yesterday)
+        self.tomorrow = self.date + timedelta(days=1)
 
     # Returns elapsed seconds since last update failure.
     def get_last_failure(self):
@@ -966,8 +967,10 @@ class NextAired:
         self.update_data(update_after)
         weekday = self.date.weekday()
         self.WINDOW.setProperty("NextAired.Today", xbmc.getLocalizedString(33006))
+        self.WINDOW.setProperty("NextAired.Tomorrow", xbmc.getLocalizedString(33007))
         self.WINDOW.setProperty("NextAired.Yesterday", __addon__.getLocalizedString(32018))
         self.WINDOW.setProperty("NextAired.TodayDate", self.str_date(self.date, 'DropYear'))
+        self.WINDOW.setProperty("NextAired.TomorrowDate", self.str_date(self.tomorrow, 'DropThisYear'))
         self.WINDOW.setProperty("NextAired.YesterdayDate", self.str_date(self.yesterday, 'DropThisYear'))
         for count in range(0, 7):
             wdate = self.date

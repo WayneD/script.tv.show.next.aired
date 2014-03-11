@@ -157,6 +157,9 @@ substitute the string for "Today" (or Yesterday).
 Today's date and a localized word for "Today":
     Window(home).Property(NextAired.TodayDate)
     Window(home).Property(NextAired.Today)
+Yesterday's date and a localized word for "Tomorrow":
+    Window(home).Property(NextAired.TomorrowDate)
+    Window(home).Property(NextAired.Tomorrow)
 Yesterday's date and a localized word for "Yesterday":
     Window(home).Property(NextAired.YesterdayDate)
     Window(home).Property(NextAired.Yesterday)
