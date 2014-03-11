@@ -236,7 +236,7 @@
 					<posy>40</posy>
 					<width>1040</width>
 					<height>25</height>
-					<label>[COLOR=FF00C8FA]$INFO[Container(200).ListItem.Property(ShortTime)] - $INFO[Window(Home).Property(NextAired.200.Date)][/COLOR] - $INFO[Container(200).ListItem.Property(NextNumber)] - $INFO[Container(200).ListItem.Property(NextTitle)]</label>
+					<label>[COLOR=FF00C8FA]$INFO[Container(200).ListItem.Property(ShortTime)] - $INFO[Window(Home).Property(NextAired.200.Wday)], $INFO[Window(Home).Property(NextAired.200.Date)][/COLOR] - $INFO[Container(200).ListItem.Property(NextNumber)] - $INFO[Container(200).ListItem.Property(NextTitle)]</label>
 					<font>font13_title</font>
 					<scroll>true</scroll>
 					<scrollout>false</scrollout>
@@ -281,7 +281,7 @@
 					<posy>40</posy>
 					<width>1040</width>
 					<height>25</height>
-					<label>[COLOR=FF00C8FA]$INFO[Container(201).ListItem.Property(ShortTime)] - $INFO[Window(Home).Property(NextAired.201.Date)][/COLOR] - $INFO[Container(201).ListItem.Property(NextNumber)] - $INFO[Container(201).ListItem.Property(NextTitle)]</label>
+					<label>[COLOR=FF00C8FA]$INFO[Container(201).ListItem.Property(ShortTime)] - $INFO[Window(Home).Property(NextAired.201.Wday)], $INFO[Window(Home).Property(NextAired.201.Date)][/COLOR] - $INFO[Container(201).ListItem.Property(NextNumber)] - $INFO[Container(201).ListItem.Property(NextTitle)]</label>
 					<font>font13_title</font>
 					<scroll>true</scroll>
 					<scrollout>false</scrollout>
@@ -326,7 +326,7 @@
 					<posy>40</posy>
 					<width>1040</width>
 					<height>25</height>
-					<label>[COLOR=FF00C8FA]$INFO[Container(202).ListItem.Property(ShortTime)] - $INFO[Window(Home).Property(NextAired.202.Date)][/COLOR] - $INFO[Container(202).ListItem.Property(NextNumber)] - $INFO[Container(202).ListItem.Property(NextTitle)]</label>
+					<label>[COLOR=FF00C8FA]$INFO[Container(202).ListItem.Property(ShortTime)] - $INFO[Window(Home).Property(NextAired.202.Wday)], $INFO[Window(Home).Property(NextAired.202.Date)][/COLOR] - $INFO[Container(202).ListItem.Property(NextNumber)] - $INFO[Container(202).ListItem.Property(NextTitle)]</label>
 					<font>font13_title</font>
 					<scroll>true</scroll>
 					<scrollout>false</scrollout>
@@ -371,7 +371,7 @@
 					<posy>40</posy>
 					<width>1040</width>
 					<height>25</height>
-					<label>[COLOR=FF00C8FA]$INFO[Container(203).ListItem.Property(ShortTime)] - $INFO[Window(Home).Property(NextAired.203.Date)][/COLOR] - $INFO[Container(203).ListItem.Property(NextNumber)] - $INFO[Container(203).ListItem.Property(NextTitle)]</label>
+					<label>[COLOR=FF00C8FA]$INFO[Container(203).ListItem.Property(ShortTime)] - $INFO[Window(Home).Property(NextAired.203.Wday)], $INFO[Window(Home).Property(NextAired.203.Date)][/COLOR] - $INFO[Container(203).ListItem.Property(NextNumber)] - $INFO[Container(203).ListItem.Property(NextTitle)]</label>
 					<font>font13_title</font>
 					<scroll>true</scroll>
 					<scrollout>false</scrollout>
@@ -416,7 +416,7 @@
 					<posy>40</posy>
 					<width>1040</width>
 					<height>25</height>
-					<label>[COLOR=FF00C8FA]$INFO[Container(204).ListItem.Property(ShortTime)] - $INFO[Window(Home).Property(NextAired.204.Date)][/COLOR] - $INFO[Container(204).ListItem.Property(NextNumber)] - $INFO[Container(204).ListItem.Property(NextTitle)]</label>
+					<label>[COLOR=FF00C8FA]$INFO[Container(204).ListItem.Property(ShortTime)] - $INFO[Window(Home).Property(NextAired.204.Wday)], $INFO[Window(Home).Property(NextAired.204.Date)][/COLOR] - $INFO[Container(204).ListItem.Property(NextNumber)] - $INFO[Container(204).ListItem.Property(NextTitle)]</label>
 					<font>font13_title</font>
 					<scroll>true</scroll>
 					<scrollout>false</scrollout>
@@ -461,7 +461,7 @@
 					<posy>40</posy>
 					<width>1040</width>
 					<height>25</height>
-					<label>[COLOR=FF00C8FA]$INFO[Container(205).ListItem.Property(ShortTime)] - $INFO[Window(Home).Property(NextAired.205.Date)][/COLOR] - $INFO[Container(205).ListItem.Property(NextNumber)] - $INFO[Container(205).ListItem.Property(NextTitle)]</label>
+					<label>[COLOR=FF00C8FA]$INFO[Container(205).ListItem.Property(ShortTime)] - $INFO[Window(Home).Property(NextAired.205.Wday)], $INFO[Window(Home).Property(NextAired.205.Date)][/COLOR] - $INFO[Container(205).ListItem.Property(NextNumber)] - $INFO[Container(205).ListItem.Property(NextTitle)]</label>
 					<font>font13_title</font>
 					<scroll>true</scroll>
 					<scrollout>false</scrollout>
@@ -506,7 +506,7 @@
 					<posy>40</posy>
 					<width>1040</width>
 					<height>25</height>
-					<label>[COLOR=FF00C8FA]$INFO[Container(206).ListItem.Property(ShortTime)] - $INFO[Window(Home).Property(NextAired.206.Date)][/COLOR] - $INFO[Container(206).ListItem.Property(NextNumber)] - $INFO[Container(206).ListItem.Property(NextTitle)]</label>
+					<label>[COLOR=FF00C8FA]$INFO[Container(206).ListItem.Property(ShortTime)] - $INFO[Window(Home).Property(NextAired.206.Wday)], $INFO[Window(Home).Property(NextAired.206.Date)][/COLOR] - $INFO[Container(206).ListItem.Property(NextNumber)] - $INFO[Container(206).ListItem.Property(NextTitle)]</label>
 					<font>font13_title</font>
 					<scroll>true</scroll>
 					<scrollout>false</scrollout>
@@ -551,7 +551,7 @@
 					<posy>40</posy>
 					<width>1040</width>
 					<height>25</height>
-					<label>[COLOR=FF00C8FA]$INFO[Container(207).ListItem.Property(ShortTime)] - $INFO[Window(Home).Property(NextAired.207.Date)][/COLOR] - $INFO[Container(207).ListItem.Property(NextNumber)] - $INFO[Container(207).ListItem.Property(NextTitle)]</label>
+					<label>[COLOR=FF00C8FA]$INFO[Container(207).ListItem.Property(ShortTime)] - $INFO[Window(Home).Property(NextAired.207.Wday)], $INFO[Window(Home).Property(NextAired.207.Date)][/COLOR] - $INFO[Container(207).ListItem.Property(NextNumber)] - $INFO[Container(207).ListItem.Property(NextTitle)]</label>
 					<font>font13_title</font>
 					<scroll>true</scroll>
 					<scrollout>false</scrollout>
@@ -596,7 +596,7 @@
 					<posy>40</posy>
 					<width>1040</width>
 					<height>25</height>
-					<label>[COLOR=FF00C8FA]$INFO[Container(208).ListItem.Property(ShortTime)] - $INFO[Window(Home).Property(NextAired.208.Date)][/COLOR] - $INFO[Container(208).ListItem.Property(NextNumber)] - $INFO[Container(208).ListItem.Property(NextTitle)]</label>
+					<label>[COLOR=FF00C8FA]$INFO[Container(208).ListItem.Property(ShortTime)] - $INFO[Window(Home).Property(NextAired.208.Wday)], $INFO[Window(Home).Property(NextAired.208.Date)][/COLOR] - $INFO[Container(208).ListItem.Property(NextNumber)] - $INFO[Container(208).ListItem.Property(NextTitle)]</label>
 					<font>font13_title</font>
 					<scroll>true</scroll>
 					<scrollout>false</scrollout>
@@ -641,7 +641,7 @@
 					<posy>40</posy>
 					<width>1040</width>
 					<height>25</height>
-					<label>[COLOR=FF00C8FA]$INFO[Container(209).ListItem.Property(ShortTime)] - $INFO[Window(Home).Property(NextAired.209.Date)][/COLOR] - $INFO[Container(209).ListItem.Property(NextNumber)] - $INFO[Container(209).ListItem.Property(NextTitle)]</label>
+					<label>[COLOR=FF00C8FA]$INFO[Container(209).ListItem.Property(ShortTime)] - $INFO[Window(Home).Property(NextAired.209.Wday)], $INFO[Window(Home).Property(NextAired.209.Date)][/COLOR] - $INFO[Container(209).ListItem.Property(NextNumber)] - $INFO[Container(209).ListItem.Property(NextTitle)]</label>
 					<font>font13_title</font>
 					<scroll>true</scroll>
 					<scrollout>false</scrollout>
@@ -686,7 +686,7 @@
 					<posy>40</posy>
 					<width>1040</width>
 					<height>25</height>
-					<label>[COLOR=FF00C8FA]$INFO[Container(210).ListItem.Property(ShortTime)] - $INFO[Window(Home).Property(NextAired.210.Date)][/COLOR] - $INFO[Container(210).ListItem.Property(NextNumber)] - $INFO[Container(210).ListItem.Property(NextTitle)]</label>
+					<label>[COLOR=FF00C8FA]$INFO[Container(210).ListItem.Property(ShortTime)] - $INFO[Window(Home).Property(NextAired.210.Wday)], $INFO[Window(Home).Property(NextAired.210.Date)][/COLOR] - $INFO[Container(210).ListItem.Property(NextNumber)] - $INFO[Container(210).ListItem.Property(NextTitle)]</label>
 					<font>font13_title</font>
 					<scroll>true</scroll>
 					<scrollout>false</scrollout>
@@ -731,7 +731,7 @@
 					<posy>40</posy>
 					<width>1040</width>
 					<height>25</height>
-					<label>[COLOR=FF00C8FA]$INFO[Container(211).ListItem.Property(ShortTime)] - $INFO[Window(Home).Property(NextAired.211.Date)][/COLOR] - $INFO[Container(211).ListItem.Property(NextNumber)] - $INFO[Container(211).ListItem.Property(NextTitle)]</label>
+					<label>[COLOR=FF00C8FA]$INFO[Container(211).ListItem.Property(ShortTime)] - $INFO[Window(Home).Property(NextAired.211.Wday)], $INFO[Window(Home).Property(NextAired.211.Date)][/COLOR] - $INFO[Container(211).ListItem.Property(NextNumber)] - $INFO[Container(211).ListItem.Property(NextTitle)]</label>
 					<font>font13_title</font>
 					<scroll>true</scroll>
 					<scrollout>false</scrollout>
@@ -776,7 +776,7 @@
 					<posy>40</posy>
 					<width>1040</width>
 					<height>25</height>
-					<label>[COLOR=FF00C8FA]$INFO[Container(212).ListItem.Property(ShortTime)] - $INFO[Window(Home).Property(NextAired.212.Date)][/COLOR] - $INFO[Container(212).ListItem.Property(NextNumber)] - $INFO[Container(212).ListItem.Property(NextTitle)]</label>
+					<label>[COLOR=FF00C8FA]$INFO[Container(212).ListItem.Property(ShortTime)] - $INFO[Window(Home).Property(NextAired.212.Wday)], $INFO[Window(Home).Property(NextAired.212.Date)][/COLOR] - $INFO[Container(212).ListItem.Property(NextNumber)] - $INFO[Container(212).ListItem.Property(NextTitle)]</label>
 					<font>font13_title</font>
 					<scroll>true</scroll>
 					<scrollout>false</scrollout>
@@ -821,7 +821,7 @@
 					<posy>40</posy>
 					<width>1040</width>
 					<height>25</height>
-					<label>[COLOR=FF00C8FA]$INFO[Container(213).ListItem.Property(ShortTime)] - $INFO[Window(Home).Property(NextAired.213.Date)][/COLOR] - $INFO[Container(213).ListItem.Property(NextNumber)] - $INFO[Container(213).ListItem.Property(NextTitle)]</label>
+					<label>[COLOR=FF00C8FA]$INFO[Container(213).ListItem.Property(ShortTime)] - $INFO[Window(Home).Property(NextAired.213.Wday)], $INFO[Window(Home).Property(NextAired.213.Date)][/COLOR] - $INFO[Container(213).ListItem.Property(NextNumber)] - $INFO[Container(213).ListItem.Property(NextTitle)]</label>
 					<font>font13_title</font>
 					<scroll>true</scroll>
 					<scrollout>false</scrollout>
@@ -866,7 +866,7 @@
 					<posy>40</posy>
 					<width>1040</width>
 					<height>25</height>
-					<label>[COLOR=FF00C8FA]$INFO[Container(214).ListItem.Property(ShortTime)] - $INFO[Window(Home).Property(NextAired.214.Date)][/COLOR] - $INFO[Container(214).ListItem.Property(NextNumber)] - $INFO[Container(214).ListItem.Property(NextTitle)]</label>
+					<label>[COLOR=FF00C8FA]$INFO[Container(214).ListItem.Property(ShortTime)] - $INFO[Window(Home).Property(NextAired.214.Wday)], $INFO[Window(Home).Property(NextAired.214.Date)][/COLOR] - $INFO[Container(214).ListItem.Property(NextNumber)] - $INFO[Container(214).ListItem.Property(NextTitle)]</label>
 					<font>font13_title</font>
 					<scroll>true</scroll>
 					<scrollout>false</scrollout>
@@ -911,7 +911,7 @@
 					<posy>40</posy>
 					<width>1040</width>
 					<height>25</height>
-					<label>[COLOR=FF00C8FA]$INFO[Container(215).ListItem.Property(ShortTime)] - $INFO[Window(Home).Property(NextAired.215.Date)][/COLOR] - $INFO[Container(215).ListItem.Property(NextNumber)] - $INFO[Container(215).ListItem.Property(NextTitle)]</label>
+					<label>[COLOR=FF00C8FA]$INFO[Container(215).ListItem.Property(ShortTime)] - $INFO[Window(Home).Property(NextAired.215.Wday)], $INFO[Window(Home).Property(NextAired.215.Date)][/COLOR] - $INFO[Container(215).ListItem.Property(NextNumber)] - $INFO[Container(215).ListItem.Property(NextTitle)]</label>
 					<font>font13_title</font>
 					<scroll>true</scroll>
 					<scrollout>false</scrollout>

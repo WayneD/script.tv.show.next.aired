@@ -852,11 +852,17 @@ class NextAired:
             season_num = '%02d' % ep['sn']
             episode_num = '%02d' % ep['en']
             number = season_num + 'x' + episode_num
-            aired = self.str_date(TheTVDB.convert_date(ep['aired'][:10]), 'DropThisYear')
+            aired = TheTVDB.convert_date(ep['aired'][:10])
+            if aired is not None:
+                nice_aired = self.nice_date(aired, 'DropThisYear')
+                aired = nice_aired if self.improve_dates else aired.strftime(DATE_FORMAT)
+            else:
+                aired = nice_aired = ""
         else:
-            name = season_num = episode_num = number = aired = ''
+            name = season_num = episode_num = number = aired = nice_aired = ''
 
         label.setProperty(prefix + when + 'Date', aired)
+        label.setProperty(prefix + when + 'Day', nice_aired)
         label.setProperty(prefix + when + 'Title', name)
         label.setProperty(prefix + when + 'Number', number)
         label.setProperty(prefix + when + 'SeasonNumber', season_num)
@@ -948,7 +954,7 @@ class NextAired:
         self.WINDOW.setProperty("NextAired.TodayShow", str(self.todaylist).strip("[]"))
         for count in range(oldTotal):
             prefix = "NextAired.%d." % (count+1)
-            for prop in ("AirTime", "Airday", "Art(banner)", "Art(characterart)", "Art(clearart)", "Art(clearlogo)", "Art(fanart)", "Art(landscape)", "Art(poster)", "Classification", "Country", "Fanart", "Genre", "Label", "LatestDate", "LatestEpisodeNumber", "LatestNumber", "LatestSeasonNumber", "LatestTitle", "Library", "Network", "NextDate", "NextEpisodeNumber", "NextNumber", "NextSeasonNumber", "NextTitle", "Path", "Premiered", "Runtime", "ShortTime", "Started", "Status", "StatusID", "Thumb", "Today"):
+            for prop in ("AirTime", "Airday", "Art(banner)", "Art(characterart)", "Art(clearart)", "Art(clearlogo)", "Art(fanart)", "Art(landscape)", "Art(poster)", "Classification", "Country", "Fanart", "Genre", "Label", "LatestDate", "LatestDay", "LatestEpisodeNumber", "LatestNumber", "LatestSeasonNumber", "LatestTitle", "Library", "Network", "NextDate", "NextDay", "NextEpisodeNumber", "NextNumber", "NextSeasonNumber", "NextTitle", "Path", "Premiered", "Runtime", "ShortTime", "Started", "Status", "StatusID", "Thumb", "Today"):
                 self.WINDOW.clearProperty(prefix + prop)
         self.count = 0
         all_days = __addon__.getSetting("ShowAllTVShowsOnHome") == 'true'
@@ -976,7 +982,7 @@ class NextAired:
             wdate = self.date
             if count != weekday:
                 wdate += timedelta(days = (count - weekday + 7) % 7)
-            self.WINDOW.setProperty("NextAired.%d.Date" % (count + 1), self.str_date(wdate))
+            self.WINDOW.setProperty("NextAired.%d.Date" % (count + 1), self.str_date(wdate, 'DropThisYear'))
         import next_aired_dialog
         TodayStyle = __addon__.getSetting("TodayStyle") == 'true'
         ScanDays = int(__addon__.getSetting("ScanDays2" if TodayStyle else "ScanDays"))
@@ -1053,7 +1059,6 @@ class NextAired:
                         break
                     airdays.append(ep['wday'])
         airdays.sort()
-        daynums = ', ' . join([str(wday) for wday in airdays])
         airdays = ', ' . join([self.weekdays[wday] for wday in airdays])
 
         is_today = 'True' if next_ep and next_ep['aired'][:10] == self.datestr else 'False'
@@ -1111,7 +1116,6 @@ class NextAired:
             label.setProperty("%sArt(%s)" % (prefix, art_type), art_url)
         label.setProperty(prefix + "Today", is_today)
         label.setProperty(prefix + "AirDay", airdays)
-        label.setProperty(prefix + "AirDayNum", daynums)
         label.setProperty(prefix + "ShortTime", airtime)
 
         # This sets NextDate, NextTitle, etc.

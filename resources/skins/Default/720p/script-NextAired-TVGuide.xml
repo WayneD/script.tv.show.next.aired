@@ -297,7 +297,7 @@
 							<posy>26</posy>
 							<width>150</width>
 							<height>20</height>
-							<label>$INFO[ListItem.Property(NextDate)]</label>
+							<label>$INFO[ListItem.Property(NextDay)]</label>
 							<textcolor>99FFFFFF</textcolor>
 							<font>font12</font>
 							<align>center</align>
@@ -361,7 +361,7 @@
 								<posy>26</posy>
 								<width>150</width>
 								<height>20</height>
-								<label>$INFO[ListItem.Property(NextDate)]</label>
+								<label>$INFO[ListItem.Property(NextDay)]</label>
 								<textcolor>FFFFFFFF</textcolor>
 								<font>font12</font>
 								<align>center</align>
@@ -386,7 +386,7 @@
 								<posy>26</posy>
 								<width>150</width>
 								<height>20</height>
-								<label>$INFO[ListItem.Property(NextDate)]</label>
+								<label>$INFO[ListItem.Property(NextDay)]</label>
 								<textcolor>99FFFFFF</textcolor>
 								<font>font12</font>
 								<align>center</align>
@@ -456,7 +456,7 @@
 							<posy>26</posy>
 							<width>150</width>
 							<height>20</height>
-							<label>$INFO[ListItem.Property(NextDate)]</label>
+							<label>$INFO[ListItem.Property(NextDay)]</label>
 							<textcolor>99FFFFFF</textcolor>
 							<font>font12</font>
 							<align>center</align>
@@ -520,7 +520,7 @@
 								<posy>26</posy>
 								<width>150</width>
 								<height>20</height>
-								<label>$INFO[ListItem.Property(NextDate)]</label>
+								<label>$INFO[ListItem.Property(NextDay)]</label>
 								<textcolor>FFFFFFFF</textcolor>
 								<font>font12</font>
 								<align>center</align>
@@ -545,7 +545,7 @@
 								<posy>26</posy>
 								<width>150</width>
 								<height>20</height>
-								<label>$INFO[ListItem.Property(NextDate)]</label>
+								<label>$INFO[ListItem.Property(NextDay)]</label>
 								<textcolor>99FFFFFF</textcolor>
 								<font>font12</font>
 								<align>center</align>
@@ -615,7 +615,7 @@
 							<posy>26</posy>
 							<width>150</width>
 							<height>20</height>
-							<label>$INFO[ListItem.Property(NextDate)]</label>
+							<label>$INFO[ListItem.Property(NextDay)]</label>
 							<textcolor>99FFFFFF</textcolor>
 							<font>font12</font>
 							<align>center</align>
@@ -679,7 +679,7 @@
 								<posy>26</posy>
 								<width>150</width>
 								<height>20</height>
-								<label>$INFO[ListItem.Property(NextDate)]</label>
+								<label>$INFO[ListItem.Property(NextDay)]</label>
 								<textcolor>FFFFFFFF</textcolor>
 								<font>font12</font>
 								<align>center</align>
@@ -704,7 +704,7 @@
 								<posy>26</posy>
 								<width>150</width>
 								<height>20</height>
-								<label>$INFO[ListItem.Property(NextDate)]</label>
+								<label>$INFO[ListItem.Property(NextDay)]</label>
 								<textcolor>99FFFFFF</textcolor>
 								<font>font12</font>
 								<align>center</align>
@@ -774,7 +774,7 @@
 							<posy>26</posy>
 							<width>150</width>
 							<height>20</height>
-							<label>$INFO[ListItem.Property(NextDate)]</label>
+							<label>$INFO[ListItem.Property(NextDay)]</label>
 							<textcolor>99FFFFFF</textcolor>
 							<font>font12</font>
 							<align>center</align>
@@ -838,7 +838,7 @@
 								<posy>26</posy>
 								<width>150</width>
 								<height>20</height>
-								<label>$INFO[ListItem.Property(NextDate)]</label>
+								<label>$INFO[ListItem.Property(NextDay)]</label>
 								<textcolor>FFFFFFFF</textcolor>
 								<font>font12</font>
 								<align>center</align>
@@ -863,7 +863,7 @@
 								<posy>26</posy>
 								<width>150</width>
 								<height>20</height>
-								<label>$INFO[ListItem.Property(NextDate)]</label>
+								<label>$INFO[ListItem.Property(NextDay)]</label>
 								<textcolor>99FFFFFF</textcolor>
 								<font>font12</font>
 								<align>center</align>
@@ -933,7 +933,7 @@
 							<posy>26</posy>
 							<width>150</width>
 							<height>20</height>
-							<label>$INFO[ListItem.Property(NextDate)]</label>
+							<label>$INFO[ListItem.Property(NextDay)]</label>
 							<textcolor>99FFFFFF</textcolor>
 							<font>font12</font>
 							<align>center</align>
@@ -997,7 +997,7 @@
 								<posy>26</posy>
 								<width>150</width>
 								<height>20</height>
-								<label>$INFO[ListItem.Property(NextDate)]</label>
+								<label>$INFO[ListItem.Property(NextDay)]</label>
 								<textcolor>FFFFFFFF</textcolor>
 								<font>font12</font>
 								<align>center</align>
@@ -1022,7 +1022,7 @@
 								<posy>26</posy>
 								<width>150</width>
 								<height>20</height>
-								<label>$INFO[ListItem.Property(NextDate)]</label>
+								<label>$INFO[ListItem.Property(NextDay)]</label>
 								<textcolor>99FFFFFF</textcolor>
 								<font>font12</font>
 								<align>center</align>
@@ -1092,7 +1092,7 @@
 							<posy>26</posy>
 							<width>150</width>
 							<height>20</height>
-							<label>$INFO[ListItem.Property(NextDate)]</label>
+							<label>$INFO[ListItem.Property(NextDay)]</label>
 							<textcolor>99FFFFFF</textcolor>
 							<font>font12</font>
 							<align>center</align>
@@ -1156,7 +1156,7 @@
 								<posy>26</posy>
 								<width>150</width>
 								<height>20</height>
-								<label>$INFO[ListItem.Property(NextDate)]</label>
+								<label>$INFO[ListItem.Property(NextDay)]</label>
 								<textcolor>FFFFFFFF</textcolor>
 								<font>font12</font>
 								<align>center</align>
@@ -1181,7 +1181,7 @@
 								<posy>26</posy>
 								<width>150</width>
 								<height>20</height>
-								<label>$INFO[ListItem.Property(NextDate)]</label>
+								<label>$INFO[ListItem.Property(NextDay)]</label>
 								<textcolor>99FFFFFF</textcolor>
 								<font>font12</font>
 								<align>center</align>
@@ -1251,7 +1251,7 @@
 							<posy>26</posy>
 							<width>150</width>
 							<height>20</height>
-							<label>$INFO[ListItem.Property(NextDate)]</label>
+							<label>$INFO[ListItem.Property(NextDay)]</label>
 							<textcolor>99FFFFFF</textcolor>
 							<font>font12</font>
 							<align>center</align>
@@ -1315,7 +1315,7 @@
 								<posy>26</posy>
 								<width>150</width>
 								<height>20</height>
-								<label>$INFO[ListItem.Property(NextDate)]</label>
+								<label>$INFO[ListItem.Property(NextDay)]</label>
 								<textcolor>FFFFFFFF</textcolor>
 								<font>font12</font>
 								<align>center</align>
@@ -1340,7 +1340,7 @@
 								<posy>26</posy>
 								<width>150</width>
 								<height>20</height>
-								<label>$INFO[ListItem.Property(NextDate)]</label>
+								<label>$INFO[ListItem.Property(NextDay)]</label>
 								<textcolor>99FFFFFF</textcolor>
 								<font>font12</font>
 								<align>center</align>
@@ -1481,7 +1481,7 @@
 					<posy>412</posy>
 					<width>302</width>
 					<height>15</height>
-					<label>$INFO[Container(200).ListItem.Property(NextDate)]</label>
+					<label>$INFO[Container(200).ListItem.Property(NextDay)]</label>
 					<font>font12</font>
 					<align>center</align>
 					<aligny>center</aligny>
@@ -1588,7 +1588,7 @@
 					<posy>412</posy>
 					<width>302</width>
 					<height>15</height>
-					<label>$INFO[Container(201).ListItem.Property(NextDate)]</label>
+					<label>$INFO[Container(201).ListItem.Property(NextDay)]</label>
 					<font>font12</font>
 					<align>center</align>
 					<aligny>center</aligny>
@@ -1695,7 +1695,7 @@
 					<posy>412</posy>
 					<width>302</width>
 					<height>15</height>
-					<label>$INFO[Container(202).ListItem.Property(NextDate)]</label>
+					<label>$INFO[Container(202).ListItem.Property(NextDay)]</label>
 					<font>font12</font>
 					<align>center</align>
 					<aligny>center</aligny>
@@ -1802,7 +1802,7 @@
 					<posy>412</posy>
 					<width>302</width>
 					<height>15</height>
-					<label>$INFO[Container(203).ListItem.Property(NextDate)]</label>
+					<label>$INFO[Container(203).ListItem.Property(NextDay)]</label>
 					<font>font12</font>
 					<align>center</align>
 					<aligny>center</aligny>
@@ -1909,7 +1909,7 @@
 					<posy>412</posy>
 					<width>302</width>
 					<height>15</height>
-					<label>$INFO[Container(204).ListItem.Property(NextDate)]</label>
+					<label>$INFO[Container(204).ListItem.Property(NextDay)]</label>
 					<font>font12</font>
 					<align>center</align>
 					<aligny>center</aligny>
@@ -2016,7 +2016,7 @@
 					<posy>412</posy>
 					<width>302</width>
 					<height>15</height>
-					<label>$INFO[Container(205).ListItem.Property(NextDate)]</label>
+					<label>$INFO[Container(205).ListItem.Property(NextDay)]</label>
 					<font>font12</font>
 					<align>center</align>
 					<aligny>center</aligny>
@@ -2123,7 +2123,7 @@
 					<posy>412</posy>
 					<width>302</width>
 					<height>15</height>
-					<label>$INFO[Container(206).ListItem.Property(NextDate)]</label>
+					<label>$INFO[Container(206).ListItem.Property(NextDay)]</label>
 					<font>font12</font>
 					<align>center</align>
 					<aligny>center</aligny>

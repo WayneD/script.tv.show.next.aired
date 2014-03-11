@@ -28,11 +28,13 @@ Runtime             (duration of the episode in minutes)
 Fanart              (tv show fanart)
 Today               (will return 'True' if the show is aired today, otherwise 'False')
 NextDate            (date the next episode will be aired)
+NextDay             ("nice" localized format for NextDate, eg. "Fri, Jan 1" or "Mon, Sep 24, 2007"))
 NextTitle           (name of the next episode)
 NextNumber          (season/episode number of the next episode, eg. '04x01')
 NextEpisodeNumber   (episode number of the next episode, eg. '04')
 NextSeasonNumber    (season number of the next episode, eg. '01')
 LatestDate          (date the last episode was aired)
+LatestDay           ("nice" localized format for LatestDate, eg. "Fri, Jan 1" or "Mon, Sep 24, 2007")
 LatestTitle         (name of the last episode)
 LatestNumber        (season/episode number of the last episode)
 LatestEpisodeNumber (episode number of the last episode)
@@ -183,8 +185,8 @@ The abbreviated day-of-the-week name for each container:
     ...
     Window(home).Property(NextAired.215.Wday)
 
-The date for each container in a nice format, with just the month name and day
-num (e.g. "Feb 14" & "14 Feb" are 2 typical formats):
+The date for each container in a "nice" format, with just the month name and
+day num (e.g. "Feb 14" & "14 Feb" are 2 typical localized formats):
     Window(home).Property(NextAired.200.Date)
     ...
     Window(home).Property(NextAired.215.Date)
