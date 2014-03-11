@@ -148,10 +148,20 @@ will be unset for any disabled containers).
 Various Window(home) vars that we provide (some are more useful in just one of
 the 2 xml files, but all are always set):
 
-Today's date:
-    Window(home).Property(NextAired.TodayDate)
+For the following date values, the user can choose between the traditional
+number values (e.g. 12/31/99) and a nicer format (e.g. "Sun, Dec 31").  The
+format is consistent across values, allowing you to (for example) string-
+compare a show's NextDate value against the TodayDate (or YesterdayDate) to
+substitute the string for "Today" (or Yesterday).
 
-The date for the lists in dateshort format (Monday==1):
+Today's date and a localized word for "Today":
+    Window(home).Property(NextAired.TodayDate)
+    Window(home).Property(NextAired.Today)
+Yesterday's date and a localized word for "Yesterday":
+    Window(home).Property(NextAired.YesterdayDate)
+    Window(home).Property(NextAired.Yesterday)
+
+The date for the lists (Monday==1, Sunday==7):
     Window(home).Property(NextAired.1.Date)
     ...
     Window(home).Property(NextAired.7.Date)

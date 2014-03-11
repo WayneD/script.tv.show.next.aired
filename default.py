@@ -970,12 +970,15 @@ class NextAired:
             update_after = 0
         self.update_data(update_after)
         weekday = self.date.weekday()
-        self.WINDOW.setProperty("NextAired.TodayDate", self.date.strftime(DATE_FORMAT))
+        self.WINDOW.setProperty("NextAired.Today", xbmc.getLocalizedString(33006))
+        self.WINDOW.setProperty("NextAired.Yesterday", __addon__.getLocalizedString(32018))
+        self.WINDOW.setProperty("NextAired.TodayDate", self.str_date(self.date, omit_year=0))
+        self.WINDOW.setProperty("NextAired.YesterdayDate", self.str_date(self.yesterday, omit_year=self.date.year))
         for count in range(0, 7):
-            date = self.date
+            wdate = self.date
             if count != weekday:
-                date += timedelta(days = (count - weekday + 7) % 7)
-            self.WINDOW.setProperty("NextAired.%d.Date" % (count + 1), date.strftime(DATE_FORMAT))
+                wdate += timedelta(days = (count - weekday + 7) % 7)
+            self.WINDOW.setProperty("NextAired.%d.Date" % (count + 1), self.str_date(wdate))
         import next_aired_dialog
         TodayStyle = __addon__.getSetting("TodayStyle") == 'true'
         ScanDays = int(__addon__.getSetting("ScanDays2" if TodayStyle else "ScanDays"))
