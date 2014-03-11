@@ -386,10 +386,7 @@ def main(argv):
                     print "Missing country timezone for", country
                     saw_error = True
                 elif zone not in tried:
-                    try:
-                        x = zoneinfo.gettz(zone)
-                    except:
-                        x = None
+                    x = zoneinfo.gettz(zone)
                     if x is None:
                         # To fix this, we'll need new data from http://www.twinsun.com/tz/tz-link.htm
                         print "Timezone", zone, "is not available in the dateutil zoneinfo tar file!!!"
