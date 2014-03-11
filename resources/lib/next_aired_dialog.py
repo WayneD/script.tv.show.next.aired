@@ -72,7 +72,7 @@ class Gui( xbmcgui.WindowXML ):
             cntr_day = self.start_day + timedelta(days = c - self.first_num)
             wday = xbmc.getLocalizedString(cntr_day.weekday() + 41)
             weekday = xbmc.getLocalizedString(cntr_day.weekday() + 11)
-            nice_date = self.niceDate(cntr_day, omit_year=0, omit_wday=True)
+            nice_date = self.niceDate(cntr_day, 'Short')
             self.win.setProperty('NextAired.%d.Wday' % c, wday)
             self.win.setProperty('NextAired.%d.Date' % c, nice_date)
             self.win.setProperty('NextAired.%d.Weekday' % c, weekday)

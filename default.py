@@ -59,10 +59,15 @@ elif DATE_FORMAT[0] == 'y':
     DATE_FORMAT = '%y-%m-%d'
 
 leftover_re = re.compile(r"%[a-z]")
-NICE_DATE_FORMAT = xbmc.getRegion('datelong').lower()
+NICE_DATE_FORMAT = xbmc.getRegion('datelong').lower().replace('%d%d', '%d')
 for xx, yy in (('%a', '%(wday)s'), ('%b', '%(month)s'), ('%d', '%(day)s'), ('%y', '%(year)s'), ('%m', '%(mm)s')):
     NICE_DATE_FORMAT = NICE_DATE_FORMAT.replace(xx, yy)
 NICE_DATE_FORMAT = leftover_re.sub('%(unk)s', NICE_DATE_FORMAT)
+
+year_remove_regex = re.compile(r"(?<=\)s)[^%]*%\(year\)s|^%\(year\)s[^%]*")
+NICE_DATE_NO_YEAR = year_remove_regex.sub('', NICE_DATE_FORMAT)
+wday_remove_regex = re.compile(r"%\(wday\)s[^%]*")
+NICE_SHORT_DATE = wday_remove_regex.sub('', NICE_DATE_NO_YEAR)
 
 MAIN_DB_VER = 4
 COUNTRY_DB_VER = 1
@@ -94,6 +99,9 @@ def footprints(bkgnd, force, reset):
     reset = 'w/RESET ' if reset else ''
     log("### %s starting %s proc %s%s(%s)" % (__addonname__, style, force, reset, __version__), level=1)
     log("### dateformat: %s" % DATE_FORMAT, level=4)
+    log("### nice-date-format: %s" % NICE_DATE_FORMAT, level=4)
+    log("### nice-date-no-year: %s" % NICE_DATE_NO_YEAR, level=4)
+    log("### nice-short-date: %s" % NICE_SHORT_DATE, level=4)
 
 def _unicode( text, encoding='utf-8' ):
     try: text = unicode( text, encoding )
@@ -166,8 +174,6 @@ class NextAired:
         self.datestr = str(self.date)
         self.yesterday = self.date - timedelta(days=1)
         self.yesterstr = str(self.yesterday)
-        self.year_fmt_regex = re.compile(r",? %\(year\)s")
-        self.wday_fmt_regex = re.compile(r"%\(wday\)s[^%]*")
 
     # Returns elapsed seconds since last update failure.
     def get_last_failure(self):
@@ -845,7 +851,7 @@ class NextAired:
             season_num = '%02d' % ep['sn']
             episode_num = '%02d' % ep['en']
             number = season_num + 'x' + episode_num
-            aired = self.str_date(TheTVDB.convert_date(ep['aired'][:10]), omit_year=self.date.year)
+            aired = self.str_date(TheTVDB.convert_date(ep['aired'][:10]), 'DropThisYear')
         else:
             name = season_num = episode_num = number = aired = ''
 
@@ -872,21 +878,21 @@ class NextAired:
             log( "### %s" % when )
         log( "### today show: %s - %s" % ( self.todayshow , str(self.todaylist).strip("[]") ) )
 
-    # The omit_year setting only affects "nice" dates, not the historic format.
-    def str_date(self, d, omit_year = None):
+    # The style setting only affects "nice" dates, not the historic format.
+    def str_date(self, d, style=None):
         if d is None:
             return ''
-        return self.nice_date(d, omit_year) if self.improve_dates else d.strftime(DATE_FORMAT)
+        return self.nice_date(d, style) if self.improve_dates else d.strftime(DATE_FORMAT)
 
-    # Specify omit_year=0 to omit all years, one year to omit it, or None to omit no years.
-    # Specify omit_wday=True to leave off the day-of-the-week string.
-    def nice_date(self, d, omit_year = None, omit_wday = False):
+    # Specify style DropThisYear, DropYear, or Short (or omit for the full info).
+    def nice_date(self, d, style=None):
         tt = d.timetuple()
-        fmt = NICE_DATE_FORMAT
-        if omit_year is not None and omit_year in (0, tt[0]):
-            fmt = self.year_fmt_regex.sub('', fmt)
-        if omit_wday:
-            fmt = self.wday_fmt_regex.sub('', fmt)
+        if style == 'Short':
+            fmt = NICE_SHORT_DATE
+        elif style == 'DropYear' or (style == 'DropThisYear' and tt[0] == self.date.year):
+            fmt = NICE_DATE_NO_YEAR
+        else:
+            fmt = NICE_DATE_FORMAT
         d = fmt % {'year': tt[0], 'mm': tt[1], 'month': self.local_months[tt[1]-1], 'day': tt[2], 'wday': self.wdays[tt[6]], 'unk': '??'}
         return d
 
@@ -961,8 +967,8 @@ class NextAired:
         weekday = self.date.weekday()
         self.WINDOW.setProperty("NextAired.Today", xbmc.getLocalizedString(33006))
         self.WINDOW.setProperty("NextAired.Yesterday", __addon__.getLocalizedString(32018))
-        self.WINDOW.setProperty("NextAired.TodayDate", self.str_date(self.date, omit_year=0))
-        self.WINDOW.setProperty("NextAired.YesterdayDate", self.str_date(self.yesterday, omit_year=self.date.year))
+        self.WINDOW.setProperty("NextAired.TodayDate", self.str_date(self.date, 'DropYear'))
+        self.WINDOW.setProperty("NextAired.YesterdayDate", self.str_date(self.yesterday, 'DropThisYear'))
         for count in range(0, 7):
             wdate = self.date
             if count != weekday:
