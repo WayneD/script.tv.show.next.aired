@@ -955,7 +955,7 @@
 					<posy>13</posy>
 					<width>167</width>
 					<height>20</height>
-					<label>$INFO[Window(Home).Property(NextAired.200.Weekday)]</label>
+					<label>$INFO[Window(Home).Property(NextAired.Yesterday)]</label>
 					<align>center</align>
 					<aligny>center</aligny>
 					<font>font13_title</font>
@@ -1071,7 +1071,7 @@
 					<posy>13</posy>
 					<width>167</width>
 					<height>20</height>
-					<label>$INFO[Window(Home).Property(NextAired.201.Weekday)]</label>
+					<label>$INFO[Window(Home).Property(NextAired.Today)]</label>
 					<align>center</align>
 					<aligny>center</aligny>
 					<font>font13_title</font>

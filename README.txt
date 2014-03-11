@@ -166,11 +166,11 @@ The date for the lists (Monday==1, Sunday==7):
     ...
     Window(home).Property(NextAired.7.Date)
 
-The day-of-the-week name for each container (not abbreviated), but the today-
-week Guide gets a localized Yesterday and Today in place of 200 and 201.  Any
-containers that are disabled by the user have no set value for that num (e.g.
-if the user asked for 7-days in a today-week grid w/o yesterday, only 201..207
-would get values):
+For the following container values, only the ones that are enabled by the
+user will have a set value.  For instance, if the user has selected 7-days
+in a today-week grid w/o yesterday, only properties 201..207 would be set.
+
+The day-of-the-week name for each container (not abbreviated).
     Window(home).Property(NextAired.200.Weekday)
     ...
     Window(home).Property(NextAired.215.Weekday)
@@ -181,7 +181,7 @@ The abbreviated day-of-the-week name for each container:
     Window(home).Property(NextAired.215.Wday)
 
 The date for each container in a nice format, with just the month name and day
-num (e.g. "Feb 14" & "14 Feb" are typical):
+num (e.g. "Feb 14" & "14 Feb" are 2 typical formats):
     Window(home).Property(NextAired.200.Date)
     ...
     Window(home).Property(NextAired.215.Date)

@@ -71,14 +71,8 @@ class Gui( xbmcgui.WindowXML ):
             self.listitems.append([])
             cntr_day = self.start_day + timedelta(days = c - self.first_num)
             wday = xbmc.getLocalizedString(cntr_day.weekday() + 41)
+            weekday = xbmc.getLocalizedString(cntr_day.weekday() + 11)
             nice_date = self.niceDate(cntr_day, omit_year=0, omit_wday=True)
-            if self.todayStyle and c in (200, 201):
-                if c == 200:
-                    weekday = __addon__.getLocalizedString(32018) # Yesterday
-                else:
-                    weekday = xbmc.getLocalizedString(33006) # Today
-            else:
-                weekday = xbmc.getLocalizedString(cntr_day.weekday() + 11)
             self.win.setProperty('NextAired.%d.Wday' % c, wday)
             self.win.setProperty('NextAired.%d.Date' % c, nice_date)
             self.win.setProperty('NextAired.%d.Weekday' % c, weekday)
