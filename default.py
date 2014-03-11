@@ -384,8 +384,7 @@ class NextAired:
                 self.set_last_failure()
                 self.max_fetch_failures = 0
             tv_up = None
-            art_rescan_after = 1 if self.SILENT != "" else 2
-            art_rescan_after = art_rescan_after*24*60*60 - 5*60
+            art_rescan_after = 24*60*60 - 5*60
         else:
             tvdb = None # We don't use this unless we're locked for the update.
             need_full_scan = False
