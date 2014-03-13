@@ -1,4 +1,4 @@
-from time import strftime, strptime, time, mktime, localtime
+from time import strftime, strptime, time, mktime, localtime, tzname
 import os, sys, re, socket, urllib, unicodedata, threading
 from traceback import print_exc
 from datetime import datetime, date, timedelta
@@ -69,7 +69,7 @@ NICE_DATE_NO_YEAR = year_remove_regex.sub('', NICE_DATE_FORMAT)
 wday_remove_regex = re.compile(r"%\(wday\)s[^%]*")
 NICE_SHORT_DATE = wday_remove_regex.sub('', NICE_DATE_NO_YEAR)
 
-MAIN_DB_VER = 4
+MAIN_DB_VER = 5
 COUNTRY_DB_VER = 1
 
 FAILURE_PAUSE = 5*60
@@ -124,6 +124,7 @@ class NextAired:
     def __init__(self):
         self.WINDOW = xbmcgui.Window( 10000 )
         self.set_today()
+        self.tznames = ','.join(map(str,tzname))
         self.weekdays = []
         for j in range(11, 18):
             self.weekdays.append(xbmc.getLocalizedString(j))
@@ -274,6 +275,7 @@ class NextAired:
         self.last_success = (ep_list.pop() if ep_list else None)
         db_ver = (ep_list.pop(0) if ep_list else None)
         self.last_update = (ep_list.pop() if ep_list else self.last_success)
+        self.old_tznames = (ep_list.pop(0) if ep_list else '')
         if not db_ver or not self.last_success:
             if self.RESET:
                 log("### starting without prior data (DB RESET requested)", level=1)
@@ -293,7 +295,7 @@ class NextAired:
         return (show_dict, self.now - self.last_update)
 
     def save_data(self, show_dict):
-        self.save_file([show_dict, MAIN_DB_VER, self.last_update, self.last_success], NEXTAIRED_DB)
+        self.save_file([show_dict, MAIN_DB_VER, self.tznames, self.last_update, self.last_success], NEXTAIRED_DB)
 
     def update_data(self, update_after_seconds):
         self.nextlist = []
@@ -371,6 +373,10 @@ class NextAired:
         if locked_for_update:
             log("### starting data update", level=1)
             self.last_failure = 0
+            # If the local timezone changed, we will need to recompute the Airtime values.
+            if self.tznames != self.old_tznames:
+                for tid, show in show_dict.iteritems():
+                    show['show_changed'] = 1
             # We want to recreate our country DB every week.
             if len(self.country_dict) < 500 or self.now - self.country_last_update >= 7*24*60*60:
                 try:
@@ -720,15 +726,19 @@ class NextAired:
         try:
             tzinfo = tz.gettz(tzone)
         except:
-            tzinfo = tz.gettz('UTC')
+            tzinfo = tz.tzutc()
         try:
             airtime = TheTVDB.convert_time(show.get('Airs_Time', ""))
         except:
             airtime = None
-        local_airtime = airtime if airtime is not None else TheTVDB.convert_time('00:00')
-        local_airtime = datetime.combine(self.date, local_airtime).replace(tzinfo=tzinfo)
-        if airtime is not None: # Don't backtrack an assumed midnight time (for an invalid airtime) into the prior day.
-            local_airtime = local_airtime.astimezone(tz.tzlocal())
+        if airtime is not None:
+            hh_mm = airtime.strftime('%H:%M')
+            dt = datetime.combine(self.date, airtime).replace(tzinfo=tzinfo).astimezone(tz.tzlocal())
+            early_aired = '1900-01-01T' + dt.strftime('%H:%M:%S%z')
+        else:
+            hh_mm = ''
+            airtime = TheTVDB.convert_time('00:00')
+            early_aired = '1900-01-01T00:00:00+0000'
 
         current_show['Show Name'] = normalize(show, 'SeriesName')
         first_aired = show.get('FirstAired', None)
@@ -739,10 +749,11 @@ class NextAired:
         else:
             current_show['Premiered'] = current_show['Started'] = ""
         current_show['Country'] = country
+        current_show['TZ'] = tzone
         current_show['Status'] = normalize(show, 'Status')
         current_show['Genres'] = normalize(show, 'Genre').strip('|').replace('|', ' | ')
         current_show['Network'] = network
-        current_show['Airtime'] = local_airtime.strftime('%H:%M') if airtime is not None else ''
+        current_show['Airtime'] = hh_mm
         current_show['Runtime'] = maybe_int(show, 'Runtime', '')
 
         can_re = re.compile(r"canceled|ended", re.IGNORECASE)
@@ -752,7 +763,9 @@ class NextAired:
             del current_show['canceled']
 
         # Let's assume we need a "None" episode -- it will get cleaned if we don't.
-        episode_list = [ {'name': None, 'aired': '0000-00-00T00:00:00+00:00', 'sn': 0, 'en': 0} ]
+        # The early_aired value has an accurate tzlocal time in it just in case it is
+        # the only item in the list ('aired' is where localized Airtime comes from).
+        episode_list = [ {'name': None, 'aired': early_aired, 'sn': 0, 'en': 0} ]
         if episodes is not None:
             max_eps_utime = 0
             if episodes:
@@ -763,13 +776,16 @@ class NextAired:
                     first_aired = TheTVDB.convert_date(ep.get('FirstAired', ""))
                     if not first_aired:
                         continue
-                    first_aired = local_airtime + timedelta(days = (first_aired - self.date).days)
+                    dt = datetime.combine(first_aired, airtime).replace(tzinfo=tzinfo)
+                    if hh_mm != '':
+                        dt = dt.astimezone(tz.tzlocal())
                     got_ep = {
                             'name': normalize(ep, 'EpisodeName'),
                             'sn': maybe_int(ep, 'SeasonNumber'),
                             'en': maybe_int(ep, 'EpisodeNumber'),
-                            'aired': first_aired.isoformat(),
-                            'wday': first_aired.weekday()
+                            'date': str(first_aired), # We never use this for "today" comparisons!
+                            'aired': dt.isoformat(),
+                            'wday': dt.weekday(),
                             }
                     episode_list.append(got_ep)
                 episodes = None
@@ -781,14 +797,17 @@ class NextAired:
             max_eps_utime = eps_last_updated
             current_show['ep_ndx'] = prior_data['ep_ndx']
             current_show['episodes'] = prior_data['episodes']
-            if current_show['Airtime'] != prior_data['Airtime']:
+            if current_show['Airtime'] != prior_data['Airtime'] or current_show['TZ'] != prior_data['TZ']:
                 for ep in current_show['episodes']:
                     if ep['name'] is None:
+                        ep['aired'] = early_aired
                         continue
-                    aired = TheTVDB.convert_date(ep['aired'][:10])
-                    aired = local_airtime + timedelta(days = (aired - self.date).days)
-                    ep['aired'] = aired.isoformat()
-                    ep['wday'] = aired.weekday()
+                    first_aired = TheTVDB.convert_date(ep['date'])
+                    dt = datetime.combine(first_aired, airtime).replace(tzinfo=tzinfo)
+                    if hh_mm != '':
+                        dt = dt.astimezone(tz.tzlocal())
+                    ep['aired'] = dt.isoformat(),
+                    ep['wday'] = dt.weekday(),
         else:
             max_eps_utime = 0
             current_show['ep_ndx'] = 0
@@ -834,6 +853,10 @@ class NextAired:
                     ep0['name'] = None
                     ep0['aired'] = '0000-00-00T00:00:00+00:00'
                     ep0['sn'] = ep0['en'] = 0
+            if from_ver < 5:
+                show['TZ'] = ''
+                show['show_changed'] = 1
+                show['eps_changed'] = (1, 0)
             for ep in show['episodes']:
                 if from_ver < 3 and 'wday' in ep:
                     # Convert wday from a string to an index:
@@ -845,6 +868,8 @@ class NextAired:
                         ep['en'] = int(nums[1])
                         del ep['number']
                     del ep['id']
+                if from_ver < 5:
+                    ep['date'] = ep['aired'][:10] # not strictly true, but good enough for now.
 
     def set_episode_info(self, label, prefix, when, ep):
         if ep and ep['name'] is not None:
@@ -1064,11 +1089,13 @@ class NextAired:
         is_today = 'True' if next_ep and next_ep['aired'][:10] == self.datestr else 'False'
 
         started = TheTVDB.convert_date(item["Started"])
-        airtime = TheTVDB.convert_time(item["Airtime"])
-        if airtime is not None:
-            airtime = airtime.strftime('%I:%M %p' if self.ampm else '%H:%M')
-        else:
+        if item["Airtime"] == '':
             airtime = '??:??'
+        else:
+            ndx = item['ep_ndx'] if item['ep_ndx'] else -1
+            airtime = item['episodes'][ndx]['aired'][11:16]
+            if self.ampm:
+                airtime = TheTVDB.convert_time(airtime).strftime('%I:%M %p')
 
         status = item.get("Status", "")
         if status == 'Continuing':
