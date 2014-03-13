@@ -354,8 +354,6 @@ class CountryLookup(object):
         return zone_map
 
 # Some helper code to check on the data and output a new timezone list.
-# NOTE: none of the following code is run when this file is included as
-# a library, so no "print" in the following will get run via xbmc.
 def main(argv):
     import getopt
 
@@ -364,49 +362,58 @@ def main(argv):
     except getopt.GetoptError:
         usage()
     if not opts:
-        opts.append(('--test', ''));
+        opts.append(('--test', ''))
     for opt, arg in opts:
         if opt == "--map":
             c = CountryLookup()
             cd = c.get_country_dict()
             del cd['']
-            pretty_print('', c.get_country_dict(), ",", "    '': 'Unknown',\n")
+            prettify('', c.get_country_dict(), ",", "    '': 'Unknown',\n")
         elif opt == "--zones":
-            pretty_print("COUNTRY_ZONES = ", CountryLookup.get_zones(), "',", "    'unknown': 'UTC',\n")
+            prettify("COUNTRY_ZONES = ", CountryLookup.get_zones(), "',", "    'unknown': 'UTC',\n")
         elif opt == "--test":
             resources_lib_re = re.compile(r"[^a-z]+resources[^a-z]+lib$")
             sys.path.insert(0, resources_lib_re.sub("", sys.path[0]))
             from dateutil import zoneinfo
-            c = CountryLookup()
-            saw_error = False
+
             tried = {}
-            for station, country in c.get_country_dict().iteritems():
-                zone = COUNTRY_ZONES.get(country.lower(), None)
-                if zone is None:
-                    print "Missing country timezone for", country
-                    saw_error = True
-                elif zone not in tried:
+            saw_error = False
+            for country, zone in COUNTRY_ZONES.iteritems():
+                if zone not in tried:
                     x = zoneinfo.gettz(zone)
                     if x is None:
                         # To fix this, we'll need new data from http://www.twinsun.com/tz/tz-link.htm
-                        print "Timezone", zone, "is not available in the dateutil zoneinfo tar file!!!"
+                        sys.stdout.write("Timezone %s is not available in the dateutil zoneinfo tar file!!!\n" % zone)
+                        saw_error = True
                     tried[zone] = 1
             if saw_error:
-                print "^-- Run with --zones to output a new country table."
+                sys.stdout.write("^-- Visit http://www.twinsun.com/tz/tz-link.htm for updated info.\n")
             else:
-                print "All country names were found."
+                sys.stdout.write("All the listed timezone names were found in the zoneinfo tar file.\n")
+
+            c = CountryLookup()
+            saw_error = False
+            for station, country in c.get_country_dict().iteritems():
+                zone = COUNTRY_ZONES.get(country.lower(), None)
+                if zone is None:
+                    sys.stdout.write("Missing country timezone for %s\n" % country)
+                    saw_error = True
+            if saw_error:
+                sys.stdout.write("^-- Run with --zones to output a new country table.\n")
+            else:
+                sys.stdout.write("All needed country names were found.\n")
         elif opt in ("-h", "--help"):
             usage()
         else:
             sys.exit(42) # Impossible...
 
-def pretty_print(prefix, obj, line_end, suffix):
+def prettify(prefix, obj, line_end, suffix):
     lines = ("    " + repr(obj).strip("{}").replace(line_end+" ", line_end+"\n    ") + ",").splitlines()
     lines.sort()
-    print "%s{\n%s\n%s}" % (prefix, "\n".join(lines), suffix)
+    sys.stdout.write("%s{\n%s\n%s}\n" % (prefix, "\n".join(lines), suffix))
 
 def usage():
-    print >>sys.stderr, "country_lookup.py [--map] [--zones] [--test] [--help]"
+    sys.stderr.write("country_lookup.py [--map] [--zones] [--test] [--help]\n")
     sys.exit(1)
 
 if __name__ == "__main__":
