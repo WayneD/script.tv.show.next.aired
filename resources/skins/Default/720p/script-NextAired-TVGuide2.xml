@@ -929,31 +929,31 @@
 			</control>
 		</control>
 		<control type="grouplist" id="2000">
-			<posx>40</posx>
+			<posx>39</posx>
 			<posy>60</posy>
-			<width>1200</width>
+			<width>1203</width>
 			<height>660</height>
 			<orientation>horizontal</orientation>
 			<align>center</align>
-			<itemgap>0</itemgap>
+			<itemgap>2</itemgap>
 			<control type="group">
 				<description>Yesterday</description>
 				<visible>!StringCompare(Window(Home).Property(NextAired.200.Wday),)</visible>
-				<width>167</width>
-				<height>660</height>
+				<width>170</width>
+				<height>655</height>
 				<control type="image">
 					<description>Bg</description>
-					<posx>20</posx>
+					<posx>0</posx>
 					<posy>13</posy>
-					<width>167</width>
+					<width>170</width>
 					<height>20</height>
 					<aspectratio>stretch</aspectratio>
 					<texture background="true">TVGuide-TopDays.png</texture>
 				</control>
 				<control type="label">
-					<posx>20</posx>
+					<posx>0</posx>
 					<posy>13</posy>
-					<width>167</width>
+					<width>170</width>
 					<height>20</height>
 					<label>$INFO[Window(Home).Property(NextAired.Yesterday)]</label>
 					<align>center</align>
@@ -962,29 +962,29 @@
 					<textcolor>FF000000</textcolor>
 				</control>
 				<control type="panel" id="200">
-					<posx>10</posx>
-					<posy>40</posy>
-					<width>165</width>
-					<height>530</height>
+					<posx>0</posx>
+					<posy>33</posy>
+					<width>170</width>
+					<height>627</height>
 					<scrolltime>200</scrolltime>
 					<onup>200</onup>
 					<ondown>200</ondown>
 					<onleft>9000</onleft>
 					<onright>201</onright>
-					<itemlayout height="100" width="165">
+					<itemlayout height="102" width="170">
 						<control type="image">
 							<description>Bg</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>165</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-Button.png</texture>
 						</control>
 						<control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
@@ -992,9 +992,9 @@
 						</control>
 						<control type="image">
 							<description>Banner</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
@@ -1002,29 +1002,29 @@
 						</control>
 						<control type="image">
 							<description>Logo</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
 							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</itemlayout>
-					<focusedlayout height="100" width="165">
+					<focusedlayout height="102" width="170">
 						<control type="image">
 							<description>Bg</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>165</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-Floor.png</texture>
 						</control>
 						<control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
@@ -1032,9 +1032,9 @@
 						</control>
 						<control type="image">
 							<description>Banner</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
@@ -1042,9 +1042,9 @@
 						</control>
 						<control type="image">
 							<description>Logo</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
@@ -1055,21 +1055,21 @@
 			</control>
 			<control type="group">
 				<description>Today</description>
-				<width>167</width>
-				<height>660</height>
+				<width>170</width>
+				<height>655</height>
 				<control type="image">
 					<description>Bg</description>
-					<posx>20</posx>
+					<posx>0</posx>
 					<posy>13</posy>
-					<width>167</width>
+					<width>170</width>
 					<height>20</height>
 					<aspectratio>stretch</aspectratio>
 					<texture background="true">TVGuide-TopDays.png</texture>
 				</control>
 				<control type="label">
-					<posx>20</posx>
+					<posx>0</posx>
 					<posy>13</posy>
-					<width>167</width>
+					<width>170</width>
 					<height>20</height>
 					<label>$INFO[Window(Home).Property(NextAired.Today)]</label>
 					<align>center</align>
@@ -1078,29 +1078,29 @@
 					<textcolor>FF000000</textcolor>
 				</control>
 				<control type="panel" id="201">
-					<posx>10</posx>
-					<posy>40</posy>
-					<width>165</width>
-					<height>530</height>
+					<posx>0</posx>
+					<posy>33</posy>
+					<width>170</width>
+					<height>627</height>
 					<scrolltime>200</scrolltime>
 					<onup>201</onup>
 					<ondown>201</ondown>
 					<onleft>200</onleft>
 					<onright>202</onright>
-					<itemlayout height="100" width="165">
+					<itemlayout height="102" width="170">
 						<control type="image">
 							<description>Bg</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>165</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-Button.png</texture>
 						</control>
 						<control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
@@ -1108,9 +1108,9 @@
 						</control>
 						<control type="image">
 							<description>Banner</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
@@ -1118,29 +1118,29 @@
 						</control>
 						<control type="image">
 							<description>Logo</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
 							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</itemlayout>
-					<focusedlayout height="100" width="165">
+					<focusedlayout height="102" width="170">
 						<control type="image">
 							<description>Bg</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>165</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-Floor.png</texture>
 						</control>
 						<control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
@@ -1148,9 +1148,9 @@
 						</control>
 						<control type="image">
 							<description>Banner</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
@@ -1158,9 +1158,9 @@
 						</control>
 						<control type="image">
 							<description>Logo</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
@@ -1172,21 +1172,21 @@
 			<control type="group">
 				<description>Today+1</description>
 				<visible>!StringCompare(Window(Home).Property(NextAired.202.Wday),)</visible>
-				<width>167</width>
-				<height>660</height>
+				<width>170</width>
+				<height>655</height>
 				<control type="image">
 					<description>Bg</description>
-					<posx>20</posx>
+					<posx>0</posx>
 					<posy>13</posy>
-					<width>167</width>
+					<width>170</width>
 					<height>20</height>
 					<aspectratio>stretch</aspectratio>
 					<texture background="true">TVGuide-TopDays.png</texture>
 				</control>
 				<control type="label">
-					<posx>20</posx>
+					<posx>0</posx>
 					<posy>13</posy>
-					<width>167</width>
+					<width>170</width>
 					<height>20</height>
 					<label>$INFO[Window(Home).Property(NextAired.202.Wday)], $INFO[Window(Home).Property(NextAired.202.Date)]</label>
 					<align>center</align>
@@ -1195,29 +1195,29 @@
 					<textcolor>FF000000</textcolor>
 				</control>
 				<control type="panel" id="202">
-					<posx>10</posx>
-					<posy>40</posy>
-					<width>165</width>
-					<height>530</height>
+					<posx>0</posx>
+					<posy>33</posy>
+					<width>170</width>
+					<height>627</height>
 					<scrolltime>200</scrolltime>
 					<onup>202</onup>
 					<ondown>202</ondown>
 					<onleft>201</onleft>
 					<onright>203</onright>
-					<itemlayout height="100" width="165">
+					<itemlayout height="102" width="170">
 						<control type="image">
 							<description>Bg</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>165</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-Button.png</texture>
 						</control>
 						<control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
@@ -1225,9 +1225,9 @@
 						</control>
 						<control type="image">
 							<description>Banner</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
@@ -1235,29 +1235,29 @@
 						</control>
 						<control type="image">
 							<description>Logo</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
 							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</itemlayout>
-					<focusedlayout height="100" width="165">
+					<focusedlayout height="102" width="170">
 						<control type="image">
 							<description>Bg</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>165</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-Floor.png</texture>
 						</control>
 						<control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
@@ -1265,9 +1265,9 @@
 						</control>
 						<control type="image">
 							<description>Banner</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
@@ -1275,9 +1275,9 @@
 						</control>
 						<control type="image">
 							<description>Logo</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
@@ -1289,21 +1289,21 @@
 			<control type="group">
 				<description>Today+2</description>
 				<visible>!StringCompare(Window(Home).Property(NextAired.203.Wday),)</visible>
-				<width>167</width>
-				<height>660</height>
+				<width>170</width>
+				<height>650</height>
 				<control type="image">
 					<description>Bg</description>
-					<posx>20</posx>
+					<posx>0</posx>
 					<posy>13</posy>
-					<width>167</width>
+					<width>170</width>
 					<height>20</height>
 					<aspectratio>stretch</aspectratio>
 					<texture background="true">TVGuide-TopDays.png</texture>
 				</control>
 				<control type="label">
-					<posx>20</posx>
+					<posx>0</posx>
 					<posy>13</posy>
-					<width>167</width>
+					<width>170</width>
 					<height>20</height>
 					<label>$INFO[Window(Home).Property(NextAired.203.Wday)], $INFO[Window(Home).Property(NextAired.203.Date)]</label>
 					<align>center</align>
@@ -1312,29 +1312,29 @@
 					<textcolor>FF000000</textcolor>
 				</control>
 				<control type="panel" id="203">
-					<posx>10</posx>
-					<posy>40</posy>
-					<width>165</width>
-					<height>530</height>
+					<posx>0</posx>
+					<posy>33</posy>
+					<width>170</width>
+					<height>627</height>
 					<scrolltime>200</scrolltime>
 					<onup>203</onup>
 					<ondown>203</ondown>
 					<onleft>202</onleft>
 					<onright>204</onright>
-					<itemlayout height="100" width="165">
+					<itemlayout height="102" width="170">
 						<control type="image">
 							<description>Bg</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>165</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-Button.png</texture>
 						</control>
 						<control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
@@ -1342,9 +1342,9 @@
 						</control>
 						<control type="image">
 							<description>Banner</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
@@ -1352,29 +1352,29 @@
 						</control>
 						<control type="image">
 							<description>Logo</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
 							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</itemlayout>
-					<focusedlayout height="100" width="165">
+					<focusedlayout height="102" width="170">
 						<control type="image">
 							<description>Bg</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>165</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-Floor.png</texture>
 						</control>
 						<control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
@@ -1382,9 +1382,9 @@
 						</control>
 						<control type="image">
 							<description>Banner</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
@@ -1392,9 +1392,9 @@
 						</control>
 						<control type="image">
 							<description>Logo</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
@@ -1406,21 +1406,21 @@
 			<control type="group">
 				<description>Today+3</description>
 				<visible>!StringCompare(Window(Home).Property(NextAired.204.Wday),)</visible>
-				<width>167</width>
-				<height>660</height>
+				<width>170</width>
+				<height>650</height>
 				<control type="image">
 					<description>Bg</description>
-					<posx>20</posx>
+					<posx>0</posx>
 					<posy>13</posy>
-					<width>167</width>
+					<width>170</width>
 					<height>20</height>
 					<aspectratio>stretch</aspectratio>
 					<texture background="true">TVGuide-TopDays.png</texture>
 				</control>
 				<control type="label">
-					<posx>20</posx>
+					<posx>0</posx>
 					<posy>13</posy>
-					<width>167</width>
+					<width>170</width>
 					<height>20</height>
 					<label>$INFO[Window(Home).Property(NextAired.204.Wday)], $INFO[Window(Home).Property(NextAired.204.Date)]</label>
 					<align>center</align>
@@ -1429,29 +1429,29 @@
 					<textcolor>FF000000</textcolor>
 				</control>
 				<control type="panel" id="204">
-					<posx>10</posx>
-					<posy>40</posy>
-					<width>165</width>
-					<height>530</height>
+					<posx>0</posx>
+					<posy>33</posy>
+					<width>170</width>
+					<height>627</height>
 					<scrolltime>200</scrolltime>
 					<onup>204</onup>
 					<ondown>204</ondown>
 					<onleft>203</onleft>
 					<onright>205</onright>
-					<itemlayout height="100" width="165">
+					<itemlayout height="102" width="170">
 						<control type="image">
 							<description>Bg</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>165</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-Button.png</texture>
 						</control>
 						<control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
@@ -1459,9 +1459,9 @@
 						</control>
 						<control type="image">
 							<description>Banner</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
@@ -1469,29 +1469,29 @@
 						</control>
 						<control type="image">
 							<description>Logo</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
 							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</itemlayout>
-					<focusedlayout height="100" width="165">
+					<focusedlayout height="102" width="170">
 						<control type="image">
 							<description>Bg</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>165</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-Floor.png</texture>
 						</control>
 						<control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
@@ -1499,9 +1499,9 @@
 						</control>
 						<control type="image">
 							<description>Banner</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
@@ -1509,9 +1509,9 @@
 						</control>
 						<control type="image">
 							<description>Logo</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
@@ -1523,21 +1523,21 @@
 			<control type="group">
 				<description>Today+4</description>
 				<visible>!StringCompare(Window(Home).Property(NextAired.205.Wday),)</visible>
-				<width>167</width>
-				<height>660</height>
+				<width>170</width>
+				<height>655</height>
 				<control type="image">
 					<description>Bg</description>
-					<posx>20</posx>
+					<posx>0</posx>
 					<posy>13</posy>
-					<width>167</width>
+					<width>170</width>
 					<height>20</height>
 					<aspectratio>stretch</aspectratio>
 					<texture background="true">TVGuide-TopDays.png</texture>
 				</control>
 				<control type="label">
-					<posx>20</posx>
+					<posx>0</posx>
 					<posy>13</posy>
-					<width>167</width>
+					<width>170</width>
 					<height>20</height>
 					<label>$INFO[Window(Home).Property(NextAired.205.Wday)], $INFO[Window(Home).Property(NextAired.205.Date)]</label>
 					<align>center</align>
@@ -1546,29 +1546,29 @@
 					<textcolor>FF000000</textcolor>
 				</control>
 				<control type="panel" id="205">
-					<posx>10</posx>
-					<posy>40</posy>
-					<width>165</width>
-					<height>530</height>
+					<posx>0</posx>
+					<posy>33</posy>
+					<width>170</width>
+					<height>627</height>
 					<scrolltime>200</scrolltime>
 					<onup>205</onup>
 					<ondown>205</ondown>
 					<onleft>204</onleft>
 					<onright>206</onright>
-					<itemlayout height="100" width="165">
+					<itemlayout height="102" width="170">
 						<control type="image">
 							<description>Bg</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>165</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-Button.png</texture>
 						</control>
 						<control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
@@ -1576,9 +1576,9 @@
 						</control>
 						<control type="image">
 							<description>Banner</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
@@ -1586,29 +1586,29 @@
 						</control>
 						<control type="image">
 							<description>Logo</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
 							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</itemlayout>
-					<focusedlayout height="100" width="165">
+					<focusedlayout height="102" width="170">
 						<control type="image">
 							<description>Bg</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>165</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-Floor.png</texture>
 						</control>
 						<control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
@@ -1616,9 +1616,9 @@
 						</control>
 						<control type="image">
 							<description>Banner</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
@@ -1626,9 +1626,9 @@
 						</control>
 						<control type="image">
 							<description>Logo</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
@@ -1640,21 +1640,21 @@
 			<control type="group">
 				<description>Today+5</description>
 				<visible>!StringCompare(Window(Home).Property(NextAired.206.Wday),)</visible>
-				<width>167</width>
-				<height>660</height>
+				<width>170</width>
+				<height>655</height>
 				<control type="image">
 					<description>Bg</description>
-					<posx>20</posx>
+					<posx>0</posx>
 					<posy>13</posy>
-					<width>167</width>
+					<width>170</width>
 					<height>20</height>
 					<aspectratio>stretch</aspectratio>
 					<texture background="true">TVGuide-TopDays.png</texture>
 				</control>
 				<control type="label">
-					<posx>20</posx>
+					<posx>0</posx>
 					<posy>13</posy>
-					<width>167</width>
+					<width>170</width>
 					<height>20</height>
 					<label>$INFO[Window(Home).Property(NextAired.206.Wday)], $INFO[Window(Home).Property(NextAired.206.Date)]</label>
 					<align>center</align>
@@ -1663,29 +1663,29 @@
 					<textcolor>FF000000</textcolor>
 				</control>
 				<control type="panel" id="206">
-					<posx>10</posx>
-					<posy>40</posy>
-					<width>165</width>
-					<height>530</height>
+					<posx>0</posx>
+					<posy>33</posy>
+					<width>170</width>
+					<height>627</height>
 					<scrolltime>200</scrolltime>
 					<onup>206</onup>
 					<ondown>206</ondown>
 					<onleft>205</onleft>
 					<onright>207</onright>
-					<itemlayout height="100" width="165">
+					<itemlayout height="102" width="170">
 						<control type="image">
 							<description>Bg</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>165</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-Button.png</texture>
 						</control>
 						<control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
@@ -1693,9 +1693,9 @@
 						</control>
 						<control type="image">
 							<description>Banner</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
@@ -1703,29 +1703,29 @@
 						</control>
 						<control type="image">
 							<description>Logo</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
 							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</itemlayout>
-					<focusedlayout height="100" width="165">
+					<focusedlayout height="102" width="170">
 						<control type="image">
 							<description>Bg</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>165</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-Floor.png</texture>
 						</control>
 						<control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
@@ -1733,9 +1733,9 @@
 						</control>
 						<control type="image">
 							<description>Banner</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
@@ -1743,9 +1743,9 @@
 						</control>
 						<control type="image">
 							<description>Logo</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
@@ -1757,21 +1757,21 @@
 			<control type="group">
 				<description>Today+6</description>
 				<visible>!StringCompare(Window(Home).Property(NextAired.207.Wday),)</visible>
-				<width>167</width>
-				<height>660</height>
+				<width>170</width>
+				<height>655</height>
 				<control type="image">
 					<description>Bg</description>
-					<posx>20</posx>
+					<posx>0</posx>
 					<posy>13</posy>
-					<width>167</width>
+					<width>170</width>
 					<height>20</height>
 					<aspectratio>stretch</aspectratio>
 					<texture background="true">TVGuide-TopDays.png</texture>
 				</control>
 				<control type="label">
-					<posx>20</posx>
+					<posx>0</posx>
 					<posy>13</posy>
-					<width>167</width>
+					<width>170</width>
 					<height>20</height>
 					<label>$INFO[Window(Home).Property(NextAired.207.Wday)], $INFO[Window(Home).Property(NextAired.207.Date)]</label>
 					<align>center</align>
@@ -1780,29 +1780,29 @@
 					<textcolor>FF000000</textcolor>
 				</control>
 				<control type="panel" id="207">
-					<posx>10</posx>
-					<posy>40</posy>
-					<width>165</width>
-					<height>530</height>
+					<posx>0</posx>
+					<posy>33</posy>
+					<width>170</width>
+					<height>627</height>
 					<scrolltime>200</scrolltime>
 					<onup>207</onup>
 					<ondown>207</ondown>
 					<onleft>206</onleft>
 					<onright>208</onright>
-					<itemlayout height="100" width="165">
+					<itemlayout height="102" width="170">
 						<control type="image">
 							<description>Bg</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>165</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-Button.png</texture>
 						</control>
 						<control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
@@ -1810,9 +1810,9 @@
 						</control>
 						<control type="image">
 							<description>Banner</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
@@ -1820,29 +1820,29 @@
 						</control>
 						<control type="image">
 							<description>Logo</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
 							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</itemlayout>
-					<focusedlayout height="100" width="165">
+					<focusedlayout height="102" width="170">
 						<control type="image">
 							<description>Bg</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>165</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-Floor.png</texture>
 						</control>
 						<control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
@@ -1850,9 +1850,9 @@
 						</control>
 						<control type="image">
 							<description>Banner</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
@@ -1860,9 +1860,9 @@
 						</control>
 						<control type="image">
 							<description>Logo</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
@@ -1874,21 +1874,21 @@
 			<control type="group">
 				<description>Today+7</description>
 				<visible>!StringCompare(Window(Home).Property(NextAired.208.Wday),)</visible>
-				<width>167</width>
-				<height>660</height>
+				<width>170</width>
+				<height>655</height>
 				<control type="image">
 					<description>Bg</description>
-					<posx>20</posx>
+					<posx>0</posx>
 					<posy>13</posy>
-					<width>167</width>
+					<width>170</width>
 					<height>20</height>
 					<aspectratio>stretch</aspectratio>
 					<texture background="true">TVGuide-TopDays.png</texture>
 				</control>
 				<control type="label">
-					<posx>20</posx>
+					<posx>0</posx>
 					<posy>13</posy>
-					<width>167</width>
+					<width>170</width>
 					<height>20</height>
 					<label>$INFO[Window(Home).Property(NextAired.208.Wday)], $INFO[Window(Home).Property(NextAired.208.Date)]</label>
 					<align>center</align>
@@ -1897,29 +1897,29 @@
 					<textcolor>FF000000</textcolor>
 				</control>
 				<control type="panel" id="208">
-					<posx>10</posx>
-					<posy>40</posy>
-					<width>165</width>
-					<height>530</height>
+					<posx>0</posx>
+					<posy>33</posy>
+					<width>170</width>
+					<height>627</height>
 					<scrolltime>200</scrolltime>
 					<onup>208</onup>
 					<ondown>208</ondown>
 					<onleft>207</onleft>
 					<onright>209</onright>
-					<itemlayout height="100" width="165">
+					<itemlayout height="102" width="170">
 						<control type="image">
 							<description>Bg</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>165</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-Button.png</texture>
 						</control>
 						<control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
@@ -1927,9 +1927,9 @@
 						</control>
 						<control type="image">
 							<description>Banner</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
@@ -1937,29 +1937,29 @@
 						</control>
 						<control type="image">
 							<description>Logo</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
 							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</itemlayout>
-					<focusedlayout height="100" width="165">
+					<focusedlayout height="102" width="170">
 						<control type="image">
 							<description>Bg</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>165</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-Floor.png</texture>
 						</control>
 						<control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
@@ -1967,9 +1967,9 @@
 						</control>
 						<control type="image">
 							<description>Banner</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
@@ -1977,9 +1977,9 @@
 						</control>
 						<control type="image">
 							<description>Logo</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
@@ -1991,21 +1991,21 @@
 			<control type="group">
 				<description>Today+8</description>
 				<visible>!StringCompare(Window(Home).Property(NextAired.209.Wday),)</visible>
-				<width>167</width>
-				<height>660</height>
+				<width>170</width>
+				<height>655</height>
 				<control type="image">
 					<description>Bg</description>
-					<posx>20</posx>
+					<posx>0</posx>
 					<posy>13</posy>
-					<width>167</width>
+					<width>170</width>
 					<height>20</height>
 					<aspectratio>stretch</aspectratio>
 					<texture background="true">TVGuide-TopDays.png</texture>
 				</control>
 				<control type="label">
-					<posx>20</posx>
+					<posx>0</posx>
 					<posy>13</posy>
-					<width>167</width>
+					<width>170</width>
 					<height>20</height>
 					<label>$INFO[Window(Home).Property(NextAired.209.Wday)], $INFO[Window(Home).Property(NextAired.209.Date)]</label>
 					<align>center</align>
@@ -2014,29 +2014,29 @@
 					<textcolor>FF000000</textcolor>
 				</control>
 				<control type="panel" id="209">
-					<posx>10</posx>
-					<posy>40</posy>
-					<width>165</width>
-					<height>530</height>
+					<posx>0</posx>
+					<posy>33</posy>
+					<width>170</width>
+					<height>627</height>
 					<scrolltime>200</scrolltime>
 					<onup>209</onup>
 					<ondown>209</ondown>
 					<onleft>208</onleft>
 					<onright>210</onright>
-					<itemlayout height="100" width="165">
+					<itemlayout height="102" width="170">
 						<control type="image">
 							<description>Bg</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>165</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-Button.png</texture>
 						</control>
 						<control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
@@ -2044,9 +2044,9 @@
 						</control>
 						<control type="image">
 							<description>Banner</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
@@ -2054,29 +2054,29 @@
 						</control>
 						<control type="image">
 							<description>Logo</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
 							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</itemlayout>
-					<focusedlayout height="100" width="165">
+					<focusedlayout height="102" width="170">
 						<control type="image">
 							<description>Bg</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>165</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-Floor.png</texture>
 						</control>
 						<control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
@@ -2084,9 +2084,9 @@
 						</control>
 						<control type="image">
 							<description>Banner</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
@@ -2094,9 +2094,9 @@
 						</control>
 						<control type="image">
 							<description>Logo</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
@@ -2108,21 +2108,21 @@
 			<control type="group">
 				<description>Today+9</description>
 				<visible>!StringCompare(Window(Home).Property(NextAired.210.Wday),)</visible>
-				<width>167</width>
-				<height>660</height>
+				<width>170</width>
+				<height>655</height>
 				<control type="image">
 					<description>Bg</description>
-					<posx>20</posx>
+					<posx>0</posx>
 					<posy>13</posy>
-					<width>167</width>
+					<width>170</width>
 					<height>20</height>
 					<aspectratio>stretch</aspectratio>
 					<texture background="true">TVGuide-TopDays.png</texture>
 				</control>
 				<control type="label">
-					<posx>20</posx>
+					<posx>0</posx>
 					<posy>13</posy>
-					<width>167</width>
+					<width>170</width>
 					<height>20</height>
 					<label>$INFO[Window(Home).Property(NextAired.210.Wday)], $INFO[Window(Home).Property(NextAired.210.Date)]</label>
 					<align>center</align>
@@ -2131,29 +2131,29 @@
 					<textcolor>FF000000</textcolor>
 				</control>
 				<control type="panel" id="210">
-					<posx>10</posx>
-					<posy>40</posy>
-					<width>165</width>
-					<height>530</height>
+					<posx>0</posx>
+					<posy>33</posy>
+					<width>170</width>
+					<height>627</height>
 					<scrolltime>200</scrolltime>
 					<onup>210</onup>
 					<ondown>210</ondown>
 					<onleft>209</onleft>
 					<onright>211</onright>
-					<itemlayout height="100" width="165">
+					<itemlayout height="102" width="170">
 						<control type="image">
 							<description>Bg</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>165</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-Button.png</texture>
 						</control>
 						<control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
@@ -2161,9 +2161,9 @@
 						</control>
 						<control type="image">
 							<description>Banner</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
@@ -2171,29 +2171,29 @@
 						</control>
 						<control type="image">
 							<description>Logo</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
 							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</itemlayout>
-					<focusedlayout height="100" width="165">
+					<focusedlayout height="102" width="170">
 						<control type="image">
 							<description>Bg</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>165</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-Floor.png</texture>
 						</control>
 						<control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
@@ -2201,9 +2201,9 @@
 						</control>
 						<control type="image">
 							<description>Banner</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
@@ -2211,9 +2211,9 @@
 						</control>
 						<control type="image">
 							<description>Logo</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
@@ -2225,21 +2225,21 @@
 			<control type="group">
 				<description>Today+10</description>
 				<visible>!StringCompare(Window(Home).Property(NextAired.211.Wday),)</visible>
-				<width>167</width>
-				<height>660</height>
+				<width>170</width>
+				<height>655</height>
 				<control type="image">
 					<description>Bg</description>
-					<posx>20</posx>
+					<posx>0</posx>
 					<posy>13</posy>
-					<width>167</width>
+					<width>170</width>
 					<height>20</height>
 					<aspectratio>stretch</aspectratio>
 					<texture background="true">TVGuide-TopDays.png</texture>
 				</control>
 				<control type="label">
-					<posx>20</posx>
+					<posx>0</posx>
 					<posy>13</posy>
-					<width>167</width>
+					<width>170</width>
 					<height>20</height>
 					<label>$INFO[Window(Home).Property(NextAired.211.Wday)], $INFO[Window(Home).Property(NextAired.211.Date)]</label>
 					<align>center</align>
@@ -2248,29 +2248,29 @@
 					<textcolor>FF000000</textcolor>
 				</control>
 				<control type="panel" id="211">
-					<posx>10</posx>
-					<posy>40</posy>
-					<width>165</width>
-					<height>530</height>
+					<posx>0</posx>
+					<posy>33</posy>
+					<width>170</width>
+					<height>627</height>
 					<scrolltime>200</scrolltime>
 					<onup>211</onup>
 					<ondown>211</ondown>
 					<onleft>210</onleft>
 					<onright>212</onright>
-					<itemlayout height="100" width="165">
+					<itemlayout height="102" width="170">
 						<control type="image">
 							<description>Bg</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>165</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-Button.png</texture>
 						</control>
 						<control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
@@ -2278,9 +2278,9 @@
 						</control>
 						<control type="image">
 							<description>Banner</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
@@ -2288,29 +2288,29 @@
 						</control>
 						<control type="image">
 							<description>Logo</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
 							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</itemlayout>
-					<focusedlayout height="100" width="165">
+					<focusedlayout height="102" width="170">
 						<control type="image">
 							<description>Bg</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>165</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-Floor.png</texture>
 						</control>
 						<control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
@@ -2318,9 +2318,9 @@
 						</control>
 						<control type="image">
 							<description>Banner</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
@@ -2328,9 +2328,9 @@
 						</control>
 						<control type="image">
 							<description>Logo</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
@@ -2342,21 +2342,21 @@
 			<control type="group">
 				<description>Today+11</description>
 				<visible>!StringCompare(Window(Home).Property(NextAired.212.Wday),)</visible>
-				<width>167</width>
-				<height>660</height>
+				<width>170</width>
+				<height>655</height>
 				<control type="image">
 					<description>Bg</description>
-					<posx>20</posx>
+					<posx>0</posx>
 					<posy>13</posy>
-					<width>167</width>
+					<width>170</width>
 					<height>20</height>
 					<aspectratio>stretch</aspectratio>
 					<texture background="true">TVGuide-TopDays.png</texture>
 				</control>
 				<control type="label">
-					<posx>20</posx>
+					<posx>0</posx>
 					<posy>13</posy>
-					<width>167</width>
+					<width>170</width>
 					<height>20</height>
 					<label>$INFO[Window(Home).Property(NextAired.212.Wday)], $INFO[Window(Home).Property(NextAired.212.Date)]</label>
 					<align>center</align>
@@ -2365,29 +2365,29 @@
 					<textcolor>FF000000</textcolor>
 				</control>
 				<control type="panel" id="212">
-					<posx>10</posx>
-					<posy>40</posy>
-					<width>165</width>
-					<height>530</height>
+					<posx>0</posx>
+					<posy>33</posy>
+					<width>170</width>
+					<height>627</height>
 					<scrolltime>200</scrolltime>
 					<onup>212</onup>
 					<ondown>212</ondown>
 					<onleft>211</onleft>
 					<onright>213</onright>
-					<itemlayout height="100" width="165">
+					<itemlayout height="102" width="170">
 						<control type="image">
 							<description>Bg</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>165</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-Button.png</texture>
 						</control>
 						<control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
@@ -2395,9 +2395,9 @@
 						</control>
 						<control type="image">
 							<description>Banner</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
@@ -2405,29 +2405,29 @@
 						</control>
 						<control type="image">
 							<description>Logo</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
 							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</itemlayout>
-					<focusedlayout height="100" width="165">
+					<focusedlayout height="102" width="170">
 						<control type="image">
 							<description>Bg</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>165</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-Floor.png</texture>
 						</control>
 						<control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
@@ -2435,9 +2435,9 @@
 						</control>
 						<control type="image">
 							<description>Banner</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
@@ -2445,9 +2445,9 @@
 						</control>
 						<control type="image">
 							<description>Logo</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
@@ -2459,21 +2459,21 @@
 			<control type="group">
 				<description>Today+12</description>
 				<visible>!StringCompare(Window(Home).Property(NextAired.213.Wday),)</visible>
-				<width>167</width>
-				<height>660</height>
+				<width>170</width>
+				<height>655</height>
 				<control type="image">
 					<description>Bg</description>
-					<posx>20</posx>
+					<posx>0</posx>
 					<posy>13</posy>
-					<width>167</width>
+					<width>170</width>
 					<height>20</height>
 					<aspectratio>stretch</aspectratio>
 					<texture background="true">TVGuide-TopDays.png</texture>
 				</control>
 				<control type="label">
-					<posx>20</posx>
+					<posx>0</posx>
 					<posy>13</posy>
-					<width>167</width>
+					<width>170</width>
 					<height>20</height>
 					<label>$INFO[Window(Home).Property(NextAired.213.Wday)], $INFO[Window(Home).Property(NextAired.213.Date)]</label>
 					<align>center</align>
@@ -2482,29 +2482,29 @@
 					<textcolor>FF000000</textcolor>
 				</control>
 				<control type="panel" id="213">
-					<posx>10</posx>
-					<posy>40</posy>
-					<width>165</width>
-					<height>530</height>
+					<posx>0</posx>
+					<posy>33</posy>
+					<width>170</width>
+					<height>627</height>
 					<scrolltime>200</scrolltime>
 					<onup>213</onup>
 					<ondown>213</ondown>
 					<onleft>212</onleft>
 					<onright>214</onright>
-					<itemlayout height="100" width="165">
+					<itemlayout height="102" width="170">
 						<control type="image">
 							<description>Bg</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>165</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-Button.png</texture>
 						</control>
 						<control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
@@ -2512,9 +2512,9 @@
 						</control>
 						<control type="image">
 							<description>Banner</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
@@ -2522,29 +2522,29 @@
 						</control>
 						<control type="image">
 							<description>Logo</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
 							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</itemlayout>
-					<focusedlayout height="100" width="165">
+					<focusedlayout height="102" width="170">
 						<control type="image">
 							<description>Bg</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>165</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-Floor.png</texture>
 						</control>
 						<control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
@@ -2552,9 +2552,9 @@
 						</control>
 						<control type="image">
 							<description>Banner</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
@@ -2562,9 +2562,9 @@
 						</control>
 						<control type="image">
 							<description>Logo</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
@@ -2576,21 +2576,21 @@
 			<control type="group">
 				<description>Today+13</description>
 				<visible>!StringCompare(Window(Home).Property(NextAired.214.Wday),)</visible>
-				<width>167</width>
-				<height>660</height>
+				<width>170</width>
+				<height>655</height>
 				<control type="image">
 					<description>Bg</description>
-					<posx>20</posx>
+					<posx>0</posx>
 					<posy>13</posy>
-					<width>167</width>
+					<width>170</width>
 					<height>20</height>
 					<aspectratio>stretch</aspectratio>
 					<texture background="true">TVGuide-TopDays.png</texture>
 				</control>
 				<control type="label">
-					<posx>20</posx>
+					<posx>0</posx>
 					<posy>13</posy>
-					<width>167</width>
+					<width>170</width>
 					<height>20</height>
 					<label>$INFO[Window(Home).Property(NextAired.214.Wday)], $INFO[Window(Home).Property(NextAired.214.Date)]</label>
 					<align>center</align>
@@ -2599,29 +2599,29 @@
 					<textcolor>FF000000</textcolor>
 				</control>
 				<control type="panel" id="214">
-					<posx>10</posx>
-					<posy>40</posy>
-					<width>165</width>
-					<height>530</height>
+					<posx>0</posx>
+					<posy>33</posy>
+					<width>170</width>
+					<height>627</height>
 					<scrolltime>200</scrolltime>
 					<onup>214</onup>
 					<ondown>214</ondown>
 					<onleft>213</onleft>
 					<onright>215</onright>
-					<itemlayout height="100" width="165">
+					<itemlayout height="102" width="170">
 						<control type="image">
 							<description>Bg</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>165</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-Button.png</texture>
 						</control>
 						<control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
@@ -2629,9 +2629,9 @@
 						</control>
 						<control type="image">
 							<description>Banner</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
@@ -2639,29 +2639,29 @@
 						</control>
 						<control type="image">
 							<description>Logo</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
 							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</itemlayout>
-					<focusedlayout height="100" width="165">
+					<focusedlayout height="102" width="170">
 						<control type="image">
 							<description>Bg</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>165</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-Floor.png</texture>
 						</control>
 						<control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
@@ -2669,9 +2669,9 @@
 						</control>
 						<control type="image">
 							<description>Banner</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
@@ -2679,9 +2679,9 @@
 						</control>
 						<control type="image">
 							<description>Logo</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
@@ -2693,21 +2693,21 @@
 			<control type="group">
 				<description>Today+13</description>
 				<visible>!StringCompare(Window(Home).Property(NextAired.215.Wday),)</visible>
-				<width>167</width>
-				<height>660</height>
+				<width>170</width>
+				<height>655</height>
 				<control type="image">
 					<description>Bg</description>
-					<posx>20</posx>
+					<posx>0</posx>
 					<posy>13</posy>
-					<width>167</width>
+					<width>170</width>
 					<height>20</height>
 					<aspectratio>stretch</aspectratio>
 					<texture background="true">TVGuide-TopDays.png</texture>
 				</control>
 				<control type="label">
-					<posx>20</posx>
+					<posx>0</posx>
 					<posy>13</posy>
-					<width>167</width>
+					<width>170</width>
 					<height>20</height>
 					<label>$INFO[Window(Home).Property(NextAired.215.Wday)], $INFO[Window(Home).Property(NextAired.215.Date)]</label>
 					<align>center</align>
@@ -2716,29 +2716,29 @@
 					<textcolor>FF000000</textcolor>
 				</control>
 				<control type="panel" id="215">
-					<posx>10</posx>
-					<posy>40</posy>
-					<width>165</width>
-					<height>530</height>
+					<posx>0</posx>
+					<posy>33</posy>
+					<width>170</width>
+					<height>627</height>
 					<scrolltime>200</scrolltime>
 					<onup>215</onup>
 					<ondown>215</ondown>
 					<onleft>214</onleft>
 					<onright>200</onright>
-					<itemlayout height="100" width="165">
+					<itemlayout height="102" width="170">
 						<control type="image">
 							<description>Bg</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>165</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-Button.png</texture>
 						</control>
 						<control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
@@ -2746,9 +2746,9 @@
 						</control>
 						<control type="image">
 							<description>Banner</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
@@ -2756,29 +2756,29 @@
 						</control>
 						<control type="image">
 							<description>Logo</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
 							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</itemlayout>
-					<focusedlayout height="100" width="165">
+					<focusedlayout height="102" width="170">
 						<control type="image">
 							<description>Bg</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>165</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-Floor.png</texture>
 						</control>
 						<control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
@@ -2786,9 +2786,9 @@
 						</control>
 						<control type="image">
 							<description>Banner</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
@@ -2796,9 +2796,9 @@
 						</control>
 						<control type="image">
 							<description>Logo</description>
-							<posx>5</posx>
-							<posy>5</posy>
-							<width>160</width>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
 							<height>100</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
