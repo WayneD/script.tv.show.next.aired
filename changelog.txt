@@ -1,12 +1,10 @@
--6.0.6 (2014-03-??)
-- Added a new today-week TV Guide xml file and lots of new skinning values.  The new guide can also show yesterday's episodes.
-- Improved DST timezone support.
-- Updated language files from Transifex
-
 -6.0.5 (2014-03-??)
+- Added a new today-week TV Guide xml file and lots of new skinning values.  The new guide can now show yesterday's episodes.
+- Improved DST timezone support and computation of Airtime between timezones, including better handling of Airtime changes.
 - Make the bg process auto-start a replacement if it notices a version change.
 - Don't put so much data into the debug log by default.
 - Improve a month-period update: work around missing episode-change data in the month-update file.
+- Updated language files from Transifex
 
 -6.0.4 (2014-03-05)
 - Updated language files from Transifex.
