@@ -1090,7 +1090,7 @@ class NextAired:
 
         started = TheTVDB.convert_date(item["Started"])
         if item["Airtime"] == '':
-            airtime = '??:??'
+            airtime = ''
         else:
             ndx = item['ep_ndx'] if item['ep_ndx'] else -1
             airtime = item['episodes'][ndx]['aired'][11:16]
