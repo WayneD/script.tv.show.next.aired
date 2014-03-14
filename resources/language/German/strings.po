@@ -24,10 +24,6 @@ msgctxt "Addon Description"
 msgid "Get info for TV Shows Next Aired. You'll never miss one again."
 msgstr "TV Show Next Aired liefert Termin-Informationen über die anstehenden Episoden der Serien aus der Datenbank. Dazu gibt es eine Wochenansicht mit allen in der nächsten Woche laufenden Episoden sowie (bei vorhandenem Skin Support) die direkte Integration der Informationen in die Ansichten des jeweiligen Skins. Sie werden nie wieder eine Folge verpassen."
 
-msgctxt "#450"
-msgid "TV Guide"
-msgstr "TV Programm"
-
 msgctxt "#32000"
 msgid "Display"
 msgstr "Anzeige"
@@ -79,6 +75,10 @@ msgstr "**Alle Daten zurücksetzten** und die TV Informationen jetzt aktualisier
 msgctxt "#32013"
 msgid "Show All TV Shows for home screen (needs skin Support)"
 msgstr "Alle Fernsehsendungen im Startbildschirm anzeigen (benötigt Skin-Unterstützung)"
+
+msgctxt "#32019"
+msgid "TV Guide"
+msgstr "TV Programm"
 
 msgctxt "#32101"
 msgid "TV Show - Next Aired"

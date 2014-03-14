@@ -16,13 +16,13 @@ msgstr ""
 "Language: da\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgctxt "#450"
-msgid "TV Guide"
-msgstr "TV-guide"
-
 msgctxt "#32000"
 msgid "Display"
 msgstr "Skærm"
+
+msgctxt "#32019"
+msgid "TV Guide"
+msgstr "TV-guide"
 
 msgctxt "#32102"
 msgid "Getting information..."

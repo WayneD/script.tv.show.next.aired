@@ -56,7 +56,9 @@
 		<description lang="zh">获取即将播出的剧集的信息。你不会再错过好节目了。</description>
 		<language></language>
 		<platform>all</platform>
+		<license>GPL v2.0</license>
+		<website>http://github.com/WayneD/script.tv.show.next.aired</website>
 		<forum>http://forum.xbmc.org/showthread.php?tid=186090</forum>
-		<source>https://github.com/WayneD/script.tv.show.next.aired</source>
+		<source>https://github.com/WayneD/script.tv.show.next.aired.git</source>
 	</extension>
 </addon>

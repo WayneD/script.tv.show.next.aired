@@ -24,10 +24,6 @@ msgctxt "Addon Description"
 msgid "Get info for TV Shows Next Aired. You'll never miss one again."
 msgstr "Információ a sorozatok következő vetítési idejéről. Soha nem marad le mégegyszer semmiről."
 
-msgctxt "#450"
-msgid "TV Guide"
-msgstr "GyorsMenü"
-
 msgctxt "#32000"
 msgid "Display"
 msgstr "Képernyő"
@@ -63,6 +59,10 @@ msgstr "Poszterek letöltése (Artwork letöltő szükséges)"
 msgctxt "#32013"
 msgid "Show All TV Shows for home screen (needs skin Support)"
 msgstr "Minden sorozat megjelenítése a főképernyőn (Felület támogatás szükséges)"
+
+msgctxt "#32019"
+msgid "TV Guide"
+msgstr "GyorsMenü"
 
 msgctxt "#32101"
 msgid "TV Show - Next Aired"

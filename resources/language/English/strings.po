@@ -24,12 +24,6 @@ msgctxt "Addon Description"
 msgid "Get info for TV Shows Next Aired. You'll never miss one again."
 msgstr ""
 
-msgctxt "#450"
-msgid "TV Guide"
-msgstr ""
-
-#empty strings from id 451 to 31999
-
 msgctxt "#32000"
 msgid "Display"
 msgstr ""
@@ -106,7 +100,11 @@ msgctxt "#32018"
 msgid "Yesterday"
 msgstr ""
 
-#empty strings from id 32019 to 32100
+msgctxt "#32019"
+msgid "TV Guide"
+msgstr ""
+
+#empty strings from id 32020 to 32100
 
 msgctxt "#32101"
 msgid "TV Show - Next Aired"

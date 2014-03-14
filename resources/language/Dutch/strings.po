@@ -24,10 +24,6 @@ msgctxt "Addon Description"
 msgid "Get info for TV Shows Next Aired. You'll never miss one again."
 msgstr "Ophalen info voor komende TV shows. Je zult ze nooit meer missen."
 
-msgctxt "#450"
-msgid "TV Guide"
-msgstr "TV gids"
-
 msgctxt "#32000"
 msgid "Display"
 msgstr "Beeldscherm"
@@ -87,6 +83,10 @@ msgstr "Toon alle TV shows via het homescherm (skinondersteuning benodigd)"
 msgctxt "#32014"
 msgid "Use day-of-week and month names in dates instead of just numbers (for a skin that needs help)"
 msgstr "Gebruik dag van de week en maand namen in datums in plaats van alleen nummers (voor een skin dat moet worden geholpen)"
+
+msgctxt "#32019"
+msgid "TV Guide"
+msgstr "TV gids"
 
 msgctxt "#32101"
 msgid "TV Show - Next Aired"
