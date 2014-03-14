@@ -1018,7 +1018,7 @@
 							<posy>0</posy>
 							<width>170</width>
 							<height>100</height>
-							<texture background="true">TVGuide-Floor.png</texture>
+							<texture background="true">TVGuide-ButtonYellow.png</texture>
 						</control>
 						<control type="image">
 							<description>Poster</description>
@@ -1134,7 +1134,7 @@
 							<posy>0</posy>
 							<width>170</width>
 							<height>100</height>
-							<texture background="true">TVGuide-Floor.png</texture>
+							<texture background="true">TVGuide-ButtonYellow.png</texture>
 						</control>
 						<control type="image">
 							<description>Poster</description>
@@ -1251,7 +1251,7 @@
 							<posy>0</posy>
 							<width>170</width>
 							<height>100</height>
-							<texture background="true">TVGuide-Floor.png</texture>
+							<texture background="true">TVGuide-ButtonYellow.png</texture>
 						</control>
 						<control type="image">
 							<description>Poster</description>
@@ -1368,7 +1368,7 @@
 							<posy>0</posy>
 							<width>170</width>
 							<height>100</height>
-							<texture background="true">TVGuide-Floor.png</texture>
+							<texture background="true">TVGuide-ButtonYellow.png</texture>
 						</control>
 						<control type="image">
 							<description>Poster</description>
@@ -1485,7 +1485,7 @@
 							<posy>0</posy>
 							<width>170</width>
 							<height>100</height>
-							<texture background="true">TVGuide-Floor.png</texture>
+							<texture background="true">TVGuide-ButtonYellow.png</texture>
 						</control>
 						<control type="image">
 							<description>Poster</description>
@@ -1602,7 +1602,7 @@
 							<posy>0</posy>
 							<width>170</width>
 							<height>100</height>
-							<texture background="true">TVGuide-Floor.png</texture>
+							<texture background="true">TVGuide-ButtonYellow.png</texture>
 						</control>
 						<control type="image">
 							<description>Poster</description>
@@ -1719,7 +1719,7 @@
 							<posy>0</posy>
 							<width>170</width>
 							<height>100</height>
-							<texture background="true">TVGuide-Floor.png</texture>
+							<texture background="true">TVGuide-ButtonYellow.png</texture>
 						</control>
 						<control type="image">
 							<description>Poster</description>
@@ -1836,7 +1836,7 @@
 							<posy>0</posy>
 							<width>170</width>
 							<height>100</height>
-							<texture background="true">TVGuide-Floor.png</texture>
+							<texture background="true">TVGuide-ButtonYellow.png</texture>
 						</control>
 						<control type="image">
 							<description>Poster</description>
@@ -1953,7 +1953,7 @@
 							<posy>0</posy>
 							<width>170</width>
 							<height>100</height>
-							<texture background="true">TVGuide-Floor.png</texture>
+							<texture background="true">TVGuide-ButtonYellow.png</texture>
 						</control>
 						<control type="image">
 							<description>Poster</description>
@@ -2070,7 +2070,7 @@
 							<posy>0</posy>
 							<width>170</width>
 							<height>100</height>
-							<texture background="true">TVGuide-Floor.png</texture>
+							<texture background="true">TVGuide-ButtonYellow.png</texture>
 						</control>
 						<control type="image">
 							<description>Poster</description>
@@ -2187,7 +2187,7 @@
 							<posy>0</posy>
 							<width>170</width>
 							<height>100</height>
-							<texture background="true">TVGuide-Floor.png</texture>
+							<texture background="true">TVGuide-ButtonYellow.png</texture>
 						</control>
 						<control type="image">
 							<description>Poster</description>
@@ -2304,7 +2304,7 @@
 							<posy>0</posy>
 							<width>170</width>
 							<height>100</height>
-							<texture background="true">TVGuide-Floor.png</texture>
+							<texture background="true">TVGuide-ButtonYellow.png</texture>
 						</control>
 						<control type="image">
 							<description>Poster</description>
@@ -2421,7 +2421,7 @@
 							<posy>0</posy>
 							<width>170</width>
 							<height>100</height>
-							<texture background="true">TVGuide-Floor.png</texture>
+							<texture background="true">TVGuide-ButtonYellow.png</texture>
 						</control>
 						<control type="image">
 							<description>Poster</description>
@@ -2538,7 +2538,7 @@
 							<posy>0</posy>
 							<width>170</width>
 							<height>100</height>
-							<texture background="true">TVGuide-Floor.png</texture>
+							<texture background="true">TVGuide-ButtonYellow.png</texture>
 						</control>
 						<control type="image">
 							<description>Poster</description>
@@ -2655,7 +2655,7 @@
 							<posy>0</posy>
 							<width>170</width>
 							<height>100</height>
-							<texture background="true">TVGuide-Floor.png</texture>
+							<texture background="true">TVGuide-ButtonYellow.png</texture>
 						</control>
 						<control type="image">
 							<description>Poster</description>
@@ -2772,7 +2772,7 @@
 							<posy>0</posy>
 							<width>170</width>
 							<height>100</height>
-							<texture background="true">TVGuide-Floor.png</texture>
+							<texture background="true">TVGuide-ButtonYellow.png</texture>
 						</control>
 						<control type="image">
 							<description>Poster</description>
