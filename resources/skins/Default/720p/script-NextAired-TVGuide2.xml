@@ -971,7 +971,7 @@
 					<ondown>200</ondown>
 					<onleft>9000</onleft>
 					<onright>201</onright>
-					<itemlayout height="102" width="170">
+					<itemlayout height="100" width="170">
 						<control type="image">
 							<description>Bg</description>
 							<posx>0</posx>
@@ -1011,7 +1011,7 @@
 							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</itemlayout>
-					<focusedlayout height="102" width="170">
+					<focusedlayout height="100" width="170">
 						<control type="image">
 							<description>Bg</description>
 							<posx>0</posx>
@@ -1087,7 +1087,7 @@
 					<ondown>201</ondown>
 					<onleft>200</onleft>
 					<onright>202</onright>
-					<itemlayout height="102" width="170">
+					<itemlayout height="100" width="170">
 						<control type="image">
 							<description>Bg</description>
 							<posx>0</posx>
@@ -1127,7 +1127,7 @@
 							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</itemlayout>
-					<focusedlayout height="102" width="170">
+					<focusedlayout height="100" width="170">
 						<control type="image">
 							<description>Bg</description>
 							<posx>0</posx>
@@ -1204,7 +1204,7 @@
 					<ondown>202</ondown>
 					<onleft>201</onleft>
 					<onright>203</onright>
-					<itemlayout height="102" width="170">
+					<itemlayout height="100" width="170">
 						<control type="image">
 							<description>Bg</description>
 							<posx>0</posx>
@@ -1244,7 +1244,7 @@
 							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</itemlayout>
-					<focusedlayout height="102" width="170">
+					<focusedlayout height="100" width="170">
 						<control type="image">
 							<description>Bg</description>
 							<posx>0</posx>
@@ -1321,7 +1321,7 @@
 					<ondown>203</ondown>
 					<onleft>202</onleft>
 					<onright>204</onright>
-					<itemlayout height="102" width="170">
+					<itemlayout height="100" width="170">
 						<control type="image">
 							<description>Bg</description>
 							<posx>0</posx>
@@ -1361,7 +1361,7 @@
 							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</itemlayout>
-					<focusedlayout height="102" width="170">
+					<focusedlayout height="100" width="170">
 						<control type="image">
 							<description>Bg</description>
 							<posx>0</posx>
@@ -1438,7 +1438,7 @@
 					<ondown>204</ondown>
 					<onleft>203</onleft>
 					<onright>205</onright>
-					<itemlayout height="102" width="170">
+					<itemlayout height="100" width="170">
 						<control type="image">
 							<description>Bg</description>
 							<posx>0</posx>
@@ -1478,7 +1478,7 @@
 							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</itemlayout>
-					<focusedlayout height="102" width="170">
+					<focusedlayout height="100" width="170">
 						<control type="image">
 							<description>Bg</description>
 							<posx>0</posx>
@@ -1555,7 +1555,7 @@
 					<ondown>205</ondown>
 					<onleft>204</onleft>
 					<onright>206</onright>
-					<itemlayout height="102" width="170">
+					<itemlayout height="100" width="170">
 						<control type="image">
 							<description>Bg</description>
 							<posx>0</posx>
@@ -1595,7 +1595,7 @@
 							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</itemlayout>
-					<focusedlayout height="102" width="170">
+					<focusedlayout height="100" width="170">
 						<control type="image">
 							<description>Bg</description>
 							<posx>0</posx>
@@ -1672,7 +1672,7 @@
 					<ondown>206</ondown>
 					<onleft>205</onleft>
 					<onright>207</onright>
-					<itemlayout height="102" width="170">
+					<itemlayout height="100" width="170">
 						<control type="image">
 							<description>Bg</description>
 							<posx>0</posx>
@@ -1712,7 +1712,7 @@
 							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</itemlayout>
-					<focusedlayout height="102" width="170">
+					<focusedlayout height="100" width="170">
 						<control type="image">
 							<description>Bg</description>
 							<posx>0</posx>
@@ -1789,7 +1789,7 @@
 					<ondown>207</ondown>
 					<onleft>206</onleft>
 					<onright>208</onright>
-					<itemlayout height="102" width="170">
+					<itemlayout height="100" width="170">
 						<control type="image">
 							<description>Bg</description>
 							<posx>0</posx>
@@ -1829,7 +1829,7 @@
 							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</itemlayout>
-					<focusedlayout height="102" width="170">
+					<focusedlayout height="100" width="170">
 						<control type="image">
 							<description>Bg</description>
 							<posx>0</posx>
@@ -1906,7 +1906,7 @@
 					<ondown>208</ondown>
 					<onleft>207</onleft>
 					<onright>209</onright>
-					<itemlayout height="102" width="170">
+					<itemlayout height="100" width="170">
 						<control type="image">
 							<description>Bg</description>
 							<posx>0</posx>
@@ -1946,7 +1946,7 @@
 							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</itemlayout>
-					<focusedlayout height="102" width="170">
+					<focusedlayout height="100" width="170">
 						<control type="image">
 							<description>Bg</description>
 							<posx>0</posx>
@@ -2023,7 +2023,7 @@
 					<ondown>209</ondown>
 					<onleft>208</onleft>
 					<onright>210</onright>
-					<itemlayout height="102" width="170">
+					<itemlayout height="100" width="170">
 						<control type="image">
 							<description>Bg</description>
 							<posx>0</posx>
@@ -2063,7 +2063,7 @@
 							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</itemlayout>
-					<focusedlayout height="102" width="170">
+					<focusedlayout height="100" width="170">
 						<control type="image">
 							<description>Bg</description>
 							<posx>0</posx>
@@ -2140,7 +2140,7 @@
 					<ondown>210</ondown>
 					<onleft>209</onleft>
 					<onright>211</onright>
-					<itemlayout height="102" width="170">
+					<itemlayout height="100" width="170">
 						<control type="image">
 							<description>Bg</description>
 							<posx>0</posx>
@@ -2180,7 +2180,7 @@
 							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</itemlayout>
-					<focusedlayout height="102" width="170">
+					<focusedlayout height="100" width="170">
 						<control type="image">
 							<description>Bg</description>
 							<posx>0</posx>
@@ -2257,7 +2257,7 @@
 					<ondown>211</ondown>
 					<onleft>210</onleft>
 					<onright>212</onright>
-					<itemlayout height="102" width="170">
+					<itemlayout height="100" width="170">
 						<control type="image">
 							<description>Bg</description>
 							<posx>0</posx>
@@ -2297,7 +2297,7 @@
 							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</itemlayout>
-					<focusedlayout height="102" width="170">
+					<focusedlayout height="100" width="170">
 						<control type="image">
 							<description>Bg</description>
 							<posx>0</posx>
@@ -2374,7 +2374,7 @@
 					<ondown>212</ondown>
 					<onleft>211</onleft>
 					<onright>213</onright>
-					<itemlayout height="102" width="170">
+					<itemlayout height="100" width="170">
 						<control type="image">
 							<description>Bg</description>
 							<posx>0</posx>
@@ -2414,7 +2414,7 @@
 							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</itemlayout>
-					<focusedlayout height="102" width="170">
+					<focusedlayout height="100" width="170">
 						<control type="image">
 							<description>Bg</description>
 							<posx>0</posx>
@@ -2491,7 +2491,7 @@
 					<ondown>213</ondown>
 					<onleft>212</onleft>
 					<onright>214</onright>
-					<itemlayout height="102" width="170">
+					<itemlayout height="100" width="170">
 						<control type="image">
 							<description>Bg</description>
 							<posx>0</posx>
@@ -2531,7 +2531,7 @@
 							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</itemlayout>
-					<focusedlayout height="102" width="170">
+					<focusedlayout height="100" width="170">
 						<control type="image">
 							<description>Bg</description>
 							<posx>0</posx>
@@ -2608,7 +2608,7 @@
 					<ondown>214</ondown>
 					<onleft>213</onleft>
 					<onright>215</onright>
-					<itemlayout height="102" width="170">
+					<itemlayout height="100" width="170">
 						<control type="image">
 							<description>Bg</description>
 							<posx>0</posx>
@@ -2648,7 +2648,7 @@
 							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</itemlayout>
-					<focusedlayout height="102" width="170">
+					<focusedlayout height="100" width="170">
 						<control type="image">
 							<description>Bg</description>
 							<posx>0</posx>
@@ -2725,7 +2725,7 @@
 					<ondown>215</ondown>
 					<onleft>214</onleft>
 					<onright>200</onright>
-					<itemlayout height="102" width="170">
+					<itemlayout height="100" width="170">
 						<control type="image">
 							<description>Bg</description>
 							<posx>0</posx>
@@ -2765,7 +2765,7 @@
 							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</itemlayout>
-					<focusedlayout height="102" width="170">
+					<focusedlayout height="100" width="170">
 						<control type="image">
 							<description>Bg</description>
 							<posx>0</posx>
@@ -2811,7 +2811,7 @@
 		<control type="group">
 			<control type="image">
 				<description>left Arrow</description>
-				<posx>10</posx>
+				<posx>9</posx>
 				<posy>120</posy>
 				<width>30</width>
 				<height>40</height>
@@ -2820,7 +2820,7 @@
 			</control>
 			<control type="image">
 				<description>left Arrow</description>
-				<posx>10</posx>
+				<posx>9</posx>
 				<posy>170r</posy>
 				<width>30</width>
 				<height>40</height>
@@ -2829,7 +2829,7 @@
 			</control>
 			<control type="image">
 				<description>right Arrow</description>
-				<posx>1240</posx>
+				<posx>1243</posx>
 				<posy>120</posy>
 				<width>30</width>
 				<height>40</height>
@@ -2838,7 +2838,7 @@
 			</control>
 			<control type="image">
 				<description>right Arrow</description>
-				<posx>1240</posx>
+				<posx>1243</posx>
 				<posy>170r</posy>
 				<width>30</width>
 				<height>40</height>
