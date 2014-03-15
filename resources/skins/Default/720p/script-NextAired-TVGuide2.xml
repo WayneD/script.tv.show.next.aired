@@ -242,13 +242,13 @@
 					<scrollout>false</scrollout>
 				</control>
 				<control type="label">
-					<description>Episode runtime</description>
+					<description>Episode network</description>
 					<posx>1130</posx>
 					<posy>40</posy>
 					<width>1040</width>
 					<height>25</height>
 					<align>right</align>
-					<label>$INFO[Container(200).ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+					<label>$INFO[Container(200).ListItem.Property(Network)]</label>
 					<font>font13_title</font>
 				</control>
 			</control>
@@ -287,13 +287,13 @@
 					<scrollout>false</scrollout>
 				</control>
 				<control type="label">
-					<description>Episode runtime</description>
+					<description>Episode network</description>
 					<posx>1130</posx>
 					<posy>40</posy>
 					<width>1040</width>
 					<height>25</height>
 					<align>right</align>
-					<label>$INFO[Container(201).ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+					<label>$INFO[Container(201).ListItem.Property(Network)]</label>
 					<font>font13_title</font>
 				</control>
 			</control>
@@ -332,13 +332,13 @@
 					<scrollout>false</scrollout>
 				</control>
 				<control type="label">
-					<description>Episode runtime</description>
+					<description>Episode network</description>
 					<posx>1130</posx>
 					<posy>40</posy>
 					<width>1040</width>
 					<height>25</height>
 					<align>right</align>
-					<label>$INFO[Container(202).ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+					<label>$INFO[Container(202).ListItem.Property(Network)]</label>
 					<font>font13_title</font>
 				</control>
 			</control>
@@ -377,13 +377,13 @@
 					<scrollout>false</scrollout>
 				</control>
 				<control type="label">
-					<description>Episode runtime</description>
+					<description>Episode network</description>
 					<posx>1130</posx>
 					<posy>40</posy>
 					<width>1040</width>
 					<height>25</height>
 					<align>right</align>
-					<label>$INFO[Container(203).ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+					<label>$INFO[Container(203).ListItem.Property(Network)]</label>
 					<font>font13_title</font>
 				</control>
 			</control>
@@ -422,13 +422,13 @@
 					<scrollout>false</scrollout>
 				</control>
 				<control type="label">
-					<description>Episode runtime</description>
+					<description>Episode network</description>
 					<posx>1130</posx>
 					<posy>40</posy>
 					<width>1040</width>
 					<height>25</height>
 					<align>right</align>
-					<label>$INFO[Container(204).ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+					<label>$INFO[Container(204).ListItem.Property(Network)]</label>
 					<font>font13_title</font>
 				</control>
 			</control>
@@ -467,13 +467,13 @@
 					<scrollout>false</scrollout>
 				</control>
 				<control type="label">
-					<description>Episode runtime</description>
+					<description>Episode network</description>
 					<posx>1130</posx>
 					<posy>40</posy>
 					<width>1040</width>
 					<height>25</height>
 					<align>right</align>
-					<label>$INFO[Container(205).ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+					<label>$INFO[Container(205).ListItem.Property(Network)]</label>
 					<font>font13_title</font>
 				</control>
 			</control>
@@ -512,13 +512,13 @@
 					<scrollout>false</scrollout>
 				</control>
 				<control type="label">
-					<description>Episode runtime</description>
+					<description>Episode network</description>
 					<posx>1130</posx>
 					<posy>40</posy>
 					<width>1040</width>
 					<height>25</height>
 					<align>right</align>
-					<label>$INFO[Container(206).ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+					<label>$INFO[Container(206).ListItem.Property(Network)]</label>
 					<font>font13_title</font>
 				</control>
 			</control>
@@ -557,13 +557,13 @@
 					<scrollout>false</scrollout>
 				</control>
 				<control type="label">
-					<description>Episode runtime</description>
+					<description>Episode network</description>
 					<posx>1130</posx>
 					<posy>40</posy>
 					<width>1040</width>
 					<height>25</height>
 					<align>right</align>
-					<label>$INFO[Container(207).ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+					<label>$INFO[Container(207).ListItem.Property(Network)]</label>
 					<font>font13_title</font>
 				</control>
 			</control>
@@ -602,13 +602,13 @@
 					<scrollout>false</scrollout>
 				</control>
 				<control type="label">
-					<description>Episode runtime</description>
+					<description>Episode network</description>
 					<posx>1130</posx>
 					<posy>40</posy>
 					<width>1040</width>
 					<height>25</height>
 					<align>right</align>
-					<label>$INFO[Container(208).ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+					<label>$INFO[Container(208).ListItem.Property(Network)]</label>
 					<font>font13_title</font>
 				</control>
 			</control>
@@ -647,13 +647,13 @@
 					<scrollout>false</scrollout>
 				</control>
 				<control type="label">
-					<description>Episode runtime</description>
+					<description>Episode network</description>
 					<posx>1130</posx>
 					<posy>40</posy>
 					<width>1040</width>
 					<height>25</height>
 					<align>right</align>
-					<label>$INFO[Container(209).ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+					<label>$INFO[Container(209).ListItem.Property(Network)]</label>
 					<font>font13_title</font>
 				</control>
 			</control>
@@ -692,13 +692,13 @@
 					<scrollout>false</scrollout>
 				</control>
 				<control type="label">
-					<description>Episode runtime</description>
+					<description>Episode network</description>
 					<posx>1130</posx>
 					<posy>40</posy>
 					<width>1040</width>
 					<height>25</height>
 					<align>right</align>
-					<label>$INFO[Container(210).ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+					<label>$INFO[Container(210).ListItem.Property(Network)]</label>
 					<font>font13_title</font>
 				</control>
 			</control>
@@ -737,13 +737,13 @@
 					<scrollout>false</scrollout>
 				</control>
 				<control type="label">
-					<description>Episode runtime</description>
+					<description>Episode network</description>
 					<posx>1130</posx>
 					<posy>40</posy>
 					<width>1040</width>
 					<height>25</height>
 					<align>right</align>
-					<label>$INFO[Container(211).ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+					<label>$INFO[Container(211).ListItem.Property(Network)]</label>
 					<font>font13_title</font>
 				</control>
 			</control>
@@ -782,13 +782,13 @@
 					<scrollout>false</scrollout>
 				</control>
 				<control type="label">
-					<description>Episode runtime</description>
+					<description>Episode network</description>
 					<posx>1130</posx>
 					<posy>40</posy>
 					<width>1040</width>
 					<height>25</height>
 					<align>right</align>
-					<label>$INFO[Container(212).ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+					<label>$INFO[Container(212).ListItem.Property(Network)]</label>
 					<font>font13_title</font>
 				</control>
 			</control>
@@ -827,13 +827,13 @@
 					<scrollout>false</scrollout>
 				</control>
 				<control type="label">
-					<description>Episode runtime</description>
+					<description>Episode network</description>
 					<posx>1130</posx>
 					<posy>40</posy>
 					<width>1040</width>
 					<height>25</height>
 					<align>right</align>
-					<label>$INFO[Container(213).ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+					<label>$INFO[Container(213).ListItem.Property(Network)]</label>
 					<font>font13_title</font>
 				</control>
 			</control>
@@ -872,13 +872,13 @@
 					<scrollout>false</scrollout>
 				</control>
 				<control type="label">
-					<description>Episode runtime</description>
+					<description>Episode network</description>
 					<posx>1130</posx>
 					<posy>40</posy>
 					<width>1040</width>
 					<height>25</height>
 					<align>right</align>
-					<label>$INFO[Container(214).ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+					<label>$INFO[Container(214).ListItem.Property(Network)]</label>
 					<font>font13_title</font>
 				</control>
 			</control>
@@ -917,13 +917,13 @@
 					<scrollout>false</scrollout>
 				</control>
 				<control type="label">
-					<description>Episode runtime</description>
+					<description>Episode network</description>
 					<posx>1130</posx>
 					<posy>40</posy>
 					<width>1040</width>
 					<height>25</height>
 					<align>right</align>
-					<label>$INFO[Container(215).ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+					<label>$INFO[Container(215).ListItem.Property(Network)]</label>
 					<font>font13_title</font>
 				</control>
 			</control>
