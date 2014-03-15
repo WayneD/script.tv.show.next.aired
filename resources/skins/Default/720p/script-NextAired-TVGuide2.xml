@@ -1006,15 +1006,31 @@
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),0)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Banner</description>
 							<posx>0</posx>
-							<posy>0</posy>
+							<posy>3</posy>
 							<width>170</width>
-							<height>100</height>
+							<height>40</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
+						    </control>
+						    <control type="label">
+							<posx>5</posx>
+							<posy>40</posy>
+							<width>160</width>
+							<height>60</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<align>left</align>
+							<font>font12</font>
+							<textcolor>FFFFFFFF</textcolor>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
 						<control type="image">
 							<description>Logo</description>
@@ -1062,15 +1078,31 @@
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),0)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Banner</description>
 							<posx>0</posx>
-							<posy>0</posy>
+							<posy>3</posy>
 							<width>170</width>
-							<height>100</height>
+							<height>40</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
+						    </control>
+						    <control type="label">
+							<posx>5</posx>
+							<posy>40</posy>
+							<width>160</width>
+							<height>60</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<align>left</align>
+							<font>font12</font>
+							<textcolor>FFFFFFFF</textcolor>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
 						<control type="image">
 							<description>Logo</description>
@@ -1154,15 +1186,31 @@
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),0)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Banner</description>
 							<posx>0</posx>
-							<posy>0</posy>
+							<posy>3</posy>
 							<width>170</width>
-							<height>100</height>
+							<height>40</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
+						    </control>
+						    <control type="label">
+							<posx>5</posx>
+							<posy>40</posy>
+							<width>160</width>
+							<height>60</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<align>left</align>
+							<font>font12</font>
+							<textcolor>FFFFFFFF</textcolor>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
 						<control type="image">
 							<description>Logo</description>
@@ -1210,15 +1258,31 @@
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),0)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Banner</description>
 							<posx>0</posx>
-							<posy>0</posy>
+							<posy>3</posy>
 							<width>170</width>
-							<height>100</height>
+							<height>40</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
+						    </control>
+						    <control type="label">
+							<posx>5</posx>
+							<posy>40</posy>
+							<width>160</width>
+							<height>60</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<align>left</align>
+							<font>font12</font>
+							<textcolor>FFFFFFFF</textcolor>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
 						<control type="image">
 							<description>Logo</description>
@@ -1303,15 +1367,31 @@
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),0)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Banner</description>
 							<posx>0</posx>
-							<posy>0</posy>
+							<posy>3</posy>
 							<width>170</width>
-							<height>100</height>
+							<height>40</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
+						    </control>
+						    <control type="label">
+							<posx>5</posx>
+							<posy>40</posy>
+							<width>160</width>
+							<height>60</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<align>left</align>
+							<font>font12</font>
+							<textcolor>FFFFFFFF</textcolor>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
 						<control type="image">
 							<description>Logo</description>
@@ -1359,15 +1439,31 @@
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),0)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Banner</description>
 							<posx>0</posx>
-							<posy>0</posy>
+							<posy>3</posy>
 							<width>170</width>
-							<height>100</height>
+							<height>40</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
+						    </control>
+						    <control type="label">
+							<posx>5</posx>
+							<posy>40</posy>
+							<width>160</width>
+							<height>60</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<align>left</align>
+							<font>font12</font>
+							<textcolor>FFFFFFFF</textcolor>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
 						<control type="image">
 							<description>Logo</description>
@@ -1452,15 +1548,31 @@
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),0)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Banner</description>
 							<posx>0</posx>
-							<posy>0</posy>
+							<posy>3</posy>
 							<width>170</width>
-							<height>100</height>
+							<height>40</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
+						    </control>
+						    <control type="label">
+							<posx>5</posx>
+							<posy>40</posy>
+							<width>160</width>
+							<height>60</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<align>left</align>
+							<font>font12</font>
+							<textcolor>FFFFFFFF</textcolor>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
 						<control type="image">
 							<description>Logo</description>
@@ -1508,15 +1620,31 @@
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),0)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Banner</description>
 							<posx>0</posx>
-							<posy>0</posy>
+							<posy>3</posy>
 							<width>170</width>
-							<height>100</height>
+							<height>40</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
+						    </control>
+						    <control type="label">
+							<posx>5</posx>
+							<posy>40</posy>
+							<width>160</width>
+							<height>60</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<align>left</align>
+							<font>font12</font>
+							<textcolor>FFFFFFFF</textcolor>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
 						<control type="image">
 							<description>Logo</description>
@@ -1601,15 +1729,31 @@
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),0)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Banner</description>
 							<posx>0</posx>
-							<posy>0</posy>
+							<posy>3</posy>
 							<width>170</width>
-							<height>100</height>
+							<height>40</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
+						    </control>
+						    <control type="label">
+							<posx>5</posx>
+							<posy>40</posy>
+							<width>160</width>
+							<height>60</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<align>left</align>
+							<font>font12</font>
+							<textcolor>FFFFFFFF</textcolor>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
 						<control type="image">
 							<description>Logo</description>
@@ -1657,15 +1801,31 @@
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),0)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Banner</description>
 							<posx>0</posx>
-							<posy>0</posy>
+							<posy>3</posy>
 							<width>170</width>
-							<height>100</height>
+							<height>40</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
+						    </control>
+						    <control type="label">
+							<posx>5</posx>
+							<posy>40</posy>
+							<width>160</width>
+							<height>60</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<align>left</align>
+							<font>font12</font>
+							<textcolor>FFFFFFFF</textcolor>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
 						<control type="image">
 							<description>Logo</description>
@@ -1750,15 +1910,31 @@
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),0)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Banner</description>
 							<posx>0</posx>
-							<posy>0</posy>
+							<posy>3</posy>
 							<width>170</width>
-							<height>100</height>
+							<height>40</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
+						    </control>
+						    <control type="label">
+							<posx>5</posx>
+							<posy>40</posy>
+							<width>160</width>
+							<height>60</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<align>left</align>
+							<font>font12</font>
+							<textcolor>FFFFFFFF</textcolor>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
 						<control type="image">
 							<description>Logo</description>
@@ -1806,15 +1982,31 @@
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),0)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Banner</description>
 							<posx>0</posx>
-							<posy>0</posy>
+							<posy>3</posy>
 							<width>170</width>
-							<height>100</height>
+							<height>40</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
+						    </control>
+						    <control type="label">
+							<posx>5</posx>
+							<posy>40</posy>
+							<width>160</width>
+							<height>60</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<align>left</align>
+							<font>font12</font>
+							<textcolor>FFFFFFFF</textcolor>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
 						<control type="image">
 							<description>Logo</description>
@@ -1899,15 +2091,31 @@
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),0)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Banner</description>
 							<posx>0</posx>
-							<posy>0</posy>
+							<posy>3</posy>
 							<width>170</width>
-							<height>100</height>
+							<height>40</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
+						    </control>
+						    <control type="label">
+							<posx>5</posx>
+							<posy>40</posy>
+							<width>160</width>
+							<height>60</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<align>left</align>
+							<font>font12</font>
+							<textcolor>FFFFFFFF</textcolor>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
 						<control type="image">
 							<description>Logo</description>
@@ -1955,15 +2163,31 @@
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),0)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Banner</description>
 							<posx>0</posx>
-							<posy>0</posy>
+							<posy>3</posy>
 							<width>170</width>
-							<height>100</height>
+							<height>40</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
+						    </control>
+						    <control type="label">
+							<posx>5</posx>
+							<posy>40</posy>
+							<width>160</width>
+							<height>60</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<align>left</align>
+							<font>font12</font>
+							<textcolor>FFFFFFFF</textcolor>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
 						<control type="image">
 							<description>Logo</description>
@@ -2048,15 +2272,31 @@
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),0)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Banner</description>
 							<posx>0</posx>
-							<posy>0</posy>
+							<posy>3</posy>
 							<width>170</width>
-							<height>100</height>
+							<height>40</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
+						    </control>
+						    <control type="label">
+							<posx>5</posx>
+							<posy>40</posy>
+							<width>160</width>
+							<height>60</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<align>left</align>
+							<font>font12</font>
+							<textcolor>FFFFFFFF</textcolor>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
 						<control type="image">
 							<description>Logo</description>
@@ -2104,15 +2344,31 @@
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),0)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Banner</description>
 							<posx>0</posx>
-							<posy>0</posy>
+							<posy>3</posy>
 							<width>170</width>
-							<height>100</height>
+							<height>40</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
+						    </control>
+						    <control type="label">
+							<posx>5</posx>
+							<posy>40</posy>
+							<width>160</width>
+							<height>60</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<align>left</align>
+							<font>font12</font>
+							<textcolor>FFFFFFFF</textcolor>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
 						<control type="image">
 							<description>Logo</description>
@@ -2197,15 +2453,31 @@
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),0)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Banner</description>
 							<posx>0</posx>
-							<posy>0</posy>
+							<posy>3</posy>
 							<width>170</width>
-							<height>100</height>
+							<height>40</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
+						    </control>
+						    <control type="label">
+							<posx>5</posx>
+							<posy>40</posy>
+							<width>160</width>
+							<height>60</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<align>left</align>
+							<font>font12</font>
+							<textcolor>FFFFFFFF</textcolor>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
 						<control type="image">
 							<description>Logo</description>
@@ -2253,15 +2525,31 @@
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),0)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Banner</description>
 							<posx>0</posx>
-							<posy>0</posy>
+							<posy>3</posy>
 							<width>170</width>
-							<height>100</height>
+							<height>40</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
+						    </control>
+						    <control type="label">
+							<posx>5</posx>
+							<posy>40</posy>
+							<width>160</width>
+							<height>60</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<align>left</align>
+							<font>font12</font>
+							<textcolor>FFFFFFFF</textcolor>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
 						<control type="image">
 							<description>Logo</description>
@@ -2346,15 +2634,31 @@
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),0)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Banner</description>
 							<posx>0</posx>
-							<posy>0</posy>
+							<posy>3</posy>
 							<width>170</width>
-							<height>100</height>
+							<height>40</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
+						    </control>
+						    <control type="label">
+							<posx>5</posx>
+							<posy>40</posy>
+							<width>160</width>
+							<height>60</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<align>left</align>
+							<font>font12</font>
+							<textcolor>FFFFFFFF</textcolor>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
 						<control type="image">
 							<description>Logo</description>
@@ -2402,15 +2706,31 @@
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),0)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Banner</description>
 							<posx>0</posx>
-							<posy>0</posy>
+							<posy>3</posy>
 							<width>170</width>
-							<height>100</height>
+							<height>40</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
+						    </control>
+						    <control type="label">
+							<posx>5</posx>
+							<posy>40</posy>
+							<width>160</width>
+							<height>60</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<align>left</align>
+							<font>font12</font>
+							<textcolor>FFFFFFFF</textcolor>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
 						<control type="image">
 							<description>Logo</description>
@@ -2495,15 +2815,31 @@
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),0)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Banner</description>
 							<posx>0</posx>
-							<posy>0</posy>
+							<posy>3</posy>
 							<width>170</width>
-							<height>100</height>
+							<height>40</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
+						    </control>
+						    <control type="label">
+							<posx>5</posx>
+							<posy>40</posy>
+							<width>160</width>
+							<height>60</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<align>left</align>
+							<font>font12</font>
+							<textcolor>FFFFFFFF</textcolor>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
 						<control type="image">
 							<description>Logo</description>
@@ -2551,15 +2887,31 @@
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),0)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Banner</description>
 							<posx>0</posx>
-							<posy>0</posy>
+							<posy>3</posy>
 							<width>170</width>
-							<height>100</height>
+							<height>40</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
+						    </control>
+						    <control type="label">
+							<posx>5</posx>
+							<posy>40</posy>
+							<width>160</width>
+							<height>60</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<align>left</align>
+							<font>font12</font>
+							<textcolor>FFFFFFFF</textcolor>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
 						<control type="image">
 							<description>Logo</description>
@@ -2644,15 +2996,31 @@
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),0)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Banner</description>
 							<posx>0</posx>
-							<posy>0</posy>
+							<posy>3</posy>
 							<width>170</width>
-							<height>100</height>
+							<height>40</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
+						    </control>
+						    <control type="label">
+							<posx>5</posx>
+							<posy>40</posy>
+							<width>160</width>
+							<height>60</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<align>left</align>
+							<font>font12</font>
+							<textcolor>FFFFFFFF</textcolor>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
 						<control type="image">
 							<description>Logo</description>
@@ -2700,15 +3068,31 @@
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),0)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Banner</description>
 							<posx>0</posx>
-							<posy>0</posy>
+							<posy>3</posy>
 							<width>170</width>
-							<height>100</height>
+							<height>40</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
+						    </control>
+						    <control type="label">
+							<posx>5</posx>
+							<posy>40</posy>
+							<width>160</width>
+							<height>60</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<align>left</align>
+							<font>font12</font>
+							<textcolor>FFFFFFFF</textcolor>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
 						<control type="image">
 							<description>Logo</description>
@@ -2793,15 +3177,31 @@
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),0)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Banner</description>
 							<posx>0</posx>
-							<posy>0</posy>
+							<posy>3</posy>
 							<width>170</width>
-							<height>100</height>
+							<height>40</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
+						    </control>
+						    <control type="label">
+							<posx>5</posx>
+							<posy>40</posy>
+							<width>160</width>
+							<height>60</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<align>left</align>
+							<font>font12</font>
+							<textcolor>FFFFFFFF</textcolor>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
 						<control type="image">
 							<description>Logo</description>
@@ -2849,15 +3249,31 @@
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),0)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Banner</description>
 							<posx>0</posx>
-							<posy>0</posy>
+							<posy>3</posy>
 							<width>170</width>
-							<height>100</height>
+							<height>40</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
+						    </control>
+						    <control type="label">
+							<posx>5</posx>
+							<posy>40</posy>
+							<width>160</width>
+							<height>60</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<align>left</align>
+							<font>font12</font>
+							<textcolor>FFFFFFFF</textcolor>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
 						<control type="image">
 							<description>Logo</description>
@@ -2942,15 +3358,31 @@
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),0)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Banner</description>
 							<posx>0</posx>
-							<posy>0</posy>
+							<posy>3</posy>
 							<width>170</width>
-							<height>100</height>
+							<height>40</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
+						    </control>
+						    <control type="label">
+							<posx>5</posx>
+							<posy>40</posy>
+							<width>160</width>
+							<height>60</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<align>left</align>
+							<font>font12</font>
+							<textcolor>FFFFFFFF</textcolor>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
 						<control type="image">
 							<description>Logo</description>
@@ -2998,15 +3430,31 @@
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),0)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Banner</description>
 							<posx>0</posx>
-							<posy>0</posy>
+							<posy>3</posy>
 							<width>170</width>
-							<height>100</height>
+							<height>40</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
+						    </control>
+						    <control type="label">
+							<posx>5</posx>
+							<posy>40</posy>
+							<width>160</width>
+							<height>60</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<align>left</align>
+							<font>font12</font>
+							<textcolor>FFFFFFFF</textcolor>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
 						<control type="image">
 							<description>Logo</description>
@@ -3091,15 +3539,31 @@
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),0)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Banner</description>
 							<posx>0</posx>
-							<posy>0</posy>
+							<posy>3</posy>
 							<width>170</width>
-							<height>100</height>
+							<height>40</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
+						    </control>
+						    <control type="label">
+							<posx>5</posx>
+							<posy>40</posy>
+							<width>160</width>
+							<height>60</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<align>left</align>
+							<font>font12</font>
+							<textcolor>FFFFFFFF</textcolor>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
 						<control type="image">
 							<description>Logo</description>
@@ -3147,15 +3611,31 @@
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),0)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Banner</description>
 							<posx>0</posx>
-							<posy>0</posy>
+							<posy>3</posy>
 							<width>170</width>
-							<height>100</height>
+							<height>40</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
+						    </control>
+						    <control type="label">
+							<posx>5</posx>
+							<posy>40</posy>
+							<width>160</width>
+							<height>60</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<align>left</align>
+							<font>font12</font>
+							<textcolor>FFFFFFFF</textcolor>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
 						<control type="image">
 							<description>Logo</description>
@@ -3240,15 +3720,31 @@
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),0)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Banner</description>
 							<posx>0</posx>
-							<posy>0</posy>
+							<posy>3</posy>
 							<width>170</width>
-							<height>100</height>
+							<height>40</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
+						    </control>
+						    <control type="label">
+							<posx>5</posx>
+							<posy>40</posy>
+							<width>160</width>
+							<height>60</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<align>left</align>
+							<font>font12</font>
+							<textcolor>FFFFFFFF</textcolor>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
 						<control type="image">
 							<description>Logo</description>
@@ -3296,15 +3792,31 @@
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),0)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Banner</description>
 							<posx>0</posx>
-							<posy>0</posy>
+							<posy>3</posy>
 							<width>170</width>
-							<height>100</height>
+							<height>40</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
+						    </control>
+						    <control type="label">
+							<posx>5</posx>
+							<posy>40</posy>
+							<width>160</width>
+							<height>60</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<align>left</align>
+							<font>font12</font>
+							<textcolor>FFFFFFFF</textcolor>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
 						<control type="image">
 							<description>Logo</description>
