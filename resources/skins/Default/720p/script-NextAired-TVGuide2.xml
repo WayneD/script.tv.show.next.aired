@@ -83,6 +83,7 @@
 					<aspectratio>scale</aspectratio>
 					<texture background="true">$INFO[Container(205).ListItem.Property(Fanart)]</texture>
 					<visible>Control.HasFocus(205)</visible>
+					<fadetime>600</fadetime>
 					<animation effect="fade" time="600">Visible</animation>
 					<animation effect="fade" time="600">Hidden</animation>
 				</control>
@@ -1167,6 +1168,7 @@
 			</control>
 			<control type="group">
 				<description>Today</description>
+				<visible>!StringCompare(Window(Home).Property(NextAired.201.Wday),)</visible>
 				<width>170</width>
 				<height>655</height>
 				<control type="image">
@@ -1626,7 +1628,7 @@
 				<description>Today+2</description>
 				<visible>!StringCompare(Window(Home).Property(NextAired.203.Wday),)</visible>
 				<width>170</width>
-				<height>650</height>
+				<height>655</height>
 				<control type="image">
 					<description>Bg</description>
 					<posx>0</posx>
@@ -1855,7 +1857,7 @@
 				<description>Today+3</description>
 				<visible>!StringCompare(Window(Home).Property(NextAired.204.Wday),)</visible>
 				<width>170</width>
-				<height>650</height>
+				<height>655</height>
 				<control type="image">
 					<description>Bg</description>
 					<posx>0</posx>
@@ -4371,7 +4373,7 @@
 				</control>
 			</control>
 			<control type="group">
-				<description>Today+13</description>
+				<description>Today+14</description>
 				<visible>!StringCompare(Window(Home).Property(NextAired.215.Wday),)</visible>
 				<width>170</width>
 				<height>655</height>
@@ -4546,13 +4548,13 @@
 							<posx>2</posx>
 							<posy>3</posy>
 							<width>166</width>
-							<height>29</height>
+							<height>34</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
 						    </control>
 						    <control type="label">
 							<posx>5</posx>
-							<posy>30</posy>
+							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
 							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>

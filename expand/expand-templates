@@ -1,0 +1,100 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+my %files;
+foreach my $in_fn (glob '*-template.xml') {
+    print "Filtering $in_fn\n";
+
+    open IN, '<', $in_fn or die "Unable to open $in_fn: $!\n";
+    my $text = join '', <IN>;
+    close IN;
+
+    unless ($text =~ s/^<!--FILES(\s.+?)--> *\n//sm) {
+	die "Failed to find <!--FILES ... -> prefixed in $in_fn.\n";
+    }
+    my $files_str = $1;
+    %files = $files_str =~ /\s\[(\d+)\]\s*=\s*(.+?)(?=\s+\[\d|\s*$)/gs;
+    unless (%files) {
+	die "Failed to parse files from $files_str\n";
+    }
+
+    foreach my $filenum (sort { $a <=> $b } keys %files) {
+	expand_data($filenum, $text);
+    }
+}
+
+exit;
+
+sub expand_data
+{
+    my ($filenum, $text) = @_;
+    my $out_fn = $files{$filenum};
+    print "    Generating $out_fn\n";
+
+    $text =~ s/<!--REPEAT(\s.+?)--> *\n(.+?)<!--REPEAT-END\s*--> *\n/ repeat_expand($filenum, $1, $2) /ges;
+
+    open OUT, '>', $out_fn or die "Unable to write $out_fn: $!\n";
+    print OUT $text;
+    close OUT;
+}
+
+sub repeat_expand
+{
+    my ($filenum, $vars, $text) = @_;
+
+    if ($vars =~ /^[ \t]*\[\d+\][ \t]*$/m) {
+	if ($vars =~ /^[ \t]*\[$filenum\][ \t]*\n(.+?)(\n[ \t]*\[\d+\][ \t]*$|\s*\z)/ms) {
+	    $vars = $1;
+	} else {
+	    return '';
+	}
+    }
+    $vars =~ s/\n/ /g;
+
+    my %vars = $vars =~ /\s(\%\w+\%)\s*=\s*(.+?)(?=\s+\%\w|\s*$)/gs;
+    unless (%vars) {
+	die "Failed to parse vars from $vars\n";
+    }
+
+    my $iters;
+    foreach my $var (keys %vars) {
+	my @vals = split /\s*\|\s*/, $vars{$var};
+	for (my $i = 0; $i < @vals; $i++) {
+	    my $val = $vals[$i];
+	    my @subs;
+	    while ($val =~ s/(\d+)\.\.(\d+)/ '%' . (scalar @subs) . '%' /e) {
+		push @subs, [$1 .. $2];
+	    }
+	    if (@subs) {
+		my @new_vals = ($val) x scalar @{$subs[0]};
+		for (my $j = 0; $j < @subs; $j++) {
+		    my $ref = $subs[$j];
+		    for (my $k = 0; $k < @$ref; $k++) {
+			$new_vals[$k] =~ s/\%$j\%/$ref->[$k]/;
+		    }
+		}
+		splice @vals, $i, 1, @new_vals;
+	    }
+	}
+	$vars{$var} = \@vals;
+	if (!defined $iters) {
+	    $iters = @vals;
+	} elsif ($iters != @vals) {
+	    my $cnt = @vals;
+	    die "Var $var doesn't have $iters values (has $cnt)\n";
+	}
+    }
+
+    my @text;
+    for (my $j = 0; $j < $iters; $j++) {
+	push @text, $text;
+	foreach my $var (keys %vars) {
+	    my @vars = @{$vars{$var}};
+	    $text[-1] =~ s/\Q$var\E/$vars[$j]/g;
+	}
+    }
+
+    return join '', @text;
+}
