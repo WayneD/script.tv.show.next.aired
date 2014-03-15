@@ -987,19 +987,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
+							<posx>1</posx>
 							<posy>3</posy>
-							<width>70</width>
+							<width>63</width>
 							<height>94</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>160</posx>
-							<posy>13</posy>
-							<width>100</width>
+							<posx>167</posx>
+							<posy>15</posy>
+							<width>104</width>
 							<height>90</height>
-							<label>$INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(ShortTime)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -1013,19 +1013,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Banner</description>
-							<posx>0</posx>
+							<posx>2</posx>
 							<posy>3</posy>
-							<width>170</width>
-							<height>40</height>
+							<width>166</width>
+							<height>34</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
 						    </control>
 						    <control type="label">
 							<posx>5</posx>
-							<posy>40</posy>
+							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -1059,19 +1059,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
+							<posx>1</posx>
 							<posy>3</posy>
-							<width>70</width>
+							<width>63</width>
 							<height>94</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>160</posx>
-							<posy>13</posy>
-							<width>100</width>
+							<posx>167</posx>
+							<posy>15</posy>
+							<width>104</width>
 							<height>90</height>
-							<label>$INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(ShortTime)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -1085,19 +1085,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Banner</description>
-							<posx>0</posx>
+							<posx>2</posx>
 							<posy>3</posy>
-							<width>170</width>
-							<height>40</height>
+							<width>166</width>
+							<height>34</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
 						    </control>
 						    <control type="label">
 							<posx>5</posx>
-							<posy>40</posy>
+							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -1167,19 +1167,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
+							<posx>1</posx>
 							<posy>3</posy>
-							<width>70</width>
+							<width>63</width>
 							<height>94</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>160</posx>
-							<posy>13</posy>
-							<width>100</width>
+							<posx>167</posx>
+							<posy>15</posy>
+							<width>104</width>
 							<height>90</height>
-							<label>$INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(ShortTime)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -1193,19 +1193,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Banner</description>
-							<posx>0</posx>
+							<posx>2</posx>
 							<posy>3</posy>
-							<width>170</width>
-							<height>40</height>
+							<width>166</width>
+							<height>34</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
 						    </control>
 						    <control type="label">
 							<posx>5</posx>
-							<posy>40</posy>
+							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -1239,19 +1239,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
+							<posx>1</posx>
 							<posy>3</posy>
-							<width>70</width>
+							<width>63</width>
 							<height>94</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>160</posx>
-							<posy>13</posy>
-							<width>100</width>
+							<posx>167</posx>
+							<posy>15</posy>
+							<width>104</width>
 							<height>90</height>
-							<label>$INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(ShortTime)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -1265,19 +1265,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Banner</description>
-							<posx>0</posx>
+							<posx>2</posx>
 							<posy>3</posy>
-							<width>170</width>
-							<height>40</height>
+							<width>166</width>
+							<height>34</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
 						    </control>
 						    <control type="label">
 							<posx>5</posx>
-							<posy>40</posy>
+							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -1348,19 +1348,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
+							<posx>1</posx>
 							<posy>3</posy>
-							<width>70</width>
+							<width>63</width>
 							<height>94</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>160</posx>
-							<posy>13</posy>
-							<width>100</width>
+							<posx>167</posx>
+							<posy>15</posy>
+							<width>104</width>
 							<height>90</height>
-							<label>$INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(ShortTime)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -1374,19 +1374,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Banner</description>
-							<posx>0</posx>
+							<posx>2</posx>
 							<posy>3</posy>
-							<width>170</width>
-							<height>40</height>
+							<width>166</width>
+							<height>34</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
 						    </control>
 						    <control type="label">
 							<posx>5</posx>
-							<posy>40</posy>
+							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -1420,19 +1420,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
+							<posx>1</posx>
 							<posy>3</posy>
-							<width>70</width>
+							<width>63</width>
 							<height>94</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>160</posx>
-							<posy>13</posy>
-							<width>100</width>
+							<posx>167</posx>
+							<posy>15</posy>
+							<width>104</width>
 							<height>90</height>
-							<label>$INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(ShortTime)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -1446,19 +1446,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Banner</description>
-							<posx>0</posx>
+							<posx>2</posx>
 							<posy>3</posy>
-							<width>170</width>
-							<height>40</height>
+							<width>166</width>
+							<height>34</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
 						    </control>
 						    <control type="label">
 							<posx>5</posx>
-							<posy>40</posy>
+							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -1529,19 +1529,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
+							<posx>1</posx>
 							<posy>3</posy>
-							<width>70</width>
+							<width>63</width>
 							<height>94</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>160</posx>
-							<posy>13</posy>
-							<width>100</width>
+							<posx>167</posx>
+							<posy>15</posy>
+							<width>104</width>
 							<height>90</height>
-							<label>$INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(ShortTime)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -1555,19 +1555,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Banner</description>
-							<posx>0</posx>
+							<posx>2</posx>
 							<posy>3</posy>
-							<width>170</width>
-							<height>40</height>
+							<width>166</width>
+							<height>34</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
 						    </control>
 						    <control type="label">
 							<posx>5</posx>
-							<posy>40</posy>
+							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -1601,19 +1601,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
+							<posx>1</posx>
 							<posy>3</posy>
-							<width>70</width>
+							<width>63</width>
 							<height>94</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>160</posx>
-							<posy>13</posy>
-							<width>100</width>
+							<posx>167</posx>
+							<posy>15</posy>
+							<width>104</width>
 							<height>90</height>
-							<label>$INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(ShortTime)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -1627,19 +1627,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Banner</description>
-							<posx>0</posx>
+							<posx>2</posx>
 							<posy>3</posy>
-							<width>170</width>
-							<height>40</height>
+							<width>166</width>
+							<height>34</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
 						    </control>
 						    <control type="label">
 							<posx>5</posx>
-							<posy>40</posy>
+							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -1710,19 +1710,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
+							<posx>1</posx>
 							<posy>3</posy>
-							<width>70</width>
+							<width>63</width>
 							<height>94</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>160</posx>
-							<posy>13</posy>
-							<width>100</width>
+							<posx>167</posx>
+							<posy>15</posy>
+							<width>104</width>
 							<height>90</height>
-							<label>$INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(ShortTime)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -1736,19 +1736,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Banner</description>
-							<posx>0</posx>
+							<posx>2</posx>
 							<posy>3</posy>
-							<width>170</width>
-							<height>40</height>
+							<width>166</width>
+							<height>34</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
 						    </control>
 						    <control type="label">
 							<posx>5</posx>
-							<posy>40</posy>
+							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -1782,19 +1782,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
+							<posx>1</posx>
 							<posy>3</posy>
-							<width>70</width>
+							<width>63</width>
 							<height>94</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>160</posx>
-							<posy>13</posy>
-							<width>100</width>
+							<posx>167</posx>
+							<posy>15</posy>
+							<width>104</width>
 							<height>90</height>
-							<label>$INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(ShortTime)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -1808,19 +1808,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Banner</description>
-							<posx>0</posx>
+							<posx>2</posx>
 							<posy>3</posy>
-							<width>170</width>
-							<height>40</height>
+							<width>166</width>
+							<height>34</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
 						    </control>
 						    <control type="label">
 							<posx>5</posx>
-							<posy>40</posy>
+							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -1891,19 +1891,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
+							<posx>1</posx>
 							<posy>3</posy>
-							<width>70</width>
+							<width>63</width>
 							<height>94</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>160</posx>
-							<posy>13</posy>
-							<width>100</width>
+							<posx>167</posx>
+							<posy>15</posy>
+							<width>104</width>
 							<height>90</height>
-							<label>$INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(ShortTime)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -1917,19 +1917,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Banner</description>
-							<posx>0</posx>
+							<posx>2</posx>
 							<posy>3</posy>
-							<width>170</width>
-							<height>40</height>
+							<width>166</width>
+							<height>34</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
 						    </control>
 						    <control type="label">
 							<posx>5</posx>
-							<posy>40</posy>
+							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -1963,19 +1963,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
+							<posx>1</posx>
 							<posy>3</posy>
-							<width>70</width>
+							<width>63</width>
 							<height>94</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>160</posx>
-							<posy>13</posy>
-							<width>100</width>
+							<posx>167</posx>
+							<posy>15</posy>
+							<width>104</width>
 							<height>90</height>
-							<label>$INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(ShortTime)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -1989,19 +1989,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Banner</description>
-							<posx>0</posx>
+							<posx>2</posx>
 							<posy>3</posy>
-							<width>170</width>
-							<height>40</height>
+							<width>166</width>
+							<height>34</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
 						    </control>
 						    <control type="label">
 							<posx>5</posx>
-							<posy>40</posy>
+							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -2072,19 +2072,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
+							<posx>1</posx>
 							<posy>3</posy>
-							<width>70</width>
+							<width>63</width>
 							<height>94</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>160</posx>
-							<posy>13</posy>
-							<width>100</width>
+							<posx>167</posx>
+							<posy>15</posy>
+							<width>104</width>
 							<height>90</height>
-							<label>$INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(ShortTime)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -2098,19 +2098,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Banner</description>
-							<posx>0</posx>
+							<posx>2</posx>
 							<posy>3</posy>
-							<width>170</width>
-							<height>40</height>
+							<width>166</width>
+							<height>34</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
 						    </control>
 						    <control type="label">
 							<posx>5</posx>
-							<posy>40</posy>
+							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -2144,19 +2144,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
+							<posx>1</posx>
 							<posy>3</posy>
-							<width>70</width>
+							<width>63</width>
 							<height>94</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>160</posx>
-							<posy>13</posy>
-							<width>100</width>
+							<posx>167</posx>
+							<posy>15</posy>
+							<width>104</width>
 							<height>90</height>
-							<label>$INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(ShortTime)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -2170,19 +2170,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Banner</description>
-							<posx>0</posx>
+							<posx>2</posx>
 							<posy>3</posy>
-							<width>170</width>
-							<height>40</height>
+							<width>166</width>
+							<height>34</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
 						    </control>
 						    <control type="label">
 							<posx>5</posx>
-							<posy>40</posy>
+							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -2253,19 +2253,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
+							<posx>1</posx>
 							<posy>3</posy>
-							<width>70</width>
+							<width>63</width>
 							<height>94</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>160</posx>
-							<posy>13</posy>
-							<width>100</width>
+							<posx>167</posx>
+							<posy>15</posy>
+							<width>104</width>
 							<height>90</height>
-							<label>$INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(ShortTime)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -2279,19 +2279,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Banner</description>
-							<posx>0</posx>
+							<posx>2</posx>
 							<posy>3</posy>
-							<width>170</width>
-							<height>40</height>
+							<width>166</width>
+							<height>34</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
 						    </control>
 						    <control type="label">
 							<posx>5</posx>
-							<posy>40</posy>
+							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -2325,19 +2325,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
+							<posx>1</posx>
 							<posy>3</posy>
-							<width>70</width>
+							<width>63</width>
 							<height>94</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>160</posx>
-							<posy>13</posy>
-							<width>100</width>
+							<posx>167</posx>
+							<posy>15</posy>
+							<width>104</width>
 							<height>90</height>
-							<label>$INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(ShortTime)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -2351,19 +2351,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Banner</description>
-							<posx>0</posx>
+							<posx>2</posx>
 							<posy>3</posy>
-							<width>170</width>
-							<height>40</height>
+							<width>166</width>
+							<height>34</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
 						    </control>
 						    <control type="label">
 							<posx>5</posx>
-							<posy>40</posy>
+							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -2434,19 +2434,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
+							<posx>1</posx>
 							<posy>3</posy>
-							<width>70</width>
+							<width>63</width>
 							<height>94</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>160</posx>
-							<posy>13</posy>
-							<width>100</width>
+							<posx>167</posx>
+							<posy>15</posy>
+							<width>104</width>
 							<height>90</height>
-							<label>$INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(ShortTime)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -2460,19 +2460,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Banner</description>
-							<posx>0</posx>
+							<posx>2</posx>
 							<posy>3</posy>
-							<width>170</width>
-							<height>40</height>
+							<width>166</width>
+							<height>34</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
 						    </control>
 						    <control type="label">
 							<posx>5</posx>
-							<posy>40</posy>
+							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -2506,19 +2506,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
+							<posx>1</posx>
 							<posy>3</posy>
-							<width>70</width>
+							<width>63</width>
 							<height>94</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>160</posx>
-							<posy>13</posy>
-							<width>100</width>
+							<posx>167</posx>
+							<posy>15</posy>
+							<width>104</width>
 							<height>90</height>
-							<label>$INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(ShortTime)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -2532,19 +2532,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Banner</description>
-							<posx>0</posx>
+							<posx>2</posx>
 							<posy>3</posy>
-							<width>170</width>
-							<height>40</height>
+							<width>166</width>
+							<height>34</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
 						    </control>
 						    <control type="label">
 							<posx>5</posx>
-							<posy>40</posy>
+							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -2615,19 +2615,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
+							<posx>1</posx>
 							<posy>3</posy>
-							<width>70</width>
+							<width>63</width>
 							<height>94</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>160</posx>
-							<posy>13</posy>
-							<width>100</width>
+							<posx>167</posx>
+							<posy>15</posy>
+							<width>104</width>
 							<height>90</height>
-							<label>$INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(ShortTime)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -2641,19 +2641,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Banner</description>
-							<posx>0</posx>
+							<posx>2</posx>
 							<posy>3</posy>
-							<width>170</width>
-							<height>40</height>
+							<width>166</width>
+							<height>34</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
 						    </control>
 						    <control type="label">
 							<posx>5</posx>
-							<posy>40</posy>
+							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -2687,19 +2687,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
+							<posx>1</posx>
 							<posy>3</posy>
-							<width>70</width>
+							<width>63</width>
 							<height>94</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>160</posx>
-							<posy>13</posy>
-							<width>100</width>
+							<posx>167</posx>
+							<posy>15</posy>
+							<width>104</width>
 							<height>90</height>
-							<label>$INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(ShortTime)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -2713,19 +2713,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Banner</description>
-							<posx>0</posx>
+							<posx>2</posx>
 							<posy>3</posy>
-							<width>170</width>
-							<height>40</height>
+							<width>166</width>
+							<height>34</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
 						    </control>
 						    <control type="label">
 							<posx>5</posx>
-							<posy>40</posy>
+							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -2796,19 +2796,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
+							<posx>1</posx>
 							<posy>3</posy>
-							<width>70</width>
+							<width>63</width>
 							<height>94</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>160</posx>
-							<posy>13</posy>
-							<width>100</width>
+							<posx>167</posx>
+							<posy>15</posy>
+							<width>104</width>
 							<height>90</height>
-							<label>$INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(ShortTime)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -2822,19 +2822,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Banner</description>
-							<posx>0</posx>
+							<posx>2</posx>
 							<posy>3</posy>
-							<width>170</width>
-							<height>40</height>
+							<width>166</width>
+							<height>34</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
 						    </control>
 						    <control type="label">
 							<posx>5</posx>
-							<posy>40</posy>
+							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -2868,19 +2868,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
+							<posx>1</posx>
 							<posy>3</posy>
-							<width>70</width>
+							<width>63</width>
 							<height>94</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>160</posx>
-							<posy>13</posy>
-							<width>100</width>
+							<posx>167</posx>
+							<posy>15</posy>
+							<width>104</width>
 							<height>90</height>
-							<label>$INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(ShortTime)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -2894,19 +2894,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Banner</description>
-							<posx>0</posx>
+							<posx>2</posx>
 							<posy>3</posy>
-							<width>170</width>
-							<height>40</height>
+							<width>166</width>
+							<height>34</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
 						    </control>
 						    <control type="label">
 							<posx>5</posx>
-							<posy>40</posy>
+							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -2977,19 +2977,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
+							<posx>1</posx>
 							<posy>3</posy>
-							<width>70</width>
+							<width>63</width>
 							<height>94</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>160</posx>
-							<posy>13</posy>
-							<width>100</width>
+							<posx>167</posx>
+							<posy>15</posy>
+							<width>104</width>
 							<height>90</height>
-							<label>$INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(ShortTime)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -3003,19 +3003,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Banner</description>
-							<posx>0</posx>
+							<posx>2</posx>
 							<posy>3</posy>
-							<width>170</width>
-							<height>40</height>
+							<width>166</width>
+							<height>34</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
 						    </control>
 						    <control type="label">
 							<posx>5</posx>
-							<posy>40</posy>
+							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -3049,19 +3049,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
+							<posx>1</posx>
 							<posy>3</posy>
-							<width>70</width>
+							<width>63</width>
 							<height>94</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>160</posx>
-							<posy>13</posy>
-							<width>100</width>
+							<posx>167</posx>
+							<posy>15</posy>
+							<width>104</width>
 							<height>90</height>
-							<label>$INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(ShortTime)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -3075,19 +3075,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Banner</description>
-							<posx>0</posx>
+							<posx>2</posx>
 							<posy>3</posy>
-							<width>170</width>
-							<height>40</height>
+							<width>166</width>
+							<height>34</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
 						    </control>
 						    <control type="label">
 							<posx>5</posx>
-							<posy>40</posy>
+							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -3158,19 +3158,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
+							<posx>1</posx>
 							<posy>3</posy>
-							<width>70</width>
+							<width>63</width>
 							<height>94</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>160</posx>
-							<posy>13</posy>
-							<width>100</width>
+							<posx>167</posx>
+							<posy>15</posy>
+							<width>104</width>
 							<height>90</height>
-							<label>$INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(ShortTime)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -3184,19 +3184,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Banner</description>
-							<posx>0</posx>
+							<posx>2</posx>
 							<posy>3</posy>
-							<width>170</width>
-							<height>40</height>
+							<width>166</width>
+							<height>34</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
 						    </control>
 						    <control type="label">
 							<posx>5</posx>
-							<posy>40</posy>
+							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -3230,19 +3230,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
+							<posx>1</posx>
 							<posy>3</posy>
-							<width>70</width>
+							<width>63</width>
 							<height>94</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>160</posx>
-							<posy>13</posy>
-							<width>100</width>
+							<posx>167</posx>
+							<posy>15</posy>
+							<width>104</width>
 							<height>90</height>
-							<label>$INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(ShortTime)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -3256,19 +3256,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Banner</description>
-							<posx>0</posx>
+							<posx>2</posx>
 							<posy>3</posy>
-							<width>170</width>
-							<height>40</height>
+							<width>166</width>
+							<height>34</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
 						    </control>
 						    <control type="label">
 							<posx>5</posx>
-							<posy>40</posy>
+							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -3339,19 +3339,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
+							<posx>1</posx>
 							<posy>3</posy>
-							<width>70</width>
+							<width>63</width>
 							<height>94</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>160</posx>
-							<posy>13</posy>
-							<width>100</width>
+							<posx>167</posx>
+							<posy>15</posy>
+							<width>104</width>
 							<height>90</height>
-							<label>$INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(ShortTime)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -3365,19 +3365,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Banner</description>
-							<posx>0</posx>
+							<posx>2</posx>
 							<posy>3</posy>
-							<width>170</width>
-							<height>40</height>
+							<width>166</width>
+							<height>34</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
 						    </control>
 						    <control type="label">
 							<posx>5</posx>
-							<posy>40</posy>
+							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -3411,19 +3411,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
+							<posx>1</posx>
 							<posy>3</posy>
-							<width>70</width>
+							<width>63</width>
 							<height>94</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>160</posx>
-							<posy>13</posy>
-							<width>100</width>
+							<posx>167</posx>
+							<posy>15</posy>
+							<width>104</width>
 							<height>90</height>
-							<label>$INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(ShortTime)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -3437,19 +3437,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Banner</description>
-							<posx>0</posx>
+							<posx>2</posx>
 							<posy>3</posy>
-							<width>170</width>
-							<height>40</height>
+							<width>166</width>
+							<height>34</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
 						    </control>
 						    <control type="label">
 							<posx>5</posx>
-							<posy>40</posy>
+							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -3520,19 +3520,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
+							<posx>1</posx>
 							<posy>3</posy>
-							<width>70</width>
+							<width>63</width>
 							<height>94</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>160</posx>
-							<posy>13</posy>
-							<width>100</width>
+							<posx>167</posx>
+							<posy>15</posy>
+							<width>104</width>
 							<height>90</height>
-							<label>$INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(ShortTime)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -3546,19 +3546,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Banner</description>
-							<posx>0</posx>
+							<posx>2</posx>
 							<posy>3</posy>
-							<width>170</width>
-							<height>40</height>
+							<width>166</width>
+							<height>34</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
 						    </control>
 						    <control type="label">
 							<posx>5</posx>
-							<posy>40</posy>
+							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -3592,19 +3592,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
+							<posx>1</posx>
 							<posy>3</posy>
-							<width>70</width>
+							<width>63</width>
 							<height>94</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>160</posx>
-							<posy>13</posy>
-							<width>100</width>
+							<posx>167</posx>
+							<posy>15</posy>
+							<width>104</width>
 							<height>90</height>
-							<label>$INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(ShortTime)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -3618,19 +3618,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Banner</description>
-							<posx>0</posx>
+							<posx>2</posx>
 							<posy>3</posy>
-							<width>170</width>
-							<height>40</height>
+							<width>166</width>
+							<height>34</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
 						    </control>
 						    <control type="label">
 							<posx>5</posx>
-							<posy>40</posy>
+							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -3701,19 +3701,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
+							<posx>1</posx>
 							<posy>3</posy>
-							<width>70</width>
+							<width>63</width>
 							<height>94</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>160</posx>
-							<posy>13</posy>
-							<width>100</width>
+							<posx>167</posx>
+							<posy>15</posy>
+							<width>104</width>
 							<height>90</height>
-							<label>$INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(ShortTime)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -3727,19 +3727,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Banner</description>
-							<posx>0</posx>
+							<posx>2</posx>
 							<posy>3</posy>
-							<width>170</width>
-							<height>40</height>
+							<width>166</width>
+							<height>34</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
 						    </control>
 						    <control type="label">
 							<posx>5</posx>
-							<posy>40</posy>
+							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -3773,19 +3773,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Poster</description>
-							<posx>5</posx>
+							<posx>1</posx>
 							<posy>3</posy>
-							<width>70</width>
+							<width>63</width>
 							<height>94</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>160</posx>
-							<posy>13</posy>
-							<width>100</width>
+							<posx>167</posx>
+							<posy>15</posy>
+							<width>104</width>
 							<height>90</height>
-							<label>$INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(ShortTime)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -3799,19 +3799,19 @@
 						    <height>100</height>
 						    <control type="image">
 							<description>Banner</description>
-							<posx>0</posx>
+							<posx>2</posx>
 							<posy>3</posy>
-							<width>170</width>
-							<height>40</height>
+							<width>166</width>
+							<height>29</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(banner))]</texture>
 						    </control>
 						    <control type="label">
 							<posx>5</posx>
-							<posy>40</posy>
+							<posy>30</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
