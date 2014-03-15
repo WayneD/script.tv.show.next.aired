@@ -1025,22 +1025,46 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Logo</description>
-							<posx>0</posx>
-							<posy>0</posy>
-							<width>170</width>
-							<height>100</height>
+							<posx>1</posx>
+							<posy>2</posy>
+							<width>168</width>
+							<height>66</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
+						    </control>
+						    <control type="label">
+							<posx>2</posx>
+							<posy>70</posy>
+							<width>166</width>
+							<height>30</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR]</label>
+							<align>left</align>
+							<font>font12</font>
+						    </control>
+						    <control type="label">
+							<posx>168</posx>
+							<posy>70</posy>
+							<width>88</width>
+							<height>30</height>
+							<label>$INFO[ListItem.Property(NextNumber)]</label>
+							<align>right</align>
+							<font>font12</font>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</itemlayout>
 					<focusedlayout height="100" width="170">
@@ -1097,22 +1121,46 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Logo</description>
-							<posx>0</posx>
-							<posy>0</posy>
-							<width>170</width>
-							<height>100</height>
+							<posx>1</posx>
+							<posy>2</posy>
+							<width>168</width>
+							<height>66</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
+						    </control>
+						    <control type="label">
+							<posx>2</posx>
+							<posy>70</posy>
+							<width>166</width>
+							<height>30</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR]</label>
+							<align>left</align>
+							<font>font12</font>
+						    </control>
+						    <control type="label">
+							<posx>168</posx>
+							<posy>70</posy>
+							<width>88</width>
+							<height>30</height>
+							<label>$INFO[ListItem.Property(NextNumber)]</label>
+							<align>right</align>
+							<font>font12</font>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</focusedlayout>
 				</control>
@@ -1205,22 +1253,46 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Logo</description>
-							<posx>0</posx>
-							<posy>0</posy>
-							<width>170</width>
-							<height>100</height>
+							<posx>1</posx>
+							<posy>2</posy>
+							<width>168</width>
+							<height>66</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
+						    </control>
+						    <control type="label">
+							<posx>2</posx>
+							<posy>70</posy>
+							<width>166</width>
+							<height>30</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR]</label>
+							<align>left</align>
+							<font>font12</font>
+						    </control>
+						    <control type="label">
+							<posx>168</posx>
+							<posy>70</posy>
+							<width>88</width>
+							<height>30</height>
+							<label>$INFO[ListItem.Property(NextNumber)]</label>
+							<align>right</align>
+							<font>font12</font>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</itemlayout>
 					<focusedlayout height="100" width="170">
@@ -1277,22 +1349,46 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Logo</description>
-							<posx>0</posx>
-							<posy>0</posy>
-							<width>170</width>
-							<height>100</height>
+							<posx>1</posx>
+							<posy>2</posy>
+							<width>168</width>
+							<height>66</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
+						    </control>
+						    <control type="label">
+							<posx>2</posx>
+							<posy>70</posy>
+							<width>166</width>
+							<height>30</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR]</label>
+							<align>left</align>
+							<font>font12</font>
+						    </control>
+						    <control type="label">
+							<posx>168</posx>
+							<posy>70</posy>
+							<width>88</width>
+							<height>30</height>
+							<label>$INFO[ListItem.Property(NextNumber)]</label>
+							<align>right</align>
+							<font>font12</font>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</focusedlayout>
 				</control>
@@ -1386,22 +1482,46 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Logo</description>
-							<posx>0</posx>
-							<posy>0</posy>
-							<width>170</width>
-							<height>100</height>
+							<posx>1</posx>
+							<posy>2</posy>
+							<width>168</width>
+							<height>66</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
+						    </control>
+						    <control type="label">
+							<posx>2</posx>
+							<posy>70</posy>
+							<width>166</width>
+							<height>30</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR]</label>
+							<align>left</align>
+							<font>font12</font>
+						    </control>
+						    <control type="label">
+							<posx>168</posx>
+							<posy>70</posy>
+							<width>88</width>
+							<height>30</height>
+							<label>$INFO[ListItem.Property(NextNumber)]</label>
+							<align>right</align>
+							<font>font12</font>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</itemlayout>
 					<focusedlayout height="100" width="170">
@@ -1458,22 +1578,46 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Logo</description>
-							<posx>0</posx>
-							<posy>0</posy>
-							<width>170</width>
-							<height>100</height>
+							<posx>1</posx>
+							<posy>2</posy>
+							<width>168</width>
+							<height>66</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
+						    </control>
+						    <control type="label">
+							<posx>2</posx>
+							<posy>70</posy>
+							<width>166</width>
+							<height>30</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR]</label>
+							<align>left</align>
+							<font>font12</font>
+						    </control>
+						    <control type="label">
+							<posx>168</posx>
+							<posy>70</posy>
+							<width>88</width>
+							<height>30</height>
+							<label>$INFO[ListItem.Property(NextNumber)]</label>
+							<align>right</align>
+							<font>font12</font>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</focusedlayout>
 				</control>
@@ -1567,22 +1711,46 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Logo</description>
-							<posx>0</posx>
-							<posy>0</posy>
-							<width>170</width>
-							<height>100</height>
+							<posx>1</posx>
+							<posy>2</posy>
+							<width>168</width>
+							<height>66</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
+						    </control>
+						    <control type="label">
+							<posx>2</posx>
+							<posy>70</posy>
+							<width>166</width>
+							<height>30</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR]</label>
+							<align>left</align>
+							<font>font12</font>
+						    </control>
+						    <control type="label">
+							<posx>168</posx>
+							<posy>70</posy>
+							<width>88</width>
+							<height>30</height>
+							<label>$INFO[ListItem.Property(NextNumber)]</label>
+							<align>right</align>
+							<font>font12</font>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</itemlayout>
 					<focusedlayout height="100" width="170">
@@ -1639,22 +1807,46 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Logo</description>
-							<posx>0</posx>
-							<posy>0</posy>
-							<width>170</width>
-							<height>100</height>
+							<posx>1</posx>
+							<posy>2</posy>
+							<width>168</width>
+							<height>66</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
+						    </control>
+						    <control type="label">
+							<posx>2</posx>
+							<posy>70</posy>
+							<width>166</width>
+							<height>30</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR]</label>
+							<align>left</align>
+							<font>font12</font>
+						    </control>
+						    <control type="label">
+							<posx>168</posx>
+							<posy>70</posy>
+							<width>88</width>
+							<height>30</height>
+							<label>$INFO[ListItem.Property(NextNumber)]</label>
+							<align>right</align>
+							<font>font12</font>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</focusedlayout>
 				</control>
@@ -1748,22 +1940,46 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Logo</description>
-							<posx>0</posx>
-							<posy>0</posy>
-							<width>170</width>
-							<height>100</height>
+							<posx>1</posx>
+							<posy>2</posy>
+							<width>168</width>
+							<height>66</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
+						    </control>
+						    <control type="label">
+							<posx>2</posx>
+							<posy>70</posy>
+							<width>166</width>
+							<height>30</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR]</label>
+							<align>left</align>
+							<font>font12</font>
+						    </control>
+						    <control type="label">
+							<posx>168</posx>
+							<posy>70</posy>
+							<width>88</width>
+							<height>30</height>
+							<label>$INFO[ListItem.Property(NextNumber)]</label>
+							<align>right</align>
+							<font>font12</font>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</itemlayout>
 					<focusedlayout height="100" width="170">
@@ -1820,22 +2036,46 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Logo</description>
-							<posx>0</posx>
-							<posy>0</posy>
-							<width>170</width>
-							<height>100</height>
+							<posx>1</posx>
+							<posy>2</posy>
+							<width>168</width>
+							<height>66</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
+						    </control>
+						    <control type="label">
+							<posx>2</posx>
+							<posy>70</posy>
+							<width>166</width>
+							<height>30</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR]</label>
+							<align>left</align>
+							<font>font12</font>
+						    </control>
+						    <control type="label">
+							<posx>168</posx>
+							<posy>70</posy>
+							<width>88</width>
+							<height>30</height>
+							<label>$INFO[ListItem.Property(NextNumber)]</label>
+							<align>right</align>
+							<font>font12</font>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</focusedlayout>
 				</control>
@@ -1929,22 +2169,46 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Logo</description>
-							<posx>0</posx>
-							<posy>0</posy>
-							<width>170</width>
-							<height>100</height>
+							<posx>1</posx>
+							<posy>2</posy>
+							<width>168</width>
+							<height>66</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
+						    </control>
+						    <control type="label">
+							<posx>2</posx>
+							<posy>70</posy>
+							<width>166</width>
+							<height>30</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR]</label>
+							<align>left</align>
+							<font>font12</font>
+						    </control>
+						    <control type="label">
+							<posx>168</posx>
+							<posy>70</posy>
+							<width>88</width>
+							<height>30</height>
+							<label>$INFO[ListItem.Property(NextNumber)]</label>
+							<align>right</align>
+							<font>font12</font>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</itemlayout>
 					<focusedlayout height="100" width="170">
@@ -2001,22 +2265,46 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Logo</description>
-							<posx>0</posx>
-							<posy>0</posy>
-							<width>170</width>
-							<height>100</height>
+							<posx>1</posx>
+							<posy>2</posy>
+							<width>168</width>
+							<height>66</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
+						    </control>
+						    <control type="label">
+							<posx>2</posx>
+							<posy>70</posy>
+							<width>166</width>
+							<height>30</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR]</label>
+							<align>left</align>
+							<font>font12</font>
+						    </control>
+						    <control type="label">
+							<posx>168</posx>
+							<posy>70</posy>
+							<width>88</width>
+							<height>30</height>
+							<label>$INFO[ListItem.Property(NextNumber)]</label>
+							<align>right</align>
+							<font>font12</font>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</focusedlayout>
 				</control>
@@ -2110,22 +2398,46 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Logo</description>
-							<posx>0</posx>
-							<posy>0</posy>
-							<width>170</width>
-							<height>100</height>
+							<posx>1</posx>
+							<posy>2</posy>
+							<width>168</width>
+							<height>66</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
+						    </control>
+						    <control type="label">
+							<posx>2</posx>
+							<posy>70</posy>
+							<width>166</width>
+							<height>30</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR]</label>
+							<align>left</align>
+							<font>font12</font>
+						    </control>
+						    <control type="label">
+							<posx>168</posx>
+							<posy>70</posy>
+							<width>88</width>
+							<height>30</height>
+							<label>$INFO[ListItem.Property(NextNumber)]</label>
+							<align>right</align>
+							<font>font12</font>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</itemlayout>
 					<focusedlayout height="100" width="170">
@@ -2182,22 +2494,46 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Logo</description>
-							<posx>0</posx>
-							<posy>0</posy>
-							<width>170</width>
-							<height>100</height>
+							<posx>1</posx>
+							<posy>2</posy>
+							<width>168</width>
+							<height>66</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
+						    </control>
+						    <control type="label">
+							<posx>2</posx>
+							<posy>70</posy>
+							<width>166</width>
+							<height>30</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR]</label>
+							<align>left</align>
+							<font>font12</font>
+						    </control>
+						    <control type="label">
+							<posx>168</posx>
+							<posy>70</posy>
+							<width>88</width>
+							<height>30</height>
+							<label>$INFO[ListItem.Property(NextNumber)]</label>
+							<align>right</align>
+							<font>font12</font>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</focusedlayout>
 				</control>
@@ -2291,22 +2627,46 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Logo</description>
-							<posx>0</posx>
-							<posy>0</posy>
-							<width>170</width>
-							<height>100</height>
+							<posx>1</posx>
+							<posy>2</posy>
+							<width>168</width>
+							<height>66</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
+						    </control>
+						    <control type="label">
+							<posx>2</posx>
+							<posy>70</posy>
+							<width>166</width>
+							<height>30</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR]</label>
+							<align>left</align>
+							<font>font12</font>
+						    </control>
+						    <control type="label">
+							<posx>168</posx>
+							<posy>70</posy>
+							<width>88</width>
+							<height>30</height>
+							<label>$INFO[ListItem.Property(NextNumber)]</label>
+							<align>right</align>
+							<font>font12</font>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</itemlayout>
 					<focusedlayout height="100" width="170">
@@ -2363,22 +2723,46 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Logo</description>
-							<posx>0</posx>
-							<posy>0</posy>
-							<width>170</width>
-							<height>100</height>
+							<posx>1</posx>
+							<posy>2</posy>
+							<width>168</width>
+							<height>66</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
+						    </control>
+						    <control type="label">
+							<posx>2</posx>
+							<posy>70</posy>
+							<width>166</width>
+							<height>30</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR]</label>
+							<align>left</align>
+							<font>font12</font>
+						    </control>
+						    <control type="label">
+							<posx>168</posx>
+							<posy>70</posy>
+							<width>88</width>
+							<height>30</height>
+							<label>$INFO[ListItem.Property(NextNumber)]</label>
+							<align>right</align>
+							<font>font12</font>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</focusedlayout>
 				</control>
@@ -2472,22 +2856,46 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Logo</description>
-							<posx>0</posx>
-							<posy>0</posy>
-							<width>170</width>
-							<height>100</height>
+							<posx>1</posx>
+							<posy>2</posy>
+							<width>168</width>
+							<height>66</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
+						    </control>
+						    <control type="label">
+							<posx>2</posx>
+							<posy>70</posy>
+							<width>166</width>
+							<height>30</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR]</label>
+							<align>left</align>
+							<font>font12</font>
+						    </control>
+						    <control type="label">
+							<posx>168</posx>
+							<posy>70</posy>
+							<width>88</width>
+							<height>30</height>
+							<label>$INFO[ListItem.Property(NextNumber)]</label>
+							<align>right</align>
+							<font>font12</font>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</itemlayout>
 					<focusedlayout height="100" width="170">
@@ -2544,22 +2952,46 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Logo</description>
-							<posx>0</posx>
-							<posy>0</posy>
-							<width>170</width>
-							<height>100</height>
+							<posx>1</posx>
+							<posy>2</posy>
+							<width>168</width>
+							<height>66</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
+						    </control>
+						    <control type="label">
+							<posx>2</posx>
+							<posy>70</posy>
+							<width>166</width>
+							<height>30</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR]</label>
+							<align>left</align>
+							<font>font12</font>
+						    </control>
+						    <control type="label">
+							<posx>168</posx>
+							<posy>70</posy>
+							<width>88</width>
+							<height>30</height>
+							<label>$INFO[ListItem.Property(NextNumber)]</label>
+							<align>right</align>
+							<font>font12</font>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</focusedlayout>
 				</control>
@@ -2653,22 +3085,46 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Logo</description>
-							<posx>0</posx>
-							<posy>0</posy>
-							<width>170</width>
-							<height>100</height>
+							<posx>1</posx>
+							<posy>2</posy>
+							<width>168</width>
+							<height>66</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
+						    </control>
+						    <control type="label">
+							<posx>2</posx>
+							<posy>70</posy>
+							<width>166</width>
+							<height>30</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR]</label>
+							<align>left</align>
+							<font>font12</font>
+						    </control>
+						    <control type="label">
+							<posx>168</posx>
+							<posy>70</posy>
+							<width>88</width>
+							<height>30</height>
+							<label>$INFO[ListItem.Property(NextNumber)]</label>
+							<align>right</align>
+							<font>font12</font>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</itemlayout>
 					<focusedlayout height="100" width="170">
@@ -2725,22 +3181,46 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Logo</description>
-							<posx>0</posx>
-							<posy>0</posy>
-							<width>170</width>
-							<height>100</height>
+							<posx>1</posx>
+							<posy>2</posy>
+							<width>168</width>
+							<height>66</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
+						    </control>
+						    <control type="label">
+							<posx>2</posx>
+							<posy>70</posy>
+							<width>166</width>
+							<height>30</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR]</label>
+							<align>left</align>
+							<font>font12</font>
+						    </control>
+						    <control type="label">
+							<posx>168</posx>
+							<posy>70</posy>
+							<width>88</width>
+							<height>30</height>
+							<label>$INFO[ListItem.Property(NextNumber)]</label>
+							<align>right</align>
+							<font>font12</font>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</focusedlayout>
 				</control>
@@ -2834,22 +3314,46 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Logo</description>
-							<posx>0</posx>
-							<posy>0</posy>
-							<width>170</width>
-							<height>100</height>
+							<posx>1</posx>
+							<posy>2</posy>
+							<width>168</width>
+							<height>66</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
+						    </control>
+						    <control type="label">
+							<posx>2</posx>
+							<posy>70</posy>
+							<width>166</width>
+							<height>30</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR]</label>
+							<align>left</align>
+							<font>font12</font>
+						    </control>
+						    <control type="label">
+							<posx>168</posx>
+							<posy>70</posy>
+							<width>88</width>
+							<height>30</height>
+							<label>$INFO[ListItem.Property(NextNumber)]</label>
+							<align>right</align>
+							<font>font12</font>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</itemlayout>
 					<focusedlayout height="100" width="170">
@@ -2906,22 +3410,46 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Logo</description>
-							<posx>0</posx>
-							<posy>0</posy>
-							<width>170</width>
-							<height>100</height>
+							<posx>1</posx>
+							<posy>2</posy>
+							<width>168</width>
+							<height>66</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
+						    </control>
+						    <control type="label">
+							<posx>2</posx>
+							<posy>70</posy>
+							<width>166</width>
+							<height>30</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR]</label>
+							<align>left</align>
+							<font>font12</font>
+						    </control>
+						    <control type="label">
+							<posx>168</posx>
+							<posy>70</posy>
+							<width>88</width>
+							<height>30</height>
+							<label>$INFO[ListItem.Property(NextNumber)]</label>
+							<align>right</align>
+							<font>font12</font>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</focusedlayout>
 				</control>
@@ -3015,22 +3543,46 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Logo</description>
-							<posx>0</posx>
-							<posy>0</posy>
-							<width>170</width>
-							<height>100</height>
+							<posx>1</posx>
+							<posy>2</posy>
+							<width>168</width>
+							<height>66</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
+						    </control>
+						    <control type="label">
+							<posx>2</posx>
+							<posy>70</posy>
+							<width>166</width>
+							<height>30</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR]</label>
+							<align>left</align>
+							<font>font12</font>
+						    </control>
+						    <control type="label">
+							<posx>168</posx>
+							<posy>70</posy>
+							<width>88</width>
+							<height>30</height>
+							<label>$INFO[ListItem.Property(NextNumber)]</label>
+							<align>right</align>
+							<font>font12</font>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</itemlayout>
 					<focusedlayout height="100" width="170">
@@ -3087,22 +3639,46 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Logo</description>
-							<posx>0</posx>
-							<posy>0</posy>
-							<width>170</width>
-							<height>100</height>
+							<posx>1</posx>
+							<posy>2</posy>
+							<width>168</width>
+							<height>66</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
+						    </control>
+						    <control type="label">
+							<posx>2</posx>
+							<posy>70</posy>
+							<width>166</width>
+							<height>30</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR]</label>
+							<align>left</align>
+							<font>font12</font>
+						    </control>
+						    <control type="label">
+							<posx>168</posx>
+							<posy>70</posy>
+							<width>88</width>
+							<height>30</height>
+							<label>$INFO[ListItem.Property(NextNumber)]</label>
+							<align>right</align>
+							<font>font12</font>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</focusedlayout>
 				</control>
@@ -3196,22 +3772,46 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Logo</description>
-							<posx>0</posx>
-							<posy>0</posy>
-							<width>170</width>
-							<height>100</height>
+							<posx>1</posx>
+							<posy>2</posy>
+							<width>168</width>
+							<height>66</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
+						    </control>
+						    <control type="label">
+							<posx>2</posx>
+							<posy>70</posy>
+							<width>166</width>
+							<height>30</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR]</label>
+							<align>left</align>
+							<font>font12</font>
+						    </control>
+						    <control type="label">
+							<posx>168</posx>
+							<posy>70</posy>
+							<width>88</width>
+							<height>30</height>
+							<label>$INFO[ListItem.Property(NextNumber)]</label>
+							<align>right</align>
+							<font>font12</font>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</itemlayout>
 					<focusedlayout height="100" width="170">
@@ -3268,22 +3868,46 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Logo</description>
-							<posx>0</posx>
-							<posy>0</posy>
-							<width>170</width>
-							<height>100</height>
+							<posx>1</posx>
+							<posy>2</posy>
+							<width>168</width>
+							<height>66</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
+						    </control>
+						    <control type="label">
+							<posx>2</posx>
+							<posy>70</posy>
+							<width>166</width>
+							<height>30</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR]</label>
+							<align>left</align>
+							<font>font12</font>
+						    </control>
+						    <control type="label">
+							<posx>168</posx>
+							<posy>70</posy>
+							<width>88</width>
+							<height>30</height>
+							<label>$INFO[ListItem.Property(NextNumber)]</label>
+							<align>right</align>
+							<font>font12</font>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</focusedlayout>
 				</control>
@@ -3377,22 +4001,46 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Logo</description>
-							<posx>0</posx>
-							<posy>0</posy>
-							<width>170</width>
-							<height>100</height>
+							<posx>1</posx>
+							<posy>2</posy>
+							<width>168</width>
+							<height>66</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
+						    </control>
+						    <control type="label">
+							<posx>2</posx>
+							<posy>70</posy>
+							<width>166</width>
+							<height>30</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR]</label>
+							<align>left</align>
+							<font>font12</font>
+						    </control>
+						    <control type="label">
+							<posx>168</posx>
+							<posy>70</posy>
+							<width>88</width>
+							<height>30</height>
+							<label>$INFO[ListItem.Property(NextNumber)]</label>
+							<align>right</align>
+							<font>font12</font>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</itemlayout>
 					<focusedlayout height="100" width="170">
@@ -3449,22 +4097,46 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Logo</description>
-							<posx>0</posx>
-							<posy>0</posy>
-							<width>170</width>
-							<height>100</height>
+							<posx>1</posx>
+							<posy>2</posy>
+							<width>168</width>
+							<height>66</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
+						    </control>
+						    <control type="label">
+							<posx>2</posx>
+							<posy>70</posy>
+							<width>166</width>
+							<height>30</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR]</label>
+							<align>left</align>
+							<font>font12</font>
+						    </control>
+						    <control type="label">
+							<posx>168</posx>
+							<posy>70</posy>
+							<width>88</width>
+							<height>30</height>
+							<label>$INFO[ListItem.Property(NextNumber)]</label>
+							<align>right</align>
+							<font>font12</font>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</focusedlayout>
 				</control>
@@ -3558,22 +4230,46 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Logo</description>
-							<posx>0</posx>
-							<posy>0</posy>
-							<width>170</width>
-							<height>100</height>
+							<posx>1</posx>
+							<posy>2</posy>
+							<width>168</width>
+							<height>66</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
+						    </control>
+						    <control type="label">
+							<posx>2</posx>
+							<posy>70</posy>
+							<width>166</width>
+							<height>30</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR]</label>
+							<align>left</align>
+							<font>font12</font>
+						    </control>
+						    <control type="label">
+							<posx>168</posx>
+							<posy>70</posy>
+							<width>88</width>
+							<height>30</height>
+							<label>$INFO[ListItem.Property(NextNumber)]</label>
+							<align>right</align>
+							<font>font12</font>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</itemlayout>
 					<focusedlayout height="100" width="170">
@@ -3630,22 +4326,46 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Logo</description>
-							<posx>0</posx>
-							<posy>0</posy>
-							<width>170</width>
-							<height>100</height>
+							<posx>1</posx>
+							<posy>2</posy>
+							<width>168</width>
+							<height>66</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
+						    </control>
+						    <control type="label">
+							<posx>2</posx>
+							<posy>70</posy>
+							<width>166</width>
+							<height>30</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR]</label>
+							<align>left</align>
+							<font>font12</font>
+						    </control>
+						    <control type="label">
+							<posx>168</posx>
+							<posy>70</posy>
+							<width>88</width>
+							<height>30</height>
+							<label>$INFO[ListItem.Property(NextNumber)]</label>
+							<align>right</align>
+							<font>font12</font>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</focusedlayout>
 				</control>
@@ -3739,22 +4459,46 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Logo</description>
-							<posx>0</posx>
-							<posy>0</posy>
-							<width>170</width>
-							<height>100</height>
+							<posx>1</posx>
+							<posy>2</posy>
+							<width>168</width>
+							<height>66</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
+						    </control>
+						    <control type="label">
+							<posx>2</posx>
+							<posy>70</posy>
+							<width>166</width>
+							<height>30</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR]</label>
+							<align>left</align>
+							<font>font12</font>
+						    </control>
+						    <control type="label">
+							<posx>168</posx>
+							<posy>70</posy>
+							<width>88</width>
+							<height>30</height>
+							<label>$INFO[ListItem.Property(NextNumber)]</label>
+							<align>right</align>
+							<font>font12</font>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</itemlayout>
 					<focusedlayout height="100" width="170">
@@ -3811,22 +4555,46 @@
 							<posy>30</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextNumber)] - $INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
 						</control>
-						<control type="image">
+						<control type="group">
+						    <posx>0</posx>
+						    <posy>0</posy>
+						    <width>170</width>
+						    <height>100</height>
+						    <control type="image">
 							<description>Logo</description>
-							<posx>0</posx>
-							<posy>0</posy>
-							<width>170</width>
-							<height>100</height>
+							<posx>1</posx>
+							<posy>2</posy>
+							<width>168</width>
+							<height>66</height>
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
-							<visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
+						    </control>
+						    <control type="label">
+							<posx>2</posx>
+							<posy>70</posy>
+							<width>166</width>
+							<height>30</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR]</label>
+							<align>left</align>
+							<font>font12</font>
+						    </control>
+						    <control type="label">
+							<posx>168</posx>
+							<posy>70</posy>
+							<width>88</width>
+							<height>30</height>
+							<label>$INFO[ListItem.Property(NextNumber)]</label>
+							<align>right</align>
+							<font>font12</font>
+						    </control>
+						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
 					</focusedlayout>
 				</control>
