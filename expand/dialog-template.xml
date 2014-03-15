@@ -18,7 +18,7 @@
 				<texture>TVGuide-Background.jpg</texture>
 			</control>
 			<control type="group">
-				<visible>!IsEmpty(Window(home).Property(TVGuide.BackgroundFanart))</visible>
+				<visible>!IsEmpty(Window(Home).Property(TVGuide.BackgroundFanart))</visible>
 <!--REPEAT
     [1]
     %C% = 200..206
@@ -74,7 +74,7 @@
 					<posy>40</posy>
 					<width>1040</width>
 					<height>25</height>
-					<label>[COLOR=FF00C8FA]$INFO[Container(%C%).ListItem.Property(ShortTime)] - $INFO[Window(Home).Property(NextAired.%C%.Wday)], $INFO[Window(Home).Property(NextAired.%C%.Date)][/COLOR] - $INFO[Container(%C%).ListItem.Property(NextNumber)] - $INFO[Container(%C%).ListItem.Property(NextTitle)]</label>
+					<label>[COLOR=FF00C8FA]$INFO[Container(%C%).ListItem.Property(ShortTime)] - $INFO[Container(%C%).ListItem.Property(NextDay)][/COLOR] - $INFO[Container(%C%).ListItem.Property(NextNumber)] - $INFO[Container(%C%).ListItem.Property(NextTitle)]</label>
 					<font>font13_title</font>
 					<scroll>true</scroll>
 					<scrollout>false</scrollout>
@@ -114,7 +114,9 @@
     %DESC% = Yesterday | Today | Today+1..14
     %LABEL% = $INFO[Window(Home).Property(NextAired.Yesterday)]
 	    | $INFO[Window(Home).Property(NextAired.Today)]
-	    | $INFO[Window(Home).Property(NextAired.202..215.Wday)], $INFO[Window(Home).Property(NextAired.202..215.Date)]
+	    | $INFO[Window(Home).Property(NextAired.Tomorrow)]
+	    | $INFO[Window(Home).Property(NextAired.203..207.Weekday)]
+	    | $INFO[Window(Home).Property(NextAired.208..215.Wday)], $INFO[Window(Home).Property(NextAired.208..215.Date)]
     -->
 			<control type="group">
 				<description>%DESC%</description>
@@ -179,7 +181,7 @@
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][CR]$INFO[ListItem.Property(NextDay)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -205,7 +207,7 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)] - $INFO[ListItem.Property(NextDay)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)]  [COLOR=FF000000]($INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]])[/COLOR][CR]$INFO[ListItem.Property(NextTitle)]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -232,6 +234,17 @@
 							<width>166</width>
 							<height>30</height>
 							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR]</label>
+							<visible>!ListItem.Property(SecondWeek)</visible>
+							<align>left</align>
+							<font>font12</font>
+						    </control>
+						    <control type="label">
+							<posx>2</posx>
+							<posy>70</posy>
+							<width>166</width>
+							<height>30</height>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(NextDay)][/COLOR]</label>
+							<visible>ListItem.Property(SecondWeek)</visible>
 							<align>left</align>
 							<font>font12</font>
 						    </control>
@@ -275,7 +288,7 @@
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][CR]$INFO[ListItem.Property(NextDay)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -301,7 +314,7 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)] - $INFO[ListItem.Property(NextDay)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)]  [COLOR=FF000000]($INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]])[/COLOR][CR]$INFO[ListItem.Property(NextTitle)]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -327,7 +340,20 @@
 							<posy>70</posy>
 							<width>166</width>
 							<height>30</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR]</label>
+							<label>$INFO[ListItem.Property(ShortTime)]</label>
+							<textcolor>FF00C8FA</textcolor>
+							<visible>!ListItem.Property(SecondWeek)</visible>
+							<align>left</align>
+							<font>font12</font>
+						    </control>
+						    <control type="label">
+							<posx>2</posx>
+							<posy>70</posy>
+							<width>166</width>
+							<height>30</height>
+							<label>$INFO[ListItem.Property(NextDay)]</label>
+							<textcolor>FF00C8FA</textcolor>
+							<visible>ListItem.Property(SecondWeek)</visible>
 							<align>left</align>
 							<font>font12</font>
 						    </control>

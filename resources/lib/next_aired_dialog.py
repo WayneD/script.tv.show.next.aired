@@ -47,41 +47,46 @@ class Gui( xbmcgui.WindowXML ):
             self.win.clearProperty('TVGuide.BackgroundFanart')
         self.settingsOpen = False
         self.start_day = date.today()
+
         if not self.todayStyle:
             self.first_num = 200
             shift_cnt = self.start_day.weekday()
         elif self.wantYesterday:
             self.first_num = 200
-            shift_cnt = 1
+            shift_cnt = 0
             self.start_day -= timedelta(days=1) # start with yesterday
         else:
             self.first_num = 201
             shift_cnt = 0
 
         self.cntr_nums = range(self.first_num, self.first_num + self.cntr_cnt)
-        for j in range(0, shift_cnt):
+        for j in range(shift_cnt):
             self.cntr_nums.append(self.cntr_nums.pop(0))
+
         self.set_properties()
         self.fill_containers()
         self.set_focus()
 
     def set_properties(self):
         self.listitems = []
+        ndx = 0
         for c in self.cntr_nums:
             self.listitems.append([])
-            cntr_day = self.start_day + timedelta(days = c - self.first_num)
+            cntr_day = self.start_day + timedelta(days = ndx)
             wday = xbmc.getLocalizedString(cntr_day.weekday() + 41)
             weekday = xbmc.getLocalizedString(cntr_day.weekday() + 11)
             nice_date = self.niceDate(cntr_day, 'Short')
             self.win.setProperty('NextAired.%d.Wday' % c, wday)
             self.win.setProperty('NextAired.%d.Date' % c, nice_date)
             self.win.setProperty('NextAired.%d.Weekday' % c, weekday)
+            ndx += 1
         for c in range(200, 216):
             if c not in self.cntr_nums:
                 self.win.clearProperty('NextAired.%d.Wday' % c)
                 self.win.clearProperty('NextAired.%d.Date' % c)
                 self.win.clearProperty('NextAired.%d.Weekday' % c)
         min_day = str(self.start_day)
+        mid_day = str(self.start_day + timedelta(days = 6))
         max_day = str(self.start_day + timedelta(days = self.scanDays-1))
         episodes = []
         for show in self.nextlist:
@@ -98,16 +103,16 @@ class Gui( xbmcgui.WindowXML ):
         for aired, show, ep_ndx in episodes:
                 listitem = self.setLabels('listitem', show, ep_ndx)
                 if self.todayStyle:
-                    # A show that made it this far surely has a valid aired date, but just in case...
-                    try:
-                        ndx = (date(*map(int, aired[:10].split("-"))) - self.start_day).days
-                    except:
-                        ndx = 0
+                    ndx = (date(*map(int, aired[:10].split("-"))) - self.start_day).days
                 else:
                     ndx = show['episodes'][ep_ndx]['wday']
+                    second_week = 1 if aired[:10] > mid_day else 0
+                    listitem.setProperty('SecondWeek', str(second_week))
                 self.listitems[ndx].append(listitem)
 
     def fill_containers(self):
+        if self.todayStyle and self.wantYesterday:
+            self.cntr_nums.append(self.cntr_nums.pop(0))
         for c in self.cntr_nums:
             self.getControl(c).reset()
             self.getControl(c).addItems(self.listitems[c - self.first_num])
