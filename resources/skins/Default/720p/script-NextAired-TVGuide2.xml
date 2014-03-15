@@ -978,7 +978,7 @@
 							<posy>0</posy>
 							<width>170</width>
 							<height>100</height>
-							<texture background="true">TVGuide-Button.png</texture>
+							<texture background="true">TVGuide-CalDay.png</texture>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -999,7 +999,7 @@
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -1025,7 +1025,7 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -1074,7 +1074,7 @@
 							<posy>0</posy>
 							<width>170</width>
 							<height>100</height>
-							<texture background="true">TVGuide-ButtonYellow.png</texture>
+							<texture background="true">TVGuide-CalDay-Focus.png</texture>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -1095,7 +1095,7 @@
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -1121,7 +1121,7 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -1206,7 +1206,7 @@
 							<posy>0</posy>
 							<width>170</width>
 							<height>100</height>
-							<texture background="true">TVGuide-Button.png</texture>
+							<texture background="true">TVGuide-CalDay.png</texture>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -1227,7 +1227,7 @@
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -1253,7 +1253,7 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -1302,7 +1302,7 @@
 							<posy>0</posy>
 							<width>170</width>
 							<height>100</height>
-							<texture background="true">TVGuide-ButtonYellow.png</texture>
+							<texture background="true">TVGuide-CalDay-Focus.png</texture>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -1323,7 +1323,7 @@
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -1349,7 +1349,7 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -1435,7 +1435,7 @@
 							<posy>0</posy>
 							<width>170</width>
 							<height>100</height>
-							<texture background="true">TVGuide-Button.png</texture>
+							<texture background="true">TVGuide-CalDay.png</texture>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -1456,7 +1456,7 @@
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -1482,7 +1482,7 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -1531,7 +1531,7 @@
 							<posy>0</posy>
 							<width>170</width>
 							<height>100</height>
-							<texture background="true">TVGuide-ButtonYellow.png</texture>
+							<texture background="true">TVGuide-CalDay-Focus.png</texture>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -1552,7 +1552,7 @@
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -1578,7 +1578,7 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -1664,7 +1664,7 @@
 							<posy>0</posy>
 							<width>170</width>
 							<height>100</height>
-							<texture background="true">TVGuide-Button.png</texture>
+							<texture background="true">TVGuide-CalDay.png</texture>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -1685,7 +1685,7 @@
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -1711,7 +1711,7 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -1760,7 +1760,7 @@
 							<posy>0</posy>
 							<width>170</width>
 							<height>100</height>
-							<texture background="true">TVGuide-ButtonYellow.png</texture>
+							<texture background="true">TVGuide-CalDay-Focus.png</texture>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -1781,7 +1781,7 @@
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -1807,7 +1807,7 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -1893,7 +1893,7 @@
 							<posy>0</posy>
 							<width>170</width>
 							<height>100</height>
-							<texture background="true">TVGuide-Button.png</texture>
+							<texture background="true">TVGuide-CalDay.png</texture>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -1914,7 +1914,7 @@
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -1940,7 +1940,7 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -1989,7 +1989,7 @@
 							<posy>0</posy>
 							<width>170</width>
 							<height>100</height>
-							<texture background="true">TVGuide-ButtonYellow.png</texture>
+							<texture background="true">TVGuide-CalDay-Focus.png</texture>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -2010,7 +2010,7 @@
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -2036,7 +2036,7 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -2122,7 +2122,7 @@
 							<posy>0</posy>
 							<width>170</width>
 							<height>100</height>
-							<texture background="true">TVGuide-Button.png</texture>
+							<texture background="true">TVGuide-CalDay.png</texture>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -2143,7 +2143,7 @@
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -2169,7 +2169,7 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -2218,7 +2218,7 @@
 							<posy>0</posy>
 							<width>170</width>
 							<height>100</height>
-							<texture background="true">TVGuide-ButtonYellow.png</texture>
+							<texture background="true">TVGuide-CalDay-Focus.png</texture>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -2239,7 +2239,7 @@
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -2265,7 +2265,7 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -2351,7 +2351,7 @@
 							<posy>0</posy>
 							<width>170</width>
 							<height>100</height>
-							<texture background="true">TVGuide-Button.png</texture>
+							<texture background="true">TVGuide-CalDay.png</texture>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -2372,7 +2372,7 @@
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -2398,7 +2398,7 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -2447,7 +2447,7 @@
 							<posy>0</posy>
 							<width>170</width>
 							<height>100</height>
-							<texture background="true">TVGuide-ButtonYellow.png</texture>
+							<texture background="true">TVGuide-CalDay-Focus.png</texture>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -2468,7 +2468,7 @@
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -2494,7 +2494,7 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -2580,7 +2580,7 @@
 							<posy>0</posy>
 							<width>170</width>
 							<height>100</height>
-							<texture background="true">TVGuide-Button.png</texture>
+							<texture background="true">TVGuide-CalDay.png</texture>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -2601,7 +2601,7 @@
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -2627,7 +2627,7 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -2676,7 +2676,7 @@
 							<posy>0</posy>
 							<width>170</width>
 							<height>100</height>
-							<texture background="true">TVGuide-ButtonYellow.png</texture>
+							<texture background="true">TVGuide-CalDay-Focus.png</texture>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -2697,7 +2697,7 @@
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -2723,7 +2723,7 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -2809,7 +2809,7 @@
 							<posy>0</posy>
 							<width>170</width>
 							<height>100</height>
-							<texture background="true">TVGuide-Button.png</texture>
+							<texture background="true">TVGuide-CalDay.png</texture>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -2830,7 +2830,7 @@
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -2856,7 +2856,7 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -2905,7 +2905,7 @@
 							<posy>0</posy>
 							<width>170</width>
 							<height>100</height>
-							<texture background="true">TVGuide-ButtonYellow.png</texture>
+							<texture background="true">TVGuide-CalDay-Focus.png</texture>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -2926,7 +2926,7 @@
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -2952,7 +2952,7 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -3038,7 +3038,7 @@
 							<posy>0</posy>
 							<width>170</width>
 							<height>100</height>
-							<texture background="true">TVGuide-Button.png</texture>
+							<texture background="true">TVGuide-CalDay.png</texture>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -3059,7 +3059,7 @@
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -3085,7 +3085,7 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -3134,7 +3134,7 @@
 							<posy>0</posy>
 							<width>170</width>
 							<height>100</height>
-							<texture background="true">TVGuide-ButtonYellow.png</texture>
+							<texture background="true">TVGuide-CalDay-Focus.png</texture>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -3155,7 +3155,7 @@
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -3181,7 +3181,7 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -3267,7 +3267,7 @@
 							<posy>0</posy>
 							<width>170</width>
 							<height>100</height>
-							<texture background="true">TVGuide-Button.png</texture>
+							<texture background="true">TVGuide-CalDay.png</texture>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -3288,7 +3288,7 @@
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -3314,7 +3314,7 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -3363,7 +3363,7 @@
 							<posy>0</posy>
 							<width>170</width>
 							<height>100</height>
-							<texture background="true">TVGuide-ButtonYellow.png</texture>
+							<texture background="true">TVGuide-CalDay-Focus.png</texture>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -3384,7 +3384,7 @@
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -3410,7 +3410,7 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -3496,7 +3496,7 @@
 							<posy>0</posy>
 							<width>170</width>
 							<height>100</height>
-							<texture background="true">TVGuide-Button.png</texture>
+							<texture background="true">TVGuide-CalDay.png</texture>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -3517,7 +3517,7 @@
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -3543,7 +3543,7 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -3592,7 +3592,7 @@
 							<posy>0</posy>
 							<width>170</width>
 							<height>100</height>
-							<texture background="true">TVGuide-ButtonYellow.png</texture>
+							<texture background="true">TVGuide-CalDay-Focus.png</texture>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -3613,7 +3613,7 @@
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -3639,7 +3639,7 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -3725,7 +3725,7 @@
 							<posy>0</posy>
 							<width>170</width>
 							<height>100</height>
-							<texture background="true">TVGuide-Button.png</texture>
+							<texture background="true">TVGuide-CalDay.png</texture>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -3746,7 +3746,7 @@
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -3772,7 +3772,7 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -3821,7 +3821,7 @@
 							<posy>0</posy>
 							<width>170</width>
 							<height>100</height>
-							<texture background="true">TVGuide-ButtonYellow.png</texture>
+							<texture background="true">TVGuide-CalDay-Focus.png</texture>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -3842,7 +3842,7 @@
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -3868,7 +3868,7 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -3954,7 +3954,7 @@
 							<posy>0</posy>
 							<width>170</width>
 							<height>100</height>
-							<texture background="true">TVGuide-Button.png</texture>
+							<texture background="true">TVGuide-CalDay.png</texture>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -3975,7 +3975,7 @@
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -4001,7 +4001,7 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -4050,7 +4050,7 @@
 							<posy>0</posy>
 							<width>170</width>
 							<height>100</height>
-							<texture background="true">TVGuide-ButtonYellow.png</texture>
+							<texture background="true">TVGuide-CalDay-Focus.png</texture>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -4071,7 +4071,7 @@
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -4097,7 +4097,7 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -4183,7 +4183,7 @@
 							<posy>0</posy>
 							<width>170</width>
 							<height>100</height>
-							<texture background="true">TVGuide-Button.png</texture>
+							<texture background="true">TVGuide-CalDay.png</texture>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -4204,7 +4204,7 @@
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -4230,7 +4230,7 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -4279,7 +4279,7 @@
 							<posy>0</posy>
 							<width>170</width>
 							<height>100</height>
-							<texture background="true">TVGuide-ButtonYellow.png</texture>
+							<texture background="true">TVGuide-CalDay-Focus.png</texture>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -4300,7 +4300,7 @@
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -4326,7 +4326,7 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -4412,7 +4412,7 @@
 							<posy>0</posy>
 							<width>170</width>
 							<height>100</height>
-							<texture background="true">TVGuide-Button.png</texture>
+							<texture background="true">TVGuide-CalDay.png</texture>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -4433,7 +4433,7 @@
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -4459,7 +4459,7 @@
 							<posy>35</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -4508,7 +4508,7 @@
 							<posy>0</posy>
 							<width>170</width>
 							<height>100</height>
-							<texture background="true">TVGuide-ButtonYellow.png</texture>
+							<texture background="true">TVGuide-CalDay-Focus.png</texture>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -4529,7 +4529,7 @@
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
@@ -4555,7 +4555,7 @@
 							<posy>30</posy>
 							<width>160</width>
 							<height>60</height>
-							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF999999]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
+							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][/COLOR] - $INFO[ListItem.Property(NextNumber)][CR]$INFO[ListItem.Property(NextTitle)][CR][COLOR=FF000000]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>left</align>
 							<font>font12</font>
 							<textcolor>FFFFFFFF</textcolor>
