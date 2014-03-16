@@ -1099,6 +1099,7 @@
 							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-CalDay-Focus.png</texture>
+							<visible>yes</visible>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -1364,6 +1365,7 @@
 							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-CalDay-Focus.png</texture>
+							<visible>yes</visible>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -1629,6 +1631,7 @@
 							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-CalDay-Focus.png</texture>
+							<visible>yes</visible>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -1894,6 +1897,7 @@
 							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-CalDay-Focus.png</texture>
+							<visible>yes</visible>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -2159,6 +2163,7 @@
 							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-CalDay-Focus.png</texture>
+							<visible>yes</visible>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -2424,6 +2429,7 @@
 							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-CalDay-Focus.png</texture>
+							<visible>yes</visible>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -2689,6 +2695,7 @@
 							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-CalDay-Focus.png</texture>
+							<visible>yes</visible>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -2954,6 +2961,7 @@
 							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-CalDay-Focus.png</texture>
+							<visible>yes</visible>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -3219,6 +3227,7 @@
 							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-CalDay-Focus.png</texture>
+							<visible>yes</visible>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -3484,6 +3493,7 @@
 							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-CalDay-Focus.png</texture>
+							<visible>yes</visible>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -3749,6 +3759,7 @@
 							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-CalDay-Focus.png</texture>
+							<visible>yes</visible>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -4014,6 +4025,7 @@
 							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-CalDay-Focus.png</texture>
+							<visible>yes</visible>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -4279,6 +4291,7 @@
 							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-CalDay-Focus.png</texture>
+							<visible>yes</visible>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -4544,6 +4557,7 @@
 							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-CalDay-Focus.png</texture>
+							<visible>yes</visible>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -4809,6 +4823,7 @@
 							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-CalDay-Focus.png</texture>
+							<visible>yes</visible>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -5074,6 +5089,7 @@
 							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-CalDay-Focus.png</texture>
+							<visible>yes</visible>
 						</control>
 						<control type="group">
 						    <posx>0</posx>

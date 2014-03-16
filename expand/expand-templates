@@ -33,7 +33,7 @@ sub generate_file
 
     # Turn the ONLY .. ONLY-END items into single-instance REPEAT blocks.
     $text =~ s/^<!--ONLY(-END\s*-->)/<!--REPEAT$1/gm;
-    $text =~ s/^<!--ONLY(\s[^>]+)-->/ "<!--REPEAT\n".join('', map {"$_ \%ONE_REPEAT_FOR_ONLY\%=1\n"} split(' ', $1)).' -->'/gme;
+    $text =~ s/^<!--ONLY(\s[^>]+)-->/ "<!--REPEAT\n".join('', map {"$_ ONE_REPEAT_FOR_ONLY=1\n"} split(' ', $1)).' -->'/gme;
 
     # We allow nesting of REPEAT sections by making sure that we match inner repeats first.
     1 while $text =~ s/<!--REPEAT(\s[^>]+)-->[ \t]*\n(((?!<!--REPEAT).*\n)*)<!--REPEAT-END\s*-->[ \t]*\n/ repeat_expand($filenum, $1, $2) /ge;
@@ -56,7 +56,7 @@ sub repeat_expand
     }
     $vars =~ s/\n/ /g;
 
-    my %vars = $vars =~ /(?:^|\s)(\%\w+\%)\s*=\s*(.+?)(?=\s+\%\w|\s*$)/gs;
+    my %vars = $vars =~ /(?:^|\s)([A-Z][A-Z0-9_]*)\s*=\s*(.+?)(?=\s+[A-Z][A-Z0-9_]*\s*=|\s*$)/gs;
     unless (%vars) {
 	die "Failed to parse vars from $vars\n";
     }
@@ -66,19 +66,26 @@ sub repeat_expand
 	my @vals = split /\s*\|\s*/, $vars{$var}, -1;
 	for (my $i = 0; $i < @vals; $i++) {
 	    my $val = $vals[$i];
+	    $val =~ s/\%!\%/|/g; # Support %!% for a literal "|" in a var list.
 	    my @subs;
 	    while ($val =~ s/(\d+)\.\.(\d+)/ '%' . (scalar @subs) . '%' /e) {
 		push @subs, [$1 .. $2];
 	    }
 	    if (@subs) {
-		my @new_vals = ($val) x scalar @{$subs[0]};
+		my $subs_cnt = scalar @{$subs[0]};
+		my @new_vals = ($val) x $subs_cnt;
 		for (my $j = 0; $j < @subs; $j++) {
 		    my $ref = $subs[$j];
+		    if (@$ref != $subs_cnt) {
+			die "Mismatched X..Y sequences in $val\n";
+		    }
 		    for (my $k = 0; $k < @$ref; $k++) {
 			$new_vals[$k] =~ s/\%$j\%/$ref->[$k]/;
 		    }
 		}
 		splice @vals, $i, 1, @new_vals;
+	    } else {
+		$vals[$i] = $val;
 	    }
 	}
 	$vars{$var} = \@vals;
@@ -95,7 +102,7 @@ sub repeat_expand
 	push @text, $text;
 	foreach my $var (keys %vars) {
 	    my @vars = @{$vars{$var}};
-	    $text[-1] =~ s/\Q$var\E/$vars[$j]/g;
+	    $text[-1] =~ s/\%\Q$var\E\%/$vars[$j]/g;
 	}
     }
 
