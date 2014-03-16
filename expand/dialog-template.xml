@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--FILES
-    [1] = ../resources/skins/Default/720p/script-NextAired-TVGuide.xml
-    [2] = ../resources/skins/Default/720p/script-NextAired-TVGuide2.xml
-    -->
+[1] = ../resources/skins/Default/720p/script-NextAired-TVGuide.xml
+[2] = ../resources/skins/Default/720p/script-NextAired-TVGuide2.xml
+-->
 <window>
 	<allowoverlay>no</allowoverlay>
 	<controls>
@@ -20,11 +20,9 @@
 			<control type="group">
 				<visible>!IsEmpty(Window(Home).Property(TVGuide.BackgroundFanart))</visible>
 <!--REPEAT
-    [1]
-    %C% = 200..206
-    [2]
-    %C% = 200..215
-    -->
+[1] %C% = 200..206
+[2] %C% = 200..215
+-->
 				<control type="image">
 					<posx>0</posx>
 					<posy>0</posy>
@@ -40,11 +38,9 @@
 <!--REPEAT-END -->
 			</control>
 <!--REPEAT
-    [1]
-    %C% = 200..206
-    [2]
-    %C% = 200..215
-    -->
+[1] %C% = 200..206
+[2] %C% = 200..215
+-->
 			<control type="group">
 				<visible>Control.HasFocus(%C%)</visible>
 				<control type="label">
@@ -101,13 +97,13 @@
 			<align>center</align>
 			<itemgap>2</itemgap>
 <!--REPEAT
-    [1]
+[1]
     %C% = 200..206
     %PC% = 9000 | 200..205
     %NC% = 201..206 | 200
     %DESC% = Monday | Tuesday | Wednesday | Thursday | Friday | Saturday | Sunday
     %LABEL% = $INFO[Window(Home).Property(NextAired.200..206.Weekday)]
-    [2]
+[2]
     %C% = 200..215
     %PC% = 9000 | 200..214
     %NC% = 201..215 | 200
@@ -117,7 +113,7 @@
 	    | $INFO[Window(Home).Property(NextAired.Tomorrow)]
 	    | $INFO[Window(Home).Property(NextAired.203..207.Weekday)]
 	    | $INFO[Window(Home).Property(NextAired.208..215.Wday)], $INFO[Window(Home).Property(NextAired.208..215.Date)]
-    -->
+-->
 			<control type="group">
 				<description>%DESC%</description>
 				<visible>!StringCompare(Window(Home).Property(NextAired.%C%.Wday),)</visible>
@@ -335,28 +331,22 @@
 							<aspectratio>keep</aspectratio>
 							<texture background="true">$INFO[ListItem.Property(Art(clearlogo))]</texture>
 						    </control>
+<!--REPEAT
+    %PROPERTY% = ShortTime | NextDay
+    %NOT% = ! |
+-->
 						    <control type="label">
 							<posx>2</posx>
 							<posy>70</posy>
 							<width>166</width>
 							<height>30</height>
-							<label>$INFO[ListItem.Property(ShortTime)]</label>
+							<label>$INFO[ListItem.Property(%PROPERTY%)]</label>
 							<textcolor>FF00C8FA</textcolor>
-							<visible>!ListItem.Property(SecondWeek)</visible>
+							<visible>%NOT%ListItem.Property(SecondWeek)</visible>
 							<align>left</align>
 							<font>font12</font>
 						    </control>
-						    <control type="label">
-							<posx>2</posx>
-							<posy>70</posy>
-							<width>166</width>
-							<height>30</height>
-							<label>$INFO[ListItem.Property(NextDay)]</label>
-							<textcolor>FF00C8FA</textcolor>
-							<visible>ListItem.Property(SecondWeek)</visible>
-							<align>left</align>
-							<font>font12</font>
-						    </control>
+<!--REPEAT-END -->
 						    <control type="label">
 							<posx>168</posx>
 							<posy>70</posy>
@@ -373,10 +363,7 @@
 			</control>
 <!--REPEAT-END -->
 		</control>
-<!--REPEAT
-    [2]
-    %DUMMY% = 1
-    -->
+<!--ONLY [2] -->
 		<control type="group">
 			<control type="image">
 				<description>left Arrow</description>
@@ -415,7 +402,7 @@
 				<visible>Container(2000).HasNext</visible>
 			</control>
 		</control>
-<!--REPEAT-END -->
+<!--ONLY-END -->
 		<control type="group">
 			<control type="group">
 				<posx>-250</posx>
@@ -467,11 +454,9 @@
 					<width>250</width>
 					<height>480</height>
 <!--REPEAT
-    [1]
-    %C% = 206
-    [2]
-    %C% = 215
-    -->
+[1] %C% = 206
+[2] %C% = 215
+-->
 					<onleft>%C%</onleft>
 <!--REPEAT-END -->
 					<onright>200</onright>
