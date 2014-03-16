@@ -122,7 +122,15 @@ msgctxt "#32104"
 msgid "Operation cancelled by user."
 msgstr ""
 
-#empty strings from id 32105 to 32200
+msgctxt "#32105"
+msgid "ABORTED due to fetch failures"
+msgstr ""
+
+msgctxt "#32106"
+msgid "The update was aborted (we'll retry again later)."
+msgstr ""
+
+#empty strings from id 32107 to 32200
 
 msgctxt "#32201"
 msgid "Returning Series"

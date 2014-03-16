@@ -181,6 +181,8 @@ class NextAired:
     def get_last_failure(self):
         v = self.WINDOW.getProperty("NextAired.last_failure")
         v = float(v) if v != "" else 0
+        if v and self.failure_cnt == 0:
+            self.failure_cnt += 1
         self.last_failure = max(v, self.last_failure)
         return self.now - self.last_failure
 
@@ -424,6 +426,7 @@ class NextAired:
             return False
 
         count = 0
+        user_canceled = False
         id_re = re.compile(r"http%3a%2f%2fthetvdb\.com%2f[^']+%2f([0-9]+)-")
         for show in TVlist:
             count += 1
@@ -437,6 +440,7 @@ class NextAired:
                 if DIALOG_PROGRESS.iscanceled():
                     DIALOG_PROGRESS.close()
                     xbmcgui.Dialog().ok(__language__(32103),__language__(32104))
+                    user_canceled = True
                     self.set_last_failure()
                     self.max_fetch_failures = 0
             log("### %s" % name)
@@ -567,6 +571,8 @@ class NextAired:
             else:
                 DIALOG_PROGRESS.close()
                 self.WINDOW.clearProperty("NextAired.user_lock")
+                if self.last_failure and not user_canceled:
+                    xbmcgui.Dialog().ok(__language__(32105), __language__(32106))
 
         self.FORCEUPDATE = False
         return not self.last_failure
