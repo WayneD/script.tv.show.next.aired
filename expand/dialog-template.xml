@@ -150,14 +150,20 @@
 					<onleft>%PC%</onleft>
 					<onright>%NC%</onright>
 					<itemlayout height="100" width="170">
+<!--REPEAT
+    %IMAGE% = TVGuide-CalDay.png | TVGuide-CalDay-Week2.png
+    %NOT% = ! |
+-->
 						<control type="image">
 							<description>Bg</description>
 							<posx>0</posx>
 							<posy>0</posy>
 							<width>170</width>
 							<height>100</height>
-							<texture background="true">TVGuide-CalDay.png</texture>
+							<texture background="true">%IMAGE%</texture>
+							<visible>%NOT%ListItem.Property(SecondWeek)</visible>
 						</control>
+<!--REPEAT-END -->
 						<control type="group">
 						    <posx>0</posx>
 						    <posy>0</posy>

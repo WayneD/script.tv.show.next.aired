@@ -980,6 +980,16 @@
 							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-CalDay.png</texture>
+							<visible>!ListItem.Property(SecondWeek)</visible>
+						</control>
+						<control type="image">
+							<description>Bg</description>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
+							<height>100</height>
+							<texture background="true">TVGuide-CalDay-Week2.png</texture>
+							<visible>ListItem.Property(SecondWeek)</visible>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -1235,6 +1245,16 @@
 							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-CalDay.png</texture>
+							<visible>!ListItem.Property(SecondWeek)</visible>
+						</control>
+						<control type="image">
+							<description>Bg</description>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
+							<height>100</height>
+							<texture background="true">TVGuide-CalDay-Week2.png</texture>
+							<visible>ListItem.Property(SecondWeek)</visible>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -1490,6 +1510,16 @@
 							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-CalDay.png</texture>
+							<visible>!ListItem.Property(SecondWeek)</visible>
+						</control>
+						<control type="image">
+							<description>Bg</description>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
+							<height>100</height>
+							<texture background="true">TVGuide-CalDay-Week2.png</texture>
+							<visible>ListItem.Property(SecondWeek)</visible>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -1745,6 +1775,16 @@
 							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-CalDay.png</texture>
+							<visible>!ListItem.Property(SecondWeek)</visible>
+						</control>
+						<control type="image">
+							<description>Bg</description>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
+							<height>100</height>
+							<texture background="true">TVGuide-CalDay-Week2.png</texture>
+							<visible>ListItem.Property(SecondWeek)</visible>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -2000,6 +2040,16 @@
 							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-CalDay.png</texture>
+							<visible>!ListItem.Property(SecondWeek)</visible>
+						</control>
+						<control type="image">
+							<description>Bg</description>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
+							<height>100</height>
+							<texture background="true">TVGuide-CalDay-Week2.png</texture>
+							<visible>ListItem.Property(SecondWeek)</visible>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -2255,6 +2305,16 @@
 							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-CalDay.png</texture>
+							<visible>!ListItem.Property(SecondWeek)</visible>
+						</control>
+						<control type="image">
+							<description>Bg</description>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
+							<height>100</height>
+							<texture background="true">TVGuide-CalDay-Week2.png</texture>
+							<visible>ListItem.Property(SecondWeek)</visible>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -2510,6 +2570,16 @@
 							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-CalDay.png</texture>
+							<visible>!ListItem.Property(SecondWeek)</visible>
+						</control>
+						<control type="image">
+							<description>Bg</description>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
+							<height>100</height>
+							<texture background="true">TVGuide-CalDay-Week2.png</texture>
+							<visible>ListItem.Property(SecondWeek)</visible>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -2765,6 +2835,16 @@
 							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-CalDay.png</texture>
+							<visible>!ListItem.Property(SecondWeek)</visible>
+						</control>
+						<control type="image">
+							<description>Bg</description>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
+							<height>100</height>
+							<texture background="true">TVGuide-CalDay-Week2.png</texture>
+							<visible>ListItem.Property(SecondWeek)</visible>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -3020,6 +3100,16 @@
 							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-CalDay.png</texture>
+							<visible>!ListItem.Property(SecondWeek)</visible>
+						</control>
+						<control type="image">
+							<description>Bg</description>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
+							<height>100</height>
+							<texture background="true">TVGuide-CalDay-Week2.png</texture>
+							<visible>ListItem.Property(SecondWeek)</visible>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -3275,6 +3365,16 @@
 							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-CalDay.png</texture>
+							<visible>!ListItem.Property(SecondWeek)</visible>
+						</control>
+						<control type="image">
+							<description>Bg</description>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
+							<height>100</height>
+							<texture background="true">TVGuide-CalDay-Week2.png</texture>
+							<visible>ListItem.Property(SecondWeek)</visible>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -3530,6 +3630,16 @@
 							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-CalDay.png</texture>
+							<visible>!ListItem.Property(SecondWeek)</visible>
+						</control>
+						<control type="image">
+							<description>Bg</description>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
+							<height>100</height>
+							<texture background="true">TVGuide-CalDay-Week2.png</texture>
+							<visible>ListItem.Property(SecondWeek)</visible>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -3785,6 +3895,16 @@
 							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-CalDay.png</texture>
+							<visible>!ListItem.Property(SecondWeek)</visible>
+						</control>
+						<control type="image">
+							<description>Bg</description>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
+							<height>100</height>
+							<texture background="true">TVGuide-CalDay-Week2.png</texture>
+							<visible>ListItem.Property(SecondWeek)</visible>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -4040,6 +4160,16 @@
 							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-CalDay.png</texture>
+							<visible>!ListItem.Property(SecondWeek)</visible>
+						</control>
+						<control type="image">
+							<description>Bg</description>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
+							<height>100</height>
+							<texture background="true">TVGuide-CalDay-Week2.png</texture>
+							<visible>ListItem.Property(SecondWeek)</visible>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -4295,6 +4425,16 @@
 							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-CalDay.png</texture>
+							<visible>!ListItem.Property(SecondWeek)</visible>
+						</control>
+						<control type="image">
+							<description>Bg</description>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
+							<height>100</height>
+							<texture background="true">TVGuide-CalDay-Week2.png</texture>
+							<visible>ListItem.Property(SecondWeek)</visible>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -4550,6 +4690,16 @@
 							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-CalDay.png</texture>
+							<visible>!ListItem.Property(SecondWeek)</visible>
+						</control>
+						<control type="image">
+							<description>Bg</description>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
+							<height>100</height>
+							<texture background="true">TVGuide-CalDay-Week2.png</texture>
+							<visible>ListItem.Property(SecondWeek)</visible>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
@@ -4805,6 +4955,16 @@
 							<width>170</width>
 							<height>100</height>
 							<texture background="true">TVGuide-CalDay.png</texture>
+							<visible>!ListItem.Property(SecondWeek)</visible>
+						</control>
+						<control type="image">
+							<description>Bg</description>
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>170</width>
+							<height>100</height>
+							<texture background="true">TVGuide-CalDay-Week2.png</texture>
+							<visible>ListItem.Property(SecondWeek)</visible>
 						</control>
 						<control type="group">
 						    <posx>0</posx>
