@@ -37,8 +37,7 @@ class TheTVDB(object):
         self.language = language
         self.want_raw = want_raw
 
-        # This is always returning thetvdb.com, so tell it to fudge the results for now.
-        self.select_mirrors(False)
+        self.select_mirrors()
 
 
     def select_mirrors(self, do_the_fetch = True):
