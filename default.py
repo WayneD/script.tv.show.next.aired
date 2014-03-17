@@ -683,6 +683,10 @@ class NextAired:
                     log("### found id of %s" % attrs['id'], level=2)
                     return int(attrs['id'])
 
+        cntry_re = re.compile(r" \(([a-z][a-z])\)$")
+        if cntry_re.search(show_name):
+            return find_show_id(tvdb, cntry_re.sub('', show_name), maybe_id)
+
         log("### no match found", level=2)
         return 0
 
