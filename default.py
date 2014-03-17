@@ -650,42 +650,69 @@ class NextAired:
         return TVlist
 
     @staticmethod
-    def find_show_id(tvdb, show_name, maybe_id):
+    def find_show_id(tvdb, show_name, maybe_id, want_year = None):
         log("### searching for thetvdb ID by name - %s" % show_name, level=2)
-        year_re = re.compile(r" \((\d\d\d\d)\)$")
-        m = year_re.search(show_name)
-        if m:
-            year_from_suffix = m.group(1)
-            show_name = year_re.sub('', show_name)
+        year_re = re.compile(r" \((\d\d\d\d)\)")
+        cntry_re = re.compile(r" \(([a-z][a-z])\)$")
+        punct_re = re.compile("[.,:;?!*$^#|<>/'\"]")
+        show_name = punct_re.sub('', show_name.lower())
+        want_names = [ show_name ]
+        stripped_year = False
+        if want_year:
+            want_year = str(want_year)
         else:
-            year_from_suffix = None
-        show_name = show_name.lower()
+            m = year_re.search(show_name)
+            if m:
+                want_year = m.group(1)
+                show_name = year_re.sub('', show_name)
+                want_names.append(show_name)
+                stripped_year = True
+        if want_year and not year_re.search(show_name):
+            m = cntry_re.search(show_name)
+            if m:
+                alt_year_name = cntry_re.sub(" (%s) (%s)" % (want_year, m.group(1)), show_name)
+                if want_names[0] != alt_year_name:
+                    want_names.insert(0, alt_year_name)
+                else:
+                    want_names.insert(0, "%s (%s)" % (show_name, want_year))
+
+        log("### want_names: %s" % want_names, level=5)
+        log("### want_year: %s" % want_year, level=5)
 
         try:
             show_list = tvdb.get_matching_shows(show_name, want_raw = True)
         except Exception, e:
             log('### ERROR returned by get_matching_shows(): %s' % e, level=0)
-            show_list = None
+            return 0
+
         if show_list:
             for attrs in show_list:
+                log("### id: %s, FirstAired: %s, SeriesName: %s" % (attrs['id'], attrs.get('FirstAired', '????')[:4], attrs['SeriesName']))
                 if int(attrs['id']) == maybe_id:
                     log("### verified id of %s" % maybe_id, level=2)
                     return maybe_id
-            for attrs in show_list:
-                year = attrs.get('FirstAired', '')[:4]
-                if len(year) == 4:
-                    if year_from_suffix and year != year_from_suffix:
+                attrs['SeriesName'] = punct_re.sub('', attrs['SeriesName'].lower())
+            for want_name in want_names:
+                for attrs in show_list:
+                    match_names = [ want_name ]
+                    year = attrs.get('FirstAired', '')[:4]
+                    if want_year and year != want_year:
                         continue
-                    alt_name = "%s (%s)" % (show_name, year)
-                else:
-                    alt_name = None
-                if attrs['SeriesName'].lower() in (show_name, alt_name):
-                    log("### found id of %s" % attrs['id'], level=2)
-                    return int(attrs['id'])
+                    if not want_year and len(year) == 4:
+                        match_names.append("%s (%s)" % (want_name, year))
+                        m = cntry_re.search(show_name)
+                        if m:
+                            match_names.append(cntry_re.sub(" (%s) (%s)" % (year, m.group(1)), show_name))
+                    log("### match_names: %s" % match_names, level=5)
+                    if attrs['SeriesName'] in match_names:
+                        log("### found id of %s" % attrs['id'], level=2)
+                        return int(attrs['id'])
 
-        cntry_re = re.compile(r" \(([a-z][a-z])\)$")
-        if cntry_re.search(show_name):
-            return find_show_id(tvdb, cntry_re.sub('', show_name), maybe_id)
+        if len(show_list) == 0 and cntry_re.search(show_name):
+            return find_show_id(tvdb, cntry_re.sub('', show_name), maybe_id, want_year)
+
+        if stripped_year and len(show_list) >= 25:
+            return find_show_id(tvdb, "%s (%s)" % (show_name, want_year), maybe_id, want_year)
 
         log("### no match found", level=2)
         return 0
