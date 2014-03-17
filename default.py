@@ -473,7 +473,7 @@ class NextAired:
                 else:
                     if self.max_fetch_failures <= 0:
                         continue
-                    tid = self.find_show_id(tvdb, name)
+                    tid = self.find_show_id(tvdb, name, m5_num)
                     if tid == 0:
                         continue
 
@@ -649,21 +649,42 @@ class NextAired:
         log( "### list: %s" % TVlist )
         return TVlist
 
-    def find_show_id(self, tvdb, show_name):
+    @staticmethod
+    def find_show_id(tvdb, show_name, maybe_id):
         log("### searching for thetvdb ID by name - %s" % show_name, level=2)
+        year_re = re.compile(r" \((\d\d\d\d)\)$")
+        m = year_re.search(show_name)
+        if m:
+            year_from_suffix = m.group(1)
+            show_name = year_re.sub('', show_name)
+        else:
+            year_from_suffix = None
+        show_name = show_name.lower()
+
         try:
-            show_list = tvdb.get_matching_shows(show_name)
+            show_list = tvdb.get_matching_shows(show_name, want_raw = True)
         except Exception, e:
             log('### ERROR returned by get_matching_shows(): %s' % e, level=0)
             show_list = None
+        if show_list:
+            for attrs in show_list:
+                if int(attrs['id']) == maybe_id:
+                    log("### verified id of %s" % maybe_id, level=2)
+                    return maybe_id
+            for attrs in show_list:
+                year = attrs.get('FirstAired', '')[:4]
+                if len(year) == 4:
+                    if year_from_suffix and year != year_from_suffix:
+                        continue
+                    alt_name = "%s (%s)" % (show_name, year)
+                else:
+                    alt_name = None
+                if attrs['SeriesName'].lower() in (show_name, alt_name):
+                    log("### found id of %s" % attrs['id'], level=2)
+                    return int(attrs['id'])
 
-        if not show_list:
-            log("### no match found", level=2)
-            return 0
-
-        got_id, got_title, got_tt_id = show_list[0]
-        log("### found id of %s" % got_id, level=2)
-        return int(got_id)
+        log("### no match found", level=2)
+        return 0
 
     def check_show_info(self, tvdb, tid, current_show, prior_data):
         name = current_show['localname']
