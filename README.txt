@@ -218,3 +218,6 @@ To force an update as well as reset all the existing data (forcing a fresh scan 
 RunScript(script.tv.show.next.aired,reset=True)
 
 The force update and reset options are also available in the addon settings.
+
+V) To force the update of a single show (re-reading all its data), use this:
+RunScript(script.tv.show.next.aired,updateshow=TVShowTitle Goes Here)

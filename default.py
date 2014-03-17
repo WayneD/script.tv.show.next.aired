@@ -145,6 +145,8 @@ class NextAired:
         self.check_xbmc_version()
         if self.TVSHOWTITLE:
             self.return_properties(self.TVSHOWTITLE)
+        elif self.UPDATESHOW:
+            self.update_show(self.UPDATESHOW)
         elif self.BACKEND:
             self.run_backend()
         elif self.SILENT == "":
@@ -165,6 +167,7 @@ class NextAired:
         self.SILENT = self.params.get("silent", "")
         self.BACKEND = self.params.get("backend", False)
         self.TVSHOWTITLE = self.params.get("tvshowtitle", False)
+        self.UPDATESHOW = self.params.get("updateshow", False)
         self.FORCEUPDATE = self.params.get("force", False)
         self.RESET = self.params.get("reset", False)
         self.STOP = self.params.get("stop", False)
@@ -299,7 +302,7 @@ class NextAired:
     def save_data(self, show_dict):
         self.save_file([show_dict, MAIN_DB_VER, self.tznames, self.last_update, self.last_success], NEXTAIRED_DB)
 
-    def update_data(self, update_after_seconds):
+    def update_data(self, update_after_seconds, force_show = None):
         self.nextlist = []
         show_dict, elapsed_secs = self.load_data()
 
@@ -412,6 +415,9 @@ class NextAired:
         for tid, show in show_dict.iteritems():
             show['unused'] = True
             title_dict[show['localname']] = tid
+            if force_show is not None and show['localname'] == force_show:
+                show['show_changed'] = 1
+                show['eps_changed'] = (1, 0)
 
         TVlist = self.listing()
         total_show = len(TVlist)
@@ -1101,6 +1107,11 @@ class NextAired:
                 if tvshowtitle == item["localname"]:
                     self.set_labels('windowproperty', item)
                     break
+
+    def update_show(self, tvshowtitle):
+        log("### update_show started", level=6)
+        self.FORCEUPDATE = True
+        self.update_data(1, tvshowtitle)
 
     def set_labels(self, infolabel, item, want_ep_ndx = None):
         art = item["art"]
