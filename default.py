@@ -664,16 +664,17 @@ class NextAired:
         show_name = punct_re.sub('', show_name.lower())
         want_names = [ show_name ]
         stripped_year = False
+        has_year = year_re.search(show_name)
         if want_year:
             want_year = str(want_year)
-        else:
-            m = year_re.search(show_name)
-            if m:
-                want_year = m.group(1)
-                show_name = year_re.sub('', show_name)
-                want_names.append(show_name)
-                stripped_year = True
+        elif has_year:
+            want_year = has_year.group(1)
+            show_name = year_re.sub('', show_name)
+            want_names.append(show_name)
+            stripped_year = True
         if want_year and not year_re.search(show_name):
+            if not stripped_year:
+                want_names.insert(0, "%s (%s)" % (show_name, want_year))
             m = cntry_re.search(show_name)
             if m:
                 alt_year_name = cntry_re.sub(" (%s) (%s)" % (want_year, m.group(1)), show_name)
@@ -700,17 +701,17 @@ class NextAired:
                 attrs['SeriesName'] = punct_re.sub('', attrs['SeriesName'].lower())
             for want_name in want_names:
                 for attrs in show_list:
-                    match_names = [ want_name ]
+                    match_names = [ attrs['SeriesName'] ]
                     year = attrs.get('FirstAired', '')[:4]
                     if want_year and year != want_year:
                         continue
-                    if not want_year and len(year) == 4:
-                        match_names.append("%s (%s)" % (want_name, year))
-                        m = cntry_re.search(show_name)
+                    if len(year) == 4 and not year_re.search(match_names[0]):
+                        match_names.append("%s (%s)" % (match_names[0], year))
+                        m = cntry_re.search(match_names[0])
                         if m:
-                            match_names.append(cntry_re.sub(" (%s) (%s)" % (year, m.group(1)), show_name))
+                            match_names.append(cntry_re.sub(" (%s) (%s)" % (year, m.group(1)), match_names[0]))
                     log("### match_names: %s" % match_names, level=5)
-                    if attrs['SeriesName'] in match_names:
+                    if want_name in match_names:
                         log("### found id of %s" % attrs['id'], level=2)
                         return int(attrs['id'])
 
