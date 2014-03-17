@@ -1,7 +1,7 @@
 import sys, urllib
-if sys.version_info < (2, 7):
+try:
     import simplejson as json
-else:
+except ImportError:
     import json
 
 # This uses the artwork-downloader API key -- I assume that is OK for this XBMC script.

@@ -19,9 +19,8 @@ __cwd__       = __addon__.getAddonInfo('path').decode('utf-8')
 __author__    = __addon__.getAddonInfo('author')
 __version__   = __addon__.getAddonInfo('version')
 __language__  = __addon__.getLocalizedString
-__useragent__ = "Mozilla/5.0 (Windows; U; Windows NT 5.1; fr; rv:1.9.0.1) Gecko/2008070208 Firefox/3.6"
-__datapath__ = os.path.join( xbmc.translatePath( "special://profile/addon_data/" ).decode('utf-8'), __addonid__ )
-__resource__  = xbmc.translatePath( os.path.join( __cwd__, 'resources', 'lib' ).encode("utf-8") ).decode("utf-8")
+__datapath__  = os.path.join(xbmc.translatePath("special://profile/addon_data/").decode('utf-8'), __addonid__)
+__resource__  = xbmc.translatePath(os.path.join(__cwd__, 'resources', 'lib').encode("utf-8")).decode("utf-8")
 
 sys.path = [__resource__] + sys.path
 
