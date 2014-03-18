@@ -19,3 +19,7 @@ msgstr ""
 msgctxt "#32019"
 msgid "TV Guide"
 msgstr "TV Guide"
+
+msgctxt "#32211"
+msgid "Cancelled"
+msgstr "Cancelled"

@@ -84,6 +84,22 @@ msgctxt "#32014"
 msgid "Use day-of-week and month names in dates instead of just numbers (for a skin that needs help)"
 msgstr "Usa Dia de la semana y Mes en texto en fechas en lugar de solo numeros (Para algunos Skins)"
 
+msgctxt "#32015"
+msgid "Number of next-aired days to include in the TV Guide"
+msgstr "Numero de dias-Siguientes para incluir en la Guia de programacion"
+
+msgctxt "#32016"
+msgid "Start the TV Guide week based on Today instead of Monday"
+msgstr "Inicie la Guia de programacion basado en Hoy en lugar de Lunes"
+
+msgctxt "#32017"
+msgid "Include Yesterday in the Today-style TV Guide"
+msgstr "Incluya Ayer en el estilo de hoy en la programacion"
+
+msgctxt "#32018"
+msgid "Yesterday"
+msgstr "Ayer"
+
 msgctxt "#32019"
 msgid "TV Guide"
 msgstr "Guía de TV"

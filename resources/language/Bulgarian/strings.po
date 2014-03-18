@@ -84,6 +84,18 @@ msgctxt "#32014"
 msgid "Use day-of-week and month names in dates instead of just numbers (for a skin that needs help)"
 msgstr "Ползвай имената на месеците и дните от седмицата, вместо числа (за облици които се нуждаят)"
 
+msgctxt "#32016"
+msgid "Start the TV Guide week based on Today instead of Monday"
+msgstr "Започвай седмицата в ТВ гид с днешния ден, вместо от понеделник"
+
+msgctxt "#32017"
+msgid "Include Yesterday in the Today-style TV Guide"
+msgstr "Включвай и вчера в ТВ гид"
+
+msgctxt "#32018"
+msgid "Yesterday"
+msgstr "Вчера"
+
 msgctxt "#32019"
 msgid "TV Guide"
 msgstr "ТВ гид"
