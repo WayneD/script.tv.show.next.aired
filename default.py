@@ -415,9 +415,14 @@ class NextAired:
         for tid, show in show_dict.iteritems():
             show['unused'] = True
             title_dict[show['localname']] = tid
-            if force_show is not None and show['localname'] == force_show:
-                show['show_changed'] = 1
-                show['eps_changed'] = (1, 0)
+
+        if force_show is not None and force_show in title_dict:
+            force_show = title_dict[force_show]
+            show = show_dict[force_show]
+            show['show_changed'] = 1
+            show['eps_changed'] = (1, 0)
+        else:
+            force_show = None
 
         TVlist = self.listing()
         total_show = len(TVlist)
@@ -469,12 +474,16 @@ class NextAired:
                 tid = m5_num
             else:
                 old_id = title_dict.get(name, 0)
-                if old_id and (m2_num == old_id or m4_num == old_id):
+                if old_id and old_id == m5_num:
+                    tid = m5_num
+                elif old_id and (m2_num == old_id or m4_num == old_id):
                     tid = old_id
                 elif m2_num and m2_num == m4_num:
                     # This will override the old_id value if both artwork URLs change.
                     tid = m2_num
-                elif old_id:
+                elif old_id and name == show_dict[old_id]['localname'] and old_id != force_show:
+                    # This is an "iffy" ID.  We'll keep using it unless the
+                    # localname changed or the user asked for a fresh start.
                     tid = old_id
                 else:
                     if self.max_fetch_failures <= 0:
