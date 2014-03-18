@@ -534,6 +534,8 @@ class NextAired:
                     if item not in current_show:
                         current_show[item] = prior_data[item]
                 tid = -tid
+            elif prior_data and 'tvrage' in prior_data:
+                current_show['tvrage'] = prior_data['tvrage']
             if current_show.get('canceled', False):
                 log("### Canceled/Ended", level=4)
             log( "### %s" % current_show )
@@ -658,29 +660,31 @@ class NextAired:
     def find_show_id(tvdb, show_name, maybe_id, want_year = None):
         log("### searching for thetvdb ID by name - %s" % show_name, level=2)
         year_re = re.compile(r" \((\d\d\d\d)\)")
-        cntry_re = re.compile(r" \(([a-z][a-z])\)$")
-        punct_re = re.compile("[.,:;?!*$^#|<>/'\"]")
-        show_name = punct_re.sub('', show_name.lower())
-        want_names = [ show_name ]
-        stripped_year = False
+        cntry_re = re.compile(r" \(([a-z][a-z])\)$", re.IGNORECASE)
+        punct_re = re.compile("[.,:;?!*$^#|<>'\"]")
+        lc_name = punct_re.sub('', show_name.lower())
+        want_names = [ lc_name ]
+        removed_year = False
         has_year = year_re.search(show_name)
         if want_year:
             want_year = str(want_year)
         elif has_year:
             want_year = has_year.group(1)
             show_name = year_re.sub('', show_name)
-            want_names.append(show_name)
-            stripped_year = True
-        if want_year and not year_re.search(show_name):
-            if not stripped_year:
-                want_names.insert(0, "%s (%s)" % (show_name, want_year))
-            m = cntry_re.search(show_name)
+            lc_name = year_re.sub('', lc_name)
+            want_names.append(lc_name)
+            removed_year = True
+            has_year = False
+        if want_year and not has_year:
+            if not removed_year:
+                want_names.insert(0, "%s (%s)" % (lc_name, want_year))
+            m = cntry_re.search(lc_name)
             if m:
-                alt_year_name = cntry_re.sub(" (%s) (%s)" % (want_year, m.group(1)), show_name)
+                alt_year_name = cntry_re.sub(" (%s) (%s)" % (want_year, m.group(1)), lc_name)
                 if want_names[0] != alt_year_name:
                     want_names.insert(0, alt_year_name)
                 else:
-                    want_names.insert(0, "%s (%s)" % (show_name, want_year))
+                    want_names.insert(0, "%s (%s)" % (lc_name, want_year))
 
         log("### want_names: %s" % want_names, level=5)
         log("### want_year: %s" % want_year, level=5)
@@ -717,7 +721,7 @@ class NextAired:
         if len(show_list) == 0 and cntry_re.search(show_name):
             return find_show_id(tvdb, cntry_re.sub('', show_name), maybe_id, want_year)
 
-        if stripped_year and len(show_list) >= 25:
+        if removed_year and len(show_list) >= 25:
             return find_show_id(tvdb, "%s (%s)" % (show_name, want_year), maybe_id, want_year)
 
         log("### no match found", level=2)
