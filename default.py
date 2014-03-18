@@ -474,14 +474,18 @@ class NextAired:
                 tid = m5_num
             else:
                 old_id = title_dict.get(name, 0)
+                old_data = show_dict.get(m5_num, None) if m5_num else None
                 if old_id and old_id == m5_num:
+                    tid = m5_num
+                elif old_data and current_show['path'] == old_data['path']:
+                    # This handles a localname change where we knew what the ID was before -- keep that info.
                     tid = m5_num
                 elif old_id and (m2_num == old_id or m4_num == old_id):
                     tid = old_id
                 elif m2_num and m2_num == m4_num:
                     # This will override the old_id value if both artwork URLs change.
                     tid = m2_num
-                elif old_id and name == show_dict[old_id]['localname'] and old_id != force_show:
+                elif old_id and old_id != force_show:
                     # This is an "iffy" ID.  We'll keep using it unless the
                     # localname changed or the user asked for a fresh start.
                     tid = old_id
