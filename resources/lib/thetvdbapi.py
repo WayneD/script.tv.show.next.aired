@@ -37,7 +37,8 @@ class TheTVDB(object):
         self.language = language
         self.want_raw = want_raw
 
-        self.select_mirrors()
+        # Mirror selection got deprecated a while back, so tell it to skip the actual fetch.
+        self.select_mirrors(False)
 
 
     def select_mirrors(self, do_the_fetch = True):
