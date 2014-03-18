@@ -443,6 +443,7 @@ class NextAired:
             count += 1
             name = show[0]
             art = show[2]
+            premiered_year = show[6][:4] if show[6] != '' else None
             percent = int(float(count * 100) / total_show)
             if self.SILENT != "":
                 self.WINDOW.setProperty("NextAired.bgnd_status", "%f|%d|%s" % (time(), percent, name))
@@ -492,7 +493,7 @@ class NextAired:
                 else:
                     if self.max_fetch_failures <= 0:
                         continue
-                    tid = self.find_show_id(tvdb, name, m5_num)
+                    tid = self.find_show_id(tvdb, name, m5_num, premiered_year)
                     if tid == 0:
                         continue
 
@@ -645,7 +646,7 @@ class NextAired:
         failures = 0
         # If the computer is waking up from a sleep, this call might fail for a little bit.
         while not xbmc.abortRequested:
-            json_query = xbmc.executeJSONRPC('{"jsonrpc": "2.0", "method": "VideoLibrary.GetTVShows", "params": {"properties": ["title", "file", "thumbnail", "art", "imdbnumber"], "sort": { "method": "title" } }, "id": 1}')
+            json_query = xbmc.executeJSONRPC('{"jsonrpc": "2.0", "method": "VideoLibrary.GetTVShows", "params": {"properties": ["title", "file", "thumbnail", "art", "imdbnumber", "premiered"], "sort": { "method": "title" } }, "id": 1}')
             json_query = unicode(json_query, 'utf-8', errors='ignore')
             json_response = json.loads(json_query)
             log("### %s" % json_response)
@@ -666,12 +667,12 @@ class NextAired:
             art = item['art']
             thumbnail = item['thumbnail']
             dbid = self.videodb + str(item['tvshowid']) + '/'
-            TVlist.append((tvshowname, path, art, dbid, thumbnail, item['imdbnumber']))
+            TVlist.append((tvshowname, path, art, dbid, thumbnail, item['imdbnumber'], item['premiered']))
         log( "### list: %s" % TVlist )
         return TVlist
 
     @staticmethod
-    def find_show_id(tvdb, show_name, maybe_id, want_year = None):
+    def find_show_id(tvdb, show_name, maybe_id, want_year = None, strip_year = True):
         log("### searching for thetvdb ID by name - %s" % show_name, level=2)
         year_re = re.compile(r" \((\d\d\d\d)\)")
         cntry_re = re.compile(r" \(([a-z][a-z])\)$", re.IGNORECASE)
@@ -679,17 +680,17 @@ class NextAired:
         lc_name = punct_re.sub('', show_name.lower())
         want_names = [ lc_name ]
         removed_year = False
-        has_year = year_re.search(show_name)
+        name_has_year = year_re.search(show_name)
         if want_year:
             want_year = str(want_year)
-        elif has_year:
-            want_year = has_year.group(1)
+        if strip_year and name_has_year:
+            want_year = name_has_year.group(1)
             show_name = year_re.sub('', show_name)
             lc_name = year_re.sub('', lc_name)
             want_names.append(lc_name)
             removed_year = True
-            has_year = False
-        if want_year and not has_year:
+            name_has_year = False
+        if want_year and not name_has_year:
             if not removed_year:
                 want_names.insert(0, "%s (%s)" % (lc_name, want_year))
             m = cntry_re.search(lc_name)
@@ -719,14 +720,19 @@ class NextAired:
             for want_name in want_names:
                 for attrs in show_list:
                     match_names = [ attrs['SeriesName'] ]
+                    if 'AliasNames' in attrs:
+                        for alias in attrs['AliasNames'].split('|'):
+                            match_names.append(punct_re.sub('', alias.lower()))
                     year = attrs.get('FirstAired', '')[:4]
                     if want_year and year != want_year:
                         continue
-                    if len(year) == 4 and not year_re.search(match_names[0]):
-                        match_names.append("%s (%s)" % (match_names[0], year))
-                        m = cntry_re.search(match_names[0])
-                        if m:
-                            match_names.append(cntry_re.sub(" (%s) (%s)" % (year, m.group(1)), match_names[0]))
+                    for j in range(len(match_names)):
+                        mname = match_names[j]
+                        if len(year) == 4 and not year_re.search(mname):
+                            match_names.append("%s (%s)" % (mname, year))
+                            m = cntry_re.search(mname)
+                            if m:
+                                match_names.append(cntry_re.sub(" (%s) (%s)" % (year, m.group(1)), mname))
                     log("### match_names: %s" % match_names, level=5)
                     if want_name in match_names:
                         log("### found id of %s" % attrs['id'], level=2)
@@ -736,7 +742,7 @@ class NextAired:
             return find_show_id(tvdb, cntry_re.sub('', show_name), maybe_id, want_year)
 
         if removed_year and len(show_list) >= 25:
-            return find_show_id(tvdb, "%s (%s)" % (show_name, want_year), maybe_id, want_year)
+            return find_show_id(tvdb, "%s (%s)" % (show_name, want_year), maybe_id, want_year, False)
 
         log("### no match found", level=2)
         return 0
