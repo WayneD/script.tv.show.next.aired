@@ -33,6 +33,7 @@ COUNTRY_DB = 'country.db'
 OLD_FILES = [ 'nextaired.db', 'next_aired.db', 'canceled.db', 'cancelled.db' ]
 LISTITEM_ART = [ 'poster', 'banner', 'clearlogo' ] # This order MUST match the settings.xml list!!
 USEFUL_ART = LISTITEM_ART + [ 'characterart', 'clearart', 'fanart', 'landscape' ]
+CLASSIFICATION_REGEX = re.compile(r"(?:^| \| )(Scripted|Mini-Series|Documentary|Animation|Game Show|Reality|Talk Show|Variety)( \| |$)")
 
 STATUS = { '0' : __language__(32201),
            '1' : __language__(32202),
@@ -1189,6 +1190,9 @@ class NextAired:
         if status_id != '-1':
             status = STATUS[status_id]
 
+        m = CLASSIFICATION_REGEX.search(item.get("Genres", ""))
+        classification = m.group(1) if m else 'Scripted'
+
         label.setProperty(prefix + "AirTime", airdays + ": " + airtime if airdays != "" else airtime)
         label.setProperty(prefix + "Path", item.get("path", ""))
         label.setProperty(prefix + "Library", item.get("dbid", ""))
@@ -1196,8 +1200,7 @@ class NextAired:
         label.setProperty(prefix + "StatusID", status_id)
         label.setProperty(prefix + "Network", item.get("Network", ""))
         label.setProperty(prefix + "Started", self.str_date(started))
-        # XXX Note that Classification is always unset at the moment!
-        label.setProperty(prefix + "Classification", item.get("Classification", ""))
+        label.setProperty(prefix + "Classification", classification)
         label.setProperty(prefix + "Genre", item.get("Genres", ""))
         label.setProperty(prefix + "Premiered", str(item.get("Premiered", "")))
         label.setProperty(prefix + "Country", item.get("Country", ""))
