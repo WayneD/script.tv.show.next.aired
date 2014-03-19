@@ -718,12 +718,12 @@ class NextAired:
                 if int(attrs['id']) == maybe_id:
                     log("### verified id of %s" % maybe_id, level=2)
                     return maybe_id
-                attrs['SeriesName'] = punct_re.sub('', attrs['SeriesName'].lower())
+                attrs['SeriesName'] = punct_re.sub('', normalize(attrs, 'SeriesName').lower())
             for want_name in want_names:
                 for attrs in show_list:
                     match_names = [ attrs['SeriesName'] ]
                     if 'AliasNames' in attrs:
-                        for alias in attrs['AliasNames'].split('|'):
+                        for alias in normalize(attrs, 'AliasNames').split('|'):
                             match_names.append(punct_re.sub('', alias.lower()))
                     year = attrs.get('FirstAired', '')[:4]
                     if want_year and year != want_year:
