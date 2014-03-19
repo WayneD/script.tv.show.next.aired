@@ -127,12 +127,12 @@ class TheTVDB(object):
         return first_aired
 
 
-    def get_matching_shows(self, show_name, want_raw = False):
+    def get_matching_shows(self, show_name, language='all', want_raw=False):
         """Get a list of shows matching show_name."""
         if type(show_name) == type(u''):
             show_name = show_name.encode('utf-8')
         get_args = urllib.urlencode({"seriesname": show_name}, doseq=True)
-        url = "%s/GetSeries.php?%s&language=all" % (self.base_url, get_args)
+        url = "%s/GetSeries.php?%s&language=%s" % (self.base_url, get_args, language)
         if want_raw:
             filt_func = lambda name, attrs: attrs if name == "Series" else None
         else:
