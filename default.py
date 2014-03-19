@@ -704,7 +704,7 @@ class NextAired:
         log("### want_year: %s" % want_year, level=5)
 
         try:
-            show_list = tvdb.get_matching_shows(show_name, want_raw = True)
+            show_list = tvdb.get_matching_shows(show_name, language='all', want_raw=True)
         except Exception, e:
             log('### ERROR returned by get_matching_shows(): %s' % e, level=0)
             return 0
