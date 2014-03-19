@@ -109,7 +109,10 @@ def _unicode( text, encoding='utf-8' ):
     return text
 
 def normalize(d, key, default = ""):
-    text = d.get(key, default)
+    if d:
+        text = d.get(key, default)
+    else:
+        text = key
     try:
         text = unicodedata.normalize('NFKD', _unicode(text)).encode('ascii', 'ignore')
     except:
@@ -166,8 +169,8 @@ class NextAired:
         log("### params: %s" % self.params, level=3)
         self.SILENT = self.params.get("silent", "")
         self.BACKEND = self.params.get("backend", False)
-        self.TVSHOWTITLE = self.params.get("tvshowtitle", False)
-        self.UPDATESHOW = self.params.get("updateshow", False)
+        self.TVSHOWTITLE = normalize(self.params, "tvshowtitle", False)
+        self.UPDATESHOW = normalize(self.params, "updateshow", False)
         self.FORCEUPDATE = self.params.get("force", False)
         self.RESET = self.params.get("reset", False)
         self.STOP = self.params.get("stop", False)
@@ -1108,7 +1111,7 @@ class NextAired:
         if not show_dict:
             self._stop = True
         while not self._stop:
-            self.selecteditem = xbmc.getInfoLabel("ListItem.TVShowTitle")
+            self.selecteditem = normalize(None, xbmc.getInfoLabel("ListItem.TVShowTitle"))
             if self.selecteditem != self.previousitem:
                 self.WINDOW.clearProperty("NextAired.Label")
                 self.previousitem = self.selecteditem
