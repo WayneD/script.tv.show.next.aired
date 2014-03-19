@@ -219,5 +219,11 @@ RunScript(script.tv.show.next.aired,reset=True)
 
 The force update and reset options are also available in the addon settings.
 
-V) To force the update of a single show (re-reading all its data), use this:
-RunScript(script.tv.show.next.aired,updateshow=TVShowTitle Goes Here)
+V) To force the update of a single show (re-reading all its data), it can be added via a button like this one:
+
+<control type="button" id="550">
+<label>$LOCALIZE[24069] $LOCALIZE[4]</label>
+<include>DialogVideoInfoButton</include>
+<onclick>RunScript(script.tv.show.next.aired,updateshow=$INFO[ListItem.Label])</onclick>
+<visible>Container.Content(tvshows)</visible>
+</control>
