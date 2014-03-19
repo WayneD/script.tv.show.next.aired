@@ -119,6 +119,13 @@ def normalize(d, key, default = ""):
         pass
     return text
 
+STRIP_PUNCT_RE = re.compile("[.,:;?!*$^#|<>'\"]")
+STRIP_EXTRA_SPACES_RE = re.compile(r"\s{2,}")
+
+def lc_stripped_name(show_name):
+    show_name = STRIP_EXTRA_SPACES_RE.sub(' ', show_name.lower())
+    return STRIP_PUNCT_RE.sub('', show_name.strip())
+
 def maybe_int(d, key, default = 0):
     v = d.get(key, str(default))
     return int(v) if INT_REGEX.match(v) else v
@@ -678,8 +685,7 @@ class NextAired:
         log("### searching for thetvdb ID by name - %s" % show_name, level=2)
         year_re = re.compile(r" \((\d\d\d\d)\)")
         cntry_re = re.compile(r" \(([a-z][a-z])\)$", re.IGNORECASE)
-        punct_re = re.compile("[.,:;?!*$^#|<>'\"]")
-        lc_name = punct_re.sub('', show_name.lower())
+        lc_name = lc_stripped_name(show_name)
         want_names = [ lc_name ]
         removed_year = False
         name_has_year = year_re.search(show_name)
@@ -689,19 +695,22 @@ class NextAired:
             want_year = name_has_year.group(1)
             show_name = year_re.sub('', show_name)
             lc_name = year_re.sub('', lc_name)
-            want_names.append(lc_name)
+            want_names.append(lc_name) # Add (stripped-year) "Show"
             removed_year = True
             name_has_year = False
-        if want_year and not name_has_year:
-            if not removed_year:
-                want_names.insert(0, "%s (%s)" % (lc_name, want_year))
-            m = cntry_re.search(lc_name)
-            if m:
-                alt_year_name = cntry_re.sub(" (%s) (%s)" % (want_year, m.group(1)), lc_name)
-                if want_names[0] != alt_year_name:
-                    want_names.insert(0, alt_year_name)
+        if want_year and not name_has_year and not removed_year:
+            want_names.insert(0, "%s (%s)" % (lc_name, want_year)) # Add "Show (1999)"
+        cntry_match = cntry_re.search(lc_name)
+        if cntry_match:
+            alt_name = cntry_re.sub(' ' + cntry_match.group(1), lc_name)
+            want_names.append(alt_name) # Since we have "Show (XX)", add "Show XX"
+            if want_year and not name_has_year:
+                want_names.insert(1, "%s (%s)" % (alt_name, want_year)) # Add "Show XX (1999)"
+                alt_name = cntry_re.sub(" (%s) (%s)" % (want_year, cntry_match.group(1)), lc_name)
+                if want_names[0] != alt_name:
+                    want_names.insert(1, alt_name) # Add "Show (1999) (XX)"
                 else:
-                    want_names.insert(0, "%s (%s)" % (lc_name, want_year))
+                    want_names.insert(1, "%s (%s)" % (lc_name, want_year)) # Add "Show (XX) (1999)"
 
         log("### want_names: %s" % want_names, level=5)
         log("### want_year: %s" % want_year, level=5)
@@ -714,17 +723,17 @@ class NextAired:
 
         if show_list:
             for attrs in show_list:
+                attrs['SeriesName'] = lc_stripped_name(normalize(attrs, 'SeriesName'))
                 log("### id: %s, FirstAired: %s, SeriesName: %s" % (attrs['id'], attrs.get('FirstAired', '????')[:4], attrs['SeriesName']))
                 if int(attrs['id']) == maybe_id:
                     log("### verified id of %s" % maybe_id, level=2)
                     return maybe_id
-                attrs['SeriesName'] = punct_re.sub('', normalize(attrs, 'SeriesName').lower())
             for want_name in want_names:
                 for attrs in show_list:
                     match_names = [ attrs['SeriesName'] ]
                     if 'AliasNames' in attrs:
                         for alias in normalize(attrs, 'AliasNames').split('|'):
-                            match_names.append(punct_re.sub('', alias.lower()))
+                            match_names.append(lc_stripped_name(alias))
                     year = attrs.get('FirstAired', '')[:4]
                     if want_year and year != want_year:
                         continue
