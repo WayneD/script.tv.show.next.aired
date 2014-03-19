@@ -130,7 +130,7 @@ class TheTVDB(object):
     def get_matching_shows(self, show_name, want_raw = False):
         """Get a list of shows matching show_name."""
         get_args = urllib.urlencode({"seriesname": show_name}, doseq=True)
-        url = "%s/GetSeries.php?%s" % (self.base_url, get_args)
+        url = "%s/GetSeries.php?%s&language=all" % (self.base_url, get_args)
         if want_raw:
             filt_func = lambda name, attrs: attrs if name == "Series" else None
         else:
