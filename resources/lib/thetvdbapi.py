@@ -129,6 +129,8 @@ class TheTVDB(object):
 
     def get_matching_shows(self, show_name, want_raw = False):
         """Get a list of shows matching show_name."""
+        if type(show_name) == type(u''):
+            show_name = show_name.encode('utf-8')
         get_args = urllib.urlencode({"seriesname": show_name}, doseq=True)
         url = "%s/GetSeries.php?%s&language=all" % (self.base_url, get_args)
         if want_raw:
