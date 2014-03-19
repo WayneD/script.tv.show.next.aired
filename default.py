@@ -487,8 +487,7 @@ class NextAired:
                     # This will override the old_id value if both artwork URLs change.
                     tid = m2_num
                 elif old_id and old_id != force_show:
-                    # This is an "iffy" ID.  We'll keep using it unless the
-                    # localname changed or the user asked for a fresh start.
+                    # This is an "iffy" ID.  We'll keep using it unless the user asked for a fresh start.
                     tid = old_id
                 else:
                     if self.max_fetch_failures <= 0:
