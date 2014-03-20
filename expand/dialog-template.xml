@@ -191,7 +191,7 @@
 							<height>90</height>
 							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)][CR]$INFO[ListItem.Property(NextDay)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)][CR][COLOR=FF888888]$INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]][/COLOR]</label>
 							<align>right</align>
-							<font>font12</font>
+							<font>font10</font>
 							<textcolor>FFFFFFFF</textcolor>
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),0)</visible>
@@ -217,7 +217,7 @@
 							<height>60</height>
 							<label>[COLOR=FF00C8FA]$INFO[ListItem.Property(ShortTime)] - $INFO[ListItem.Property(NextDay)][/COLOR][CR]$INFO[ListItem.Property(NextNumber)]  [COLOR=FF888888]($INFO[ListItem.Property(Runtime),, $LOCALIZE[12391]])[/COLOR][CR]$INFO[ListItem.Property(NextTitle)]</label>
 							<align>left</align>
-							<font>font12</font>
+							<font>font10</font>
 							<textcolor>FFFFFFFF</textcolor>
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),1)</visible>
@@ -249,7 +249,7 @@
 							<textcolor>FF00C8FA</textcolor>
 							<visible>%NOT%ListItem.Property(SecondWeek)</visible>
 							<align>left</align>
-							<font>font12</font>
+							<font>font10</font>
 						    </control>
 <!--REPEAT-END -->
 						    <control type="label">
@@ -259,7 +259,7 @@
 							<height>30</height>
 							<label>$INFO[ListItem.Property(NextNumber)]</label>
 							<align>right</align>
-							<font>font12</font>
+							<font>font10</font>
 						    </control>
 						    <visible>StringCompare(Window(Home).Property(TVGuide.ThumbType),2)</visible>
 						</control>
@@ -372,7 +372,7 @@
 					<control type="label">
 						<width>250</width>
 						<height>35</height>
-						<font>font12caps</font>
+						<font>font12</font>
 						<label>33063</label>
 						<textcolor>blue</textcolor>
 						<align>center</align>
