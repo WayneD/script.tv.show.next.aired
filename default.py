@@ -108,13 +108,13 @@ def _unicode( text, encoding='utf-8' ):
     except: pass
     return text
 
-def normalize(d, key, default = ""):
-    if d is not None:
+def normalize(d, key = None, default = ""):
+    if key is None:
+        text = d
+    else:
         text = d.get(key, default)
         if not text:
             return text
-    else:
-        text = key
     try:
         text = unicodedata.normalize('NFKD', _unicode(text)).encode('ascii', 'ignore')
     except:
@@ -1122,7 +1122,7 @@ class NextAired:
         if not show_dict:
             self._stop = True
         while not self._stop:
-            self.selecteditem = normalize(None, xbmc.getInfoLabel("ListItem.TVShowTitle"))
+            self.selecteditem = normalize(xbmc.getInfoLabel("ListItem.TVShowTitle"))
             if self.selecteditem != self.previousitem:
                 self.WINDOW.clearProperty("NextAired.Label")
                 self.previousitem = self.selecteditem
