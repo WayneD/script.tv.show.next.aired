@@ -419,15 +419,18 @@ class NextAired:
                 except:
                     pass
             tvdb = TheTVDB('1D62F2F90030C444', 'en', want_raw = True)
-            # This typically asks TheTVDB for an update-zip file and tweaks the show_dict to note needed updates.
-            tv_up = tvdb_updater(tvdb)
-            need_full_scan, got_update = tv_up.note_updates(show_dict, elapsed_secs)
-            if need_full_scan or got_update:
-                self.last_update = self.now
-            elif not got_update:
-                self.set_last_failure()
-                self.max_fetch_failures = 0
-            tv_up = None
+            if force_show is None:
+                # This typically asks TheTVDB for an update-zip file and tweaks the show_dict to note needed updates.
+                tv_up = tvdb_updater(tvdb)
+                need_full_scan, got_update = tv_up.note_updates(show_dict, elapsed_secs)
+                if need_full_scan or got_update:
+                    self.last_update = self.now
+                elif not got_update:
+                    self.set_last_failure()
+                    self.max_fetch_failures = 0
+                tv_up = None
+            else:
+                need_full_scan = False
             art_rescan_after = 24*60*60 - 5*60
         else:
             tvdb = None # We don't use this unless we're locked for the update.
@@ -443,12 +446,9 @@ class NextAired:
             title_dict[show['localname']] = tid
 
         if force_show is not None and force_show in title_dict:
-            force_show = title_dict[force_show]
-            show = show_dict[force_show]
+            show = show_dict[title_dict[force_show]]
             show['show_changed'] = 1
             show['eps_changed'] = (1, 0)
-        else:
-            force_show = None
 
         TVlist = self.listing()
         total_show = len(TVlist)
@@ -464,6 +464,8 @@ class NextAired:
         for show in TVlist:
             count += 1
             name = show[0]
+            if force_show is not None and name != force_show:
+                continue
             art = show[2]
             premiered_year = show[6][:4] if show[6] != '' else None
             percent = int(float(count * 100) / total_show)
@@ -508,7 +510,7 @@ class NextAired:
                 elif m2_num and m2_num == m4_num:
                     # This will override the old_id value if both artwork URLs change.
                     tid = m2_num
-                elif old_id and old_id != force_show:
+                elif old_id and force_show is None:
                     # This is an "iffy" ID.  We'll keep using it unless the user asked for a fresh start.
                     tid = old_id
                 else:
@@ -587,8 +589,10 @@ class NextAired:
             remove_list = []
             for tid, show in show_dict.iteritems():
                 if 'unused' in show:
-                    remove_list.append(tid)
-                    continue
+                    if force_show is None:
+                        remove_list.append(tid)
+                        continue
+                    del show['unused']
                 if show['ep_ndx']:
                     self.nextlist.append(show)
             for tid in remove_list:
@@ -602,7 +606,7 @@ class NextAired:
             log("### no current show data...", level=5)
 
         if locked_for_update:
-            if not self.last_failure:
+            if not self.last_failure and force_show is None:
                 self.last_success = self.now
             self.save_data(show_dict)
             log("### data update finished", level=1)
