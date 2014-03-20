@@ -1186,7 +1186,8 @@ class NextAired:
                 for ep in item['episodes'][ep_ndx:]:
                     if ep['aired'][:10] > date_limit:
                         break
-                    airdays.append(ep['wday'])
+                    if not airdays or ep['wday'] != airdays[-1]:
+                        airdays.append(ep['wday'])
         airdays.sort()
         airdays = ', ' . join([self.weekdays[wday] for wday in airdays])
 
