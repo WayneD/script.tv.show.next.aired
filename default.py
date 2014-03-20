@@ -109,8 +109,10 @@ def _unicode( text, encoding='utf-8' ):
     return text
 
 def normalize(d, key, default = ""):
-    if d:
+    if d is not None:
         text = d.get(key, default)
+        if not text:
+            return text
     else:
         text = key
     try:
