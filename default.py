@@ -314,23 +314,39 @@ class NextAired:
     def save_data(self, show_dict):
         self.save_file([show_dict, MAIN_DB_VER, self.tznames, self.last_update, self.last_success], NEXTAIRED_DB)
 
+    def set_update_lock(self, DIALOG_PROGRESS = None):
+        if DIALOG_PROGRESS:
+            self.WINDOW.setProperty("NextAired.user_lock", str(self.now))
+        else:
+            self.WINDOW.setProperty("NextAired.bgnd_status", "0|0|...")
+            self.WINDOW.setProperty("NextAired.bgnd_lock", str(self.now))
+
+    def clear_update_lock(self, DIALOG_PROGRESS = None):
+        if DIALOG_PROGRESS:
+            DIALOG_PROGRESS.close()
+            self.WINDOW.clearProperty("NextAired.user_lock")
+        else:
+            self.WINDOW.clearProperty("NextAired.bgnd_lock")
+            xbmc.sleep(1000)
+            self.WINDOW.clearProperty("NextAired.bgnd_status")
+
     def update_data(self, update_after_seconds, force_show = None):
         self.nextlist = []
         show_dict, elapsed_secs = self.load_data()
 
         # This should prevent the background and user code from updating the DB at the same time.
         if self.SILENT != "":
+            DIALOG_PROGRESS = None
             # We double-check this here, just in case it changed.
             if self.is_time_for_update(update_after_seconds):
-                self.WINDOW.setProperty("NextAired.bgnd_status", "0|0|...")
-                self.WINDOW.setProperty("NextAired.bgnd_lock", str(self.now))
+                self.set_update_lock()
                 locked_for_update = True
                 xbmc.sleep(2000) # try to avoid a race-condition
                 # Background updating: we will just skip our update if the user is doing an update.
                 user_lock = self.WINDOW.getProperty("NextAired.user_lock")
                 if user_lock != "":
                     if self.now - float(user_lock) <= 10*60:
-                        self.WINDOW.clearProperty("NextAired.bgnd_lock")
+                        self.clear_update_lock()
                         # We failed to get data, so this will cause us to check on the update in a bit.
                         # (No need to save it as a failure property -- this is just for us.)
                         self.last_failure = self.now
@@ -346,7 +362,7 @@ class NextAired:
             DIALOG_PROGRESS.create(__language__(32101), __language__(32102))
             self.max_fetch_failures = 4
             # Create our user-lock file and check if the background updater is running.
-            self.WINDOW.setProperty("NextAired.user_lock", str(self.now))
+            self.set_update_lock(DIALOG_PROGRESS)
             locked_for_update = True
             newest_time = 0
             prior_name = ''
@@ -364,9 +380,8 @@ class NextAired:
                         DIALOG_PROGRESS.update(percent, __language__(32102), show_name)
                         prior_name = show_name
                     if DIALOG_PROGRESS.iscanceled():
-                        DIALOG_PROGRESS.close()
+                        self.clear_update_lock(DIALOG_PROGRESS)
                         xbmcgui.Dialog().ok(__language__(32103),__language__(32104))
-                        self.WINDOW.clearProperty("NextAired.user_lock")
                         locked_for_update = False
                         break
                     if status_time > newest_time:
@@ -380,8 +395,7 @@ class NextAired:
                 # If we had to wait for the bgnd updater, re-read the data and unlock if they did an update.
                 show_dict, elapsed_secs = self.load_data()
                 if locked_for_update and not self.is_time_for_update(update_after_seconds):
-                    DIALOG_PROGRESS.close()
-                    self.WINDOW.clearProperty("NextAired.user_lock")
+                    self.clear_update_lock(DIALOG_PROGRESS)
                     locked_for_update = False
             socket.setdefaulttimeout(10)
         else:
@@ -439,12 +453,8 @@ class NextAired:
         TVlist = self.listing()
         total_show = len(TVlist)
         if total_show == 0:
-            if self.SILENT != "":
-                self.WINDOW.clearProperty("NextAired.bgnd_lock")
-                self.WINDOW.clearProperty("NextAired.bgnd_status")
-            elif locked_for_update:
-                DIALOG_PROGRESS.close()
-                self.WINDOW.clearProperty("NextAired.user_lock")
+            if locked_for_update:
+                self.clear_update_lock(DIALOG_PROGRESS)
             self.set_last_failure()
             return False
 
@@ -597,15 +607,9 @@ class NextAired:
             self.save_data(show_dict)
             log("### data update finished", level=1)
 
-            if self.SILENT != "":
-                self.WINDOW.clearProperty("NextAired.bgnd_lock")
-                xbmc.sleep(1000)
-                self.WINDOW.clearProperty("NextAired.bgnd_status")
-            else:
-                DIALOG_PROGRESS.close()
-                self.WINDOW.clearProperty("NextAired.user_lock")
-                if self.last_failure and not user_canceled:
-                    xbmcgui.Dialog().ok(__language__(32105), __language__(32106))
+            self.clear_update_lock(DIALOG_PROGRESS)
+            if self.SILENT == "" and self.last_failure and not user_canceled:
+                xbmcgui.Dialog().ok(__language__(32105), __language__(32106))
 
         self.FORCEUPDATE = False
         return not self.last_failure
