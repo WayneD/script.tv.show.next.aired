@@ -1145,7 +1145,7 @@ class NextAired:
 
     def return_properties(self, tvshowtitle):
         show_dict, elapsed_secs = self.load_data()
-        log("### return_properties started", level=6)
+        log("### return_properties started", level=2)
         if show_dict:
             self.WINDOW.clearProperty("NextAired.Label")
             for tid, item in show_dict.iteritems():
@@ -1154,7 +1154,7 @@ class NextAired:
                     break
 
     def update_show(self, tvshowtitle):
-        log("### update_show started", level=6)
+        log("### update_show started", level=2)
         self.FORCEUPDATE = True
         self.update_data(1, tvshowtitle)
 
