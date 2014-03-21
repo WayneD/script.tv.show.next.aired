@@ -692,7 +692,7 @@ class NextAired:
 
     @staticmethod
     def find_show_id(tvdb, show_name, maybe_id, want_year = None, strip_year = True):
-        log("### searching for thetvdb ID by name - %s" % show_name, level=2)
+        log("### find_show_id(%s, %s, %s, %s)" % (show_name, maybe_id, want_year, strip_year), level=2)
         year_re = re.compile(r" \((\d\d\d\d)\)")
         cntry_re = re.compile(r" \(([a-z][a-z])\)$", re.IGNORECASE)
         lc_name = lc_stripped_name(show_name)
