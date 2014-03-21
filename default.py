@@ -85,7 +85,7 @@ MAX_DEBUG_LOG_LEVEL = 3
 # if level <= 0, sends LOGERROR msg.  For positive values, sends LOGNOTICE
 # if level <= MAX_INFO_LOG_LEVEL, else LOGDEBUG.  If level is omitted, we assume 10.
 def log(txt, level=10):
-    if level > MAX_DEBUG_LOG_LEVEL:
+    if level > max(MAX_DEBUG_LOG_LEVEL, MAX_INFO_LOG_LEVEL):
         return
     if isinstance (txt,str):
         txt = txt.decode("utf-8")
