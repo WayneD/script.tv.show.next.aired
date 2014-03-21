@@ -479,7 +479,7 @@ class NextAired:
                     user_canceled = True
                     self.set_last_failure()
                     self.max_fetch_failures = 0
-            log("### %s" % name)
+            log("### TVlist #%s = %s" % (show[5], name), level=(3 if locked_for_update else 10))
             current_show = {
                     "localname": name,
                     "path": show[1],
