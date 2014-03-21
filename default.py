@@ -722,8 +722,8 @@ class NextAired:
                 else:
                     want_names.insert(1, "%s (%s)" % (lc_name, want_year)) # Add "Show (XX) (1999)"
 
-        log("### want_names: %s" % want_names, level=5)
-        log("### want_year: %s" % want_year, level=5)
+        log("### want_names: %s" % want_names, level=6)
+        log("### want_year: %s" % want_year, level=6)
 
         try:
             show_list = tvdb.get_matching_shows(show_name, language='all', want_raw=True)
@@ -734,7 +734,7 @@ class NextAired:
         if show_list:
             for attrs in show_list:
                 attrs['SeriesName'] = lc_stripped_name(normalize(attrs, 'SeriesName'))
-                log("### id: %s, FirstAired: %s, SeriesName: %s" % (attrs['id'], attrs.get('FirstAired', '????')[:4], attrs['SeriesName']))
+                log("### id: %s, FirstAired: %s, SeriesName: %s" % (attrs['id'], attrs.get('FirstAired', '????')[:4], attrs['SeriesName']), level=6)
                 if int(attrs['id']) == maybe_id:
                     log("### verified id of %s" % maybe_id, level=2)
                     return maybe_id
@@ -754,7 +754,7 @@ class NextAired:
                             m = cntry_re.search(mname)
                             if m:
                                 match_names.append(cntry_re.sub(" (%s) (%s)" % (year, m.group(1)), mname))
-                    log("### match_names: %s" % match_names, level=5)
+                    log("### match_names: %s" % match_names, level=6)
                     if want_name in match_names:
                         log("### found id of %s" % attrs['id'], level=2)
                         return int(attrs['id'])
