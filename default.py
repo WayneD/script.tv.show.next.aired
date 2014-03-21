@@ -599,7 +599,7 @@ class NextAired:
                 log('### Removing obsolete show %s' % show_dict[tid]['localname'], level=2)
                 del show_dict[tid]
             self.nextlist.sort(key=lambda x: (x['episodes'][x['ep_ndx']]['aired'], x['Show Name']))
-            log("### next list: %s shows ### %s" % (len(self.nextlist) , self.nextlist), level=5)
+            log("### next list: %s shows ### %s" % (len(self.nextlist) , self.nextlist), level=7)
             self.check_today_show()
             self.push_data()
         else:
