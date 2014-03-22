@@ -831,8 +831,19 @@ class NextAired:
             tzone = 'UTC'
         try:
             tzinfo = tz.gettz(tzone)
-        except:
-            tzinfo = tz.tzutc()
+        except Exception, e:
+            log('### tz.gettz() failed: %s' % e, level=2)
+            tzinfo = None
+        if tzinfo is None:
+            try:
+                import dateutil.zoneinfo
+                tzinfo = dateutil.zoneinfo.gettz(tzone)
+            except Exception, e:
+                log('### dateutil.zoneinfo.gettz() failed: %s' % e, level=2)
+                tzinfo = None
+            if tzinfo is None:
+                log("### didn't get tzinfo for %s" % tzone, level=1)
+                tzinfo = tz.tzutc()
         try:
             airtime = TheTVDB.convert_time(show.get('Airs_Time', ""))
         except:
