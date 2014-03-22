@@ -103,8 +103,8 @@ def footprints(bkgnd, force, reset):
     log("### nice-date-no-year: %s" % NICE_DATE_NO_YEAR, level=4)
     log("### nice-short-date: %s" % NICE_SHORT_DATE, level=4)
 
-def _unicode( text, encoding='utf-8' ):
-    try: text = unicode( text, encoding )
+def _unicode(text, encoding='utf-8'):
+    try: text = unicode(text, encoding)
     except: pass
     return text
 
@@ -134,7 +134,7 @@ def maybe_int(d, key, default = 0):
 
 class NextAired:
     def __init__(self):
-        self.WINDOW = xbmcgui.Window( 10000 )
+        self.WINDOW = xbmcgui.Window(10000)
         self.set_today()
         self.tznames = ','.join(map(str,tzname))
         self.weekdays = []
@@ -574,9 +574,7 @@ class NextAired:
                 tid = -tid
             elif prior_data and 'tvrage' in prior_data:
                 current_show['tvrage'] = prior_data['tvrage']
-            if current_show.get('canceled', False):
-                log("### Canceled/Ended", level=4)
-            log( "### %s" % current_show )
+            log("### %s" % current_show)
             show_dict[tid] = current_show
 
         # If we did a lot of work, make sure we save it prior to doing anything else.
@@ -599,7 +597,7 @@ class NextAired:
                 log('### Removing obsolete show %s' % show_dict[tid]['localname'], level=2)
                 del show_dict[tid]
             self.nextlist.sort(key=lambda x: (x['episodes'][x['ep_ndx']]['aired'], x['Show Name']))
-            log("### next list: %s shows ### %s" % (len(self.nextlist) , self.nextlist), level=7)
+            log("### next list: %s shows ### %s" % (len(self.nextlist), self.nextlist), level=7)
             self.check_today_show()
             self.push_data()
         else:
@@ -687,7 +685,7 @@ class NextAired:
             thumbnail = item['thumbnail']
             dbid = self.videodb + str(item['tvshowid']) + '/'
             TVlist.append((tvshowname, path, art, dbid, thumbnail, item['imdbnumber'], item['premiered']))
-        log( "### list: %s" % TVlist )
+        log("### list: %s" % TVlist)
         return TVlist
 
     @staticmethod
@@ -770,8 +768,7 @@ class NextAired:
 
     def check_show_info(self, tvdb, tid, current_show, prior_data):
         name = current_show['localname']
-        log("### check if %s is up-to-date" % name, level=4)
-        log("### thetvdb id = %d" % tid, level=5)
+        log("### check if %s is up-to-date (%d)" % (name, tid), level=4)
         # If the prior_data isn't in need of an update, use it unchanged.
         if prior_data:
             earliest_id, eps_last_updated = prior_data.get('eps_changed', (None, 0))
@@ -1006,18 +1003,18 @@ class NextAired:
         self.set_today()
         self.todayshow = 0
         self.todaylist = []
-        log( "### %s" % self.datestr )
+        log("### %s" % self.datestr)
         for show in self.nextlist:
             name = show["localname"]
             when = show['episodes'][show['ep_ndx']]['aired']
-            log( "################" )
-            log( "### %s" % name )
+            log("################")
+            log("### %s" % name)
             if when[:10] == self.datestr:
                 self.todayshow += 1
                 self.todaylist.append(name)
-                log( "### TODAY" )
-            log( "### %s" % when )
-        log( "### today show: %s - %s" % ( self.todayshow , str(self.todaylist).strip("[]") ) )
+                log("### TODAY")
+            log("### %s" % when)
+        log("### today show: %s - %s" % (self.todayshow, str(self.todaylist).strip("[]")))
 
     # The style setting only affects "nice" dates, not the historic format.
     def str_date(self, d, style=None):
@@ -1039,18 +1036,18 @@ class NextAired:
 
     @staticmethod
     def get_list(listname):
-        path = os.path.join( __datapath__ , listname )
+        path = os.path.join(__datapath__, listname)
         if xbmcvfs.exists(path):
-            log( "### Load list: %s" % path )
+            log("### Load list: %s" % path)
             return NextAired.load_file(path)
         else:
-            log( "### Load list: %s not found!" % path )
+            log("### Load list: %s not found!" % path)
             return []
 
     @staticmethod
     def load_file(file_path):
         try:
-            return eval( file( file_path, "r" ).read() )
+            return eval(file(file_path, "r").read())
         except:
             print_exc()
             log("### ERROR could not load file %s" % file_path, level=0)
@@ -1058,10 +1055,10 @@ class NextAired:
 
     @staticmethod
     def save_file(txt, filename):
-        path = os.path.join( __datapath__ , filename )
+        path = os.path.join(__datapath__, filename)
         try:
             if txt:
-                file( path , "w" ).write( repr( txt ) )
+                file(path, "w").write(repr(txt))
             else:
                 self.rm_file(filename)
         except:
@@ -1270,7 +1267,7 @@ class NextAired:
         if infolabel == 'listitem':
             return label
 
-    def close(self , msg ):
+    def close(self, msg):
         log("### %s" % msg, level=1)
         sys.exit()
 
@@ -1347,7 +1344,7 @@ class tvdb_updater:
             show['eps_changed'] = (earliest_id, latest_time)
         return
 
-if ( __name__ == "__main__" ):
+if (__name__ == "__main__"):
     NextAired()
 
 # vim: sw=4 ts=8 et
