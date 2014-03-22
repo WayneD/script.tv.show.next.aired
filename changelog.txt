@@ -1,3 +1,7 @@
+-6.0.6 (2014-03-22)
+- Fix a timezone issue that could cause the script to exit.
+- Fix an off-by-one error in the DB-upgrade code that could sometimes cause a failure.
+
 -6.0.5 (2014-03-22)
 - Added a new today-week TV Guide xml file and lots of new skinning values.  The new guide can also show yesterday's episodes, if desired.
 - Add a means for the user to request new info for a single show.
