@@ -964,7 +964,7 @@ class NextAired:
             if from_ver < 4:
                 if 'RFC3339' in show:
                     del show['RFC3339']
-                show['ep_ndx'] = (1 if len(show['episodes']) >= 1 else 0)
+                show['ep_ndx'] = (1 if len(show['episodes']) > 1 else 0)
                 ep0 = show['episodes'][0]
                 if ep0['id'] is None:
                     ep0['name'] = None
