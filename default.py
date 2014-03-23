@@ -1133,24 +1133,31 @@ class NextAired:
         next_aired_dialog.MyDialog(self.nextlist, self.set_labels, self.nice_date, ScanDays, TodayStyle, WantYesterday)
 
     def run_backend(self):
-        self._stop = False
-        self.previousitem = ''
-        show_dict, elapsed_secs = self.load_data()
-        if not show_dict:
-            self._stop = True
-        while not self._stop:
-            self.selecteditem = normalize(xbmc.getInfoLabel("ListItem.TVShowTitle"))
-            if self.selecteditem != self.previousitem:
+        fetch_limit = 0
+        while True:
+            fetch_limit -= 1
+            if fetch_limit <= 0:
+                fetch_limit = 5*60*10 # Load fresh data every 5 minutes or so...
                 self.WINDOW.clearProperty("NextAired.Label")
-                self.previousitem = self.selecteditem
-                for tid, item in show_dict.iteritems():
-                    if self.selecteditem == item["localname"]:
-                        self.set_labels('windowproperty', item)
-                        break
+                show_dict, elapsed_secs = self.load_data()
+                if not show_dict:
+                    return
+                title_dict = {}
+                for tid, show in show_dict.iteritems():
+                    title_dict[show['localname']] = show
+                show_dict = None
+                current_show = ''
+            show_name = normalize(xbmc.getInfoLabel("ListItem.TVShowTitle"))
+            if show_name != current_show:
+                self.WINDOW.clearProperty("NextAired.Label")
+                current_show = show_name
+                show = title_dict.get(show_name, None)
+                if show:
+                    self.set_labels('windowproperty', show)
             xbmc.sleep(100)
             if not xbmc.getCondVisibility("Window.IsVisible(10025)"):
                 self.WINDOW.clearProperty("NextAired.Label")
-                self._stop = True
+                return
 
     def return_properties(self, tvshowtitle):
         show_dict, elapsed_secs = self.load_data()
