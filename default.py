@@ -33,6 +33,7 @@ COUNTRY_DB = 'country.db'
 OLD_FILES = [ 'nextaired.db', 'next_aired.db', 'canceled.db', 'cancelled.db' ]
 LISTITEM_ART = [ 'poster', 'banner', 'clearlogo' ] # This order MUST match the settings.xml list!!
 USEFUL_ART = LISTITEM_ART + [ 'characterart', 'clearart', 'fanart', 'landscape' ]
+LEADING_ZERO_REGEX = re.compile(r"^0")
 CLASSIFICATION_REGEX = re.compile(r"(?:^| \| )(Scripted|Mini-Series|Documentary|Animation|Game Show|Reality|Talk Show|Variety)( \| |$)")
 
 STATUS = { '0' : __language__(32201),
@@ -1218,7 +1219,7 @@ class NextAired:
             ndx = item['ep_ndx'] if item['ep_ndx'] else -1
             airtime = item['episodes'][ndx]['aired'][11:16]
             if self.ampm:
-                airtime = TheTVDB.convert_time(airtime).strftime('%I:%M %p')
+                airtime = LEADING_ZERO_REGEX.sub('', TheTVDB.convert_time(airtime).strftime('%I:%M %p').lower())
 
         status = item.get("Status", "")
         if status == 'Continuing':
