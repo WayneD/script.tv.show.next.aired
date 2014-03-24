@@ -408,7 +408,8 @@ class NextAired:
             # If the local timezone changed, we will need to recompute the Airtime values.
             if self.tznames != self.old_tznames:
                 for tid, show in show_dict.iteritems():
-                    show['show_changed'] = 1
+                    if 'show_changed' not in show:
+                        show['show_changed'] = 1
             # We want to recreate our country DB every week.
             if len(self.country_dict) < 500 or self.now - self.country_last_update >= 7*24*60*60:
                 try:
@@ -780,7 +781,8 @@ class NextAired:
             show_changed = prior_data.get('show_changed', 0)
             if prior_data['Country'] == 'Unknown' and self.country_dict.get(prior_data['Network'], None):
                 log("### Forcing show-change for %s to fix unknown country" % name, level=2)
-                show_changed = 1
+                if not show_changed:
+                    show_changed = 1
             if show_changed:
                 if earliest_id is None:
                     earliest_id = 0
@@ -1313,8 +1315,10 @@ class tvdb_updater:
             # Flag all shows as needing new data.  We include canceled shows because
             # they sometimes have new info (or may have become non-canceled).
             for tid, show in show_dict.iteritems():
-                show['show_changed'] = 1
-                show['eps_changed'] = (1, 0)
+                if 'show_changed' not in show:
+                    show['show_changed'] = 1
+                if 'eps_changed' not in show:
+                    show['eps_changed'] = (1, 0)
             return (True, False) # Alert caller that a full-scan is in progress.
 
         log("### Update period: %s (%d mins)" % (period, int(elapsed_update_secs / 60)), level=2)
@@ -1352,7 +1356,8 @@ class tvdb_updater:
             log("### Found series change (series: %d, time: %d) for %s" % (series_id, when, show['localname']), level=2)
             show['show_changed'] = when
             if self.bad_episode_info:
-                show['eps_changed'] = (1, 0)
+                if 'eps_changed' not in show:
+                    show['eps_changed'] = (1, 0)
         else:
             if when <= show['eps_last_updated']:
                 return
