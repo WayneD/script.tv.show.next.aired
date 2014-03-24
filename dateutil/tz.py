@@ -132,8 +132,8 @@ class tzlocal(datetime.tzinfo):
         # Here is a more stable implementation:
         #
         ord_diff = dt.toordinal() - EPOCHORDINAL
-        if AVOID_NEGATIVE_TIMESTAMP and ord_diff < 0:
-            ord_diff = 0
+        if AVOID_NEGATIVE_TIMESTAMP and ord_diff <= 0:
+            ord_diff = 1
         timestamp = (ord_diff * 86400
                      + dt.hour * 3600
                      + dt.minute * 60
@@ -407,8 +407,8 @@ class tzfile(datetime.tzinfo):
 
     def _find_ttinfo(self, dt, laststd=0):
         ord_diff = dt.toordinal() - EPOCHORDINAL
-        if AVOID_NEGATIVE_TIMESTAMP and ord_diff < 0:
-            ord_diff = 0
+        if AVOID_NEGATIVE_TIMESTAMP and ord_diff <= 0:
+            ord_diff = 1
         timestamp = (ord_diff * 86400
                      + dt.hour * 3600
                      + dt.minute * 60
