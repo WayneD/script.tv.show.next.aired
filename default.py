@@ -448,8 +448,10 @@ class NextAired:
 
         if force_show is not None and force_show in title_dict:
             show = show_dict[title_dict[force_show]]
-            show['show_changed'] = 1
-            show['eps_changed'] = (1, 0)
+            if 'show_changed' not in show:
+                show['show_changed'] = 1
+            if 'eps_changed' not in show:
+                show['eps_changed'] = (1, 0)
 
         TVlist = self.listing()
         total_show = len(TVlist)
