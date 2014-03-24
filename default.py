@@ -1160,10 +1160,10 @@ class NextAired:
                 return
 
     def return_properties(self, tvshowtitle):
+        self.WINDOW.clearProperty("NextAired.Label")
         show_dict, elapsed_secs = self.load_data()
         log("### return_properties started", level=2)
         if show_dict:
-            self.WINDOW.clearProperty("NextAired.Label")
             for tid, item in show_dict.iteritems():
                 if tvshowtitle == item["localname"]:
                     self.set_labels('windowproperty', item)
