@@ -361,7 +361,7 @@ class NextAired:
             # User updating: we will wait for a background update to finish, then see if we have recent data.
             DIALOG_PROGRESS = xbmcgui.DialogProgress()
             DIALOG_PROGRESS.create(__language__(32101), __language__(32102))
-            self.max_fetch_failures = 4
+            self.max_fetch_failures = 8 if self.FORCEUPDATE else 4
             # Create our user-lock file and check if the background updater is running.
             self.set_update_lock(DIALOG_PROGRESS)
             locked_for_update = True
