@@ -464,7 +464,7 @@ class NextAired:
 
         count = 0
         user_canceled = False
-        id_re = re.compile(r"http%3a%2f%2fthetvdb\.com%2f[^']+%2f([0-9]+)-")
+        id_re = re.compile(r"http://thetvdb\.com/[^'" + '"' + r":]+/([0-9]+)-")
         for show in TVlist:
             count += 1
             name = show[0]
@@ -492,9 +492,9 @@ class NextAired:
                     "thumbnail": show[4],
                     }
             # Try to figure out what the tvdb number is by using the art URLs and the imdbnumber value
-            m2 = id_re.search(str(art))
+            m2 = id_re.search(str(art).replace('%3a', ':').replace('%2f', '/'))
             m2_num = int(m2.group(1)) if m2 else 0
-            m4 = id_re.search(show[4])
+            m4 = id_re.search(show[4].replace('%3a', ':').replace('%2f', '/'))
             m4_num = int(m4.group(1)) if m4 else 0
             m5 = INT_REGEX.match(show[5])
             m5_num = int(m5.group(1)) if m5 else 0
@@ -509,11 +509,6 @@ class NextAired:
                 elif old_data and current_show['path'] == old_data['path']:
                     # This handles a localname change where we knew what the ID was before -- keep that info.
                     tid = m5_num
-                elif old_id and (m2_num == old_id or m4_num == old_id):
-                    tid = old_id
-                elif m2_num and m2_num == m4_num:
-                    # This will override the old_id value if both artwork URLs change.
-                    tid = m2_num
                 elif old_id and force_show is None:
                     # This is an "iffy" ID.  We'll keep using it unless the user asked for a fresh start.
                     tid = old_id
