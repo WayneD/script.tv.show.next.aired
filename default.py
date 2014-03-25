@@ -294,7 +294,7 @@ class NextAired:
         db_ver = (ep_list.pop(0) if ep_list else None)
         self.last_update = (ep_list.pop() if ep_list else self.last_success)
         self.old_tznames = (ep_list.pop(0) if ep_list else '')
-        if not db_ver or not self.last_success:
+        if db_ver is None or self.last_success is None:
             if self.RESET:
                 log("### starting without prior data (DB RESET requested)", level=1)
             elif ep_list_len:
