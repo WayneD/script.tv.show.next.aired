@@ -1088,9 +1088,7 @@ class NextAired:
         self.WINDOW.setProperty("NextAired.TodayTotal", "0")
         self.WINDOW.setProperty("NextAired.TodayShow", str(self.todaylist).strip("[]"))
         for count in range(oldTotal):
-            prefix = "NextAired.%d." % (count+1)
-            for prop in ("AirTime", "Airday", "Art(banner)", "Art(characterart)", "Art(clearart)", "Art(clearlogo)", "Art(fanart)", "Art(landscape)", "Art(poster)", "Classification", "Country", "Fanart", "Genre", "Label", "LatestDate", "LatestDay", "LatestEpisodeNumber", "LatestNumber", "LatestSeasonNumber", "LatestTitle", "Library", "Network", "NextDate", "NextDay", "NextEpisodeNumber", "NextNumber", "NextSeasonNumber", "NextTitle", "Path", "Premiered", "Runtime", "ShortTime", "Started", "Status", "StatusID", "Thumb", "Today"):
-                self.WINDOW.clearProperty(prefix + prop)
+            self.clear_properties("NextAired.%d." % (count+1))
         self.count = 0
         all_days = __addon__.getSetting("ShowAllTVShowsOnHome") == 'true'
         for current_show in self.nextlist:
@@ -1099,6 +1097,12 @@ class NextAired:
                 self.set_labels('windowpropertytoday', current_show)
         self.WINDOW.setProperty("NextAired.Total", str(len(self.nextlist)))
         self.WINDOW.setProperty("NextAired.TodayTotal", str(self.todayshow))
+
+    def clear_properties(self, prefix):
+        for prop in ("AirTime", "Airday", "Classification", "Country", "Fanart", "Genre", "Label", "LatestDate", "LatestDay", "LatestEpisodeNumber", "LatestNumber", "LatestSeasonNumber", "LatestTitle", "Library", "Network", "NextDate", "NextDay", "NextEpisodeNumber", "NextNumber", "NextSeasonNumber", "NextTitle", "Path", "Premiered", "Runtime", "ShortTime", "Started", "Status", "StatusID", "Thumb", "Today"):
+            self.WINDOW.clearProperty(prefix + prop)
+        for art_type in USEFUL_ART:
+            self.WINDOW.clearProperty("%sArt(%s)" % (prefix, art_type))
 
     def show_gui(self):
         try:
@@ -1130,7 +1134,7 @@ class NextAired:
             fetch_limit -= 1
             if fetch_limit <= 0:
                 fetch_limit = 5*60*10 # Load fresh data every 5 minutes or so...
-                self.WINDOW.clearProperty("NextAired.Label")
+                self.clear_properties("NextAired.")
                 show_dict, elapsed_secs = self.load_data()
                 if not show_dict:
                     return
@@ -1141,18 +1145,18 @@ class NextAired:
                 current_show = ''
             show_name = normalize(xbmc.getInfoLabel("ListItem.TVShowTitle"))
             if show_name != current_show:
-                self.WINDOW.clearProperty("NextAired.Label")
+                self.clear_properties("NextAired.")
                 current_show = show_name
                 show = title_dict.get(show_name, None)
                 if show:
                     self.set_labels('windowproperty', show)
             xbmc.sleep(100)
             if not xbmc.getCondVisibility("Window.IsVisible(10025)"):
-                self.WINDOW.clearProperty("NextAired.Label")
+                self.clear_properties("NextAired.")
                 return
 
     def return_properties(self, tvshowtitle):
-        self.WINDOW.clearProperty("NextAired.Label")
+        self.clear_properties("NextAired.")
         show_dict, elapsed_secs = self.load_data()
         log("### return_properties started", level=2)
         if show_dict:
@@ -1257,7 +1261,7 @@ class NextAired:
         # Keep old fanart property for backwards compatibility
         label.setProperty(prefix + "Fanart", art.get("fanart", ""))
         # New art properties
-        for art_type in ('fanart', 'poster', 'banner', 'landscape', 'clearlogo', 'characterart', 'clearart'):
+        for art_type in USEFUL_ART:
             art_url = art.get(art_type, "")
             if must_have and art_url == "" and art_type == must_have:
                 try:
