@@ -152,7 +152,7 @@ class NextAired:
             self.update_show(self.UPDATESHOW)
         elif self.BACKEND:
             self.run_backend()
-        elif self.SILENT == "":
+        elif not self.SILENT:
             self.show_gui()
         elif self.STOP:
             self.stop_background_updating()
@@ -167,7 +167,7 @@ class NextAired:
         except:
             self.params = {}
         log("### params: %s" % self.params, level=3)
-        self.SILENT = self.params.get("silent", "")
+        self.SILENT = self.params.get("silent", False)
         self.BACKEND = self.params.get("backend", False)
         self.TVSHOWTITLE = normalize(self.params, "tvshowtitle", False)
         self.UPDATESHOW = normalize(self.params, "updateshow", False)
@@ -177,7 +177,7 @@ class NextAired:
 
     def _footprints(self):
         def_level = 2 if self.TVSHOWTITLE else 1
-        style = 'background' if self.SILENT != "" else 'GUI'
+        style = 'background' if self.SILENT else 'GUI'
         force = 'w/FORCEUPDATE ' if self.FORCEUPDATE else ''
         reset = 'w/RESET ' if self.RESET else ''
         log("### %s starting %s proc %s%s(%s)" % (__addonname__, style, force, reset, __version__), level=def_level)
@@ -338,7 +338,7 @@ class NextAired:
         show_dict, elapsed_secs = self.load_data()
 
         # This should prevent the background and user code from updating the DB at the same time.
-        if self.SILENT != "":
+        if self.SILENT:
             DIALOG_PROGRESS = None
             # We double-check this here, just in case it changed.
             if self.is_time_for_update(update_after_seconds):
@@ -416,7 +416,7 @@ class NextAired:
             if len(self.country_dict) < 500 or self.now - self.country_last_update >= 7*24*60*60:
                 try:
                     log("### grabbing a new country mapping list", level=1)
-                    if self.SILENT == "":
+                    if not self.SILENT:
                         DIALOG_PROGRESS.update(0, __language__(32102), "country.db")
                     self.country_dict = CountryLookup().get_country_dict()
                     self.save_file([self.country_dict, COUNTRY_DB_VER, self.now], COUNTRY_DB)
@@ -475,7 +475,7 @@ class NextAired:
             art = show[2]
             premiered_year = show[6][:4] if show[6] != '' else None
             percent = int(float(count * 100) / total_show)
-            if self.SILENT != "":
+            if self.SILENT:
                 self.WINDOW.setProperty("NextAired.bgnd_status", "%f|%d|%s" % (time(), percent, name))
             elif locked_for_update and self.max_fetch_failures > 0:
                 DIALOG_PROGRESS.update(percent, __language__(32102), name)
@@ -611,7 +611,7 @@ class NextAired:
             log("### data update finished", level=1)
 
             self.clear_update_lock(DIALOG_PROGRESS)
-            if self.SILENT == "" and self.last_failure and not user_canceled:
+            if not self.SILENT and self.last_failure and not user_canceled:
                 xbmcgui.Dialog().ok(__language__(32105), __language__(32106))
 
         self.FORCEUPDATE = False
