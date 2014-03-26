@@ -103,8 +103,7 @@ def repeat_expand(filenum, var_txt, text):
                 for j in range(subs_cnt):
                     new_val = val
                     for k in range(len(subs)):
-                        rpt = subs[k]
-                        new_val = new_val.replace("%" + str(k) + "%", str(rpt[j]))
+                        new_val = new_val.replace("%%%d%%" % k, str(subs[k][j]))
                     vals.append(new_val)
             else:
                 vals.append(val)
@@ -120,7 +119,7 @@ def repeat_expand(filenum, var_txt, text):
     for j in range(iters):
         text_list.append(text)
         for var, vals in var_list:
-            text_list[-1] = text_list[-1].replace("%" + var + "%", vals[j])
+            text_list[-1] = text_list[-1].replace("%%%s%%" % var, vals[j])
 
     return ''.join(text_list)
 
