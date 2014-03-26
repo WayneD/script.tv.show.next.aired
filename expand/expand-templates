@@ -44,26 +44,24 @@ def generate_file(filenum, out_fn, text):
     only_re = re.compile(r"^<!--ONLY(-END\s*-->)", re.MULTILINE)
     text = only_re.sub(r"<!--REPEAT\1", text)
     only_re = re.compile(r"^<!--ONLY(\s[^>]+)-->", re.MULTILINE)
-    while True:
-        m = only_re.search(text)
-        if not m:
-            break
-        repeat_vars = ''.join(["%s ONE_REPEAT_FOR_ONLY=1\n" % x for x in m.group(1).split()])
-        text = only_re.sub("<!--REPEAT\n" + repeat_vars + "-->", text, 1)
+    text = only_re.sub(lambda m: "<!--REPEAT\n" + (''.join(["%s ONE_REPEAT_FOR_ONLY=1\n" % x for x in m.group(1).split()])) + "-->", text)
 
     # We allow nesting of REPEAT sections by making sure that we match inner repeats first.
     repeat_re = re.compile(r"<!--REPEAT(\s[^>]+)-->[ \t]*\n(((?!<!--REPEAT).*\n)*)<!--REPEAT-END\s*-->[ \t]*\n")
-    while True:
-        m = repeat_re.search(text)
-        if not m:
-            break
-        text = repeat_re.sub(repeat_expand(filenum, m.group(1), m.group(2)), text, 1)
+    global check_for_replace_blocks
+    check_for_replace_blocks = True
+    while check_for_replace_blocks:
+        check_for_replace_blocks = False
+        text = repeat_re.sub(lambda m: repeat_expand(filenum, m.group(1), m.group(2)), text)
 
     with open(out_fn, 'w') as out_fp:
         out_fp.write(text)
 
 
 def repeat_expand(filenum, var_txt, text):
+    global check_for_replace_blocks
+    check_for_replace_blocks = True # Tell the caller we need to try again (to handle nested blocks).
+
     # If var_txt has a [1]-style limitation, we only continue if we find our filenum section.
     if re.search(r"^[ \t]*\[\d+\]\s", var_txt, re.MULTILINE):
         this_num_re = re.compile(r"^[ \t]*\[" + filenum + r"\]\s+(.+?)(\n[ \t]*\[\d+\]\s|\s*\Z)", re.MULTILINE | re.DOTALL)
