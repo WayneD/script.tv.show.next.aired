@@ -81,7 +81,7 @@ if not xbmcvfs.exists(__datapath__):
     xbmcvfs.mkdir(__datapath__)
 
 MAX_INFO_LOG_LEVEL = 1
-MAX_DEBUG_LOG_LEVEL = 3
+MAX_DEBUG_LOG_LEVEL = 2
 
 # if level <= 0, sends LOGERROR msg.  For positive values, sends LOGNOTICE
 # if level <= MAX_INFO_LOG_LEVEL, else LOGDEBUG.  If level is omitted, we assume 10.
@@ -166,7 +166,7 @@ class NextAired:
             self.params = dict(arg.split("=") for arg in sys.argv[1].split("&"))
         except:
             self.params = {}
-        log("### params: %s" % self.params, level=3)
+        log("### params: %s" % self.params, level=2)
         self.SILENT = self.params.get("silent", False)
         self.BACKEND = self.params.get("backend", False)
         self.TVSHOWTITLE = normalize(self.params, "tvshowtitle", False)
@@ -1156,6 +1156,7 @@ class NextAired:
             xbmc.sleep(100)
             if not xbmc.getCondVisibility("Window.IsVisible(10025)"):
                 self.clear_properties("NextAired.")
+                log("### run_backend ending", level=3)
                 return
 
     def return_properties(self, tvshowtitle):
