@@ -94,16 +94,6 @@ def log(txt, level=10):
     log_level = (xbmc.LOGERROR if level <= 0 else (xbmc.LOGNOTICE if level <= MAX_INFO_LOG_LEVEL else xbmc.LOGDEBUG))
     xbmc.log(msg=message.encode("utf-8"), level=log_level)
 
-def footprints(bkgnd, force, reset):
-    style = 'background' if bkgnd else 'GUI'
-    force = 'w/FORCEUPDATE ' if force else ''
-    reset = 'w/RESET ' if reset else ''
-    log("### %s starting %s proc %s%s(%s)" % (__addonname__, style, force, reset, __version__), level=1)
-    log("### dateformat: %s" % DATE_FORMAT, level=4)
-    log("### nice-date-format: %s" % NICE_DATE_FORMAT, level=4)
-    log("### nice-date-no-year: %s" % NICE_DATE_NO_YEAR, level=4)
-    log("### nice-short-date: %s" % NICE_SHORT_DATE, level=4)
-
 def _unicode(text, encoding='utf-8'):
     try: text = unicode(text, encoding)
     except: pass
@@ -154,7 +144,7 @@ class NextAired:
         # "last_failure" is when we last failed to fetch data, with failure_cnt counting consecutive failures.
         self.last_success = self.last_update = self.last_failure = self.failure_cnt = 0
         self._parse_argv()
-        footprints(self.SILENT != "", self.FORCEUPDATE, self.RESET)
+        self._footprints()
         self.check_xbmc_version()
         if self.TVSHOWTITLE:
             self.return_properties(self.TVSHOWTITLE)
@@ -184,6 +174,18 @@ class NextAired:
         self.FORCEUPDATE = self.params.get("force", False)
         self.RESET = self.params.get("reset", False)
         self.STOP = self.params.get("stop", False)
+
+    def _footprints(self):
+        def_level = 2 if self.TVSHOWTITLE else 1
+        style = 'background' if self.SILENT != "" else 'GUI'
+        force = 'w/FORCEUPDATE ' if self.FORCEUPDATE else ''
+        reset = 'w/RESET ' if self.RESET else ''
+        log("### %s starting %s proc %s%s(%s)" % (__addonname__, style, force, reset, __version__), level=def_level)
+        if def_level == 1:
+            log("### dateformat: %s" % DATE_FORMAT, level=4)
+            log("### nice-date-format: %s" % NICE_DATE_FORMAT, level=4)
+            log("### nice-date-no-year: %s" % NICE_DATE_NO_YEAR, level=4)
+            log("### nice-short-date: %s" % NICE_SHORT_DATE, level=4)
 
     def set_today(self):
         self.now = time()
@@ -1129,6 +1131,7 @@ class NextAired:
         next_aired_dialog.MyDialog(self.nextlist, self.set_labels, self.nice_date, ScanDays, TodayStyle, WantYesterday)
 
     def run_backend(self):
+        log("### run_backend started", level=2)
         fetch_limit = 0
         while True:
             fetch_limit -= 1
