@@ -466,7 +466,7 @@ class NextAired:
 
         count = 0
         user_canceled = False
-        id_re = re.compile(r"http://thetvdb\.com/[^'" + '"' + r":]+/([0-9]+)-")
+        id_re = re.compile(r"\bthetvdb\.com/[^'" + '"' + r":]+/([0-9]+)-")
         for show in TVlist:
             count += 1
             name = show[0]
