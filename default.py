@@ -879,6 +879,7 @@ class NextAired:
         # the only item in the list ('aired' is where localized Airtime comes from).
         episode_list = [ {'name': None, 'aired': early_aired, 'sn': 0, 'en': 0} ]
         if episodes is not None:
+            runtime_re = re.compile(r"\( *(\d+) +(?:minutes|mins) *\)", re.IGNORECASE)
             max_eps_utime = 0
             if episodes:
                 for ep in episodes:
@@ -899,6 +900,10 @@ class NextAired:
                             'aired': dt.isoformat(),
                             'wday': dt.weekday(),
                             }
+                    overview = ep.get('Overview', "")
+                    m = runtime_re.search(overview)
+                    if m:
+                        got_ep['Runtime'] = int(m.group(1))
                     episode_list.append(got_ep)
                 episodes = None
                 episode_list.sort(key=itemgetter('aired', 'sn', 'en'))
@@ -1218,6 +1223,7 @@ class NextAired:
         airdays = ', ' . join([self.weekdays[wday] for wday in airdays])
 
         is_today = 'True' if next_ep and next_ep['aired'][:10] == self.datestr else 'False'
+        runtime = next_ep['Runtime'] if next_ep and 'Runtime' in next_ep else item.get("Runtime", "")
 
         started = TheTVDB.convert_date(item["Started"])
         if item["Airtime"] == '':
@@ -1261,7 +1267,7 @@ class NextAired:
         label.setProperty(prefix + "Genre", item.get("Genres", ""))
         label.setProperty(prefix + "Premiered", str(item.get("Premiered", "")))
         label.setProperty(prefix + "Country", item.get("Country", ""))
-        label.setProperty(prefix + "Runtime", str(item.get("Runtime", "")))
+        label.setProperty(prefix + "Runtime", str(runtime))
         # Keep old fanart property for backwards compatibility
         label.setProperty(prefix + "Fanart", art.get("fanart", ""))
         # New art properties
