@@ -690,30 +690,27 @@ class NextAired:
         return TVlist
 
     @staticmethod
-    def find_show_id(tvdb, show_name, maybe_id, want_year = None, strip_year = True):
-        log("### find_show_id(%s, %s, %s, %s)" % (show_name, maybe_id, want_year, strip_year), level=2)
+    def find_show_id(tvdb, show_name, maybe_id, want_year = None):
+        log("### find_show_id(%s, %s, %s)" % (show_name, maybe_id, want_year), level=2)
         year_re = re.compile(r" \((\d\d\d\d)\)")
         cntry_re = re.compile(r" \(([a-z][a-z])\)$", re.IGNORECASE)
         lc_name = lc_stripped_name(show_name)
         want_names = [ lc_name ]
-        removed_year = False
-        name_has_year = year_re.search(show_name)
         if want_year:
             want_year = str(want_year)
-        if strip_year and name_has_year:
+        name_has_year = year_re.search(show_name)
+        if name_has_year:
             want_year = name_has_year.group(1)
             show_name = year_re.sub('', show_name)
             lc_name = year_re.sub('', lc_name)
             want_names.append(lc_name) # Add (stripped-year) "Show"
-            removed_year = True
-            name_has_year = False
-        if want_year and not name_has_year and not removed_year:
+        elif want_year:
             want_names.insert(0, "%s (%s)" % (lc_name, want_year)) # Add "Show (1999)"
         cntry_match = cntry_re.search(lc_name)
         if cntry_match:
             alt_name = cntry_re.sub(' ' + cntry_match.group(1), lc_name)
             want_names.append(alt_name) # Since we have "Show (XX)", add "Show XX"
-            if want_year and not name_has_year:
+            if want_year:
                 want_names.insert(1, "%s (%s)" % (alt_name, want_year)) # Add "Show XX (1999)"
                 alt_name = cntry_re.sub(" (%s) (%s)" % (want_year, cntry_match.group(1)), lc_name)
                 if want_names[0] != alt_name:
@@ -721,48 +718,56 @@ class NextAired:
                 else:
                     want_names.insert(1, "%s (%s)" % (lc_name, want_year)) # Add "Show (XX) (1999)"
 
+        search_list = [ show_name ]
+        if want_year:
+            search_list.append("%s (%s)" % (show_name, want_year))
+
         log("### want_names: %s" % want_names, level=6)
-        log("### want_year: %s" % want_year, level=6)
 
-        try:
-            show_list = tvdb.get_matching_shows(show_name, language='all', want_raw=True)
-        except Exception, e:
-            log('### ERROR returned by get_matching_shows(): %s' % e, level=0)
-            return 0
+        all_results = [ ]
 
-        if show_list:
+        for search_for in search_list:
+            log("### search_for: %s" % search_for, level=6)
+            try:
+                show_list = tvdb.get_matching_shows(search_for, language='all', want_raw=True)
+            except Exception, e:
+                log('### ERROR returned by get_matching_shows(): %s' % e, level=0)
+                return 0
+            if show_list is None:
+                show_list = []
+
             for attrs in show_list:
                 attrs['SeriesName'] = lc_stripped_name(normalize(attrs, 'SeriesName'))
                 log("### id: %s, FirstAired: %s, SeriesName: %s" % (attrs['id'], attrs.get('FirstAired', '????')[:4], attrs['SeriesName']), level=6)
                 if int(attrs['id']) == maybe_id:
                     log("### verified id of %s" % maybe_id, level=2)
                     return maybe_id
-            for want_name in want_names:
-                for attrs in show_list:
-                    match_names = [ attrs['SeriesName'] ]
-                    if 'AliasNames' in attrs:
-                        for alias in normalize(attrs, 'AliasNames').split('|'):
-                            match_names.append(lc_stripped_name(alias))
-                    year = attrs.get('FirstAired', '')[:4]
-                    if want_year and year != want_year:
-                        continue
-                    for j in range(len(match_names)):
-                        mname = match_names[j]
-                        if len(year) == 4 and not year_re.search(mname):
-                            match_names.append("%s (%s)" % (mname, year))
-                            m = cntry_re.search(mname)
-                            if m:
-                                match_names.append(cntry_re.sub(" (%s) (%s)" % (year, m.group(1)), mname))
-                    log("### match_names: %s" % match_names, level=6)
-                    if want_name in match_names:
-                        log("### found id of %s" % attrs['id'], level=2)
-                        return int(attrs['id'])
 
-        if len(show_list) == 0 and cntry_re.search(show_name):
-            return NextAired.find_show_id(tvdb, cntry_re.sub('', show_name), maybe_id, want_year)
+            if len(show_list) == 0 and cntry_re.search(search_for):
+                search_list.append(cntry_re.sub('', search_for))
 
-        if strip_year and want_year and not name_has_year:
-            return NextAired.find_show_id(tvdb, "%s (%s)" % (show_name, want_year), maybe_id, want_year, False)
+            all_results = show_list + all_results
+
+        for want_name in want_names:
+            for attrs in all_results:
+                year = attrs.get('FirstAired', '')[:4]
+                if want_year and year != want_year:
+                    continue
+                match_names = [ attrs['SeriesName'] ]
+                if 'AliasNames' in attrs:
+                    for alias in normalize(attrs, 'AliasNames').split('|'):
+                        match_names.append(lc_stripped_name(alias))
+                for j in range(len(match_names)):
+                    mname = match_names[j]
+                    if len(year) == 4 and not year_re.search(mname):
+                        match_names.append("%s (%s)" % (mname, year))
+                        m = cntry_re.search(mname)
+                        if m:
+                            match_names.append(cntry_re.sub(" (%s) (%s)" % (year, m.group(1)), mname))
+                log("### match_names: %s" % match_names, level=6)
+                if want_name in match_names:
+                    log("### found id of %s" % attrs['id'], level=2)
+                    return int(attrs['id'])
 
         log("### no match found", level=2)
         return 0
