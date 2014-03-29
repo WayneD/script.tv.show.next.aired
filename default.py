@@ -761,7 +761,7 @@ class NextAired:
         if len(show_list) == 0 and cntry_re.search(show_name):
             return NextAired.find_show_id(tvdb, cntry_re.sub('', show_name), maybe_id, want_year)
 
-        if removed_year and len(show_list) >= 24:
+        if strip_year and want_year and not name_has_year:
             return NextAired.find_show_id(tvdb, "%s (%s)" % (show_name, want_year), maybe_id, want_year, False)
 
         log("### no match found", level=2)
