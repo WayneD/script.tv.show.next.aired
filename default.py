@@ -585,6 +585,7 @@ class NextAired:
 
         if show_dict:
             log("### data available", level=5)
+            WantYesterday = __addon__.getSetting("WantYesterday") == 'true'
             remove_list = []
             for tid, show in show_dict.iteritems():
                 if 'unused' in show:
@@ -592,7 +593,7 @@ class NextAired:
                         remove_list.append(tid)
                         continue
                     del show['unused']
-                if show['ep_ndx']:
+                if show['ep_ndx'] or (WantYesterday and len(show['episodes']) > 1):
                     self.nextlist.append(show)
             for tid in remove_list:
                 log('### Removing obsolete show %s' % show_dict[tid]['localname'], level=2)
