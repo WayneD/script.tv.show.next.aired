@@ -1102,12 +1102,12 @@ class NextAired:
         self.WINDOW.setProperty("NextAired.TodayShow", str(self.todaylist).strip("[]"))
         for count in range(oldTotal):
             self.clear_properties("NextAired.%d." % (count+1))
-        self.count = 0
+        count = 0
         all_days = __addon__.getSetting("ShowAllTVShowsOnHome") == 'true'
         for current_show in self.nextlist:
             if all_days or current_show['episodes'][current_show['ep_ndx']]['aired'][:10] == self.datestr:
-                self.count += 1
-                self.set_labels('windowpropertytoday', current_show)
+                count += 1
+                self.set_labels('NextAired.%s.' % count, current_show)
         self.WINDOW.setProperty("NextAired.Total", str(len(self.nextlist)))
         self.WINDOW.setProperty("NextAired.TodayTotal", str(self.todayshow))
 
@@ -1151,11 +1151,13 @@ class NextAired:
     def run_backend(self):
         log("### run_backend started", level=2)
         fetch_limit = 0
+        separators = ('.', '(-1).', '(1).')
         while True:
             fetch_limit -= 1
             if fetch_limit <= 0:
                 fetch_limit = 5*60*10 # Load fresh data every 5 minutes or so...
-                self.clear_properties("NextAired.")
+                for sep in separators:
+                    self.clear_properties('NextAired' + sep)
                 show_dict, elapsed_secs = self.load_data()
                 if not show_dict:
                     return
@@ -1166,14 +1168,19 @@ class NextAired:
                 current_show = ''
             show_name = normalize(xbmc.getInfoLabel("ListItem.TVShowTitle"))
             if show_name != current_show:
-                self.clear_properties("NextAired.")
                 current_show = show_name
-                show = title_dict.get(show_name, None)
-                if show:
-                    self.set_labels('windowproperty', show)
+                for sep in separators:
+                    self.clear_properties('NextAired' + sep)
+                    if show_name is None:
+                         show_name = normalize(xbmc.getInfoLabel('ListItem' + sep + 'TVShowTitle'))
+                    show = title_dict.get(show_name, None)
+                    if show:
+                        self.set_labels('NextAired' + sep, show)
+                    show_name = None
             xbmc.sleep(100)
             if not xbmc.getCondVisibility("Window.IsVisible(10025)"):
-                self.clear_properties("NextAired.")
+                for sep in separators:
+                    self.clear_properties('NextAired' + sep)
                 log("### run_backend ending", level=3)
                 return
 
@@ -1184,7 +1191,7 @@ class NextAired:
         if show_dict:
             for tid, item in show_dict.iteritems():
                 if tvshowtitle == item["localname"]:
-                    self.set_labels('windowproperty', item)
+                    self.set_labels('NextAired.', item)
                     break
 
     def update_show(self, tvshowtitle):
@@ -1206,13 +1213,9 @@ class NextAired:
                 pass
         else:
             label = xbmcgui.Window(10000)
-            if infolabel == "windowproperty":
-                prefix = 'NextAired.'
-            elif infolabel == "windowpropertytoday":
-                prefix = 'NextAired.' + str(self.count) + '.'
+            prefix = infolabel
+            if re.match(r"NextAired\.\d+\.", infolabel):
                 label.setProperty("NextAired.ShowAllTVShows", __addon__.getSetting("ShowAllTVShowsOnHome"))
-            else:
-                return # Impossible...
             label.setProperty(prefix + "Label", item["localname"])
             label.setProperty(prefix + "Thumb", item.get("thumbnail", ""))
 

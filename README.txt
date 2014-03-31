@@ -26,7 +26,7 @@ Premiered           (year the first episode was aired, eg. '1999')
 Country             (production country of the tv show, eg. 'USA')
 Runtime             (duration of the episode in minutes)
 Fanart              (tv show fanart)
-AirsToday           (will return 'True' if the show is aired today, otherwise 'False')
+AirsToday           (will return 'True' if the show is aired today, otherwise 'False'; deprecated alias: "Today")
 NextDate            (date the next episode will be aired)
 NextDay             ("nice" localized format for NextDate, eg. "Wed, Jun 11" or "Mon, Jan 26, 2015")
 NextTitle           (name of the next episode)
@@ -100,6 +100,12 @@ example code:
 		<label>$INFO[Window(Home).Property(NextAired.NextDate)]</label>
 	</control>
 </control>
+
+Beginning with Next-Aired 6.0.8 these properties are also available for
+the prior show (ListItem(-1)) and next show (ListItem(1)):
+
+Window(Home).Property(NextAired(-1).*)
+Window(Home).Property(NextAired(1).*)
 
 
 III) If you run the script without any options (or if it's started by the user),
