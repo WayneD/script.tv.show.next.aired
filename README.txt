@@ -26,7 +26,7 @@ Premiered           (year the first episode was aired, eg. '1999')
 Country             (production country of the tv show, eg. 'USA')
 Runtime             (duration of the episode in minutes)
 Fanart              (tv show fanart)
-Today               (will return 'True' if the show is aired today, otherwise 'False')
+AirsToday           (will return 'True' if the show is aired today, otherwise 'False')
 NextDate            (date the next episode will be aired)
 NextDay             ("nice" localized format for NextDate, eg. "Wed, Jun 11" or "Mon, Jan 26, 2015")
 NextTitle           (name of the next episode)
@@ -162,13 +162,13 @@ substitute the string for "Today" (or Yesterday).
 
 Today's date and a localized word for "Today":
     Window(home).Property(NextAired.TodayDate)
-    Window(home).Property(NextAired.Today)
+    Window(home).Property(NextAired.TodayText)
 Yesterday's date and a localized word for "Tomorrow":
     Window(home).Property(NextAired.TomorrowDate)
-    Window(home).Property(NextAired.Tomorrow)
+    Window(home).Property(NextAired.TomorrowText)
 Yesterday's date and a localized word for "Yesterday":
     Window(home).Property(NextAired.YesterdayDate)
-    Window(home).Property(NextAired.Yesterday)
+    Window(home).Property(NextAired.YesterdayText)
 
 The date for the lists (Monday==1, Sunday==7):
     Window(home).Property(NextAired.1.Date)

@@ -1112,8 +1112,10 @@ class NextAired:
         self.WINDOW.setProperty("NextAired.TodayTotal", str(self.todayshow))
 
     def clear_properties(self, prefix):
-        for prop in ("AirTime", "Airday", "Classification", "Country", "Fanart", "Genre", "Label", "LatestDate", "LatestDay", "LatestEpisodeNumber", "LatestNumber", "LatestSeasonNumber", "LatestTitle", "Library", "Network", "NextDate", "NextDay", "NextEpisodeNumber", "NextNumber", "NextSeasonNumber", "NextTitle", "Path", "Premiered", "Runtime", "ShortTime", "Started", "Status", "StatusID", "Thumb", "Today"):
+        for prop in ("AirsToday", "AirTime", "Airday", "Classification", "Country", "Fanart", "Genre", "Label", "LatestDate", "LatestDay", "LatestEpisodeNumber", "LatestNumber", "LatestSeasonNumber", "LatestTitle", "Library", "Network", "NextDate", "NextDay", "NextEpisodeNumber", "NextNumber", "NextSeasonNumber", "NextTitle", "Path", "Premiered", "Runtime", "ShortTime", "Started", "Status", "StatusID", "Thumb"):
             self.WINDOW.clearProperty(prefix + prop)
+        if prefix != 'NextAired.':
+            self.WINDOW.clearProperty(prefix + "Today")
         for art_type in USEFUL_ART:
             self.WINDOW.clearProperty("%sArt(%s)" % (prefix, art_type))
 
@@ -1124,9 +1126,14 @@ class NextAired:
             update_after = 0
         self.update_data(update_after)
         weekday = self.date.weekday()
+        self.WINDOW.setProperty("NextAired.TodayText", xbmc.getLocalizedString(33006))
+        self.WINDOW.setProperty("NextAired.TomorrowText", xbmc.getLocalizedString(33007))
+        self.WINDOW.setProperty("NextAired.YesterdayText", __addon__.getLocalizedString(32018))
+        # TODO Remove these soon: --v
         self.WINDOW.setProperty("NextAired.Today", xbmc.getLocalizedString(33006))
         self.WINDOW.setProperty("NextAired.Tomorrow", xbmc.getLocalizedString(33007))
         self.WINDOW.setProperty("NextAired.Yesterday", __addon__.getLocalizedString(32018))
+        # TODO Remove these soon: --^
         self.WINDOW.setProperty("NextAired.TodayDate", self.str_date(self.date, 'DropYear'))
         self.WINDOW.setProperty("NextAired.TomorrowDate", self.str_date(self.tomorrow, 'DropThisYear'))
         self.WINDOW.setProperty("NextAired.YesterdayDate", self.str_date(self.yesterday, 'DropThisYear'))
@@ -1286,6 +1293,7 @@ class NextAired:
                 except:
                     pass
             label.setProperty("%sArt(%s)" % (prefix, art_type), art_url)
+        label.setProperty(prefix + "AirsToday", is_today) # XXX remove the "Today" version at some point?
         label.setProperty(prefix + "Today", is_today)
         label.setProperty(prefix + "AirDay", airdays)
         label.setProperty(prefix + "ShortTime", airtime)
