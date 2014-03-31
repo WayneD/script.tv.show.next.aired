@@ -928,8 +928,8 @@ class NextAired:
                     dt = datetime.combine(first_aired, airtime).replace(tzinfo=tzinfo)
                     if hh_mm != '':
                         dt = dt.astimezone(tz.tzlocal())
-                    ep['aired'] = dt.isoformat(),
-                    ep['wday'] = dt.weekday(),
+                    ep['aired'] = dt.isoformat()
+                    ep['wday'] = dt.weekday()
         else:
             max_eps_utime = 0
             current_show['ep_ndx'] = 0
