@@ -1150,7 +1150,7 @@ class NextAired:
 
     def run_backend(self):
         log("### run_backend started", level=2)
-        m = re.match(r"(-?\d+),(\d+)", self.BACKEND)
+        m = re.match(r"(-?\d+)\s+(\d+)", self.BACKEND)
         if m:
             sep_low = int(m.group(1))
             sep_high = int(m.group(2))
@@ -1166,7 +1166,7 @@ class NextAired:
                 sep_down -= 1
                 separators.append("(%d)." % sep_down)
         fetch_limit = 0
-        while True:
+        while not xbmc.abortRequested:
             fetch_limit -= 1
             if fetch_limit <= 0:
                 fetch_limit = 5*60*10 # Load fresh data every 5 minutes or so...

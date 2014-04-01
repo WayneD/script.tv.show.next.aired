@@ -102,9 +102,9 @@ example code:
 </control>
 
 Beginning with Next-Aired 6.0.8 the backend option can be specified as 2
-comma-separated numbers to specify how many ListItems should be checked and
+space-separated numbers to specify how many ListItems should be checked and
 turned into corresponding NextAired properties.  For example, if you specify
-"backend=-2,3" then the ListItem(-2).TVShowTitle, ListItem(-1).TVShowTitle,
+"backend=-2 3" then the ListItem(-2).TVShowTitle, ListItem(-1).TVShowTitle,
 ListItem.TVShowTitle, ListItem(1).TVShowTitle, ListItem(2).TVShowTitle, and
 ListItem(3).TVShowTitle shows will all be turned into NextAired(-2).PROPERTY
 through NextAired(3).PROPERTY values.
@@ -115,7 +115,7 @@ then back).  For instance, if there are only 2 items in the list you'd get
 N & N(1), 3 items: N(-1) & N & N(1), 4 items N(-1) & N & N(1) & N(2), etc.
 (up until the lower and upper limits are reached).
 
-The default if no numbers are specified is the same as "backend=0,0" (no extra
+The default if no numbers are specified is the same as "backend=0 0" (no extra
 values would be provided beyond NextAired.PROPERTY).
 
 
