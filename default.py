@@ -369,7 +369,7 @@ class NextAired:
             locked_for_update = True
             newest_time = 0
             prior_name = ''
-            while 1:
+            while True:
                 bg_lock = self.WINDOW.getProperty("NextAired.bgnd_lock")
                 if bg_lock == "":
                     break
@@ -1150,8 +1150,22 @@ class NextAired:
 
     def run_backend(self):
         log("### run_backend started", level=2)
+        m = re.match(r"(-?\d+),(\d+)", self.BACKEND)
+        if m:
+            sep_low = int(m.group(1))
+            sep_high = int(m.group(2))
+        else:
+            sep_low = sep_high = 0
+        sep_up = sep_down = 0
+        separators = ['.']
+        while sep_up < sep_high or sep_down > sep_low:
+            if sep_up < sep_high:
+                sep_up += 1
+                separators.append("(%d)." % sep_up)
+            if sep_down > sep_low:
+                sep_down -= 1
+                separators.append("(%d)." % sep_down)
         fetch_limit = 0
-        separators = ('.', '(-1).', '(1).')
         while True:
             fetch_limit -= 1
             if fetch_limit <= 0:
@@ -1169,10 +1183,14 @@ class NextAired:
             show_name = normalize(xbmc.getInfoLabel("ListItem.TVShowTitle"))
             if show_name != current_show:
                 current_show = show_name
+                show_hash = {}
                 for sep in separators:
                     self.clear_properties('NextAired' + sep)
                     if show_name is None:
-                         show_name = normalize(xbmc.getInfoLabel('ListItem' + sep + 'TVShowTitle'))
+                        show_name = normalize(xbmc.getInfoLabel('ListItem' + sep + 'TVShowTitle'))
+                    if show_hash.get(show_name, None):
+                        continue
+                    show_hash[show_name] = 1
                     show = title_dict.get(show_name, None)
                     if show:
                         self.set_labels('NextAired' + sep, show)
