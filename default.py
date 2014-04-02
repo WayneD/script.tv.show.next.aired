@@ -1169,6 +1169,7 @@ class NextAired:
             if sep_down > sep_low:
                 sep_down -= 1
                 separators.append("(%d)." % sep_down)
+        log("### separators: %s" % repr(separators), level=3)
         fetch_limit = 0
         while not xbmc.abortRequested:
             fetch_limit -= 1
@@ -1184,9 +1185,11 @@ class NextAired:
                     title_dict[show['localname']] = show
                 show_dict = None
                 current_show = ''
+                log("### fetched fresh data", level=6)
             show_name = normalize(xbmc.getInfoLabel("ListItem.TVShowTitle"))
             if show_name != current_show:
                 current_show = show_name
+                log("### current_show = %s" % current_show, level=4)
                 show_hash = {}
                 for sep in separators:
                     self.clear_properties('NextAired' + sep)
@@ -1198,6 +1201,7 @@ class NextAired:
                     show = title_dict.get(show_name, None)
                     if show:
                         self.set_labels('NextAired' + sep, show)
+                        log("### set %s %s" % (sep, show['localname']), level=5)
                     show_name = None
             xbmc.sleep(100)
             if not xbmc.getCondVisibility("Window.IsVisible(10025)"):
