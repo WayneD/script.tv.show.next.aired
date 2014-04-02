@@ -162,10 +162,14 @@ class NextAired:
             self.do_background_updating()
 
     def _parse_argv(self):
+        global MAX_INFO_LOG_LEVEL
         try:
             self.params = dict(arg.split("=") for arg in sys.argv[1].split("&"))
         except:
             self.params = {}
+        want_infolog = self.params.get("infolog", None)
+        if want_infolog is not None:
+            MAX_INFO_LOG_LEVEL = int(want_infolog)
         log("### params: %s" % self.params, level=2)
         self.SILENT = self.params.get("silent", False)
         self.BACKEND = self.params.get("backend", False)
