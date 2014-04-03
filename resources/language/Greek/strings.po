@@ -120,6 +120,10 @@ msgctxt "#32104"
 msgid "Operation cancelled by user."
 msgstr "Η διαδικασία ακυρώθηκε από το χρήστη."
 
+msgctxt "#32105"
+msgid "ABORTED due to fetch failures"
+msgstr "ΔΙΑΚΟΠΗ λόγω αποτυχίας λήψης"
+
 msgctxt "#32201"
 msgid "Returning Series"
 msgstr "Συνεχιζόμενη Σειρά"
