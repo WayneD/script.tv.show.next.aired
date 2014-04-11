@@ -60,7 +60,7 @@ elif DATE_FORMAT[0] == 'y':
     DATE_FORMAT = '%y-%m-%d'
 
 leftover_re = re.compile(r"%[a-z]")
-NICE_DATE_FORMAT = xbmc.getRegion('datelong').lower().replace('%d%d', '%d')
+NICE_DATE_FORMAT = xbmc.getRegion('datelong').lower().replace('%d%d', '%d').decode('utf-8')
 for xx, yy in (('%a', '%(wday)s'), ('%b', '%(month)s'), ('%d', '%(day)s'), ('%y', '%(year)s'), ('%m', '%(mm)s')):
     NICE_DATE_FORMAT = NICE_DATE_FORMAT.replace(xx, yy)
 NICE_DATE_FORMAT = leftover_re.sub('%(unk)s', NICE_DATE_FORMAT)
