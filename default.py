@@ -59,16 +59,12 @@ elif DATE_FORMAT[0] == 'm':
 elif DATE_FORMAT[0] == 'y':
     DATE_FORMAT = '%y-%m-%d'
 
-leftover_re = re.compile(r"%[a-z]")
-NICE_DATE_FORMAT = xbmc.getRegion('datelong').lower().replace('%d%d', '%d').decode('utf-8')
+NICE_DATE_FORMAT = xbmc.getRegion('datelong').lower().replace('%d%d', '%d').replace("'", "").decode('utf-8')
 for xx, yy in (('%a', '%(wday)s'), ('%b', '%(month)s'), ('%d', '%(day)s'), ('%y', '%(year)s'), ('%m', '%(mm)s')):
     NICE_DATE_FORMAT = NICE_DATE_FORMAT.replace(xx, yy)
-NICE_DATE_FORMAT = leftover_re.sub('%(unk)s', NICE_DATE_FORMAT)
-
-year_remove_regex = re.compile(r"(?<=\)s)[^%]*%\(year\)s|^%\(year\)s[^%]*")
-NICE_DATE_NO_YEAR = year_remove_regex.sub('', NICE_DATE_FORMAT)
-wday_remove_regex = re.compile(r"%\(wday\)s[^%]*")
-NICE_SHORT_DATE = wday_remove_regex.sub('', NICE_DATE_NO_YEAR)
+NICE_DATE_FORMAT = re.sub(r"%[a-z]", '%(unk)s', NICE_DATE_FORMAT)
+NICE_DATE_NO_YEAR = re.sub(r"(?<=\)s)[^%]*%\(year\)s[^%]*|^%\(year\)s[^%]*", ' ', NICE_DATE_FORMAT).strip()
+NICE_SHORT_DATE = re.sub(r"%\(wday\)s[^%]*", '', NICE_DATE_NO_YEAR)
 
 MAIN_DB_VER = 5
 COUNTRY_DB_VER = 1
