@@ -19,7 +19,8 @@ __cwd__       = __addon__.getAddonInfo('path').decode('utf-8')
 __author__    = __addon__.getAddonInfo('author')
 __version__   = __addon__.getAddonInfo('version')
 __language__  = __addon__.getLocalizedString
-__datapath__  = os.path.join(xbmc.translatePath("special://profile/addon_data/").decode('utf-8'), __addonid__)
+__datapath__  = os.path.join(xbmc.translatePath('special://masterprofile/addon_data/').decode('utf-8'), __addonid__)
+__profilepath__ = os.path.join(xbmc.translatePath('special://profile/addon_data/').decode('utf-8'), __addonid__)
 __resource__  = xbmc.translatePath(os.path.join(__cwd__, 'resources', 'lib').encode("utf-8")).decode("utf-8")
 
 sys.path = [__resource__] + sys.path
@@ -27,6 +28,9 @@ sys.path = [__resource__] + sys.path
 from thetvdbapi import TheTVDB
 from country_lookup import CountryLookup
 from fanarttv import FanartTV
+
+MAX_INFO_LOG_LEVEL = 1
+MAX_DEBUG_LOG_LEVEL = 2
 
 NEXTAIRED_DB = 'next.aired.db'
 COUNTRY_DB = 'country.db'
@@ -66,7 +70,7 @@ NICE_DATE_FORMAT = re.sub(r"%[a-z]", '%(unk)s', NICE_DATE_FORMAT)
 NICE_DATE_NO_YEAR = re.sub(r"(?<=\)s)[^%]*%\(year\)s[^%]*|^%\(year\)s[^%]*", ' ', NICE_DATE_FORMAT).strip()
 NICE_SHORT_DATE = re.sub(r"%\(wday\)s[^%]*", '', NICE_DATE_NO_YEAR)
 
-MAIN_DB_VER = 5
+MAIN_DB_VER = 6
 COUNTRY_DB_VER = 1
 
 FAILURE_PAUSE = 5*60
@@ -75,9 +79,14 @@ INT_REGEX = re.compile(r"^([0-9]+)$")
 
 if not xbmcvfs.exists(__datapath__):
     xbmcvfs.mkdir(__datapath__)
+if __profilepath__ != __datapath__ and not xbmcvfs.exists(__profilepath__):
+    xbmcvfs.mkdir(__profilepath__)
 
-MAX_INFO_LOG_LEVEL = 1
-MAX_DEBUG_LOG_LEVEL = 2
+# If the user wants a json cache of the latest show + episode info, they can
+# create an id-cache dir and we'll put ID_NUMBER.json files into it.
+id_cache_dir = os.path.join(__datapath__, 'id-cache')
+if not xbmcvfs.exists(id_cache_dir):
+    id_cache_dir = None
 
 # if level <= 0, sends LOGERROR msg.  For positive values, sends LOGNOTICE
 # if level <= MAX_INFO_LOG_LEVEL, else LOGDEBUG.  If level is omitted, we assume 10.
@@ -135,6 +144,12 @@ class NextAired:
             self.local_months.append(xbmc.getLocalizedString(j))
         self.ampm = xbmc.getCondVisibility('substring(System.Time,Am)') or xbmc.getCondVisibility('substring(System.Time,Pm)')
         self.improve_dates = __addon__.getSetting("ImproveDates") == 'true'
+        if __profilepath__ == __datapath__:
+            self.profile_name = ''
+        else:
+            m = re.search(r"([^/\\]+)[/\\]?$", xbmc.translatePath('special://profile/'))
+            self.profile_name = m.group(1)
+        log("### profile_name = %s" % self.profile_name, level=6)
         # "last_success" is when we last successfully made it through an update pass without fetch errors.
         # "last_update" is when we last successfully marked-up the shows to note which ones need an update.
         # "last_failure" is when we last failed to fetch data, with failure_cnt counting consecutive failures.
@@ -296,6 +311,7 @@ class NextAired:
         db_ver = (ep_list.pop(0) if ep_list else None)
         self.last_update = (ep_list.pop() if ep_list else self.last_success)
         self.old_tznames = (ep_list.pop(0) if ep_list else '')
+        old_profile_name = (ep_list.pop(0) if ep_list else '')
         if db_ver is None or self.last_success is None:
             if self.RESET:
                 log("### starting without prior data (DB RESET requested)", level=1)
@@ -312,10 +328,18 @@ class NextAired:
 
         self.RESET = False # Make sure we don't honor this multiple times.
 
+        if self.profile_name != '':
+            self.maybe_merge_profile_DB(show_dict)
+
+        if self.profile_name != old_profile_name:
+            self.FORCEUPDATE = True # We need a forced update when switching profiles.
+
         return (show_dict, self.now - self.last_update)
 
     def save_data(self, show_dict):
-        self.save_file([show_dict, MAIN_DB_VER, self.tznames, self.last_update, self.last_success], NEXTAIRED_DB)
+        self.save_file(
+                [show_dict, MAIN_DB_VER, self.tznames, self.profile_name, self.last_update, self.last_success],
+                NEXTAIRED_DB)
 
     def set_update_lock(self, DIALOG_PROGRESS = None):
         if DIALOG_PROGRESS:
@@ -446,8 +470,10 @@ class NextAired:
 
         title_dict = {}
         for tid, show in show_dict.iteritems():
-            show['unused'] = True
-            title_dict[show['localname']] = tid
+            name = show['localname']
+            if (force_show is None or force_show == name) and self.profile_name in show['profiles']:
+                del show['profiles'][self.profile_name]
+            title_dict[name] = tid
 
         if force_show is not None and force_show in title_dict:
             show = show_dict[title_dict[force_show]]
@@ -492,6 +518,7 @@ class NextAired:
                     "art": {},
                     "dbid": show[3],
                     "thumbnail": show[4],
+                    "profiles": { }
                     }
             # Try to figure out what the tvdb number is by using the art URLs and the imdbnumber value
             m2 = id_re.search(str(art).replace('%3a', ':').replace('%2f', '/'))
@@ -523,9 +550,10 @@ class NextAired:
 
             prior_data = show_dict.get(tid, None)
             if prior_data:
-                if 'unused' not in prior_data:
+                if self.profile_name in prior_data['profiles']:
                     continue # How'd we get a duplicate?? Skip it...
-                del prior_data['unused']
+                prior_data['profiles'][self.profile_name] = 1
+                current_show['profiles'] = prior_data['profiles']
                 self.age_episodes(prior_data)
 
             for art_type in USEFUL_ART:
@@ -575,6 +603,7 @@ class NextAired:
                 tid = -tid
             elif prior_data and 'tvrage' in prior_data:
                 current_show['tvrage'] = prior_data['tvrage']
+            current_show['profiles'][self.profile_name] = 1
             log("### %s" % current_show)
             show_dict[tid] = current_show
 
@@ -588,11 +617,10 @@ class NextAired:
             WantYesterday = __addon__.getSetting("WantYesterday") == 'true'
             remove_list = []
             for tid, show in show_dict.iteritems():
-                if 'unused' in show:
-                    if force_show is None:
+                if self.profile_name not in show['profiles']:
+                    if not show['profiles']:
                         remove_list.append(tid)
-                        continue
-                    del show['unused']
+                    continue
                 if show['ep_ndx'] or (WantYesterday and len(show['episodes']) > 1):
                     self.nextlist.append(show)
             for tid in remove_list:
@@ -811,6 +839,13 @@ class NextAired:
             if result:
                 show = result[0]
                 episodes = result[1]
+                if id_cache_dir is not None:
+                    cache_file = os.path.join(id_cache_dir, '%s.json' % tid)
+                    try:
+                        with open(cache_file, 'w') as fh:
+                            fh.write(json.dumps(result, sort_keys=True, indent=2, separators=(', ', ': ')))
+                    except:
+                        pass
             else:
                 show = None
         else: # earliest_id == 0 when only the series-info changed
@@ -980,6 +1015,8 @@ class NextAired:
                 show['TZ'] = ''
                 show['show_changed'] = 1
                 show['eps_changed'] = (1, 0)
+            if from_ver < 6:
+                show['profiles'] = { '': 1 }
             for ep in show['episodes']:
                 if from_ver < 3 and 'wday' in ep:
                     # Convert wday from a string to an index:
@@ -993,6 +1030,33 @@ class NextAired:
                     del ep['id']
                 if from_ver < 5:
                     ep['date'] = ep['aired'][:10] # not strictly true, but good enough for now.
+
+    def maybe_merge_profile_DB(self, show_dict):
+        alt_list = self.get_list(NEXTAIRED_DB, __profilepath__)
+        if not alt_list:
+            return
+        alt_dict = (alt_list.pop(0) if alt_list else None)
+        last_success = (alt_list.pop() if alt_list else None)
+        alt_ver = (alt_list.pop(0) if alt_list else None)
+        last_update = (alt_list.pop() if alt_list else last_success)
+        old_tznames = (alt_list.pop(0) if alt_list else '')
+        if alt_dict and last_success is not None and alt_ver:
+            log("### Merging profile %s's %s" % (self.profile_name, NEXTAIRED_DB), level=1)
+            self.last_success = min(self.last_success, last_success)
+            self.last_update = min(self.last_update, last_update)
+            if self.old_tznames != old_tznames:
+                self.old_tznames = ''
+            if alt_ver < MAIN_DB_VER:
+                self.upgrade_data_format(alt_dict, alt_ver)
+            for tid, show in alt_dict.iteritems():
+                if tid in show_dict:
+                    show_dict[tid]['profiles'][self.profile_name] = 1
+                else:
+                    show['profiles'] = { self.profile_name: 1 }
+                    show_dict[tid] = show
+            self.save_data(show_dict)
+        self.rm_file(NEXTAIRED_DB, __profilepath__)
+        self.rm_file(COUNTRY_DB, __profilepath__)
 
     def set_episode_info(self, label, prefix, when, ep):
         if ep and ep['name'] is not None:
@@ -1052,8 +1116,8 @@ class NextAired:
         return d
 
     @staticmethod
-    def get_list(listname):
-        path = os.path.join(__datapath__, listname)
+    def get_list(listname, datadir=__datapath__):
+        path = os.path.join(datadir, listname)
         if xbmcvfs.exists(path):
             log("### Load list: %s" % path)
             return NextAired.load_file(path)
@@ -1077,14 +1141,14 @@ class NextAired:
             if txt:
                 file(path, "w").write(repr(txt))
             else:
-                self.rm_file(filename)
+                NextAired.rm_file(filename)
         except:
             print_exc()
             log("### ERROR could not save file %s" % path, level=0)
 
     @staticmethod
-    def rm_file(filename):
-        path = os.path.join(__datapath__, filename)
+    def rm_file(filename, datadir=__datapath__):
+        path = os.path.join(datadir, filename)
         try:
             if xbmcvfs.exists(path):
                 xbmcvfs.delete(path)
