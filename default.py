@@ -182,7 +182,8 @@ class NextAired:
         if want_infolog is not None:
             MAX_INFO_LOG_LEVEL = int(want_infolog)
         log("### params: %s" % self.params, level=2)
-        self.SILENT = self.params.get("silent", False)
+        self.SERVICE = self.params.get("service", False)
+        self.SILENT = self.SERVICE or self.params.get("silent", False)
         self.BACKEND = self.params.get("backend", False)
         self.TVSHOWTITLE = normalize(self.params, "tvshowtitle", False)
         self.UPDATESHOW = normalize(self.params, "updateshow", False)
@@ -237,7 +238,16 @@ class NextAired:
         return True
 
     def do_background_updating(self):
-        my_unique_id = "%s,%s" % (os.getpid(), threading.currentThread().ident)
+        # We greatly prefer the service.py version of background updating vs
+        # the skin's because we get notified to stop when the user logs out.
+        if not self.SERVICE:
+            xbmc.sleep(2000)
+            background_id = self.WINDOW.getProperty("NextAired.background_id")
+            if background_id != '':
+                bg_info = background_id.split(' ', 1)
+                if len(bg_info) == 2 and time() - float(bg_info[1]) < 15:
+                    self.close("exiting this duplicate background-proc (skin vs service)")
+        my_unique_id = "%s,%s %s" % (os.getpid(), threading.currentThread().ident, time())
         self.WINDOW.setProperty("NextAired.background_id", my_unique_id)
         while not xbmc.abortRequested:
             bg_lock = self.WINDOW.getProperty("NextAired.bgnd_lock")
@@ -266,7 +276,7 @@ class NextAired:
             latest_version = xbmcaddon.Addon().getAddonInfo('version')
             if latest_version != __version__:
                 self.handle_bg_version_change(latest_version)
-            if xbmc.translatePath("special://profile/addon_data/") != profile_dir:
+            if not self.SERVICE and xbmc.translatePath("special://profile/addon_data/") != profile_dir:
                 self.close("profile directory changed -- stopping background proc")
             try:
                 update_every = int(__addon__.getSetting('update_every'))*60*60 # hours -> seconds
@@ -286,7 +296,7 @@ class NextAired:
                 self.nextlist = [] # Discard the in-memory data until the next update
             else:
                 xbmc.sleep(1000)
-        self.close("xbmc is closing -- stopping background processing")
+        self.close("abort requested -- stopping background processing")
 
     def stop_background_updating(self):
         self.WINDOW.setProperty("NextAired.background_id", 'stop')
