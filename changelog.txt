@@ -4,8 +4,11 @@
 - Fixed a bug that could cause an erroneous tuple value in the saved data if a show's time changes w/o any episode changes.
 - Improved the show-searching logic a bit more.
 - Support new "backend=-N N" option for more ListItem querying ("backend=True" is the same as "backend=0 0").
-- Due to a potential conflict in the NextAired.Today property, the *-TVGuide2.xml day-name vars (NextAired.Today, NextAired.Yesterday, NextAired.Tomorrow) are now deprecated.  Use NextAired.TodayText, NextAired.YesterdayText, NextAired.TomorrowText instead.
-- To avoid any backend conflict with NextAired.Today, there is now a backend-script provided value of NextAired.AirsToday that should be used in place of NextAired.Today going forward (the older value will still be supported for quite some time, but the newer value is safer).
+- An xbmc.service is now provided that starts on login.  This replaces the call that we've asked skins to run to start up the background update process.
+- Use a single next.aired.db file to hold all the different profile's shows.  This reduces duplicate scanning and downloading of the same info when switching profiles.
+- Fix an issue with nice dates and certain unicode date formats.
+- Due to a potential conflict in the property "NextAired.Today", the *-TVGuide2.xml day-name properties (NextAired.Today, NextAired.Yesterday, NextAired.Tomorrow) are now deprecated.  Use NextAired.TodayText, NextAired.YesterdayText, NextAired.TomorrowText instead.
+- To avoid any backend conflict with the property "NextAired.Today", there is now a property of "NextAired.AirsToday" that should be used going forward (the older value will still be supported for quite some time, but the newer value is safer).
 - Updated language files from Transifex
 
 -6.0.7 (2014-03-25)

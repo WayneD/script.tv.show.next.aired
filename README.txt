@@ -1,12 +1,10 @@
 
 How to use this addon in your skin:
 
-
 I) Startup.xml:
-RunScript(script.tv.show.next.aired,silent=True)
+Beginning with 6.0.8 there is no longer any need to run the next-aired script in the skin's Startup.xml.  Skins that have the old call should start to remove this soon (allowing 6.0.8 to propagate first).
 
-The script will scan your library and tries to fetch next aired info for every show.
-There is no need to specify an alarm -- the script will will run a background update at regular intervals.
+The script now uses an xbmc.service to start up the background updater that will scan your library and fetch next-aired info for your shows.
 
 For shows that are airing today, the script will set the window properties listed below.
 
