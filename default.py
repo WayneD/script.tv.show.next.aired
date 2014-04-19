@@ -245,6 +245,8 @@ class NextAired:
             background_id = self.WINDOW.getProperty("NextAired.background_id")
             if background_id != '':
                 bg_info = background_id.split(' ', 1)
+                # NOTE: the amount of elapsed time we allow here must be NO LARGER
+                # than the sleep time in handle_bg_version_change().
                 if len(bg_info) == 2 and time() - float(bg_info[1]) < 15:
                     self.close("exiting this duplicate background-proc (skin vs service)")
         my_unique_id = "%s,%s %s" % (os.getpid(), threading.currentThread().ident, time())
@@ -688,7 +690,8 @@ class NextAired:
 
     def handle_bg_version_change(self, latest_version):
         log("### NextAired version changed from %s to %s -- starting a replacement background proc" % (__version__, latest_version), level=1)
-        # Delay a bit, just to be sure that it is ready to run.
+        # Delay a bit, just to be sure that it is ready to run.  We need to also be sure that this
+        # is at least as long as the elapsed time we allow in our NextAired.background_id check.
         for cnt in range(15):
             if xbmc.abortRequested:
                 sys.exit()
