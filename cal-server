@@ -58,13 +58,11 @@ def main(argv):
 
     httpd = HTTPServer((BIND_HOST, BIND_PORT), MyHandler)
     ###httpd = ThreadedHTTPServer((BIND_HOST, BIND_PORT), MyHandler)
-    print time.asctime(), "Server Starts"
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:
         pass
     httpd.server_close()
-    print time.asctime(), "Server Stops"
 
 class MyHandler(BaseHTTPRequestHandler):
     def address_string(self):
