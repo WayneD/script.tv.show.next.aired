@@ -1,4 +1,4 @@
--6.0.8 (2014-04-29)
+-6.0.8 (2014-04-30)
 - Fixed a bug where the Yesterday list would omit any shows that didn't also have upcoming episodes.
 - Added the ability to override a show's "runtime" (in minutes) on per-show basis by including a string like "(30 minutes)" in the episode's comments on TheTVDB (e.g. a music show's result-show is usually shorter than the default runtime).
 - Fixed a bug that could cause an erroneous tuple value in the saved data if a show's time changes w/o any episode changes.
