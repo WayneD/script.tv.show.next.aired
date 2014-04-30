@@ -76,7 +76,7 @@ class MyHandler(BaseHTTPRequestHandler):
         s.end_headers()
 
     def do_GET(s):
-        req = s.path.rstrip('/') + '/'
+        req = re.sub(r"(?<!/)$", '/', s.path)
         want_profiles = []
         exclude_profiles = []
         prof_regex = re.compile(r"/((?:not?)?)profile/([^/]*)")
