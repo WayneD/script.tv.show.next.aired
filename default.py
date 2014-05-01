@@ -1,5 +1,5 @@
 from time import strftime, strptime, time, mktime, localtime, tzname
-import os, sys, re, socket, urllib, unicodedata, threading
+import os, sys, re, socket, urllib, unicodedata, thread, threading
 from traceback import print_exc
 from datetime import datetime, date, timedelta
 from dateutil import tz
@@ -694,7 +694,8 @@ class NextAired:
         # is at least as long as the elapsed time we allow in our NextAired.background_id check.
         for cnt in range(15):
             if xbmc.abortRequested:
-                sys.exit()
+                thread.exit()
+                sys.exit() # Paranoia...
             xbmc.sleep(1000)
         json_query = xbmc.executeJSONRPC('{"jsonrpc": "2.0", "method": "Addons.ExecuteAddon", "params": {"addonid": "script.tv.show.next.aired", "params": %s}, "id": 0}' % json.dumps(self.params))
         json_query = unicode(json_query, 'utf-8', errors='ignore')
@@ -1410,7 +1411,8 @@ class NextAired:
 
     def close(self, msg):
         log("### %s" % msg, level=1)
-        sys.exit()
+        thread.exit()
+        sys.exit() # Paranoia...
 
 class tvdb_updater:
     def __init__(self, tvdb):
