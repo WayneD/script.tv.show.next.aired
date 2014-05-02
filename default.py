@@ -192,6 +192,7 @@ class NextAired:
         self.FORCEUPDATE = self.params.get("force", False)
         self.RESET = self.params.get("reset", False)
         self.STOP = self.params.get("stop", False)
+        self.ONCE = self.params.get("once", False)
 
     def _footprints(self):
         def_level = 2 if self.TVSHOWTITLE else 1
@@ -298,6 +299,8 @@ class NextAired:
                     self.failure_cnt += 1
                     next_chk = self.now + FAILURE_PAUSE * min(self.failure_cnt, 24)
                 self.nextlist = [] # Discard the in-memory data until the next update
+                if self.ONCE:
+                    break
             else:
                 xbmc.sleep(1000)
         self.close("abort requested -- stopping background processing")
