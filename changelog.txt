@@ -1,3 +1,6 @@
+-6.0.9 (2014-04-30)
+- Reverted to 6.0.7 due to Frodo bug (presumably a service handling issue).
+
 -6.0.8 (2014-04-30)
 - Fixed a bug where the Yesterday list would omit any shows that didn't also have upcoming episodes.
 - Added the ability to override a show's "runtime" (in minutes) on per-show basis by including a string like "(30 minutes)" in the episode's comments on TheTVDB (e.g. a music show's result-show is usually shorter than the default runtime).
