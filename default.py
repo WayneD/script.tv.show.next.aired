@@ -685,7 +685,7 @@ class NextAired:
         log("### %s" % json_response)
         try:
             ver = json_response['result']['version']
-            self.xbmc_version = float('%s.%s' % (ver['major'], ver['major']))
+            self.xbmc_version = float('%s.%s' % (ver['major'], ver['minor']))
         except:
             self.xbmc_version = 12
 
