@@ -1,5 +1,8 @@
--6.0.9 (2014-04-30)
-- Reverted to 6.0.7 due to Frodo bug (presumably a service handling issue).
+-6.0.10 (2014-05-02)
+- Tweak service handling to avoid running the service on anything prior to 12.3.
+
+-6.0.9 (2014-05-01)
+- Reverted to 6.0.7 due to Frodo bug (12.0 failed, 12.3 was fine).
 
 -6.0.8 (2014-04-30)
 - Fixed a bug where the Yesterday list would omit any shows that didn't also have upcoming episodes.
