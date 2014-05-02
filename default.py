@@ -157,7 +157,9 @@ class NextAired:
         self._parse_argv()
         self._footprints()
         self.check_xbmc_version()
-        if self.TVSHOWTITLE:
+        if self.SERVICE and self.xbmc_version < 13: # Let's try ignoring the service process on frodo
+            log("### ignoring service proc on XBMC version %d" % self.xbmc_version, level=1)
+        elif self.TVSHOWTITLE:
             self.return_properties(self.TVSHOWTITLE)
         elif self.UPDATESHOW:
             self.update_show(self.UPDATESHOW)
@@ -695,7 +697,6 @@ class NextAired:
         for cnt in range(15):
             if xbmc.abortRequested:
                 thread.exit()
-                sys.exit() # Paranoia...
             xbmc.sleep(1000)
         json_query = xbmc.executeJSONRPC('{"jsonrpc": "2.0", "method": "Addons.ExecuteAddon", "params": {"addonid": "script.tv.show.next.aired", "params": %s}, "id": 0}' % json.dumps(self.params))
         json_query = unicode(json_query, 'utf-8', errors='ignore')
@@ -1412,7 +1413,6 @@ class NextAired:
     def close(self, msg):
         log("### %s" % msg, level=1)
         thread.exit()
-        sys.exit() # Paranoia...
 
 class tvdb_updater:
     def __init__(self, tvdb):
