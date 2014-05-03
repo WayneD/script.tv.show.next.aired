@@ -2,9 +2,9 @@
 How to use this addon in your skin:
 
 I) Startup.xml:
-Beginning with 6.0.8 there is no longer any need to run the next-aired script
+Beginning with 6.0.10 there is no longer any need to run the next-aired script
 in the skin's Startup.xml.  Skins that have the old call should start to remove
-this soon (allowing 6.0.8 to propagate first).
+this soon (allowing 6.0.10 to propagate first).
 
 The script now uses an xbmc.service to start up the background updater that
 will scan your library and fetch next-aired info for your shows.
@@ -76,14 +76,14 @@ Running one of these commands in your skin will provide you with per-show inform
     RunScript(script.tv.show.next.aired,tvshowtitle=The TVShowTitle Show Name)
 
 The first tells the script to run in the background and provide next aired info
-for the focussed listitem.  The second should be run once for every show-name
-change.
+for the focussed listitem (it exits when "Window.IsVisible(10025)" is no longer
+true).  The second should be run once for every show-name change.  Both provide
+info back to the skin via Window(Home).Property(NextAired.FOO) values (see
+above for a list of all the FOO values that are set).
 
-The infolabels listed above are available, using this format:
-
-Window(Home).Property(NextAired.*)
-
-Use !IsEmpty(Window(Home).Property(NextAired.NextDate)) as a visible condition!
+You can use !IsEmpty(Window(Home).Property(NextAired.NextDate)) as a visibility
+condition -- if that is empty, then no other NextAired data will be around for
+the current show.
 
 example code:
 <control type="group">
@@ -104,7 +104,7 @@ example code:
 	</control>
 </control>
 
-Beginning with Next-Aired 6.0.8 the backend option can be specified as 2
+Beginning with Next-Aired 6.0.10 the backend option can be specified as 2
 space-separated numbers to specify how many ListItems should be checked and
 turned into corresponding NextAired properties.  For example, if you specify
 "backend=-2 3" then the ListItem(-2).TVShowTitle, ListItem(-1).TVShowTitle,
