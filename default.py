@@ -858,13 +858,6 @@ class NextAired:
             if result:
                 show = result[0]
                 episodes = result[1]
-                if id_cache_dir is not None:
-                    cache_file = os.path.join(id_cache_dir, '%s.json' % tid)
-                    try:
-                        with open(cache_file, 'w') as fh:
-                            fh.write(json.dumps(result, sort_keys=True, indent=2, separators=(', ', ': ')))
-                    except:
-                        pass
             else:
                 show = None
         else: # earliest_id == 0 when only the series-info changed
@@ -885,6 +878,17 @@ class NextAired:
             else:
                 log("### no result and no prior data", level=1)
             return -tid
+
+        if id_cache_dir is not None:
+            for name, var in (('show', show), ('eps', episodes)):
+                if var is None:
+                    continue
+                cache_file = os.path.join(id_cache_dir, '%s-%s.json' % (tid, name))
+                try:
+                    with open(cache_file, 'w') as fh:
+                        fh.write(json.dumps(var, sort_keys=True, indent=2, separators=(', ', ': ')))
+                except:
+                    pass
 
         network = normalize(show, 'Network', 'Unknown')
         country = self.country_dict.get(network, 'Unknown')
