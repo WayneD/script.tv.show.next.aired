@@ -206,8 +206,6 @@ setTimeout(function(){window.location.reload(true)}, 60000);
 <table><tr>
         """)
 
-        if not day_hash[day_list[0]]:
-            day_list.pop(0)
         for d in day_list:
             s.wfile.write('<th>')
             if d < today_str:
