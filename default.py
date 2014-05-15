@@ -1479,7 +1479,7 @@ class tvdb_updater:
             return # Ignore shows we don't care about
         when = int(attrs['time'])
         if episode_id == 0:
-            if when <= show['last_updated']:
+            if when <= show['last_updated'] or when <= show.get('show_changed', 0):
                 return
             log("### Found series change (series: %d, time: %d) for %s" % (series_id, when, show['localname']), level=2)
             show['show_changed'] = when
@@ -1487,10 +1487,10 @@ class tvdb_updater:
                 if 'eps_changed' not in show:
                     show['eps_changed'] = (1, 0)
         else:
-            if when <= show['eps_last_updated']:
+            earliest_id, latest_time = show.get('eps_changed', (episode_id, 0))
+            if when <= show['eps_last_updated'] or when <= latest_time:
                 return
             log("### Found episode change (series: %d, ep: %d, time=%d) for %s" % (series_id, episode_id, when, show['localname']), level=2)
-            earliest_id, latest_time = show.get('eps_changed', (episode_id, when))
             if episode_id < earliest_id:
                 earliest_id = episode_id
             if when > latest_time:
