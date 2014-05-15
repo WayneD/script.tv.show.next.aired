@@ -242,11 +242,13 @@ setTimeout(function(){window.location.reload(true)}, 60000);
                     name_html = show_opts.get('alt', show_name)
                     name_html = re.sub(r"\s+\(([A-Z][A-Z]|\d\d\d\d)\)", r" <small><small>(\1)</small></small>", name_html)
                     runtime = ep.get('Runtime', show['Runtime'])
+                    show_title = '%s (%s)' % (show['Network'], show['Country'])
+                    time_title = show['Airtime']
                     row += "<td style='color: %s; background-color: %s'>" % (fgcolor, bgcolor)
-                    row += div('show', name_html);
+                    row += div('show', name_html, show_title)
                     row += div('nums', '%02dx%02d' % (ep['sn'], ep['en']))
                     row += div('title', ep['name'])
-                    row += div('runtime', "(<a title='%s'>%s&nbsp;mins</a>)" % (bgcolor, runtime))
+                    row += div('runtime', "(%s&nbsp;mins)" % runtime, time_title)
                     empty = False
                 else:
                     row += '<td>'
@@ -291,8 +293,13 @@ def write_json(data, filename):
     with open(filename, 'w') as fh:
         fh.write(data)
 
-def div(class_name, txt):
-    return "<div class='%s'>%s</div>\n" % (class_name, txt)
+def div(class_name, txt, title=None):
+    attr_str = ''
+    if class_name is not None:
+        attr_str += ' class="%s"' % class_name
+    if title is not None:
+        attr_str += ' title="%s"' % title
+    return "<div%s>%s</div>\n" % (attr_str, txt)
 
 if __name__ == '__main__':
     main(sys.argv)
