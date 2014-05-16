@@ -11,6 +11,7 @@
 # /notprofile/NAME  Exclude all NAME profile(s) (repeatable).  Gives intersection.
 # /yesterday        Include yesterday's show's in the output.
 # /days/NUM         Output NUM days (counting today forward).  Defaults to 15.
+# /noempty          Skip the days without shows (e.g. /days/365/noempty).
 #
 # The script creates the cal-server.conf file on first run.  The user can feel
 # free to edit the colors therein, omit shows by adding the line: "omit": true,
@@ -100,11 +101,19 @@ class MyHandler(BaseHTTPRequestHandler):
             req = days_regex.sub('', req, 1)
             day_cnt = int(m.group(1))
 
-        if req == '/yesterday/':
+        want_yesterday = False
+        yest_regex = re.compile(r"/yesterday/")
+        if yest_regex.search(req):
+            req = yest_regex.sub('/', req)
             want_yesterday = True
-        elif req == '/':
-            want_yesterday = False
-        else:
+
+        want_empty_days = True
+        empty_regex = re.compile(r"/noempty/")
+        if empty_regex.search(req):
+            req = empty_regex.sub('/', req)
+            want_empty_days = False
+
+        if req != '/':
             s.send_response(404)
             s.send_header("Content-type", "text/plain")
             s.end_headers()
@@ -207,6 +216,8 @@ setTimeout(function(){window.location.reload(true)}, 60000);
         """)
 
         for d in day_list:
+            if not want_empty_days and not day_hash[d]:
+                continue
             s.wfile.write('<th>')
             if d < today_str:
                 s.wfile.write('Yesterday')
@@ -250,6 +261,8 @@ setTimeout(function(){window.location.reload(true)}, 60000);
                     row += div('title', ep['name'])
                     row += div('runtime', "(%s&nbsp;mins)" % runtime, time_title)
                     empty = False
+                elif not want_empty_days and not day_hash[d]:
+                    continue
                 else:
                     row += '<td>'
                 row += "</td>\n"
