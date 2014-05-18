@@ -217,6 +217,7 @@ setTimeout(function(){window.location.reload(true)}, 60000);
 
         for d in day_list:
             if not want_empty_days and not day_hash[d]:
+                day_hash[d] = None
                 continue
             s.wfile.write('<th>')
             if d < today_str:
@@ -233,6 +234,8 @@ setTimeout(function(){window.location.reload(true)}, 60000);
             empty = True
             row = "</tr><tr>\n"
             for d in day_list:
+                if day_hash[d] is None:
+                    continue
                 if len(day_hash[d]):
                     ep, show = day_hash[d].pop(0)
                     show_name = show['Show Name']
@@ -261,8 +264,6 @@ setTimeout(function(){window.location.reload(true)}, 60000);
                     row += div('title', ep['name'])
                     row += div('runtime', "(%s&nbsp;mins)" % runtime, time_title)
                     empty = False
-                elif not want_empty_days and not day_hash[d]:
-                    continue
                 else:
                     row += '<td>'
                 row += "</td>\n"
