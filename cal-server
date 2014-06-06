@@ -122,7 +122,9 @@ class MyHandler(BaseHTTPRequestHandler):
         data = read_repr(DATA_FILE)[0]
         opts = read_json(CONF_FILE)
         if opts is None:
-            opts = { 'colors': COLORS.split(), 'shows': {}, 'default_profile': '' }
+            colors = COLORS.split()
+            colors += [ c + ',DarkOrange' for c in colors ]
+            opts = { 'colors': colors, 'shows': {}, 'default_profile': '' }
             opts_changed = True
         else:
             opts_changed = False
