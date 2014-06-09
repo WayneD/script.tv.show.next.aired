@@ -47,6 +47,10 @@ COLORS = """
     white/Orchid PaleGoldenRod white/RoyalBlue ForestGreen white/SaddleBrown
     white/DarkSalmon Turquoise Yellow Thistle white/Violet Wheat Plum
     white/Pink white/DarkRed LawnGreen white/DarkGreen white/Red
+    white/MidnightBlue Aqua Aquamarine CadetBlue white/Brown DarkGray
+    white/DarkOliveGreen HotPink LightBlue LightCoral LightGreen
+    LightPink MediumOrchid MediumSpringGreen MediumSeaGreen Tan
+    MediumVioletRed white/Tomato
     """
 
 def main(argv):
@@ -258,7 +262,7 @@ setTimeout(function(){window.location.reload(true)}, 60000);
                     if bgcolor.find(',') < 0:
                         bgstyle = 'background-color: %s' % bgcolor
                     else:
-                        bgstyle = 'background: linear-gradient(%s)' % bgcolor
+                        bgstyle = 'background: repeating-linear-gradient(%s)' % bgcolor
                     name_html = show_opts.get('alt', show_name)
                     name_html = re.sub(r"\s+\(([A-Z][A-Z]|\d\d\d\d)\)", r" <small><small>(\1)</small></small>", name_html)
                     runtime = ep.get('Runtime', show['Runtime'])
