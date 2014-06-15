@@ -50,7 +50,7 @@ COLORS = """
     white/MidnightBlue Aqua Aquamarine CadetBlue white/Brown DarkGray
     white/DarkOliveGreen HotPink LightBlue LightCoral LightGreen
     LightPink MediumOrchid MediumSpringGreen MediumSeaGreen Tan
-    MediumVioletRed white/Tomato
+    white/Tomato
     """
 
 def main(argv):
@@ -160,6 +160,7 @@ class MyHandler(BaseHTTPRequestHandler):
                     want = False
                     break
             if want:
+                show['url'] = 'http://thetvdb.com/?tab=series&id=%s' % tid
                 for ep in show['episodes']:
                     if 'bump_mins' in show_opts:
                         ep['aired'] = re.sub(
@@ -179,6 +180,13 @@ class MyHandler(BaseHTTPRequestHandler):
 <title>cal-server</title>
 
 <style>
+a {
+    color: inherit;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
 table, td {
     border: 2px solid black;
     border-collapse: collapse;
@@ -263,7 +271,7 @@ setTimeout(function(){window.location.reload(true)}, 60000);
                         bgstyle = 'background-color: %s' % bgcolor
                     else:
                         bgstyle = 'background: repeating-linear-gradient(%s)' % bgcolor
-                    name_html = show_opts.get('alt', show_name)
+                    name_html = '<a href="%s">%s</a>' % (show['url'], show_opts.get('alt', show_name))
                     name_html = re.sub(r"\s+\(([A-Z][A-Z]|\d\d\d\d)\)", r" <small><small>(\1)</small></small>", name_html)
                     runtime = ep.get('Runtime', show['Runtime'])
                     show_title = '%s (%s)' % (show['Network'], show['Country'])
