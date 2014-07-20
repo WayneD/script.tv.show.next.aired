@@ -261,7 +261,21 @@ setTimeout(function(){window.location.reload(true)}, 60000);
                     if 'colors' in show_opts:
                         colors = show_opts['colors'].split('/')
                     else:
-                        colors = (opts['colors'].pop(0) if len(opts['colors']) else 'white').split('/')
+                        # Give a few shows complex sample colors, just to show what's possible.
+                        if re.match(r"doctor who", lc_show_name):
+                            colors = [ 'white', 'MidnightBlue,#666666,MidnightBlue,MidnightBlue,MidnightBlue' ]
+                        elif re.match(r"duck dynasty", lc_show_name):
+                            colors = [ 'white', 'DarkGoldenRod,DarkGreen,DarkGoldenRod,DarkGreen,DarkGoldenRod' ]
+                        elif re.match(r"beware the batman", lc_show_name):
+                            colors = [ 'white', 'to top right,#333355,Black,#333355,#333355,#333355,Black,#333355' ]
+                        elif re.match(r"masterchef", lc_show_name):
+                            colors = [ 'white', '45deg,#606dbc,#606dbc 10px,#465298 10px,#465298 20px' ]
+                        elif re.match(r"the colbert report", lc_show_name):
+                            colors = [ 'white', '135deg,ForestGreen,ForestGreen 3px,CornflowerBlue 3px,CornflowerBlue 6px' ]
+                        elif re.match(r"the daily show", lc_show_name):
+                            colors = [ 'Yellow', '45deg,CornflowerBlue,CornflowerBlue 3px,ForestGreen 3px, ForestGreen 6px' ]
+                        else:
+                            colors = (opts['colors'].pop(0) if len(opts['colors']) else 'white').split('/')
                         if len(colors) < 2:
                             colors.insert(0, 'black')
                         show_opts['colors'] = '/'.join(colors)
