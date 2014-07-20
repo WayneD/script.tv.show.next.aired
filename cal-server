@@ -10,8 +10,8 @@
 #                   the NAMEs together.  Use '*" for the default profile (aka "").
 # /notprofile/NAME  Exclude all NAME profile(s) (repeatable).  Gives intersection.
 # /yesterday        Include yesterday's show's in the output.
-# /days/NUM         Output NUM days (counting today forward).  Defaults to 15.
-# /noempty          Skip the days without shows (e.g. /days/365/noempty).
+# /days=NUM         Output NUM days (counting today forward).  Defaults to 15.
+# /noempty          Skip the days without shows (e.g. /days=365/noempty).
 #
 # The script creates the cal-server.conf file on first run.  The user can feel
 # free to edit the colors therein, omit shows by adding the line: "omit": true,
@@ -99,7 +99,7 @@ class MyHandler(BaseHTTPRequestHandler):
                 want_profiles.append(profile)
 
         day_cnt = 15
-        days_regex = re.compile(r"/days/(\d+)")
+        days_regex = re.compile(r"/days[/=](\d+)")
         m = days_regex.search(req)
         if m:
             req = days_regex.sub('', req, 1)
