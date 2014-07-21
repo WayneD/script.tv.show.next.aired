@@ -503,7 +503,11 @@ class NextAired:
 
         for tid in re.split(r"\D+", __addon__.getSetting("ExtraShows")):
             if tid != '':
-                name = '/%s/' % tid
+                prior_data = show_dict.get(int(tid), None)
+                if prior_data:
+                    name = prior_data['localname']
+                else:
+                    name = '/%s/' % tid
                 # This fake data in the art hash ensures that we trust the tid value.
                 fake_art = {'ExtraShow': 'http://thetvdb.com/fake/%s-fake.jpg' % tid}
                 TVlist.append((name, name, fake_art, '', '', tid, ''))
@@ -585,8 +589,6 @@ class NextAired:
                 prior_data['profiles'][self.profile_name] = 1
                 current_show['profiles'] = prior_data['profiles']
                 self.age_episodes(prior_data)
-                if current_show['localname'][:1] == '/':
-                    name = current_show['localname'] = prior_data['localname']
 
             for art_type in USEFUL_ART:
                 xart = art.get(art_type, None)
