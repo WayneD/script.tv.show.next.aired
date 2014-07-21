@@ -612,6 +612,8 @@ class NextAired:
                         xart = prior_data['art'][art_type]
                     elif art_rescan_type != art_type:
                         continue
+                    elif 'x_art' in current_show and art_type in current_show['x_art']:
+                        xart = current_show['x_art'][art_type]
                     else:
                         scan_ndx = 'last_%s_scan' % art_type
                         last_scan = prior_data['art'].get(scan_ndx, 0) if prior_data else 0
@@ -637,6 +639,8 @@ class NextAired:
                         pass
                     current_show['art'][fudged_flag] = True
                 current_show['art'][art_type] = xart
+            if 'x_art' in current_show:
+                del current_show['x_art']
 
             current_show['profiles'][self.profile_name] = 1
             log("### %s" % current_show)
@@ -953,6 +957,10 @@ class NextAired:
         current_show['Network'] = network
         current_show['Airtime'] = hh_mm
         current_show['Runtime'] = maybe_int(show, 'Runtime', '')
+        current_show['x_art'] = {}
+        for art_type in ('banner', 'fanart', 'poster'):
+            if art_type in show and show[art_type] != '':
+                current_show['x_art'][art_type] = 'http://thetvdb.com/banners/%s' % show[art_type]
 
         can_re = re.compile(r"canceled|ended", re.IGNORECASE)
         if can_re.search(current_show['Status']):
