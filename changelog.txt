@@ -1,6 +1,7 @@
 -6.0.11 (2014-07-??)
-- Added advanced options ExtraShows and OmitShows.
-- Some more tweaks to the adjunct data-viewing script.
+- When fixing up missing artwork, we now also make use of thetvdb paths in the show data.
+- Added advanced options ExtraShows and OmitShows to the settings.
+- Some more tweaks to the adjunct data-viewing script, cal-server.
 - Updated language files from Transifex.
 
 -6.0.10 (2014-05-02)
