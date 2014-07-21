@@ -590,6 +590,20 @@ class NextAired:
                 current_show['profiles'] = prior_data['profiles']
                 self.age_episodes(prior_data)
 
+            if self.max_fetch_failures > 0:
+                tid = self.check_show_info(tvdb, tid, current_show, prior_data)
+            else:
+                tid = -tid
+            if tid < 0:
+                if not prior_data:
+                    continue
+                for item in prior_data:
+                    if item not in current_show:
+                        current_show[item] = prior_data[item]
+                tid = -tid
+            elif prior_data and 'tvrage' in prior_data:
+                current_show['tvrage'] = prior_data['tvrage']
+
             for art_type in USEFUL_ART:
                 xart = art.get(art_type, None)
                 fudged_flag = 'fudged.' + art_type
@@ -624,19 +638,6 @@ class NextAired:
                     current_show['art'][fudged_flag] = True
                 current_show['art'][art_type] = xart
 
-            if self.max_fetch_failures > 0:
-                tid = self.check_show_info(tvdb, tid, current_show, prior_data)
-            else:
-                tid = -tid
-            if tid < 0:
-                if not prior_data:
-                    continue
-                for item in prior_data:
-                    if item not in current_show:
-                        current_show[item] = prior_data[item]
-                tid = -tid
-            elif prior_data and 'tvrage' in prior_data:
-                current_show['tvrage'] = prior_data['tvrage']
             current_show['profiles'][self.profile_name] = 1
             log("### %s" % current_show)
             show_dict[tid] = current_show
