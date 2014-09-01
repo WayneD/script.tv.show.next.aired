@@ -601,8 +601,6 @@ class NextAired:
                     if item not in current_show:
                         current_show[item] = prior_data[item]
                 tid = -tid
-            elif prior_data and 'tvrage' in prior_data:
-                current_show['tvrage'] = prior_data['tvrage']
 
             for art_type in USEFUL_ART:
                 xart = art.get(art_type, None)
