@@ -1256,11 +1256,6 @@ class NextAired:
         self.WINDOW.setProperty("NextAired.TodayText", xbmc.getLocalizedString(33006))
         self.WINDOW.setProperty("NextAired.TomorrowText", xbmc.getLocalizedString(33007))
         self.WINDOW.setProperty("NextAired.YesterdayText", __addon__.getLocalizedString(32018))
-        # TODO Remove these soon: --v
-        self.WINDOW.setProperty("NextAired.Today", xbmc.getLocalizedString(33006))
-        self.WINDOW.setProperty("NextAired.Tomorrow", xbmc.getLocalizedString(33007))
-        self.WINDOW.setProperty("NextAired.Yesterday", __addon__.getLocalizedString(32018))
-        # TODO Remove these soon: --^
         self.WINDOW.setProperty("NextAired.TodayDate", self.str_date(self.date, 'DropYear'))
         self.WINDOW.setProperty("NextAired.TomorrowDate", self.str_date(self.tomorrow, 'DropThisYear'))
         self.WINDOW.setProperty("NextAired.YesterdayDate", self.str_date(self.yesterday, 'DropThisYear'))
