@@ -1001,13 +1001,13 @@ class NextAired:
                         got_ep['Runtime'] = int(m.group(1))
                     m = hour_re.search(got_ep['name'])
                     if m:
-                        got_ep['Runtime'] = int(m.group(1)) * 42
+                        got_ep['Runtime'] = int(m.group(1)) * 60
                     m = hr_re.search(overview)
                     if m:
-                        got_ep['Runtime'] = int(float(m.group(1)) * 42)
+                        got_ep['Runtime'] = int(float(m.group(1)) * 60)
                     m = hr2_re.search(overview)
                     if m:
-                        got_ep['Runtime'] = int(float(m.group(1)) / float(m.group(2)) * 42)
+                        got_ep['Runtime'] = int(float(m.group(1)) / float(m.group(2)) * 60)
                     episode_list.append(got_ep)
                 episodes = None
                 episode_list.sort(key=itemgetter('aired', 'sn', 'en'))
