@@ -144,6 +144,7 @@ class NextAired:
             self.local_months.append(xbmc.getLocalizedString(j))
         self.ampm = xbmc.getCondVisibility('substring(System.Time,Am)') or xbmc.getCondVisibility('substring(System.Time,Pm)')
         self.improve_dates = __addon__.getSetting("ImproveDates") == 'true'
+        self.ignore_specials = __addon__.getSetting("IgnoreSpecials") == 'true'
         if __profilepath__ == __datapath__:
             self.profile_name = ''
         else:
@@ -995,6 +996,8 @@ class NextAired:
                             'aired': dt.isoformat(),
                             'wday': dt.weekday(),
                             }
+                    if self.ignore_specials and got_ep['sn'] == 0:
+                        continue
                     overview = ep.get('Overview', "")
                     m = minutes_re.search(overview)
                     if m:
