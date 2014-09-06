@@ -916,6 +916,16 @@ class NextAired:
         network = normalize(show, 'Network', 'Unknown')
         country = self.country_dict.get(network, 'Unknown')
         tzone = CountryLookup.get_country_timezone(country)
+
+        m = re.search(r"\b" + network + r"\s\(([^\)]+)\)", show.get('Overview', ""))
+        if m:
+            for c in m.group(1).split(' and '):
+                t = CountryLookup.get_country_timezone(c)
+                if t is not None:
+                    country = c
+                    tzone = t
+                    break
+
         if tzone is None:
             tzone = 'UTC'
         try:
