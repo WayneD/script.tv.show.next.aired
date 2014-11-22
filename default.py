@@ -1418,7 +1418,7 @@ class NextAired:
             if next_ep:
                 status_id = '6' # Final Season
             else:
-                status_id = '1' # Cancelled/Ended
+                status_id = '11' # Ended
         elif status == '':
             status_id = '2' # TBD/On the bubble
         else:
