@@ -982,7 +982,7 @@ class NextAired:
         # the only item in the list ('aired' is where localized Airtime comes from).
         episode_list = [ {'name': None, 'aired': early_aired, 'sn': 0, 'en': 0} ]
         if episodes is not None:
-            minutes_re = re.compile(r"\((\d+) +(?:minutes|mins)\)", re.IGNORECASE)
+            minutes_re = re.compile(r"\((\d+)(?: +(?:minutes|mins)|m)\)", re.IGNORECASE)
             hour_re = re.compile(r"(\d+)[- ]hour\b", re.IGNORECASE)
             hr_re = re.compile(r"\((\d+(?:\.\d+)?)[- ]hr\)", re.IGNORECASE)
             hr2_re = re.compile(r"\((\d+)/(\d+)[- ]hr\)", re.IGNORECASE)
@@ -1021,6 +1021,9 @@ class NextAired:
                     m = hr2_re.search(overview)
                     if m:
                         got_ep['Runtime'] = int(float(m.group(1)) / float(m.group(2)) * 60)
+                    m = minutes_re.search(ep.get('ProductionCode', ""))
+                    if m:
+                        got_ep['Runtime'] = int(m.group(1))
                     episode_list.append(got_ep)
                 episodes = None
                 episode_list.sort(key=itemgetter('aired', 'sn', 'en'))
