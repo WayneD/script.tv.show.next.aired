@@ -464,7 +464,9 @@ class NextAired:
                     self.save_file([self.country_dict, COUNTRY_DB_VER, self.now], COUNTRY_DB)
                 except:
                     pass
-            tvdb = TheTVDB('1D62F2F90030C444', 'en', want_raw = True)
+            slang = __addon__.getSetting("SearchLang").split(' ')[0]
+            log('### search language = "%s"' % slang, level=2)
+            tvdb = TheTVDB('1D62F2F90030C444', slang, want_raw = True)
             if force_show is None:
                 # This typically asks TheTVDB for an update-zip file and tweaks the show_dict to note needed updates.
                 tv_up = tvdb_updater(tvdb)
