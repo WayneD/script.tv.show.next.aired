@@ -1006,7 +1006,7 @@
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>167</posx>
+							<posx>63</posx>
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
@@ -1091,7 +1091,7 @@
 							<font>font10</font>
 						    </control>
 						    <control type="label">
-							<posx>168</posx>
+							<posx>70</posx>
 							<posy>70</posy>
 							<width>88</width>
 							<height>30</height>
@@ -1127,7 +1127,7 @@
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>167</posx>
+							<posx>63</posx>
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
@@ -1212,7 +1212,7 @@
 							<font>font10</font>
 						    </control>
 						    <control type="label">
-							<posx>168</posx>
+							<posx>70</posx>
 							<posy>70</posy>
 							<width>88</width>
 							<height>30</height>
@@ -1294,7 +1294,7 @@
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>167</posx>
+							<posx>63</posx>
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
@@ -1379,7 +1379,7 @@
 							<font>font10</font>
 						    </control>
 						    <control type="label">
-							<posx>168</posx>
+							<posx>70</posx>
 							<posy>70</posy>
 							<width>88</width>
 							<height>30</height>
@@ -1415,7 +1415,7 @@
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>167</posx>
+							<posx>63</posx>
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
@@ -1500,7 +1500,7 @@
 							<font>font10</font>
 						    </control>
 						    <control type="label">
-							<posx>168</posx>
+							<posx>70</posx>
 							<posy>70</posy>
 							<width>88</width>
 							<height>30</height>
@@ -1582,7 +1582,7 @@
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>167</posx>
+							<posx>63</posx>
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
@@ -1667,7 +1667,7 @@
 							<font>font10</font>
 						    </control>
 						    <control type="label">
-							<posx>168</posx>
+							<posx>70</posx>
 							<posy>70</posy>
 							<width>88</width>
 							<height>30</height>
@@ -1703,7 +1703,7 @@
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>167</posx>
+							<posx>63</posx>
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
@@ -1788,7 +1788,7 @@
 							<font>font10</font>
 						    </control>
 						    <control type="label">
-							<posx>168</posx>
+							<posx>70</posx>
 							<posy>70</posy>
 							<width>88</width>
 							<height>30</height>
@@ -1870,7 +1870,7 @@
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>167</posx>
+							<posx>63</posx>
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
@@ -1955,7 +1955,7 @@
 							<font>font10</font>
 						    </control>
 						    <control type="label">
-							<posx>168</posx>
+							<posx>70</posx>
 							<posy>70</posy>
 							<width>88</width>
 							<height>30</height>
@@ -1991,7 +1991,7 @@
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>167</posx>
+							<posx>63</posx>
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
@@ -2076,7 +2076,7 @@
 							<font>font10</font>
 						    </control>
 						    <control type="label">
-							<posx>168</posx>
+							<posx>70</posx>
 							<posy>70</posy>
 							<width>88</width>
 							<height>30</height>
@@ -2158,7 +2158,7 @@
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>167</posx>
+							<posx>63</posx>
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
@@ -2243,7 +2243,7 @@
 							<font>font10</font>
 						    </control>
 						    <control type="label">
-							<posx>168</posx>
+							<posx>70</posx>
 							<posy>70</posy>
 							<width>88</width>
 							<height>30</height>
@@ -2279,7 +2279,7 @@
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>167</posx>
+							<posx>63</posx>
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
@@ -2364,7 +2364,7 @@
 							<font>font10</font>
 						    </control>
 						    <control type="label">
-							<posx>168</posx>
+							<posx>70</posx>
 							<posy>70</posy>
 							<width>88</width>
 							<height>30</height>
@@ -2446,7 +2446,7 @@
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>167</posx>
+							<posx>63</posx>
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
@@ -2531,7 +2531,7 @@
 							<font>font10</font>
 						    </control>
 						    <control type="label">
-							<posx>168</posx>
+							<posx>70</posx>
 							<posy>70</posy>
 							<width>88</width>
 							<height>30</height>
@@ -2567,7 +2567,7 @@
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>167</posx>
+							<posx>63</posx>
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
@@ -2652,7 +2652,7 @@
 							<font>font10</font>
 						    </control>
 						    <control type="label">
-							<posx>168</posx>
+							<posx>70</posx>
 							<posy>70</posy>
 							<width>88</width>
 							<height>30</height>
@@ -2734,7 +2734,7 @@
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>167</posx>
+							<posx>63</posx>
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
@@ -2819,7 +2819,7 @@
 							<font>font10</font>
 						    </control>
 						    <control type="label">
-							<posx>168</posx>
+							<posx>70</posx>
 							<posy>70</posy>
 							<width>88</width>
 							<height>30</height>
@@ -2855,7 +2855,7 @@
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>167</posx>
+							<posx>63</posx>
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
@@ -2940,7 +2940,7 @@
 							<font>font10</font>
 						    </control>
 						    <control type="label">
-							<posx>168</posx>
+							<posx>70</posx>
 							<posy>70</posy>
 							<width>88</width>
 							<height>30</height>
@@ -3022,7 +3022,7 @@
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>167</posx>
+							<posx>63</posx>
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
@@ -3107,7 +3107,7 @@
 							<font>font10</font>
 						    </control>
 						    <control type="label">
-							<posx>168</posx>
+							<posx>70</posx>
 							<posy>70</posy>
 							<width>88</width>
 							<height>30</height>
@@ -3143,7 +3143,7 @@
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>167</posx>
+							<posx>63</posx>
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
@@ -3228,7 +3228,7 @@
 							<font>font10</font>
 						    </control>
 						    <control type="label">
-							<posx>168</posx>
+							<posx>70</posx>
 							<posy>70</posy>
 							<width>88</width>
 							<height>30</height>
@@ -3310,7 +3310,7 @@
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>167</posx>
+							<posx>63</posx>
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
@@ -3395,7 +3395,7 @@
 							<font>font10</font>
 						    </control>
 						    <control type="label">
-							<posx>168</posx>
+							<posx>70</posx>
 							<posy>70</posy>
 							<width>88</width>
 							<height>30</height>
@@ -3431,7 +3431,7 @@
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>167</posx>
+							<posx>63</posx>
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
@@ -3516,7 +3516,7 @@
 							<font>font10</font>
 						    </control>
 						    <control type="label">
-							<posx>168</posx>
+							<posx>70</posx>
 							<posy>70</posy>
 							<width>88</width>
 							<height>30</height>
@@ -3598,7 +3598,7 @@
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>167</posx>
+							<posx>63</posx>
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
@@ -3683,7 +3683,7 @@
 							<font>font10</font>
 						    </control>
 						    <control type="label">
-							<posx>168</posx>
+							<posx>70</posx>
 							<posy>70</posy>
 							<width>88</width>
 							<height>30</height>
@@ -3719,7 +3719,7 @@
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>167</posx>
+							<posx>63</posx>
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
@@ -3804,7 +3804,7 @@
 							<font>font10</font>
 						    </control>
 						    <control type="label">
-							<posx>168</posx>
+							<posx>70</posx>
 							<posy>70</posy>
 							<width>88</width>
 							<height>30</height>
@@ -3886,7 +3886,7 @@
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>167</posx>
+							<posx>63</posx>
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
@@ -3971,7 +3971,7 @@
 							<font>font10</font>
 						    </control>
 						    <control type="label">
-							<posx>168</posx>
+							<posx>70</posx>
 							<posy>70</posy>
 							<width>88</width>
 							<height>30</height>
@@ -4007,7 +4007,7 @@
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>167</posx>
+							<posx>63</posx>
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
@@ -4092,7 +4092,7 @@
 							<font>font10</font>
 						    </control>
 						    <control type="label">
-							<posx>168</posx>
+							<posx>70</posx>
 							<posy>70</posy>
 							<width>88</width>
 							<height>30</height>
@@ -4174,7 +4174,7 @@
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>167</posx>
+							<posx>63</posx>
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
@@ -4259,7 +4259,7 @@
 							<font>font10</font>
 						    </control>
 						    <control type="label">
-							<posx>168</posx>
+							<posx>70</posx>
 							<posy>70</posy>
 							<width>88</width>
 							<height>30</height>
@@ -4295,7 +4295,7 @@
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>167</posx>
+							<posx>63</posx>
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
@@ -4380,7 +4380,7 @@
 							<font>font10</font>
 						    </control>
 						    <control type="label">
-							<posx>168</posx>
+							<posx>70</posx>
 							<posy>70</posy>
 							<width>88</width>
 							<height>30</height>
@@ -4462,7 +4462,7 @@
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>167</posx>
+							<posx>63</posx>
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
@@ -4547,7 +4547,7 @@
 							<font>font10</font>
 						    </control>
 						    <control type="label">
-							<posx>168</posx>
+							<posx>70</posx>
 							<posy>70</posy>
 							<width>88</width>
 							<height>30</height>
@@ -4583,7 +4583,7 @@
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>167</posx>
+							<posx>63</posx>
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
@@ -4668,7 +4668,7 @@
 							<font>font10</font>
 						    </control>
 						    <control type="label">
-							<posx>168</posx>
+							<posx>70</posx>
 							<posy>70</posy>
 							<width>88</width>
 							<height>30</height>
@@ -4750,7 +4750,7 @@
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>167</posx>
+							<posx>63</posx>
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
@@ -4835,7 +4835,7 @@
 							<font>font10</font>
 						    </control>
 						    <control type="label">
-							<posx>168</posx>
+							<posx>70</posx>
 							<posy>70</posy>
 							<width>88</width>
 							<height>30</height>
@@ -4871,7 +4871,7 @@
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>167</posx>
+							<posx>63</posx>
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
@@ -4956,7 +4956,7 @@
 							<font>font10</font>
 						    </control>
 						    <control type="label">
-							<posx>168</posx>
+							<posx>70</posx>
 							<posy>70</posy>
 							<width>88</width>
 							<height>30</height>
@@ -5038,7 +5038,7 @@
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>167</posx>
+							<posx>63</posx>
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
@@ -5123,7 +5123,7 @@
 							<font>font10</font>
 						    </control>
 						    <control type="label">
-							<posx>168</posx>
+							<posx>70</posx>
 							<posy>70</posy>
 							<width>88</width>
 							<height>30</height>
@@ -5159,7 +5159,7 @@
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>167</posx>
+							<posx>63</posx>
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
@@ -5244,7 +5244,7 @@
 							<font>font10</font>
 						    </control>
 						    <control type="label">
-							<posx>168</posx>
+							<posx>70</posx>
 							<posy>70</posy>
 							<width>88</width>
 							<height>30</height>
@@ -5326,7 +5326,7 @@
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>167</posx>
+							<posx>63</posx>
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
@@ -5411,7 +5411,7 @@
 							<font>font10</font>
 						    </control>
 						    <control type="label">
-							<posx>168</posx>
+							<posx>70</posx>
 							<posy>70</posy>
 							<width>88</width>
 							<height>30</height>
@@ -5447,7 +5447,7 @@
 							<texture background="true">$INFO[ListItem.Property(Art(poster))]</texture>
 						    </control>
 						    <control type="label">
-							<posx>167</posx>
+							<posx>63</posx>
 							<posy>15</posy>
 							<width>104</width>
 							<height>90</height>
@@ -5532,7 +5532,7 @@
 							<font>font10</font>
 						    </control>
 						    <control type="label">
-							<posx>168</posx>
+							<posx>70</posx>
 							<posy>70</posy>
 							<width>88</width>
 							<height>30</height>
