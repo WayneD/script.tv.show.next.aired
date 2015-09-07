@@ -987,8 +987,6 @@ class NextAired:
             mincode_re = re.compile(r"-(\d+)m$")
             minutes_re = re.compile(r"\((\d+)(?: +(?:minutes|mins)|m)\)", re.IGNORECASE)
             hour_re = re.compile(r"(\d+)[- ]hour\b", re.IGNORECASE)
-            hr_re = re.compile(r"\((\d+(?:\.\d+)?)[- ]hr\)", re.IGNORECASE)
-            hr2_re = re.compile(r"\((\d+)/(\d+)[- ]hr\)", re.IGNORECASE)
             max_eps_utime = 0
             if episodes:
                 for ep in episodes:
@@ -1018,12 +1016,6 @@ class NextAired:
                     m = hour_re.search(got_ep['name'])
                     if m:
                         got_ep['Runtime'] = int(m.group(1)) * 60
-                    m = hr_re.search(overview)
-                    if m:
-                        got_ep['Runtime'] = int(float(m.group(1)) * 60)
-                    m = hr2_re.search(overview)
-                    if m:
-                        got_ep['Runtime'] = int(float(m.group(1)) / float(m.group(2)) * 60)
                     m = minutes_re.search(ep.get('ProductionCode', ""))
                     if m:
                         got_ep['Runtime'] = int(m.group(1))
