@@ -1,5 +1,6 @@
--6.0.15 (2015-09-??)
+-6.0.15 (2015-12-04)
 - Fix unicode normalization issue where some search strings could become an empty string.
+- Use commas in addon.xml's provider-name value.
 - Updated language files from Transifex
 
 -6.0.14 (2015-03-14)
