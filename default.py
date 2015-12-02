@@ -113,7 +113,8 @@ def normalize(d, key = None, default = ""):
             return text
     try:
         # We avoid "ignore" here because that can cause the text to go completely empty.
-        text = unicodedata.normalize('NFKD', _unicode(text)).encode('ascii')
+        text = unicodedata.normalize('NFKD', _unicode(text))
+        text = text.encode('ascii')
     except:
         pass
     return text
