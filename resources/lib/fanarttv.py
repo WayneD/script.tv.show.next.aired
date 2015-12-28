@@ -1,4 +1,4 @@
-import sys, urllib
+import sys, urllib, contextlib
 try:
     import simplejson as json
 except ImportError:
@@ -19,20 +19,20 @@ class FanartTV(object):
             find_types = [ 'hdtvlogo', 'clearlogo' ]
         else:
             find_types = [ 'tv' + art_type ]
-        url = API_URL_TV % (tvdb_id, API_KEY)
-        data = json.load(urllib.urlopen(url))
-        if not data:
-            return None
-
         ret = None
-        for find in find_types:
-            logos = data.get(find, [])
-            for logo in logos:
-                if logo['lang'] == lang:
-                    return logo['url']
-                # We'll accept the wrong language as a fallback, as they are sometimes mislabeled.
-                if not ret:
-                    ret = logo['url']
+        url = API_URL_TV % (tvdb_id, API_KEY)
+        with contextlib.closing(urllib.urlopen(url)) as udata:
+            if udata:
+                data = json.load(udata)
+                if data:
+                    for find in find_types:
+                        logos = data.get(find, [])
+                        for logo in logos:
+                            if logo['lang'] == lang:
+                                return logo['url']
+                            # We'll accept the wrong language as a fallback, as they are sometimes mislabeled.
+                            if not ret:
+                                ret = logo['url']
         return ret
 
 # Some helper code to check on the data to see how our queries are working.

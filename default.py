@@ -1207,7 +1207,8 @@ class NextAired:
     @staticmethod
     def load_file(file_path):
         try:
-            return eval(file(file_path, "r").read())
+            with open(file_path, 'r') as f:
+                return eval(f.read())
         except:
             print_exc()
             log("### ERROR could not load file %s" % file_path, level=0)
@@ -1218,7 +1219,8 @@ class NextAired:
         path = os.path.join(__datapath__, filename)
         try:
             if txt:
-                file(path, "w").write(repr(txt))
+                with open(path, 'w') as f:
+                    f.write(repr(txt))
             else:
                 NextAired.rm_file(filename)
         except:

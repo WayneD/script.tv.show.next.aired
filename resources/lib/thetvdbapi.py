@@ -17,11 +17,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-import urllib
+import urllib, urllib2
 import datetime
 import random
 import re
 import copy
+import contextlib
 
 import xml.parsers.expat as expat
 from cStringIO import StringIO
@@ -196,13 +197,15 @@ class TheTVDB(object):
 
 
     def _get_xml_data(self, url, filter_func = None, zip_name = None, callback = None):
-        data = urllib.urlopen(url)
-        if zip_name:
-            zipfile = ZipFile(StringIO(data.read()))
-            data = zipfile.open(zip_name)
+        with contextlib.closing(urllib2.urlopen(url)) as data:
+            if zip_name and data:
+                with contextlib.closing(ZipFile(StringIO(data.read()))) as zf:
+                    return self._read_xml_data(zf.open(zip_name), filter_func, callback)
+            return self._read_xml_data(data, filter_func, callback)
+
+    def _read_xml_data(self, data, filter_func, callback):
         if not data:
             raise Exception("Failed to get any data")
-
         e = ExpatParseXml(callback, filter_func)
         e.parse(data)
         return e.xml

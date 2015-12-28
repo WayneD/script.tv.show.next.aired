@@ -3,7 +3,7 @@ This library/script will grab a web page from thetvdb.com and use
 the TV network info in the SELECT OPTIONs to make a lookup table
 that can be used to determine what country a show is broadcast in.
 """
-import re, sys, urllib
+import re, sys, urllib, contextlib
 
 COUNTRY_ZONES = {
     'afghanistan': 'Asia/Kabul',
@@ -292,20 +292,20 @@ class CountryLookup(object):
         in_select = False
         saw_data = False
 
-        data = urllib.urlopen(url)
-        for line in data:
-            if in_select:
-                m = opt_re.search(line)
-                if m:
-                    station, country = (m.group(1), m.group(2))
-                    if country == 'United States':
-                        country = 'USA'
-                    self.country_dict[station] = country
-                    saw_data = True
-                elif saw_data:
-                    break
-            elif sel_re.search(line):
-                in_select = True
+        with contextlib.closing(urllib.urlopen(url)) as data:
+            for line in data:
+                if in_select:
+                    m = opt_re.search(line)
+                    if m:
+                        station, country = (m.group(1), m.group(2))
+                        if country == 'United States':
+                            country = 'USA'
+                        self.country_dict[station] = country
+                        saw_data = True
+                    elif saw_data:
+                        break
+                elif sel_re.search(line):
+                    in_select = True
 
         if len(self.country_dict) < 500:
             raise Exception("Country data was not parsed correctly.")
@@ -325,26 +325,26 @@ class CountryLookup(object):
     def get_zones():
         url = 'http://download.geonames.org/export/dump/countryInfo.txt'
         iso_map = {}
-        data = urllib.urlopen(url)
-        for line in data:
-            if line.startswith("#"):
-                continue
-            iso, iso3, iso_num, fips, country, extra = line.split("\t", 5)
-            iso_map[iso] = country.lower().strip()
+        with contextlib.closing(urllib.urlopen(url)) as data:
+            for line in data:
+                if line.startswith("#"):
+                    continue
+                iso, iso3, iso_num, fips, country, extra = line.split("\t", 5)
+                iso_map[iso] = country.lower().strip()
 
         url = 'http://download.geonames.org/export/dump/timeZones.txt'
         zone_map = {}
-        data = urllib.urlopen(url)
-        for line in data:
-            iso, tz_id, goff1, goff2, goff3 = line.split("\t")
-            if tz_id in ("Pacific/Easter", "America/St_Johns") or iso in ('AQ', 'UM'):
-                continue
-            country = iso_map.get(iso, False)
-            if country:
-                goff1 = float(goff1)
-                if country in zone_map and zone_map[country][0] > goff1:
+        with contextlib.closing(urllib.urlopen(url)) as data:
+            for line in data:
+                iso, tz_id, goff1, goff2, goff3 = line.split("\t")
+                if tz_id in ("Pacific/Easter", "America/St_Johns") or iso in ('AQ', 'UM'):
                     continue
-                zone_map[country] = (goff1, tz_id)
+                country = iso_map.get(iso, False)
+                if country:
+                    goff1 = float(goff1)
+                    if country in zone_map and zone_map[country][0] > goff1:
+                        continue
+                    zone_map[country] = (goff1, tz_id)
 
         for country in zone_map:
             zone_map[country] = zone_map[country][1]
